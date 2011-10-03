@@ -64,4 +64,18 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem ko≈Ñcowym.
      */
     public abstract boolean isFinal(State state);
+    
+    
+    /**
+     * Dodaje przejúcie od stanu state z powrotem do tego samego stanu po etykiecie transitionLabel.
+     */
+    public abstract void addLoop(State state, TransitionLabel transitionLabel)
+    {	
+    	foreach (object s in transitionLabel.characters) {
+    			
+    		addTransition(state, state, TransitionLabel.characters.s)
+   
+    	}
+    }
+    
 };
