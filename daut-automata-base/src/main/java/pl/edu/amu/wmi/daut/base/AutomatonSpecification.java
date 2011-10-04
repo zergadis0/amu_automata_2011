@@ -67,15 +67,11 @@ abstract class AutomatonSpecification {
     
     
     /**
-     * Dodaje przejúcie od stanu state z powrotem do tego samego stanu po etykiecie transitionLabel.
+     * Dodaje przej≈õcie od stanu state z powrotem do tego samego stanu po etykiecie transitionLabel.
      */
-    public abstract void addLoop(State state, TransitionLabel transitionLabel)
-    {	
-    	foreach (object s in transitionLabel.characters) {
-    			
-    		addTransition(state, state, TransitionLabel.characters.s)
-   
-    	}
+    public abstract void addLoop(State state, TransitionLabel transitionLabel){	
+    	
+    	for (object s : transitionLabel.characters) addTransition(state, state, transitionLabel.characters.s);
     }
     
 };
