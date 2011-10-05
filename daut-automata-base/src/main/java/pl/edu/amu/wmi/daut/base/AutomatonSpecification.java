@@ -71,7 +71,7 @@ abstract class AutomatonSpecification {
      */
     public void addLoop(State state, TransitionLabel transitionLabel) {	
     	
-    	addTransition(state, state, transitionLabel.characters.s);
+    	addTransition(state, state, transitionLabel);
     }
     
 };
