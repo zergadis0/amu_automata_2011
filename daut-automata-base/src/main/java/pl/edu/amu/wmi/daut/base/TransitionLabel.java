@@ -10,10 +10,10 @@ interface TransitionLabel {
      * Zwraca true wgdy przejście o danej etykiecie może nastąpić
      * bez "zjedzenia" znaku z wejścia.
      */
-    public boolean canBeEpsilon();
+    boolean canBeEpsilon();
 
     /**
      * Zwraca true wgdy przejście może nastąpić po znaku 'c'.
      */
-    public boolean canAcceptCharacter(char c);
+    boolean canAcceptCharacter(char c);
 }
