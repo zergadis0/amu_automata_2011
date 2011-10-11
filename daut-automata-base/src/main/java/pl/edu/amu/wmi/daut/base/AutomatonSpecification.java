@@ -32,10 +32,10 @@ abstract class AutomatonSpecification {
      */
     public abstract State addTransition(State from, TransitionLabel transitionLabel) {
     	
-    	State to = new State();
-    	addTransition(from, to, transitionLabel);
+        State to = new State();
+        addTransition(from, to, transitionLabel);
     	
-    	return to;
+        return to;
     }
 
     /**
@@ -80,6 +80,8 @@ abstract class AutomatonSpecification {
      * Dodaje przejście od stanu state z powrotem do tego samego stanu po etykiecie transitionLabel.
      */
     public void addLoop(State state, TransitionLabel transitionLabel) {
+    	
         addTransition(state, state, transitionLabel);
+        
     }
 };
