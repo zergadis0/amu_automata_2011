@@ -3,85 +3,94 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.List;
 
 /**
- * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
- * (jakie są stany, przejścia, który stan jest stanem początkowym,
- * które stany są stanami akceptującymi).
- *
- * Uwaga: klasa ta nie reprezentuje działającego automatu (nie ma tu funkcji
- * odpowiadających na pytanie, czy automat akceptuje napis, czy nie),
- * tylko "zawartość" automatu.
+ * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu (jakie są
+ * stany, przejścia, który stan jest stanem początkowym, które stany są stanami
+ * akceptującymi).
+ * 
+ ** Uwaga: klasa ta nie reprezentuje działającego automatu (nie ma tu funkcji
+ * odpowiadających na pytanie, czy automat akceptuje napis, czy nie), tylko
+ * "zawartość" automatu.
  */
 abstract class AutomatonSpecification {
 
-    // metody "budujące" automat
+	// metody "budujące" automat
 
-    /**
-     * Dodaje nowy stan do automatu.
-     *
-     * Zwraca dodany stan.
-     */
-    public abstract State addState();
+	/**
+	 * Dodaje nowy stan do automatu.
+	 * 
+	 * Zwraca dodany stan.
+	 */
+	public abstract State addState();
 
-    /**
-     * Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą transitionLabel.
-     */
-    public abstract void addTransition(State from, State to, TransitionLabel transitionLabel);
-    
-    /**
-     * Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to' etykietowane etykietą transitionLabel, a następnie zwraca utworzony stan.
-     */
-    public abstract State addTransition(State from, TransitionLabel transitionLabel) {
-    	
-        State to = new State();
-        addTransition(from, to, transitionLabel);
-    	
-        return to;
-    }
+	/**
+	 * Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą
+	 * transitionLabel.
+	 */
+	public abstract void addTransition(State from, State to, TransitionLabel transitionLabel);
 
-    /**
-     * Oznacza stan jako początkowy.
-     */
-    public abstract void markAsInitial(State state);
+	/**
+	 * Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to'
+	 * etykietowane etykietą transitionLabel,
+	 * a następnie zwraca utworzony stan.
+	 * @param from stan początkowy
+	 * @param to nowo utworzony stan końcowy
+	 * @return zwraca nowo utworzony stan
+	 */
+	public State addTransition(State from, TransitionLabel transitionLabel) {
 
-    /**
-     * Oznacza stan jako końcowy (akceptujący).
-     */
-    public abstract void markAsFinal(State state);
+	    State to = new State();
+	    addTransition(from, to, transitionLabel);
 
-    // metody zwracające informacje o automacie
+	    return to;
+	}
 
-    /**
-     * Zwraca listę wszystkich stanów.
-     *
-     * Stany niekoniecznie muszą być zwrócone w identycznej
-     * kolejności jak były dodane.
-     */
-    public abstract List<State> allStates();
+	/**
+	 * Oznacza stan jako początkowy.
+	 */
+	public abstract void markAsInitial(State state);
 
-    /**
-     * Zwraca listę wszystkich przejść wychodzących ze stanu 'from'.
-     *
-     * Przejścia niekoniecznie muszą być zwrócone w identycznej
-     * kolejności jak były dodane.
-     */
-    public abstract List<OutgoingTransition> allOutgoingTransitions(State from);
+	/**
+	 * Oznacza stan jako końcowy (akceptujący).
+	 */
+	public abstract void markAsFinal(State state);
 
-    /**
-     * Zwraca stan początkowy.
-     */
-    public abstract State getInitialState();
+	// metody zwracające informacje o automacie
 
-    /**
-     * Zwraca true wgdy stan jest stanem końcowym.
-     */
-    public abstract boolean isFinal(State state);
-        
-    /**
-     * Dodaje przejście od stanu state z powrotem do tego samego stanu po etykiecie transitionLabel.
-     */
-    public void addLoop(State state, TransitionLabel transitionLabel) {
-    	
-        addTransition(state, state, transitionLabel);
-        
-    }
+	/**
+	 * Zwraca listę wszystkich stanów.
+	 * 
+	 * Stany niekoniecznie muszą być zwrócone w identycznej kolejności jak były
+	 * dodane.
+	 */
+	public abstract List<State> allStates();
+
+	/**
+	 * Zwraca listę wszystkich przejść wychodzących ze stanu 'from'.
+	 * 
+	 * Przejścia niekoniecznie muszą być zwrócone w identycznej kolejności jak
+	 * były dodane.
+	 */
+	public abstract List<OutgoingTransition> allOutgoingTransitions(State from);
+
+	/**
+	 * Zwraca stan początkowy.
+	 */
+	public abstract State getInitialState();
+
+	/**
+	 * Zwraca true wgdy stan jest stanem końcowym.
+	 */
+	public abstract boolean isFinal(State state);
+
+	/**
+	 * Dodaje przejście od stanu state z powrotem do tego samego stanu po
+	 * etykiecie transitionLabel.
+	 * @param state stan początkowy i końcowy zarazem
+	 * @param transitionLabel etykieta przejścia
+	 */
+	public void addLoop(State state, TransitionLabel transitionLabel) {
+
+	    addTransition(state, state, transitionLabel);
+
+	}
 };
