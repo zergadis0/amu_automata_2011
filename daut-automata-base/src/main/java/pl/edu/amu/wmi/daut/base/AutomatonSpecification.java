@@ -11,6 +11,7 @@ import java.util.List;
  * odpowiadających na pytanie, czy automat akceptuje napis, czy nie),
  * tylko "zawartość" automatu.
  */
+//modyfikuje
 abstract class AutomatonSpecification {
 
     // metody "budujące" automat
