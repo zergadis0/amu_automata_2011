@@ -64,4 +64,10 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem końcowym.
      */
     public abstract boolean isFinal(State state);
+    
+    public abstract String toString()
+    {
+    	String pilgrim = "Automat:\n-States: ";
+		pilgrim += this.allStates().toString();
+    }
 };
