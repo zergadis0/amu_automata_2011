@@ -67,17 +67,37 @@ abstract class AutomatonSpecification {
 
     public abstract String toString()
     {
-        String pilgrim = "Automat:\n-States: ";
+        String pilgrim = "Automaton:\n-States: ";
         List<State> link = this.AllStates();
-        pilgrim += link.toString();
+        for (int i=0; i<link.length; i++) {
+            pilgrim += "q" + i + " ";
+        };
         pilgrim += "\nTransitions:\n";
         for (int i=0; i<link.length; i++) {
-            pilgrim += allOutgoingTransitions(link[i]).toString()+"\n";
+            List<OutgoingTransition> listOfTrans = this.allOutgoingTransitions(link[i]);
+            for (int j=0; j<listOfTrans.length; j++){
+                pilgrim += "q" + i + " -> " + "q";
+                State target = listOfTrans[j].getTargetState();
+                for (int m=0; m<link.length; m++) {
+                    if (target == link[m]) {
+                        pilgrim += m + " ";
+                        break;
+                    }
+                }
+                pilgrim += "\n";
+            }
+            pilgrim += "\n";
         };
-        pilgrim += "Initial state: " + getInitialState().toString() + "\nFinal states: ";
+        pilgrim += "Initial state: ";
+        for (int i=0; i<link.length; i++) {
+            if(link[i] == link.getInitialState()) {
+                pilgrim += "q" + i + "\nFinalStates: ";
+                break;
+            }
+        };
         for (int i=0; i<link.length; i++) {
             if (isFinal (link[i]) ) {
-                pilgrim += link[i].toString();
+                pilgrim += "q" + i + " ";
             };
         };
         return pilgrim;
