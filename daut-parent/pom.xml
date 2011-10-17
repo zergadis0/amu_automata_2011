@@ -14,6 +14,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- workaround for PMD see http://jira.codehaus.org/browse/MPMD-86 -->
+    <targetJdk>1.6</targetJdk>
   </properties>
 
   <profiles>
