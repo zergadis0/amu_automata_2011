@@ -64,4 +64,36 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem końcowym.
      */
     public abstract boolean isFinal(State state);
+
+
+   /**
+     * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
+     * przynajmniej jeden stan, czy nie zawiera epsilon-przejść oraz czy
+     * przejścia z danego stanu do innych stanów odbywają się po różnych znakach).
+     */
+    public boolean isDeterministic() {
+        List<State> states = allStates();
+
+        if (states.isEmpty())
+            return false;
+
+        for (State state : states) {
+            List<OutgoingTransition> transitions = allOutgoingTransitions(state);
+            for (int i = 0; i < transitions.size(); ++i) {
+                TransitionLabel label = transitions.get(i).getTransitionLabel();
+
+                if (label.canBeEpsilon())
+                    return false;
+
+                for (int j = i + 1; j < transitions.size(); ++j) {
+                    TransitionLabel label2 = transitions.get(j).getTransitionLabel();
+                    if (!label2.intersect(label).isEmpty())
+                        return false;
+                }
+            }
+        }
+
+        return true;
+    }
 };
+
