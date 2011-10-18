@@ -133,15 +133,16 @@ abstract class AutomatonSpecification {
 
     public String getDotGraph() {
         final StringBuffer graphCode = new StringBuffer(
-                "digraph finite_state_machine {\n    rankdir=LR;\n    size=\"8,5\"\n    node [shape = doublecircle]; ");
+                "digraph finite_state_machine {\n" + "    rankdir=LR;\n"
+                        + "    size=\"8,5\"\n"
+                        + "    node [shape = doublecircle];\n" + "    ");
         final List<State> states = allStates();
         for (State it : states) {
             if (isFinal(it)) {
                 graphCode.append("\"State #" + states.indexOf(it) + "\" ");
-                // graphCode.append(states.indexOf(it));
             }
         }
-        graphCode.append(";\n    node [shape = circle];\n");
+        graphCode.append(";\n" + "    node [shape = circle];\n" + "");
         for (State it : states) {
             final StringBuffer[] labelList = new StringBuffer[states.size()];
             for (int i = 0; i < labelList.length; ++i) {
@@ -149,7 +150,13 @@ abstract class AutomatonSpecification {
             }
             final List<OutgoingTransition> edges = allOutgoingTransitions(it);
             for (OutgoingTransition edgeIt : edges) {
-                labelList[states.indexOf(edgeIt.getTargetState())].append(edgeIt.getTransitionLabel());
+                if (labelList[states.indexOf(edgeIt.getTargetState())].length() == 0) {
+                    labelList[states.indexOf(edgeIt.getTargetState())]
+                            .append(edgeIt.getTransitionLabel());
+                } else {
+                    labelList[states.indexOf(edgeIt.getTargetState())]
+                            .append(", " + edgeIt.getTransitionLabel());
+                }
             }
             for (int i = 0; i < labelList.length; ++i) {
                 if (labelList[i].length() != 0) {
