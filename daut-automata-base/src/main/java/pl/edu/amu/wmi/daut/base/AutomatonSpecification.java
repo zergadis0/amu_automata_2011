@@ -82,39 +82,40 @@ abstract class AutomatonSpecification {
      */
     @Override
     public String toString() {
-        String pilgrim = "Automaton:\n-States: ";
+	    StringBuffer pilgrim = new StringBuffer();
+        pilgrim.append("Automaton:\n-States: ");
         List<State> link = allStates();
         for (int i = 0; i < link.size(); i++) {
-            pilgrim += "q" + i + " ";
+            pilgrim.append("q" + i + " ");
         }
-        pilgrim += "\n-Transitions:\n";
+        pilgrim.append("\n-Transitions:\n");
         for (int i = 0; i < link.size(); i++) {
             List<OutgoingTransition> listOfTrans = allOutgoingTransitions(link.get(i));
             for (int j = 0; j < listOfTrans.size(); j++) {
-                pilgrim += "  q" + i + " -" + listOfTrans.get(j).getTransitionLabel() + "-> q";
+                pilgrim.append("  q" + i + " -" + listOfTrans.get(j).getTransitionLabel() + "-> q");
                 State target = listOfTrans.get(j).getTargetState();
                 for (int m = 0; m < link.size(); m++) {
                     if (target == link.get(m)) {
-                        pilgrim += m;
+                        pilgrim.append(m);
                         break;
                     }
                 }
-                pilgrim += "\n";
+                pilgrim.append("\n");
             }
         }
-        pilgrim += "-Initial state: ";
+        pilgrim.append("-Initial state: ");
         for (int i = 0; i < link.size(); i++) {
             if (link.get(i) == getInitialState()) {
-                pilgrim += "q" + i + "\n-Final states: ";
+                pilgrim.append("q" + i + "\n-Final states: ");
                 break;
             }
         }
         for (int i = 0; i < link.size(); i++) {
             if (isFinal(link.get(i))) {
-                pilgrim += "q" + i + " ";
+                pilgrim.append("q" + i + " ");
             }
         }
-        return pilgrim;
+        return pilgrim.toString();
     };
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
