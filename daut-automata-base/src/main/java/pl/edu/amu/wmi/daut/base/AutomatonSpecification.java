@@ -157,7 +157,6 @@ abstract class AutomatonSpecification {
      * @return Kod źródłowy schematu w języku DOT.
      * @type
      */
-
     public String getDotGraph() {
         final StringBuffer graphCode = new StringBuffer(
                 "digraph finite_state_machine {\n" + "    rankdir=LR;\n"
