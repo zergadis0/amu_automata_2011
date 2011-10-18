@@ -53,6 +53,6 @@ abstract class TransitionLabel {
 
     protected abstract TransitionLabel intersectWith(TransitionLabel label);
 
-    class CannotDetermineIntersectionException extends UnsupportedOperationException {
+    static class CannotDetermineIntersectionException extends UnsupportedOperationException {
     }
 }

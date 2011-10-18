@@ -115,6 +115,11 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
+        <configuration>
+          <excludeFilterFile>fb-excludes.xml</excludeFilterFile>
+          <findbugsXmlOutput>true</findbugsXmlOutput>
+          <xmlOutput>true</xmlOutput>
+        </configuration>
         <dependencies>
           <dependency>
             <groupId>pl.edu.amu.wmi.daut</groupId>
@@ -220,14 +225,6 @@
 
   <reporting>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <configuration>
-          <excludeFilterFile>fb-excludes.xml</excludeFilterFile>
-        </configuration>
-      </plugin>
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>emma-maven-plugin</artifactId>
