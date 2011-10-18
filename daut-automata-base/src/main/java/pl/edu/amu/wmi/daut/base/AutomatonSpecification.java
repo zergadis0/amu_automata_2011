@@ -68,18 +68,18 @@ abstract class AutomatonSpecification {
     public String toString()
     {
         String pilgrim = "Automaton:\n-States: ";
-        List<State> link = this.AllStates();
-        for (int i=0; i<link.length; i++) {
+        List<State> link = allStates();
+        for (int i=0; i<link.size(); i++) {
             pilgrim += "q" + i + " ";
         };
         pilgrim += "\nTransitions:\n";
-        for (int i=0; i<link.length; i++) {
-            List<OutgoingTransition> listOfTrans = this.allOutgoingTransitions(link[i]);
-            for (int j=0; j<listOfTrans.length; j++){
+        for (int i=0; i<link.size(); i++) {
+            List<OutgoingTransition> listOfTrans = allOutgoingTransitions(link.get(i));
+            for (int j=0; j<listOfTrans.size(); j++){
                 pilgrim += "q" + i + " -> " + "q";
-                State target = listOfTrans[j].getTargetState();
-                for (int m=0; m<link.length; m++) {
-                    if (target == link[m]) {
+                State target = listOfTrans.get(j).getTargetState();
+                for (int m=0; m<link.size(); m++) {
+                    if (target == link.get(m)) {
                         pilgrim += m + " ";
                         break;
                     }
@@ -89,14 +89,14 @@ abstract class AutomatonSpecification {
             pilgrim += "\n";
         };
         pilgrim += "Initial state: ";
-        for (int i=0; i<link.length; i++) {
-            if(link[i] == link.getInitialState()) {
+        for (int i=0; i<link.size(); i++) {
+            if(link.get(i) == getInitialState()) {
                 pilgrim += "q" + i + "\nFinalStates: ";
                 break;
             }
         };
-        for (int i=0; i<link.length; i++) {
-            if (isFinal (link[i]) ) {
+        for (int i=0; i<link.size(); i++) {
+            if (isFinal (link.get(i)) ) {
                 pilgrim += "q" + i + " ";
             };
         };
