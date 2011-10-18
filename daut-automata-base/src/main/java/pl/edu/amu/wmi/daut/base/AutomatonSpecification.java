@@ -87,26 +87,25 @@ abstract class AutomatonSpecification {
         for (int i = 0; i < link.size(); i++) {
             pilgrim += "q" + i + " ";
         }
-        pilgrim += "\nTransitions:\n";
+        pilgrim += "\n-Transitions:\n";
         for (int i = 0; i < link.size(); i++) {
             List<OutgoingTransition> listOfTrans = allOutgoingTransitions(link.get(i));
             for (int j = 0; j < listOfTrans.size(); j++) {
-                pilgrim += "q" + i + " -" + listOfTrans.get(j).getTransitionLabel() + "-> " + "q";
+                pilgrim += "  q" + i + " -" + listOfTrans.get(j).getTransitionLabel() + "-> q";
                 State target = listOfTrans.get(j).getTargetState();
                 for (int m = 0; m < link.size(); m++) {
                     if (target == link.get(m)) {
-                        pilgrim += m + " ";
+                        pilgrim += m;
                         break;
                     }
                 }
                 pilgrim += "\n";
             }
-            pilgrim += "\n";
         }
-        pilgrim += "Initial state: ";
+        pilgrim += "-Initial state: ";
         for (int i = 0; i < link.size(); i++) {
             if (link.get(i) == getInitialState()) {
-                pilgrim += "q" + i + "\nFinalStates: ";
+                pilgrim += "q" + i + "\n-Final states: ";
                 break;
             }
         }
