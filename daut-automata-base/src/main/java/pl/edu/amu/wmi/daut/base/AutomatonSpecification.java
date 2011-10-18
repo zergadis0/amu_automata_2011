@@ -122,7 +122,7 @@ abstract class AutomatonSpecification {
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
      * sytuacji, gdy epsilon-przejście jest jedynym sposobem wyjścia ze stanu)
      * oraz czy przejścia z danego stanu do innych stanów odbywają się po
-     * różnych znakach.
+     * różnych znakach).
      */
     public boolean isDeterministic() {
         List<State> states = allStates();
