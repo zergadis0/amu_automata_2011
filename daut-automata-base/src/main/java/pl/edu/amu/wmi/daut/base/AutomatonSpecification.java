@@ -77,6 +77,46 @@ abstract class AutomatonSpecification {
      */
     public abstract boolean isFinal(State state);
 
+    /**
+     * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
+     */
+    @Override
+    public String toString() {
+        StringBuffer pilgrim = new StringBuffer();
+        pilgrim.append("Automaton:\n-States: ");
+        List<State> link = allStates();
+        for (int i = 0; i < link.size(); i++) {
+            pilgrim.append("q" + i + " ");
+        }
+        pilgrim.append("\n-Transitions:\n");
+        for (int i = 0; i < link.size(); i++) {
+            List<OutgoingTransition> listOfTrans = allOutgoingTransitions(link.get(i));
+            for (int j = 0; j < listOfTrans.size(); j++) {
+                pilgrim.append("  q" + i + " -" + listOfTrans.get(j).getTransitionLabel() + "-> q");
+                State target = listOfTrans.get(j).getTargetState();
+                for (int m = 0; m < link.size(); m++) {
+                    if (target == link.get(m)) {
+                        pilgrim.append(m);
+                        break;
+                    }
+                }
+                pilgrim.append("\n");
+            }
+        }
+        pilgrim.append("-Initial state: ");
+        for (int i = 0; i < link.size(); i++) {
+            if (link.get(i) == getInitialState()) {
+                pilgrim.append("q" + i + "\n-Final states: ");
+                break;
+            }
+        }
+        for (int i = 0; i < link.size(); i++) {
+            if (isFinal(link.get(i))) {
+                pilgrim.append("q" + i + " ");
+            }
+        }
+        return pilgrim.toString();
+    };
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść oraz czy
