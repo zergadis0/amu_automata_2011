@@ -65,7 +65,7 @@ abstract class AutomatonSpecification {
      */
     public abstract boolean isFinal(State state);
 
-    public abstract String toString()
+    public String toString()
     {
         String pilgrim = "Automaton:\n-States: ";
         List<State> link = this.AllStates();
