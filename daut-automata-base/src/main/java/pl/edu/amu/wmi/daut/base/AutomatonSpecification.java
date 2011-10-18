@@ -82,7 +82,7 @@ abstract class AutomatonSpecification {
      */
     @Override
     public String toString() {
-	    StringBuffer pilgrim = new StringBuffer();
+        StringBuffer pilgrim = new StringBuffer();
         pilgrim.append("Automaton:\n-States: ");
         List<State> link = allStates();
         for (int i = 0; i < link.size(); i++) {
