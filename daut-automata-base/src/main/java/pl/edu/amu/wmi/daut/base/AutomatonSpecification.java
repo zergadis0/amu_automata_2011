@@ -1,7 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
-// mała modyfikacja na potrzeby pierwszych ćwiczeń
+
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
  * (jakie są stany, przejścia, który stan jest stanem początkowym,
@@ -26,6 +26,18 @@ abstract class AutomatonSpecification {
      * Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą transitionLabel.
      */
     public abstract void addTransition(State from, State to, TransitionLabel transitionLabel);
+
+    /**
+     * Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to' etykietowane etykietą
+     * transitionLabel, a następnie zwraca utworzony stan.
+     */
+    public State addTransition(State from, TransitionLabel transitionLabel) {
+
+        State to = addState();
+        addTransition(from, to, transitionLabel);
+
+        return to;
+    }
 
     /**
      * Oznacza stan jako początkowy.
@@ -65,7 +77,6 @@ abstract class AutomatonSpecification {
      */
     public abstract boolean isFinal(State state);
 
-
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść oraz czy
@@ -94,6 +105,15 @@ abstract class AutomatonSpecification {
         }
 
         return true;
+    }
+
+    /**
+     * Dodaje przejście od stanu state z powrotem do tego samego stanu
+     * po etykiecie transitionLabel.
+     */
+    public void addLoop(State state, TransitionLabel transitionLabel) {
+
+        addTransition(state, state, transitionLabel);
     }
 };
 
