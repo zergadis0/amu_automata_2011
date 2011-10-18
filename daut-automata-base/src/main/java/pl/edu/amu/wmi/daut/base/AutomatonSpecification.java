@@ -77,6 +77,9 @@ abstract class AutomatonSpecification {
      */
     public abstract boolean isFinal(State state);
 
+    /**
+     * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
+     */
     @Override
     public String toString() {
         String pilgrim = "Automaton:\n-States: ";
