@@ -163,7 +163,7 @@ abstract class AutomatonSpecification {
     }
 
     /**
-     * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT służący do 
+     * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT służący do
      * przedstawienia automatu w formie graficznej, (w ubuntu pakiet
      * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
      * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
@@ -184,15 +184,15 @@ abstract class AutomatonSpecification {
 
             private void getDotGraphIntro() {
                 dotCode.append(
-                        "digraph finite_state_machine {\n" + 
-                        "    rankdir=LR;\n" +
-                        "    size=\"8,5\"\n" +
-                        "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
+                        "digraph finite_state_machine {\n"
+                         + "    rankdir=LR;\n"
+                         + "    size=\"8,5\"\n"
+                         + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
                 if (isFinal(getInitialState())) dotCode.append("double");
-                dotCode.append("circle];\n" +
-                               "    \"State #" + states.indexOf(getInitialState()) + "\";\n" +
-                               "    node [shape = doublecircle style=filled " +
-                               "fillcolor=\"#00000000\"];\n    ");
+                dotCode.append("circle];\n"
+                               + "    \"State #" + states.indexOf(getInitialState()) + "\";\n"
+                               + "    node [shape = doublecircle style=filled "
+                               + "fillcolor=\"#00000000\"];\n    ");
             }
 
             private void getDotGraphFinalStates() {
@@ -210,7 +210,7 @@ abstract class AutomatonSpecification {
                     dotCode.append(" -> ");
                     dotCode.append("\"State #");
                     dotCode.append(target + "\"");
-                    dotCode.append(" [ label = \"" + label 
+                    dotCode.append(" [ label = \"" + label
                             + "\" ]");
                     dotCode.append(";\n");
                 }
