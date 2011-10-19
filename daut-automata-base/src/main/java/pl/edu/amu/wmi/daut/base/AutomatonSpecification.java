@@ -173,11 +173,15 @@ abstract class AutomatonSpecification {
      * @type
      */
     public String getDotGraph() {
+        final List<State> states = allStates();
         final StringBuffer graphCode = new StringBuffer(
                 "digraph finite_state_machine {\n" + "    rankdir=LR;\n"
                         + "    size=\"8,5\"\n"
-                        + "    node [shape = doublecircle];\n" + "    ");
-        final List<State> states = allStates();
+                        + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
+        if(isFinal(getInitialState())) graphCode.append("double");
+        graphCode.append("circle];\n"
+                        + "    \"State #" + states.indexOf(getInitialState()) +"\";\n"
+                        + "    node [shape = doublecircle style=filled fillcolor=\"#00000000\"];\n" + "    ");
         for (State it : states) {
             if (isFinal(it)) {
                 graphCode.append("\"State #" + states.indexOf(it) + "\" ");
