@@ -9,7 +9,7 @@ import java.util.LinkedList;
  *
  * Wszystkie przejścia są przechowywane na jednej liście.
  */
-public class NaiveAutomatonSpecification extends AutomatonSpecification {
+class NaiveAutomatonSpecification extends AutomatonSpecification {
 
     /**
      * Stan to po prostu pusta klasa. Liczy się tylko tożsamość instancji.
