@@ -172,16 +172,16 @@ abstract class AutomatonSpecification {
      * @return Kod źródłowy schematu w języku DOT.
      */
     public String getDotGraph() {
-        
+
         class DotGraph {
             private StringBuffer dotCode;
             private List<State> states;
-            
+
             public DotGraph() {
                 dotCode = new StringBuffer();
                 states = allStates();
             }
-            
+
             private void getDotGraphIntro() {
                 dotCode.append(
                         "digraph finite_state_machine {\n" + 
@@ -194,7 +194,7 @@ abstract class AutomatonSpecification {
                                "    node [shape = doublecircle style=filled " +
                                "fillcolor=\"#00000000\"];\n    ");
             }
-            
+
             private void getDotGraphFinalStates() {
                 for (State it : states) {
                     if (isFinal(it)) {
@@ -202,8 +202,8 @@ abstract class AutomatonSpecification {
                     }
                 }
             }
-            
-            private void getEdgeLabel(State state,int target, String label) {
+
+            private void getEdgeLabel(State state, int target, String label) {
                 if (label.length() != 0) {
                     dotCode.append("    \"State #");
                     dotCode.append(states.indexOf(state) + "\"");
@@ -214,18 +214,18 @@ abstract class AutomatonSpecification {
                             + "\" ]");
                     dotCode.append(";\n");
                 }
-                
+
             }
-            
+
             private void getDotGraphEdges() {
                 for (State it : states) {
                     final StringBuffer[] labelList = new StringBuffer[states.size()];
                     for (int i = 0; i < labelList.length; ++i) {
                         labelList[i] = new StringBuffer();
                     }
-                    
+
                     final List<OutgoingTransition> edges = allOutgoingTransitions(it);
-                    
+
                     for (OutgoingTransition edgeIt : edges) {
                         if (labelList[states.indexOf(edgeIt.getTargetState())].length() == 0) {
                             labelList[states.indexOf(edgeIt.getTargetState())]
@@ -235,13 +235,13 @@ abstract class AutomatonSpecification {
                                     .append(", " + edgeIt.getTransitionLabel());
                         }
                     }
-                    
+
                     for (int i = 0; i < labelList.length; ++i) {
                         getEdgeLabel(it, i, labelList[i].toString());
                     }
                 }
             }
-            
+
             public String  getDotGraph() {
                 getDotGraphIntro();
                 getDotGraphFinalStates();
@@ -251,7 +251,7 @@ abstract class AutomatonSpecification {
                 return dotCode.toString();
             }
         }
-        
+
         DotGraph tmp = new DotGraph();
         return tmp.getDotGraph();
     }
