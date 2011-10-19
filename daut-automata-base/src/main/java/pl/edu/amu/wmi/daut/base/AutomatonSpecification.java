@@ -145,7 +145,8 @@ abstract class AutomatonSpecification {
         }
 
         return true;
-    }    
+    }
+    
     /**
      * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT, który
      * służy do przedstawienia automatu w formie graficznej, (w ubuntu pakiet
