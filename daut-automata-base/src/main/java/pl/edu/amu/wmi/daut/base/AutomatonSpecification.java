@@ -163,61 +163,96 @@ abstract class AutomatonSpecification {
     }
 
     /**
-     * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT, który
-     * służy do przedstawienia automatu w formie graficznej, (w ubuntu pakiet
+     * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT służący do 
+     * przedstawienia automatu w formie graficznej, (w ubuntu pakiet
      * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
-     * -Tpng -O plik_zkodem.dot który tworzy plik schemat zapisany w formacie
-     * png. Więcej w: man dot .
+     * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
+     * png. Więcej w: man dot.
      * 
      * @return Kod źródłowy schematu w języku DOT.
-     * @type
      */
     public String getDotGraph() {
-        final List<State> states = allStates();
-        final StringBuffer graphCode = new StringBuffer(
-                "digraph finite_state_machine {\n" + "    rankdir=LR;\n"
-                        + "    size=\"8,5\"\n"
-                        + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
-        if (isFinal(getInitialState())) graphCode.append("double");
-        graphCode.append("circle];\n"
-                        + "    \"State #" + states.indexOf(getInitialState()) + "\";\n"
-                        + "    node [shape = doublecircle style=filled fillcolor=\"#00000000\"];"
-                        + "\n    ");
-        for (State it : states) {
-            if (isFinal(it)) {
-                graphCode.append("\"State #" + states.indexOf(it) + "\" ");
+        
+        class DotGraph {
+            private StringBuffer dotCode;
+            private List<State> states;
+            
+            public DotGraph() {
+                dotCode = new StringBuffer();
+                states = allStates();
             }
-        }
-        graphCode.append(";\n" + "    node [shape = circle];\n" + "");
-        for (State it : states) {
-            final StringBuffer[] labelList = new StringBuffer[states.size()];
-            for (int i = 0; i < labelList.length; ++i) {
-                labelList[i] = new StringBuffer();
+            
+            private void getDotGraphIntro() {
+                dotCode.append(
+                        "digraph finite_state_machine {\n" + 
+                        "    rankdir=LR;\n" +
+                        "    size=\"8,5\"\n" +
+                        "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
+                if (isFinal(getInitialState())) dotCode.append("double");
+                dotCode.append("circle];\n" +
+                               "    \"State #" + states.indexOf(getInitialState()) + "\";\n" +
+                               "    node [shape = doublecircle style=filled " +
+                               "fillcolor=\"#00000000\"];\n    ");
             }
-            final List<OutgoingTransition> edges = allOutgoingTransitions(it);
-            for (OutgoingTransition edgeIt : edges) {
-                if (labelList[states.indexOf(edgeIt.getTargetState())].length() == 0) {
-                    labelList[states.indexOf(edgeIt.getTargetState())]
-                            .append(edgeIt.getTransitionLabel());
-                } else {
-                    labelList[states.indexOf(edgeIt.getTargetState())]
-                            .append(", " + edgeIt.getTransitionLabel());
+            
+            private void getDotGraphFinalStates() {
+                for (State it : states) {
+                    if (isFinal(it)) {
+                        dotCode.append("\"State #" + states.indexOf(it) + "\" ");
+                    }
                 }
             }
-            for (int i = 0; i < labelList.length; ++i) {
-                if (labelList[i].length() != 0) {
-                    graphCode.append("    \"State #");
-                    graphCode.append(states.indexOf(it) + "\"");
-                    graphCode.append(" -> ");
-                    graphCode.append("\"State #");
-                    graphCode.append(i + "\"");
-                    graphCode.append(" [ label = \"" + labelList[i].toString()
+            
+            private void getEdgeLabel(State state,int target, String label) {
+                if (label.length() != 0) {
+                    dotCode.append("    \"State #");
+                    dotCode.append(states.indexOf(state) + "\"");
+                    dotCode.append(" -> ");
+                    dotCode.append("\"State #");
+                    dotCode.append(target + "\"");
+                    dotCode.append(" [ label = \"" + label 
                             + "\" ]");
-                    graphCode.append(";\n");
+                    dotCode.append(";\n");
+                }
+                
+            }
+            
+            private void getDotGraphEdges() {
+                for (State it : states) {
+                    final StringBuffer[] labelList = new StringBuffer[states.size()];
+                    for (int i = 0; i < labelList.length; ++i) {
+                        labelList[i] = new StringBuffer();
+                    }
+                    
+                    final List<OutgoingTransition> edges = allOutgoingTransitions(it);
+                    
+                    for (OutgoingTransition edgeIt : edges) {
+                        if (labelList[states.indexOf(edgeIt.getTargetState())].length() == 0) {
+                            labelList[states.indexOf(edgeIt.getTargetState())]
+                                    .append(edgeIt.getTransitionLabel());
+                        } else {
+                            labelList[states.indexOf(edgeIt.getTargetState())]
+                                    .append(", " + edgeIt.getTransitionLabel());
+                        }
+                    }
+                    
+                    for (int i = 0; i < labelList.length; ++i) {
+                        getEdgeLabel(it, i, labelList[i].toString());
+                    }
                 }
             }
+            
+            public String  getDotGraph() {
+                getDotGraphIntro();
+                getDotGraphFinalStates();
+                dotCode.append(";\n" + "    node [shape = circle];\n" + "");
+                getDotGraphEdges();
+                dotCode.append("\n}\n");
+                return dotCode.toString();
+            }
         }
-        graphCode.append("\n}\n");
-        return graphCode.toString();
+        
+        DotGraph tmp = new DotGraph();
+        return tmp.getDotGraph();
     }
 };
