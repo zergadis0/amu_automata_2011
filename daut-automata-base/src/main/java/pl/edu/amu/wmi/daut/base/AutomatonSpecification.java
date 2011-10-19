@@ -117,7 +117,7 @@ abstract class AutomatonSpecification {
         }
         return pilgrim.toString();
     };
-   /**
+    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść oraz czy
      * przejścia z danego stanu do innych stanów odbywają się po różnych znakach).
@@ -145,8 +145,7 @@ abstract class AutomatonSpecification {
         }
 
         return true;
-    }
-    
+    }    
     /**
      * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT, który
      * służy do przedstawienia automatu w formie graficznej, (w ubuntu pakiet
