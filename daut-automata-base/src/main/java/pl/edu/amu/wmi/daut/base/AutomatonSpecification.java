@@ -117,10 +117,12 @@ abstract class AutomatonSpecification {
         }
         return pilgrim.toString();
     };
-    /**
+   /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
-     * przynajmniej jeden stan, czy nie zawiera epsilon-przejść oraz czy
-     * przejścia z danego stanu do innych stanów odbywają się po różnych znakach).
+     * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
+     * sytuacji, gdy epsilon-przejście jest jedynym sposobem wyjścia ze stanu)
+     * oraz czy przejścia z danego stanu do innych stanów odbywają się po
+     * różnych znakach).
      */
     public boolean isDeterministic() {
         List<State> states = allStates();
@@ -130,6 +132,10 @@ abstract class AutomatonSpecification {
 
         for (State state : states) {
             List<OutgoingTransition> transitions = allOutgoingTransitions(state);
+
+            if (transitions.size() <= 1)
+                continue;
+
             for (int i = 0; i < transitions.size(); ++i) {
                 TransitionLabel label = transitions.get(i).getTransitionLabel();
 
@@ -146,7 +152,16 @@ abstract class AutomatonSpecification {
 
         return true;
     }
-    
+
+    /**
+     * Dodaje przejście od stanu state z powrotem do tego samego stanu
+     * po etykiecie transitionLabel.
+     */
+    public void addLoop(State state, TransitionLabel transitionLabel) {
+
+        addTransition(state, state, transitionLabel);
+    }
+
     /**
      * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT, który
      * służy do przedstawienia automatu w formie graficznej, (w ubuntu pakiet
@@ -199,14 +214,5 @@ abstract class AutomatonSpecification {
         }
         graphCode.append("\n}\n");
         return graphCode.toString();
-    }
-
-    /**
-     * Dodaje przejście od stanu state z powrotem do tego samego stanu
-     * po etykiecie transitionLabel.
-     */
-    public void addLoop(State state, TransitionLabel transitionLabel) {
-
-        addTransition(state, state, transitionLabel);
     }
 };
