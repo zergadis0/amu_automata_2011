@@ -64,4 +64,17 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem końcowym.
      */
     public abstract boolean isFinal(State state);
+
+    public int cuntStates() {
+        return allStates().size();
+    }
+
+    public int cuntTransitions() {
+        int sum = 0;
+        for (State state : allStates()) {
+            sum += allOutgoingTransitions(state).size();
+        }
+        return sum;
+    }
 };
+
