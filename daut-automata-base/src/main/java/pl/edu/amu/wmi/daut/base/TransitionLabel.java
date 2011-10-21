@@ -14,6 +14,13 @@ abstract class TransitionLabel {
     private ArrayList range = new ArrayList();
 
     /**
+     * Konstruktor domyślny
+     */
+    public TransitionLabel() {
+
+    }
+
+    /**
      * Konstruktor klasy wypełniający listę range znakami z podanego zakresu
      */
     public TransitionLabel(char a, char z) {
@@ -22,7 +29,7 @@ abstract class TransitionLabel {
             a++;
         }
     }
-
+    
     /**
      * Zwraca true gdy przejście o danej etykiecie może nastąpić
      * bez "zjedzenia" znaku z wejścia.
