@@ -1,11 +1,8 @@
 package pl.edu.amu.wmi.daut.base;
 
-/**
- * Przejście po podanym znaku.
- */
-class CharTransitionLabel extends TransitionLabel {
+    private static class CharTransitionLabel extends TransitionLabel {
         /**
-         * Konstruuje etykiety oznaczone znakiem 'c'.
+         * Konstruuje etykietę oznaczoną znakiem 'c'.
          */
         public CharTransitionLabel(char c) {
             ch_ = c;
@@ -33,3 +30,4 @@ class CharTransitionLabel extends TransitionLabel {
 
         private char ch_;
     }
+
