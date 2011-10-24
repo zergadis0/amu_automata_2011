@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.List;
 import java.util.Stack;
 /**
- * klasa decydujÄ…ca czy automat zaakceptuje dany napis.
+ * klasa decyduj¹ca czy automat zaakceptuje dany napis.
  */
 public final class AutomatonByRecursion implements Acceptor {
     AutomatonByRecursion(final AutomatonSpecification  specification) {
@@ -21,9 +21,9 @@ public final class AutomatonByRecursion implements Acceptor {
         return accept;
     }
     /**
-     * metoda, ktÃ³ra bÄ™dzie wywoÅ‚ywana rekurencyjnie dla aktualnych stanÃ³w.
+     * metoda, która bêdzie wywo³ywana rekurencyjnie dla aktualnych stanów.
      */
-    public static void check(final char[] sign, final int from, final int toEnd) {
+    public void check(final char[] sign, final int from, final int toEnd) {
         if (from < toEnd) {
             findTransition(sign , from);
             if (actuallyStates.size() > 0) {
@@ -38,18 +38,17 @@ public final class AutomatonByRecursion implements Acceptor {
                 actuallyState = (State) actuallyStates.pop();
             if (automaton.isFinal(actuallyState)) {
                 accept = true;
-                break;
             }
             }
         }
     }
     /**
-     * Metoda pobiera wszystkie przejscia z bieÅ¼Ä…cego stanu,
-     * porÃ³wnuje ich etykiety ze znakiem
+     * Metoda pobiera wszystkie przejscia z bie¿¹cego stanu,
+     * porównuje ich etykiety ze znakiem
      * (tzn.signs[index]) z wprowadzonego napisu,
-     * jeÅ›li sie zgadzajÄ…, odkÅ‚ada stan na stos - targetStates.
+     * jeœli sie zgadzaj¹, odk³ada stan na stos - targetStates.
      */
-    public static void findTransition(final char[] signs, final int index) {
+    public void findTransition(final char[] signs, final int index) {
     List<OutgoingTransition> allOutTransitions;
         final int stackSize = actuallyStates.size();
         for (int i = 0; i < stackSize; i++)  {
@@ -72,9 +71,9 @@ public final class AutomatonByRecursion implements Acceptor {
         }
         }
     }
-    private static State actuallyState;
-    private static AutomatonSpecification automaton;
+    private transient State actuallyState;
+    private final transient AutomatonSpecification automaton;
     private static Stack<State> actuallyStates = new Stack<State>();
     private static Stack<State> targetStates = new Stack<State>();
-    private static boolean accept;
+    private transient boolean accept;
 }
