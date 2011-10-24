@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.List;
 import java.util.Stack;
 /**
- * klasa decyduj¹ca czy automat zaakceptuje dany napis.
+ * klasa decydujÄ…ca czy automat zaakceptuje dany napis.
  */
 public final class AutomatonByRecursion implements Acceptor {
     AutomatonByRecursion(final AutomatonSpecification  specification) {
@@ -21,7 +21,7 @@ public final class AutomatonByRecursion implements Acceptor {
         return accept;
     }
     /**
-     * metoda, która bêdzie wywo³ywana rekurencyjnie dla aktualnych stanów.
+     * metoda, ktÃ³ra bÄ™dzie wywoÅ‚ywana rekurencyjnie dla aktualnych stanÃ³w.
      */
     public static void check(final char[] sign, final int from, final int toEnd) {
         if (from < toEnd) {
@@ -44,10 +44,10 @@ public final class AutomatonByRecursion implements Acceptor {
         }
     }
     /**
-     * Metoda pobiera wszystkie przejœcia z bie¿¹cego stanu,
-     * porównuje ich etykiety ze znakiem
+     * Metoda pobiera wszystkie przejscia z bieÅ¼Ä…cego stanu,
+     * porÃ³wnuje ich etykiety ze znakiem
      * (tzn.signs[index]) z wprowadzonego napisu,
-     * jeœli siê zgadzaj¹, odk³ada stan na stos - targetStates.
+     * jeÅ›li sie zgadzajÄ…, odkÅ‚ada stan na stos - targetStates.
      */
     public static void findTransition(final char[] signs, final int index) {
     List<OutgoingTransition> allOutTransitions;
