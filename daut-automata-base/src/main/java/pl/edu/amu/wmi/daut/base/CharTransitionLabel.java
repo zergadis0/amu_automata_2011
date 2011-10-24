@@ -1,7 +1,7 @@
-package pl.edu.amu.wmi.daut.base;
+﻿package pl.edu.amu.wmi.daut.base;
 
 /**
- * Przejście po podanym znaku.
+ * Przejście po podanym znaku. Próba.
  */
 class CharTransitionLabel extends TransitionLabel {
         /**
