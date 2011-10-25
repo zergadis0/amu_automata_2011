@@ -65,11 +65,11 @@ abstract class AutomatonSpecification {
      */
     public abstract boolean isFinal(State state);
 
-    public int cuntStates() {
+    public int countStates() {
         return allStates().size();
     }
 
-    public int cuntTransitions() {
+    public int countTransitions() {
         int sum = 0;
         for (State state : allStates()) {
             sum += allOutgoingTransitions(state).size();
