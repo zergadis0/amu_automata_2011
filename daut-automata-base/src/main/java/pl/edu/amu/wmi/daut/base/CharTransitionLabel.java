@@ -1,4 +1,4 @@
-﻿package pl.edu.amu.wmi.daut.base;
+package pl.edu.amu.wmi.daut.base;
 
 class CharTransitionLabel extends TransitionLabel {
     /**
