@@ -85,6 +85,8 @@ abstract class AutomatonSpecification {
         return isFinal(getInitialState());
     };
 
+
+
     /**
      * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
      */
@@ -262,5 +264,17 @@ abstract class AutomatonSpecification {
 
         DotGraph tmp = new DotGraph();
         return tmp.getDotGraph();
+    }
+    
+    public int countStates() {
+        return allStates().size();
+    }
+
+    public int countTransitions() {
+        int sum = 0;
+        for (State state : allStates()) {
+            sum += allOutgoingTransitions(state).size();
+        }
+        return sum;
     }
 };
