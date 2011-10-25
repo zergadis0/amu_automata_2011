@@ -25,7 +25,7 @@ class CharTransitionLabel extends TransitionLabel {
         }
 
         protected TransitionLabel intersectWith(TransitionLabel label) {
-            return label.canAcceptCharacter(ch_) ? this : new EmptyTransitionLabel();
+            return label.canAcceptCharacter(ch) ? this : new EmptyTransitionLabel();
         }
 
         private char ch;
