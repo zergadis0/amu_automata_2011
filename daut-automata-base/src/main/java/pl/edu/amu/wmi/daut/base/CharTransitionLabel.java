@@ -1,6 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
-public class CharTransitionLabel extends TransitionLabel {
+class CharTransitionLabel extends TransitionLabel {
         /**
          * Konstruuje etykietę oznaczoną znakiem 'c'.
          */
