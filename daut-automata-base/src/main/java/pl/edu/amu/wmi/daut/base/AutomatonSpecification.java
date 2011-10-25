@@ -265,7 +265,7 @@ abstract class AutomatonSpecification {
         DotGraph tmp = new DotGraph();
         return tmp.getDotGraph();
     }
-    
+
     public int countStates() {
         return allStates().size();
     }
