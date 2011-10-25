@@ -76,16 +76,14 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem końcowym.
      */
     public abstract boolean isFinal(State state);
-    
+
     /**
      * Zwraca true, gdy automat akceptuje napis pusty.
      */
 
-    public boolean acceptEmptyWord(){
+    public boolean acceptEmptyWord() {
         return isFinal(getInitialState());
     };
-
-    
 
     /**
      * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
