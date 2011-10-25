@@ -1,6 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
-/** 
- * Implementacja TransitionLabel reprezentujaca przejscie po podanym znaku.
+/**
+ * Implementacja TransitionLabel reprezentujaca przejscie po podanym znaku .
  */
 class CharTransitionLabel extends TransitionLabel {
     /**
