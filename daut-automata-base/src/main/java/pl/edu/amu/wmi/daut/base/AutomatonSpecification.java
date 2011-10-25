@@ -77,15 +77,6 @@ abstract class AutomatonSpecification {
      */
     public abstract boolean isFinal(State state);
 
-    /**
-     * Zwraca true, gdy automat akceptuje napis pusty.
-     */
-
-    public boolean acceptEmptyWord() {
-        return isFinal(getInitialState());
-    };
-
-
 
     /**
      * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
@@ -277,4 +268,13 @@ abstract class AutomatonSpecification {
         }
         return sum;
     }
+
+    /**
+     * Zwraca true, gdy automat akceptuje napis pusty.
+     */
+
+    public boolean acceptEmptyWord() {
+        return isFinal(getInitialState());
+    }
+
 };
