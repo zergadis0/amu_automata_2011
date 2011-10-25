@@ -1,11 +1,11 @@
-package pl.edu.amu.wmi.daut.base;
+﻿package pl.edu.amu.wmi.daut.base;
 
 class CharTransitionLabel extends TransitionLabel {
         /**
          * Konstruuje etykietę oznaczoną znakiem 'c'.
          */
         public CharTransitionLabel(char c) {
-            ch_ = c;
+            ch = c;
         }
 
         public boolean canBeEpsilon() {
@@ -13,7 +13,7 @@ class CharTransitionLabel extends TransitionLabel {
         }
 
         public boolean canAcceptCharacter(char c) {
-            return c == ch_;
+            return c == ch;
         }
 
         public boolean isEmpty() {
@@ -21,12 +21,12 @@ class CharTransitionLabel extends TransitionLabel {
         }
 
         public char getChar() {
-            return ch_;
+            return ch;
         }
 
         protected TransitionLabel intersectWith(TransitionLabel label) {
             return label.canAcceptCharacter(ch_) ? this : new EmptyTransitionLabel();
         }
 
-        private char ch_;
+        private char ch;
     }
