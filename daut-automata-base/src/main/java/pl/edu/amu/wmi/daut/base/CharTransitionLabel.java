@@ -1,5 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
-
+/** 
+ * Implementacja TransitionLabel reprezentujaca przejscie po podanym znaku.
+ */
 class CharTransitionLabel extends TransitionLabel {
     /**
     * Konstruuje etykietę oznaczoną znakiem 'c'.
