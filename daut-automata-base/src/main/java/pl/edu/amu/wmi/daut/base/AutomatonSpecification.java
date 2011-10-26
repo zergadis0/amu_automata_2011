@@ -295,18 +295,13 @@ abstract class AutomatonSpecification {
                 label = transitions.get(j).getTransitionLabel();
                 state = transitions.get(j).getTargetState();
 
-                if (label.canBeEpsilon()) {
+                if (label.canBeEpsilon() && !checked.contains(state) && !tocheck.contains(state)) {
+                    tocheck.add(state);
+                    iterator++;
+                    checked.add(state);
 
-                    if (!checked.contains(state)) {
-                        if (!tocheck.contains(state)) {
-                            tocheck.add(state);
-                            iterator++;
-                            checked.add(state);
-
-                            if (isFinal(state)) {
-                                return true;
-                            }
-                        }
+                    if (isFinal(state)) {
+                        return true;
                     }
                 }
             }
