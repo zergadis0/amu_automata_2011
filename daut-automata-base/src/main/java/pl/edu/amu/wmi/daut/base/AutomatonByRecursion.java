@@ -43,3 +43,4 @@ public final class AutomatonByRecursion implements Acceptor {
     private final AutomatonSpecification automaton;
     private boolean accept;
 }
+
