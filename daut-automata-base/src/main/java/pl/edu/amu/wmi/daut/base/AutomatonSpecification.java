@@ -268,7 +268,7 @@ abstract class AutomatonSpecification {
     }
 
     /**
-     * Zwraca true, gdy automat akceptuje napis pusty.
+     * Zwraca true, gdy automat akceptuje napis pusty
      */
 
     public boolean acceptEmptyWord() {
