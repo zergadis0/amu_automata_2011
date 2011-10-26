@@ -129,7 +129,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         //budowanie
 
         State s0 = spec.addState();
-        spec.addLoop(s0, s0, newTestTransition('a'));
+        spec.addLoop(s0, s0, new TestTransition('a'));
         spec.markAsInitial(s0);
         spec.markAsFinal(s0);
 
@@ -137,7 +137,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         State r0 = spec.getInitialState();
 
-        List<OutGoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
+        List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
 
         assertEquals(r0Outs.size(), 1);
         assertTrue(spec.isFinal(r0));
