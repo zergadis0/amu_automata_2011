@@ -90,9 +90,8 @@ abstract class AutomatonSpecification {
         for (int i = 0; i < stany.size(); i++) {
             ilosc = i + 1;
         }
-        if(ilosc == 0)
-            return true;
-        else return false;
+        if(ilosc != 0)
+            return false;
     }
     @Override
     public String toString() {
