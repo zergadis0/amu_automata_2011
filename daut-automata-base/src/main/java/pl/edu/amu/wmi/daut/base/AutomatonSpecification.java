@@ -85,11 +85,15 @@ abstract class AutomatonSpecification {
     /**
      * Metoda sprawdza czy automat jest pusty
      */
-        int i;
-        i = allStates().size();
-        if (i == 0) {
-            return true;}
-        else return false;
+        int ilosc = 0;
+        List<State> stany = allStates();
+        for (int i = 0; i < stany.size(); i++) {
+            ilosc = i + 1;
+        }
+        if (ilosc == 0) {
+            return true;
+        }
+        else return true;
     }
     @Override
     public String toString() {
