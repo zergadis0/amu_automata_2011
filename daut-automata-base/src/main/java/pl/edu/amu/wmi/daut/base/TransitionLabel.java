@@ -1,35 +1,11 @@
 package pl.edu.amu.wmi.daut.base;
 
-import java.util.ArrayList;
-
 /**
  * Interfejs reprezentujący etykietę przejścia (np. pojedynczy znak, zbiór znaków,
  * epsilon-przejście).
  */
 abstract class TransitionLabel {
 
-    /**
-     * Lista etykiet przejścia
-     */
-    private ArrayList range = new ArrayList();
-
-    /**
-     * Konstruktor domyślny
-     */
-    public TransitionLabel() {
-
-    }
-
-    /**
-     * Konstruktor klasy wypełniający listę range znakami z podanego zakresu
-     */
-    public TransitionLabel(char a, char z) {
-        while (a <= z) {
-            range.add(a);
-            a++;
-        }
-    }
-    
     /**
      * Zwraca true gdy przejście o danej etykiecie może nastąpić
      * bez "zjedzenia" znaku z wejścia.
