@@ -266,4 +266,48 @@ abstract class AutomatonSpecification {
         }
         return sum;
     }
+
+    /**
+     * Zwraca true, gdy automat akceptuje napis pusty.
+     */
+
+    public boolean acceptEmptyWord() {
+
+        List<State> checked = new ArrayList<State>();
+        List<State> tocheck = new ArrayList<State>();
+        List<OutgoingTransition> Transitions = new ArrayList<OutgoingTransition>();
+        TransitionLabel label;
+        State state;
+
+        if (isFinal(getInitialState())) {
+            return true;
+        }
+
+        tocheck.add(getInitialState());
+        int iterator = tocheck.size();
+
+        for (int i = 0; i < iterator; ++i) {
+            Transitions.clear();
+            Transitions = allOutgoingTransitions(tocheck.get(i));
+
+            for (int j = 0; j < Transitions.size(); ++j) {
+                label = Transitions.get(j).getTransitionLabel();
+                state = Transitions.get(j).getTargetState();
+
+                if (label.canBeEpsilon()) {
+
+                    if (!checked.contains(state)&&!tocheck.contains(state)) {
+                        tocheck.add(state);
+                        iterator ++;
+                        checked.add(state);
+
+                        if (isFinal(state)) {
+                            return true;
+                        }
+                    }
+                }           
+            }
+        }
+        return false;
+    }
 };
