@@ -123,6 +123,15 @@ abstract class AutomatonSpecification {
      * oraz czy przejścia z danego stanu do innych stanów odbywają się po
      * różnych znakach).
      */
+    public boolean isNotEmpty() {
+        List<State> states = allStates();
+
+        if (states.isEmpty())
+            return false;
+        else
+            return true;
+    }
+
     public boolean isDeterministic() {
         List<State> states = allStates();
 
