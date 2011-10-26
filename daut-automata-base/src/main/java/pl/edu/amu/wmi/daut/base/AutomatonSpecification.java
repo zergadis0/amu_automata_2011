@@ -270,29 +270,29 @@ abstract class AutomatonSpecification {
 
     public boolean isInfinit() {
         boolean result = true;
-        for(State state : allStates()) {    
+        for (State state : allStates()) {
             result = result && checkChild(state, new ArrayList<State>());
         }
         return result;
    }
-    
+
     public boolean checkChild(State state, List<State> history) {
-        if(allOutgoingTransitions(state).size()==0)
+        if (allOutgoingTransitions(state).size() == 0)
             return false;
-        
-        if(isFinal(state))
+
+        if (isFinal(state))
             return true;
-       
-        for(State his : history) {
-            if(his == state)
+
+        for (State his : history) {
+            if (his == state)
                 return false;
         }
-        
+
         history.add(state);
         boolean result = true;
-        for(OutgoingTransition child : allOutgoingTransitions(state)) {
+        for (OutgoingTransition child : allOutgoingTransitions(state)) {
               result = result && checkChild(child.getTargetState(), history);
         }
-        return result;          
+        return result;
    }
 };
