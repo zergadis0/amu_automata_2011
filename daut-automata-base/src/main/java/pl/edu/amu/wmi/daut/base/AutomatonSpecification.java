@@ -276,7 +276,7 @@ abstract class AutomatonSpecification {
 
         List<State> checked = new ArrayList<State>();
         List<State> tocheck = new ArrayList<State>();
-        List<OutgoingTransition> Transitions = new ArrayList<OutgoingTransition>();
+        List<OutgoingTransition> transitions = new ArrayList<OutgoingTransition>();
         TransitionLabel label;
         State state;
 
@@ -288,25 +288,27 @@ abstract class AutomatonSpecification {
         int iterator = tocheck.size();
 
         for (int i = 0; i < iterator; ++i) {
-            Transitions.clear();
-            Transitions = allOutgoingTransitions(tocheck.get(i));
+            transitions.clear();
+            transitions = allOutgoingTransitions(tocheck.get(i));
 
-            for (int j = 0; j < Transitions.size(); ++j) {
-                label = Transitions.get(j).getTransitionLabel();
-                state = Transitions.get(j).getTargetState();
+            for (int j = 0; j < transitions.size(); ++j) {
+                label = transitions.get(j).getTransitionLabel();
+                state = transitions.get(j).getTargetState();
 
                 if (label.canBeEpsilon()) {
 
-                    if (!checked.contains(state)&&!tocheck.contains(state)) {
-                        tocheck.add(state);
-                        iterator ++;
-                        checked.add(state);
+                    if (!checked.contains(state)) {
+                        if (!tocheck.contains(state)) {
+                            tocheck.add(state);
+                            iterator++;
+                            checked.add(state);
 
-                        if (isFinal(state)) {
-                            return true;
+                            if (isFinal(state)) {
+                                return true;
+                            }
                         }
                     }
-                }           
+                }
             }
         }
         return false;
