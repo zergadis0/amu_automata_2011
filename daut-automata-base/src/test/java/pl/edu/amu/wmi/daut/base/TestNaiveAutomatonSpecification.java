@@ -128,14 +128,14 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         //budowanie
 
-        TestState s0 = spec.addState();
+        State s0 = spec.addState();
         spec.addLoop(s0, s0, newTestTransition('a'));
         spec.markAsInitial(s0);
         spec.markAsFinal(s0);
 
         //testowanie
 
-        TestState r0 = spec.getInitialState();
+        State r0 = spec.getInitialState();
 
         List<OutGoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
 
