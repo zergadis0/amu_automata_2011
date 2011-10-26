@@ -83,7 +83,7 @@ abstract class AutomatonSpecification {
     public boolean isEmpty() {
 
     /**
-     * Metoda sprawdza czy automat jest pusty
+     * Metoda sprawdza czy automat jest pusty.
      */
         int ilosc = 0;
         List<State> stany = allStates();
