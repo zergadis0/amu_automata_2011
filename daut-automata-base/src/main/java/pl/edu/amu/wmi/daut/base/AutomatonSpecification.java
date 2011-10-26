@@ -90,7 +90,7 @@ abstract class AutomatonSpecification {
         for (int i = 0; i < stany.size(); i++) {
             ilosc = i + 1;
         }
-        if(ilosc == 0)
+        if (ilosc == 0)
             return false;
         return true;
     }
