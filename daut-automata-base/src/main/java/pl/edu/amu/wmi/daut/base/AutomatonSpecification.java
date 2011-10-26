@@ -81,11 +81,11 @@ abstract class AutomatonSpecification {
      * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
      */
     public boolean isEmpty() {
-        
+
     /**
      * Metoda sprawdza czy automat jest pusty
-     */   
-        if (allStates().size()==0) return true; else return false;
+     */
+        if (allStates().size() == 0) return true; else return false;
     }
     @Override
     public String toString() {
