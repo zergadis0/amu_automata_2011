@@ -1,7 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 import java.util.ArrayList;
 /**
- * Klasa reprezentująca przejście po dowolnym znaku z podanego zakresu UTF-8
+ * Klasa reprezentująca przejście po dowolnym znaku z podanego zakresu UTF-8.
  */
 class CharRangeTransitionLabel {
 
@@ -15,7 +15,7 @@ class CharRangeTransitionLabel {
     }
 
     public void makeArray() {
-        while(firstChar<secondChar) {
+        while (firstChar < secondChar) {
             range.add(firstChar);
             firstChar++;
         }
