@@ -266,5 +266,49 @@ abstract class AutomatonSpecification {
         }
         return sum;
     }
-};
+    
+    int indeks_aktualnego;
+    
+    public boolean isFull(String alphabet){
+        for(State state: allStates()){
+                for (int i = 0; i<alphabet.length(); i++){
+                    for(OutgoingTransition transition : allOutgoingTransitions(state)){
+                        indeks_aktualnego = allOutgoingTransitions(state).indexOf(transition);
+                        if(transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                        {
+                           break;
+                        }
+                        else if(indeks_aktualnego == allOutgoingTransitions(state).size() && !transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                        {
+                            return false;
+                        }
+                    }
+                }
+        }        
+        return true;
+    }
+
+    public void makeFull(String alphabet) {
+        
+       if(!isFull(alphabet)){
+            State trash = addState();
+            
+            for(State state: allStates()){
+                for (int i = 0; i<alphabet.length(); i++){
+                    for(OutgoingTransition transition : allOutgoingTransitions(state)){
+                        indeks_aktualnego = allOutgoingTransitions(state).indexOf(transition);
+                        if(transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                        {
+                           break;
+                        }
+                        else if(indeks_aktualnego == allOutgoingTransitions(state).size() && !transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                        {
+                            addTransition(state, trash, new CharTransitionLabel(alphabet.charAt(i)));
+                        }
+                    }
+                }
+            } 
+        }
+       
+    }};
 
