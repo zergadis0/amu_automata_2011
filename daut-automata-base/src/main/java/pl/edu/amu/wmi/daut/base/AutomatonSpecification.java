@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -266,5 +267,35 @@ abstract class AutomatonSpecification {
         }
         return sum;
     }
+    
+        public boolean isInfinit() {
+        boolean result = true;
+        for(State state : allStates())
+        {    
+            result = result && CheckChild(state, new ArrayList<State>());
+        }
+        return result;
+   }
+    
+   public boolean CheckChild(State state, List<State> history)
+   {
+        if(allOutgoingTransitions(state).size()==0)
+            return false;
+        
+        if(isFinal(state))
+            return true;
+       
+        for(State his : history)
+            if(his == state)
+                return false;
+        
+        history.add(state);
+        boolean result = true;
+        for(OutgoingTransition child : allOutgoingTransitions(state))
+        {
+              result = result && CheckChild(child.getTargetState(), history);
+        }
+        return result;          
+   }
 };
 

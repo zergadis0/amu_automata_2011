@@ -100,6 +100,33 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         assertEquals(states.size(), 3);
     }
+    
+    /**
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+    public final void testInfiniteLanguage() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+        State s2 = automat.addState();
+        State s3 = automat.addState();
+        State s4 = automat.addState();
+        automat.addTransition(s0, s1, new TestTransition('a'));   
+        automat.addLoop(s1, new TestTransition('b'));
+        automat.addLoop(s2, new TestTransition('b'));
+        automat.addTransition(s1, s2, new TestTransition('a'));
+        automat.addTransition(s2, s1, new TestTransition('a'));
+        automat.addTransition(s2, s0, new TestTransition('c'));
+        automat.addTransition(s2, s3, new TestTransition('c'));
+        automat.addTransition(s3, s4, new TestTransition('a'));
+        automat.addLoop(s4, new TestTransition('b'));
+        automat.markAsFinal(s2);
+        automat.markAsFinal(s1);
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s4);
+        assertTrue(automat.isInfinit());
+        
+    }
 
     /**
      * Prosty test wyznaczania przecięcia.
