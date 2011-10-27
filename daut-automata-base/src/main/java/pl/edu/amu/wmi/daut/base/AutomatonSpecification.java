@@ -277,9 +277,7 @@ abstract class AutomatonSpecification {
                     else if (index == allOutgoingTransitions(state).size()
                             && !transition.getTransitionLabel()
                             .canAcceptCharacter(alphabet.charAt(i)))
-                    {
                         return false;
-                    }
                 }
             }
         }
