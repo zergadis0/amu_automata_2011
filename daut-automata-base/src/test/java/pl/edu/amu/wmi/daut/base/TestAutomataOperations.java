@@ -110,7 +110,7 @@ public class TestAutomataOperations extends TestCase {
             assertTrue(abbaBR.accepts("a"));
             assertTrue(abbaBR.accepts("b"));
             assertFalse(abbaBR.accepts("ab"));
-            assertFlase(abbaBR.accepts("ba"));
+            assertFalse(abbaBR.accepts("ba"));
             assertTrue(abbaBR.accepts("aa"));
             assertTrue(abbaBR.accepts("bb"));
             assertTrue(abbaBR.accepts("aba"));
