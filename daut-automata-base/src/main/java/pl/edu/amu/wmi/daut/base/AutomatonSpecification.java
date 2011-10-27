@@ -266,7 +266,6 @@ abstract class AutomatonSpecification {
         }
         return sum;
     }
-
     public boolean isFull(String alphabet){
         int index;
         for(State state: allStates()){
@@ -274,9 +273,7 @@ abstract class AutomatonSpecification {
                 for(OutgoingTransition transition : allOutgoingTransitions(state)){
                     index = allOutgoingTransitions(state).indexOf(transition);
                     if(transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
-                    {
                         break;
-                    }
                     else if(index == allOutgoingTransitions(state).size() && !transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
                     {
                         return false;
