@@ -5,8 +5,8 @@ package pl.edu.amu.wmi.daut.base;
  */
 public class AutomataOperations {
 
-    /*
-     * Metoda zwracaj¹ca Automat akceptuj¹cy jêzyk bêd¹cy dope³nieniem jêzyka akceptowanego przez Automat otrzymywany "na wejœciu".
+    /**
+     * Metoda zwracaj¹ca Automat akceptuj¹cy jezyk bedacy dopelnieniem jezyka akceptowanego przez Automat otrzymywany "na wejsciu".
      */
     public static AutomatonSpecification metodaKarola(AutomatonSpecification pierwszy) {
         return pierwszy;
