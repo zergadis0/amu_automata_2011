@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 /**
  *
  */
-public final class AutomataOperations {
+class AutomataOperations {
 
     /*
      * Metoda zwracaj¹ca Automat akceptuj¹cy jêzyk bêd¹cy dope³nieniem jêzyka akceptowanego przez Automat otrzymywany "na wejœciu".
