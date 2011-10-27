@@ -99,7 +99,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         //budowanie
 
         State s0 = spec.addState();
-        spec.addLoop(s0, new TestTransition('a'));
+        spec.addLoop(s0, new CharTransitionLabel('a'));
         spec.markAsInitial(s0);
         spec.markAsFinal(s0);
 
@@ -114,11 +114,11 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         State r1;
 
-        if (((TestTransition)r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
+        if (((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
             r1 = r0Outs.get(0).getTargetState();
-            assertEquals(((TestTransition)r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
-            assertTrue(((TestTransition)r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
-            assertFalse(((TestTransition)r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
+            assertEquals(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
+            assertTrue(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+            assertFalse(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
             }
 
         assertTrue(spec.isFinal(r0));
