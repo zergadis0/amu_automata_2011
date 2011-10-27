@@ -76,24 +76,21 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem końcowym.
      */
     public abstract boolean isFinal(State state);
-
-    /**
-     * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
-     */
-    public boolean isEmpty() {
-
+    
     /**
      * Metoda sprawdza czy automat jest pusty.
      */
-        int ilosc = 0;
-        List<State> stany = allStates();
-        for (int i = 0; i < stany.size(); i++) {
-            ilosc = i + 1;
-        }
-        if (ilosc == 0)
-            return false;
-        return true;
+    public boolean isEmpty() {
+
+        List<State> states = allStates();
+        if (states.isEmpty())
+            return true;
+        return false;
     }
+    
+    /**
+     * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
+     */
     @Override
     public String toString() {
         StringBuffer pilgrim = new StringBuffer("Automaton:\n-States: ");
