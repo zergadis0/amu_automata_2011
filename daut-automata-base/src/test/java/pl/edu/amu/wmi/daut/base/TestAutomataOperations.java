@@ -100,7 +100,7 @@ public class TestAutomataOperations extends TestCase {
             abba.addTransition(qba, smietnik, new TestTransition('b'));
             abba.addLoop(smietnik, new TestTransition('a'));
             abba.addLoop(smietnik, new TestTransition('b'));
-            abba.markAsInitial(q0)
+            abba.markAsInitial(q0);
             abba.markAsFinal(qab);
             abba.markAsFinal(qba);
             
