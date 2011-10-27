@@ -149,7 +149,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
             assertEquals(((TestTransition)r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
             assertTrue(((TestTransition)r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
             assertFalse(((TestTransition)r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
-            }
+        }
 
         assertTrue(spec.isFinal(r0));
         assertSame(r0, spec.getInitialState());
@@ -158,7 +158,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         assertEquals(states.size(), 1);
 
-}
+    }
 
 
 
