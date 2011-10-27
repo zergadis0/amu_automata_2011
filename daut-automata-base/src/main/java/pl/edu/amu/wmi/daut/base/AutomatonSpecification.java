@@ -76,7 +76,7 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem końcowym.
      */
     public abstract boolean isFinal(State state);
-    
+
     /**
      * Metoda sprawdza czy automat jest pusty.
      */
@@ -87,7 +87,7 @@ abstract class AutomatonSpecification {
             return true;
         return false;
     }
-    
+
     /**
      * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
      */
