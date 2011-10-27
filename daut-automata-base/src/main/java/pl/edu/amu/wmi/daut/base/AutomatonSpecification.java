@@ -46,7 +46,7 @@ abstract class AutomatonSpecification {
      * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
      */
     public State addBranch(State from, List<TransitionLabel> oTransition) {
-        State prev = from; 
+        State prev = from;
         State next = prev;
 
          for (TransitionLabel transition : oTransition) {
