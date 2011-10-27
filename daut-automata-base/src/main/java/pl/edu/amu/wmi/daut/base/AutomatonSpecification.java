@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
+import java.util.HashMap;
 
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -82,8 +83,7 @@ abstract class AutomatonSpecification {
      */
     @Override
     public String toString() {
-        StringBuffer pilgrim = new StringBuffer();
-        pilgrim.append("Automaton:\n-States: ");
+        StringBuffer pilgrim = new StringBuffer("Automaton:\n-States: ");
         List<State> link = allStates();
         for (int i = 0; i < link.size(); i++) {
             pilgrim.append("q" + i + " ");
@@ -168,7 +168,7 @@ abstract class AutomatonSpecification {
      * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
      * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
      * png. Więcej w: man dot.
-     * 
+     *
      * @return Kod źródłowy schematu w języku DOT.
      */
     public String getDotGraph() {
@@ -255,4 +255,42 @@ abstract class AutomatonSpecification {
         DotGraph tmp = new DotGraph();
         return tmp.getDotGraph();
     }
+
+    public int countStates() {
+        return allStates().size();
+    }
+
+    public int countTransitions() {
+        int sum = 0;
+        for (State state : allStates()) {
+            sum += allOutgoingTransitions(state).size();
+        }
+        return sum;
+    }
+
+    /**
+     * Wstawia począwszy od stanu state kopię automatu automaton.
+     * Stan state będzie utożsamiony ze stanem
+     * początkowym automatu automaton.
+     */
+    void insert(State state, AutomatonSpecification automaton) {
+      List<State> loadedStates = automaton.allStates();
+      HashMap<State, State> connectedStates = new HashMap<State, State>();
+      State automatonInitialState = automaton.getInitialState();
+      for (State currentState : loadedStates) {
+        if (currentState == automatonInitialState)
+          connectedStates.put(currentState, state);
+        else
+          connectedStates.put(currentState, this.addState());
+      }
+      for (State currentState : loadedStates) {
+        List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
+        for (OutgoingTransition transition : list) {
+          this.addTransition(connectedStates.get(currentState),
+          connectedStates.get(transition.getTargetState()), transition.getTransitionLabel());
+        }
+      }
+    }
+
 };
+
