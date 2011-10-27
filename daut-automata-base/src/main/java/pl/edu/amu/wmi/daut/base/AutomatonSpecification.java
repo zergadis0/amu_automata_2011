@@ -79,6 +79,17 @@ abstract class AutomatonSpecification {
     public abstract boolean isFinal(State state);
 
     /**
+     * Metoda sprawdza czy automat jest pusty.
+     */
+    public boolean isEmpty() {
+
+        List<State> states = allStates();
+        if (states.isEmpty())
+            return true;
+        return false;
+    }
+
+    /**
      * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
      */
     @Override
