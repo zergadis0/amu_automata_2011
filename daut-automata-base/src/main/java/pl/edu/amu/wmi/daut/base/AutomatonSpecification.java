@@ -45,15 +45,15 @@ abstract class AutomatonSpecification {
      * dla podanej listy etykiet przejść.
      * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
      */
-    public State addBranch(List<TransitionLabel> oTransition) {
-        State from = getInitialState();
-        State next = from;
+    public State addBranch(State from, List<TransitionLabel> oTransition) {
+        State prev = from; 
+        State next = prev;
 
-        for (int i = 0; i < oTransition.size(); i++) {
-            from = addTransition(next, oTransition.get(i));
-            next = from;
-        }
-        return from;
+         for (TransitionLabel transition : oTransition) {
+             prev = addTransition(next, transition);
+             next = prev;
+         }
+        return prev;
     }
 
     /**
