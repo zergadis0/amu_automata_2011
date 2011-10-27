@@ -9,10 +9,6 @@ import java.util.List;
 public class TestNaiveAutomatonSpecification extends TestCase {
 
     /**
-     * Prosta etykieta przejścia dla celów testowych.
-     */
-
-    /**
      * Test prostego automatu o trzech stanach.
      */
     public final void testSimpleAutomaton() {
