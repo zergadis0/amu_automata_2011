@@ -184,7 +184,7 @@ abstract class AutomatonSpecification {
      * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
      * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
      * png. Więcej w: man dot.
-     * 
+     *
      * @return Kod źródłowy schematu w języku DOT.
      */
     public String getDotGraph() {
@@ -271,4 +271,17 @@ abstract class AutomatonSpecification {
         DotGraph tmp = new DotGraph();
         return tmp.getDotGraph();
     }
+
+    public int countStates() {
+        return allStates().size();
+    }
+
+    public int countTransitions() {
+        int sum = 0;
+        for (State state : allStates()) {
+            sum += allOutgoingTransitions(state).size();
+        }
+        return sum;
+    }
 };
+
