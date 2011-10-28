@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
+import java.util.ArrayList;
 /**
  * klasa która decyduje czy automat zaakceptuje dany napis.
  */
@@ -52,32 +53,31 @@ public final class AutomatonByRecursion implements Acceptor {
      * akceptującu to napois jest usuwany
      *
      */
-    private static List < String > acceptedWords;
+   // private static List < String > acceptedWords;
+    List<String> acceptedWords = new ArrayList<String>();
     private void acceptedWords(String alphabet, String word, State state) {
         int i=0;
-              List < OutgoingTransition > allOutTransitions;
+              List<OutgoingTransition>allOutTransitions;
               allOutTransitions = automaton.allOutgoingTransitions(state);
                   if (!allOutTransitions.isEmpty()) {
                       for (OutgoingTransition transition : allOutTransitions) {
                           currentLabel = transition.getTransitionLabel();
                           for (i = 0; i < alphabet.length(); i++) {
                             if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
-                                if (!(automaton.isFinal(state)) && (automaton.getInitialState() != state)) {
+                                if (!automaton.isFinal(state) && (automaton.getInitialState() != state)) {
                                         acceptedWords.remove(word);
                                 }
                                     word = word + alphabet.charAt(i);
                                     acceptedWords.add(word);
                                     acceptedWords(alphabet, word, transition.getTargetState());
-                            }
-                            else {
+                            } else {
                                 if (!automaton.isFinal(state)) {
                                     acceptedWords.remove(word);
                                 }
                           }
                       }
                       }
-                  }
-                  else {
+                  } else {
                       if (!automaton.isFinal(state)) {
                           acceptedWords.remove(word);
                       }
