@@ -274,7 +274,6 @@ abstract class AutomatonSpecification {
 
     public boolean acceptEmptyWord() {
 
-        List<State> checked = new ArrayList<State>();
         List<State> tocheck = new ArrayList<State>();
         List<OutgoingTransition> transitions = new ArrayList<OutgoingTransition>();
         TransitionLabel label;
@@ -295,10 +294,9 @@ abstract class AutomatonSpecification {
                 label = transitions.get(j).getTransitionLabel();
                 state = transitions.get(j).getTargetState();
 
-                if (label.canBeEpsilon() && !checked.contains(state) && !tocheck.contains(state)) {
+                if (label.canBeEpsilon() && !tocheck.contains(state)) {
                     tocheck.add(state);
                     iterator++;
-                    checked.add(state);
 
                     if (isFinal(state)) {
                         return true;
