@@ -303,5 +303,42 @@ abstract class AutomatonSpecification {
       }
     }
 
-};
+    public boolean isFull(String alphabet) {
+        int index;
+        for (State state : allStates()) {
+            for (int i = 0; i < alphabet.length(); i++) {
+                for (OutgoingTransition transition : allOutgoingTransitions(state)) {
+                    index = allOutgoingTransitions(state).indexOf(transition);
+                    if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                        break;
+                    else if (index == allOutgoingTransitions(state).size()
+                            && !transition.getTransitionLabel()
+                            .canAcceptCharacter(alphabet.charAt(i)))
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
 
+    public void makeFull(String alphabet) {
+        if (!isFull(alphabet)) {
+            State trash = addState();
+            int indeks;
+            for (State state : allStates()) {
+                for (int i = 0; i < alphabet.length(); i++) {
+                    for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
+                        indeks = allOutgoingTransitions(state).indexOf(transition1);
+                        if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                            break;
+                        else if (indeks == allOutgoingTransitions(state).size()
+                                && !transition1.getTransitionLabel()
+                                .canAcceptCharacter(alphabet.charAt(i)))
+                            addTransition(state, trash,
+                                    new CharTransitionLabel(alphabet.charAt(i)));
+                    }
+                }
+            }
+        }
+    }
+};
