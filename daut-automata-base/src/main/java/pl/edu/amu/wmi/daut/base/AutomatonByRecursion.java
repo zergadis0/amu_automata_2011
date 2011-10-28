@@ -50,12 +50,10 @@ public final class AutomatonByRecursion implements Acceptor {
      * Jeżeli etykieta akceptuje znak z alfabetu,  obecny stan nie jest stanem akceptującym
      * dodaje do słowa symbol a poprzednie słowo usuwa, w przeciwnym wypadku tylko
      * dodaje symbol. Jeżeli z danego stanu nie wychodzą żadne etykiety a stan ten nie jest
-     * akceptującu to napois jest usuwany
-     *
+     * akceptującu to napis jest usuwany
      */
-   // private static List < String > acceptedWords;
     private List<String> acceptedWords = new ArrayList<String>();
-    private void acceptedWords(String alphabet, String word, State state) {
+    public void acceptedWords(String alphabet, String word, State state) {
         int i = 0;
         StringBuffer buf = new StringBuffer();
               List<OutgoingTransition> allOutTransitions;
@@ -68,8 +66,6 @@ public final class AutomatonByRecursion implements Acceptor {
                    if (!(automaton.isFinal(state)) && (automaton.getInitialState() != state)) {
                                         acceptedWords.remove(word);
                    }
-
-                                    //word = word + alphabet.charAt(i);
                                     buf.append(alphabet.charAt(i));
                                     word = buf.toString();
                                     acceptedWords.add(word);
