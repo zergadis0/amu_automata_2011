@@ -41,6 +41,23 @@ abstract class AutomatonSpecification {
     }
 
     /**
+     * Tworzy "gałąź" w automacie.
+     * Metoda dodaje ciąg przejść od stanu początkowego automatu,
+     * dla podanej listy etykiet przejść.
+     * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
+     */
+    public State addBranch(State from, List<TransitionLabel> oTransition) {
+        State prev = from;
+        State next = prev;
+
+         for (TransitionLabel transition : oTransition) {
+             prev = addTransition(next, transition);
+             next = prev;
+         }
+        return prev;
+    }
+
+    /**
      * Oznacza stan jako początkowy.
      */
     public abstract void markAsInitial(State state);
