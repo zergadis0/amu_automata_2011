@@ -88,7 +88,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(emptyTransition.intersect(emptyTransition).isEmpty());
     }
 
-                                             
+
     public final void testAddLoop() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -115,7 +115,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
             assertEquals(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
             assertTrue(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
             assertFalse(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
-            }
+        }
 
         assertTrue(spec.isFinal(r0));
         assertSame(r0, spec.getInitialState());
@@ -124,7 +124,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         assertEquals(states.size(), 1);
 
-}
+    }
 
 
 
