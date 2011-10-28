@@ -26,6 +26,11 @@ class CharTransitionLabel extends TransitionLabel {
         return ch;
     }
 
+    @Override
+    public String toString() {
+        return Character.toString(ch);
+    }
+    
     protected TransitionLabel intersectWith(TransitionLabel label) {
         return label.canAcceptCharacter(ch) ? this : new EmptyTransitionLabel();
     }
