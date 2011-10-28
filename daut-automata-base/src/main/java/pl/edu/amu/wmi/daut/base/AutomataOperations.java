@@ -12,4 +12,8 @@ public class AutomataOperations {
     public static AutomatonSpecification metodaKarola(AutomatonSpecification pierwszy) {
         return pierwszy;
     }
+    
+    public static AutomatonSpecification sum(AutomatonSpecification pierwszy, AutomatonSpecification drugi) {
+        return pierwszy;
+    }
 }
