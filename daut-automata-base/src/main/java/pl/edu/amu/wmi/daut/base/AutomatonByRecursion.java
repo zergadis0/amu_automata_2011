@@ -54,20 +54,25 @@ public final class AutomatonByRecursion implements Acceptor {
      *
      */
    // private static List < String > acceptedWords;
-    List<String> acceptedWords = new ArrayList<String>();
+    private List<String> acceptedWords = new ArrayList<String>();
     private void acceptedWords(String alphabet, String word, State state) {
-        int i=0;
-              List<OutgoingTransition>allOutTransitions;
+        int i = 0;
+        StringBuffer buf = new StringBuffer();
+              List<OutgoingTransition> allOutTransitions;
               allOutTransitions = automaton.allOutgoingTransitions(state);
                   if (!allOutTransitions.isEmpty()) {
                       for (OutgoingTransition transition : allOutTransitions) {
                           currentLabel = transition.getTransitionLabel();
                           for (i = 0; i < alphabet.length(); i++) {
                             if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
-                                if (!automaton.isFinal(state) && (automaton.getInitialState() != state)) {
+                                if (!automaton.isFinal(state)) {
+                                    if (automaton.getInitialState() != state) {
                                         acceptedWords.remove(word);
+                                    }
                                 }
-                                    word = word + alphabet.charAt(i);
+                                    //word = word + alphabet.charAt(i);
+                                    buf.append(alphabet.charAt(i));
+                                    word = buf.toString();
                                     acceptedWords.add(word);
                                     acceptedWords(alphabet, word, transition.getTargetState());
                             } else {
