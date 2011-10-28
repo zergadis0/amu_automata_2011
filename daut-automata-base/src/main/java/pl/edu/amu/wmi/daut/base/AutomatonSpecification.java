@@ -299,7 +299,6 @@ abstract class AutomatonSpecification {
                 }
             }
         }
-
         return false;
     };
 };
