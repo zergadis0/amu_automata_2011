@@ -65,11 +65,10 @@ public final class AutomatonByRecursion implements Acceptor {
                           currentLabel = transition.getTransitionLabel();
                           for (i = 0; i < alphabet.length(); i++) {
                             if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
-                                if (!automaton.isFinal(state)) {
-                                    if (automaton.getInitialState() != state) {
+                   if (!(automaton.isFinal(state)) && (automaton.getInitialState() != state)) {
                                         acceptedWords.remove(word);
-                                    }
-                                }
+                   }
+
                                     //word = word + alphabet.charAt(i);
                                     buf.append(alphabet.charAt(i));
                                     word = buf.toString();
