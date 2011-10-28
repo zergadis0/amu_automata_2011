@@ -53,6 +53,7 @@ public final class AutomatonByRecursion implements Acceptor {
      * akceptującu to napis jest usuwany
      */
     private List<String> acceptedWords = new ArrayList<String>();
+    /** {@inheritDoc}*/
     public void acceptedWords(String alphabet, String word, State state) {
         int i = 0;
         StringBuffer buf = new StringBuffer();
