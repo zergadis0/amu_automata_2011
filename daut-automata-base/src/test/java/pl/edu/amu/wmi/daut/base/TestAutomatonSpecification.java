@@ -7,43 +7,6 @@ import junit.framework.TestCase;
  */
 public class TestAutomatonSpecification extends TestCase {
     
-    /**
-     * Prosta etykieta przejścia dla celów testowych.
-     *
-     * FIXME Powielony kod z TestNaiveAutomatonSpecification -
-     * uporządkować po zrobieniu zadania #104.
-     */
-    private static class TestTransition extends TransitionLabel {
-        /**
-         * Konstruuje etykietę oznaczoną znakiem 'c'.
-         */
-        public TestTransition(char c) {
-            ch_ = c;
-        }
-
-        public boolean canBeEpsilon() {
-            return false;
-        }
-
-        public boolean canAcceptCharacter(char c) {
-            return c == ch_;
-        }
-
-        public boolean isEmpty() {
-            return false;
-        }
-
-        public char getChar() {
-            return ch_;
-        }
-
-        protected TransitionLabel intersectWith(TransitionLabel label) {
-            return label.canAcceptCharacter(ch_) ? this : new EmptyTransitionLabel();
-        }
-
-        private char ch_;
-    }
-    
     public final void testFromString() {
         //TEST 1 Język pusty
         {
@@ -64,7 +27,7 @@ public class TestAutomatonSpecification extends TestCase {
             assertFalse(pusteDziecko.accepts("baba"));
             assertFalse(pusteDziecko.accepts(""));
         }
-        //TEST 2
+        //TEST 2 tylko a^n przy n-nieparzystym
         {
             AutomatonSpecification masakra = new NaiveAutomatonSpecification();
         
