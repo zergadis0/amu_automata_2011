@@ -325,7 +325,7 @@ abstract class AutomatonSpecification {
         }
       }
     }
-    
+
     /**
      * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie
      * napis pusty.
