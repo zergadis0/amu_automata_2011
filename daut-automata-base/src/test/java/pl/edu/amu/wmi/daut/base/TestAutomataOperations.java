@@ -7,51 +7,14 @@ import junit.framework.TestCase;
  */
 public class TestAutomataOperations extends TestCase {
     
-    /**
-     * Prosta etykieta przejścia dla celów testowych.
-     *
-     * FIXME Powielony kod z TestNaiveAutomatonSpecification -
-     * uporządkować po zrobieniu zadania #104.
-     */
-    private static class TestTransition extends TransitionLabel {
-        /**
-         * Konstruuje etykietę oznaczoną znakiem 'c'.
-         */
-        public TestTransition(char c) {
-            ch_ = c;
-        }
-
-        public boolean canBeEpsilon() {
-            return false;
-        }
-
-        public boolean canAcceptCharacter(char c) {
-            return c == ch_;
-        }
-
-        public boolean isEmpty() {
-            return false;
-        }
-
-        public char getChar() {
-            return ch_;
-        }
-
-        protected TransitionLabel intersectWith(TransitionLabel label) {
-            return label.canAcceptCharacter(ch_) ? this : new EmptyTransitionLabel();
-        }
-
-        private char ch_;
-    }
-    
     public final void testMetodaKarola() {
         //TEST 1 Język pusty
         {
             AutomatonSpecification pustyOjciec = new NaiveAutomatonSpecification();
         
             State q0 = pustyOjciec.addState();
-            pustyOjciec.addLoop(q0, new TestTransition('a'));
-            pustyOjciec.addLoop(q0, new TestTransition('b'));
+            pustyOjciec.addLoop(q0, new CharTransitionLabel('a'));
+            pustyOjciec.addLoop(q0, new CharTransitionLabel('b'));
             pustyOjciec.markAsInitial(q0);
         
             AutomatonByRecursion pusteDziecko = new AutomatonByRecursion(AutomataOperations.metodaKarola(pustyOjciec));
@@ -59,6 +22,7 @@ public class TestAutomataOperations extends TestCase {
             assertTrue(pusteDziecko.accepts("a"));
             assertTrue(pusteDziecko.accepts("abba"));
             assertTrue(pusteDziecko.accepts(""));
+            assertFalse(pusteDziecko.accepts("cc"));
         }
         //TEST 2 Automat dziwne a
         {
@@ -68,10 +32,10 @@ public class TestAutomataOperations extends TestCase {
             State q1 = autLucas.addState(); 
             State q2 = autLucas.addState(); 
             State q3 = autLucas.addState();
-            autLucas.addTransition(q0, q1, new TestTransition('a'));
-            autLucas.addTransition(q1, q2, new TestTransition('a'));
-            autLucas.addTransition(q2, q3, new TestTransition('a'));
-            autLucas.addTransition(q3, q1, new TestTransition('a'));
+            autLucas.addTransition(q0, q1, new CharTransitionLabel('a'));
+            autLucas.addTransition(q1, q2, new CharTransitionLabel('a'));
+            autLucas.addTransition(q2, q3, new CharTransitionLabel('a'));
+            autLucas.addTransition(q3, q1, new CharTransitionLabel('a'));
             autLucas.markAsInitial(q0);
             autLucas.markAsFinal(q2);
             autLucas.markAsFinal(q3);
@@ -88,18 +52,18 @@ public class TestAutomataOperations extends TestCase {
             AutomatonSpecification abba = new NaiveAutomatonSpecification();
             
             State q0 = abba.addState();
-            State qa = abba.addTransition(q0, new TestTransition('a'));
-            State qb = abba.addTransition(q0, new TestTransition('b'));
-            State qab = abba.addTransition(qa, new TestTransition('b'));
-            State qba = abba.addTransition(qb, new TestTransition('a'));
-            State smietnik = abba.addTransition(qa, new TestTransition('a'));
-            abba.addTransition(qb, smietnik, new TestTransition('b'));
-            abba.addTransition(qab, smietnik, new TestTransition('a'));
-            abba.addTransition(qab, smietnik, new TestTransition('b'));
-            abba.addTransition(qba, smietnik, new TestTransition('a'));
-            abba.addTransition(qba, smietnik, new TestTransition('b'));
-            abba.addLoop(smietnik, new TestTransition('a'));
-            abba.addLoop(smietnik, new TestTransition('b'));
+            State qa = abba.addTransition(q0, new CharTransitionLabel('a'));
+            State qb = abba.addTransition(q0, new CharTransitionLabel('b'));
+            State qab = abba.addTransition(qa, new CharTransitionLabel('b'));
+            State qba = abba.addTransition(qb, new CharTransitionLabel('a'));
+            State smietnik = abba.addTransition(qa, new CharTransitionLabel('a'));
+            abba.addTransition(qb, smietnik, new CharTransitionLabel('b'));
+            abba.addTransition(qab, smietnik, new CharTransitionLabel('a'));
+            abba.addTransition(qab, smietnik, new CharTransitionLabel('b'));
+            abba.addTransition(qba, smietnik, new CharTransitionLabel('a'));
+            abba.addTransition(qba, smietnik, new CharTransitionLabel('b'));
+            abba.addLoop(smietnik, new CharTransitionLabel('a'));
+            abba.addLoop(smietnik, new CharTransitionLabel('b'));
             abba.markAsInitial(q0);
             abba.markAsFinal(qab);
             abba.markAsFinal(qba);
