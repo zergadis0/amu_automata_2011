@@ -125,14 +125,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertEquals(states.size(), 1);
 
     }
-
-
-
-
-
-}
-
-
+    
     /**
      * Testy metody sprawdzającej, czy akceptowany język jest nieskończony.
      */
@@ -282,3 +275,4 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         automat.markAsFinal(s0);
         assertTrue(automat.isInfinite());
     }
+}
