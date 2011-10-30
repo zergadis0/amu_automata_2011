@@ -270,7 +270,7 @@ abstract class AutomatonSpecification {
 
     public boolean prefixChecker(State state) {
 
-	if (isFinal(state)) {
+        if (isFinal(state)) {
             return true;
         }
 
