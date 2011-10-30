@@ -68,9 +68,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
     
     /**
-     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     * Testy metody sprawdzającej, czy akceptowany język jest nieskończony.
      */
-    public final void testInfiniteLanguage() {
+    public final void testInfinite1() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
         State s1 = automat.addState();
@@ -91,7 +91,130 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         automat.markAsInitial(s0);
         automat.markAsFinal(s4);
         assertTrue(automat.isInfinite());
-        
+    }
+
+    public final void testInfinite2() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+        State s2 = automat.addState();
+        State s3 = automat.addState();
+        automat.addTransition(s0, s1, new TestTransition('a'));
+        automat.addTransition(s1, s2, new TestTransition('a'));
+        automat.addTransition(s2, s3, new TestTransition('a'));
+        automat.addTransition(s3, s1, new TestTransition('a'));
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s2);
+        automat.markAsFinal(s1);
+        assertTrue(automat.isInfinite());
+    }
+
+    public final void testInfinite3() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+        State s2 = automat.addState();
+        State s3 = automat.addState();
+        State s4 = automat.addState();
+        automat.addTransition(s0, s1, new TestTransition('a'));
+        automat.addTransition(s1, s2, new TestTransition('a'));
+        automat.addTransition(s2, s3, new TestTransition('a'));
+        automat.addTransition(s3, s1, new TestTransition('a'));
+        automat.addTransition(s3, s4, new TestTransition('b'));
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s2);
+        automat.markAsFinal(s1);
+        automat.markAsFinal(s4);
+        assertTrue(automat.isInfinite());
+    }
+
+    public final void testInfinite4() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+        State s2 = automat.addState();
+        State s3 = automat.addState();
+        State s4 = automat.addState();
+        State s5 = automat.addState();
+        automat.addTransition(s0, s1, new TestTransition('a'));
+        automat.addTransition(s1, s2, new TestTransition('a'));
+        automat.addTransition(s2, s3, new TestTransition('a'));
+        automat.addTransition(s3, s2, new TestTransition('b'));
+        automat.addTransition(s3, s1, new TestTransition('a'));
+        automat.addTransition(s3, s4, new TestTransition('b'));
+        automat.addTransition(s4, s5, new TestTransition('a'));
+        automat.addTransition(s5, s4, new TestTransition('a'));
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s1);
+        assertTrue(automat.isInfinite());
+    }
+
+    public final void testInfinite5() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+        State s2 = automat.addState();
+        State s3 = automat.addState();
+        State s4 = automat.addState();
+        automat.addTransition(s0, s1, new TestTransition('a'));
+        automat.addTransition(s1, s2, new TestTransition('a'));
+        automat.addTransition(s2, s3, new TestTransition('a'));
+        automat.addTransition(s3, s1, new TestTransition('a'));
+        automat.addTransition(s3, s4, new TestTransition('b'));
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s4);
+        assertFalse(automat.isInfinite());
+    }
+
+    public final void testInfinite6() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+        State s2 = automat.addState();
+        State s3 = automat.addState();
+        State s4 = automat.addState();
+        automat.addTransition(s0, s1, new TestTransition('a'));
+        automat.addTransition(s1, s2, new TestTransition('a'));
+        automat.addTransition(s2, s3, new TestTransition('a'));
+        automat.addTransition(s3, s4, new TestTransition('a'));
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s3);
+        assertFalse(automat.isInfinite());
+    }
+
+    public final void testInfinite7() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+        State s2 = automat.addState();
+        State s3 = automat.addState();
+        automat.addTransition(s1, s2, new TestTransition('a'));
+        automat.addTransition(s2, s3, new TestTransition('a'));
+        automat.addTransition(s3, s1, new TestTransition('a'));
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s2);
+        automat.markAsFinal(s1);
+        assertFalse(automat.isInfinite());
+    }
+
+    public final void testInfinite8() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+        automat.addLoop(s0, new TestTransition('a'));
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s0);
+        assertTrue(automat.isInfinite());
+    }
+
+    public final void testInfinite9() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+        automat.addTransition(s0, s1, new TestTransition('a'));
+        automat.addTransition(s1, s0, new TestTransition('a'));
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s0);
+        assertTrue(automat.isInfinite());
     }
 
     /**
