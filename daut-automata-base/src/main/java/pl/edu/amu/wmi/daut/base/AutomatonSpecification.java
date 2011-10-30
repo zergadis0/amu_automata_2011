@@ -392,9 +392,8 @@ abstract class AutomatonSpecification {
     private boolean checkForLoop(State state, List<State> history) { 
     for (State his : history)
         if (his == state)
-            if(isFinal(state))
-                return true;
-            else return false;
+            return isFinal(state);
+    
     if (allOutgoingTransitions(state).size() == 0)
             return false;
         history.add(state);
