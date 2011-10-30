@@ -361,7 +361,7 @@ abstract class AutomatonSpecification {
     }
 
     /**
-     * Sprawdza, czy akceptowany język jest niesko�?czony.
+     * Sprawdza, czy akceptowany język jest nieskończony.
      */
     public boolean isInfinite() {
             return  findFinals(getInitialState(), new ArrayList<State>());
