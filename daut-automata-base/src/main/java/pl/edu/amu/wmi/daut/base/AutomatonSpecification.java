@@ -367,40 +367,40 @@ abstract class AutomatonSpecification {
             return  findFinals(getInitialState(), new ArrayList<State>());
     }
 
-    private boolean findFinals(State state, List<State> history){
+    private boolean findFinals(State state, List<State> history) {
     boolean result = false;
-    
+
     if (isFinal(state))
         return checkForLoop(state, new ArrayList<State>());
-    
+
     if (allOutgoingTransitions(state).size() == 0)
                 return false;
-    
+
     for (State his : history)
             if (his == state)
                 return false;
        history.add(state);
-    
+
     for (OutgoingTransition child : allOutgoingTransitions(state)) {
                 result = result || findFinals(child.getTargetState(), history);
-                if(result)
+                if (result)
                 break;
         }
             return result;
     }
 
-    private boolean checkForLoop(State state, List<State> history) { 
+    private boolean checkForLoop(State state, List<State> history) {
     for (State his : history)
         if (his == state)
             return isFinal(state);
-    
+
     if (allOutgoingTransitions(state).size() == 0)
             return false;
         history.add(state);
         boolean result = false;
         for (OutgoingTransition child : allOutgoingTransitions(state)) {
               result = result || checkForLoop(child.getTargetState(), history);
-              if(result)
+              if (result)
              break;
         }
         return result;
