@@ -2,6 +2,7 @@ package pl.edu.amu.wmi.daut.base;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -41,6 +42,23 @@ abstract class AutomatonSpecification {
     }
 
     /**
+     * Tworzy "gałąź" w automacie.
+     * Metoda dodaje ciąg przejść od stanu początkowego automatu,
+     * dla podanej listy etykiet przejść.
+     * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
+     */
+    public State addBranch(State from, List<TransitionLabel> oTransition) {
+        State prev = from;
+        State next = prev;
+
+         for (TransitionLabel transition : oTransition) {
+             prev = addTransition(next, transition);
+             next = prev;
+         }
+        return prev;
+    }
+
+    /**
      * Oznacza stan jako początkowy.
      */
     public abstract void markAsInitial(State state);
@@ -77,6 +95,17 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem końcowym.
      */
     public abstract boolean isFinal(State state);
+
+    /**
+     * Metoda sprawdza czy automat jest pusty.
+     */
+    public boolean isEmpty() {
+
+        List<State> states = allStates();
+        if (states.isEmpty())
+            return true;
+        return false;
+    }
 
     /**
      * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
@@ -268,31 +297,113 @@ abstract class AutomatonSpecification {
         return sum;
     }
 
-    public boolean isInfinit() {
-        boolean result = true;
-        for (State state : allStates()) {
-            result = result && checkChild(state, new ArrayList<State>());
+    /**
+     * Wstawia począwszy od stanu state kopię automatu automaton.
+     * Stan state będzie utożsamiony ze stanem
+     * początkowym automatu automaton.
+     */
+    void insert(State state, AutomatonSpecification automaton) {
+      List<State> loadedStates = automaton.allStates();
+      HashMap<State, State> connectedStates = new HashMap<State, State>();
+      State automatonInitialState = automaton.getInitialState();
+      for (State currentState : loadedStates) {
+        if (currentState == automatonInitialState)
+          connectedStates.put(currentState, state);
+        else
+          connectedStates.put(currentState, this.addState());
+      }
+      for (State currentState : loadedStates) {
+        List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
+        for (OutgoingTransition transition : list) {
+          this.addTransition(connectedStates.get(currentState),
+          connectedStates.get(transition.getTargetState()), transition.getTransitionLabel());
         }
-        return result;
-   }
+      }
+    }
 
-    public boolean checkChild(State state, List<State> history) {
-        if (allOutgoingTransitions(state).size() == 0)
-            return false;
+    public boolean isFull(String alphabet) {
+        int index;
+        for (State state : allStates()) {
+            for (int i = 0; i < alphabet.length(); i++) {
+                for (OutgoingTransition transition : allOutgoingTransitions(state)) {
+                    index = allOutgoingTransitions(state).indexOf(transition);
+                    if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                        break;
+                    else if (index == allOutgoingTransitions(state).size()
+                            && !transition.getTransitionLabel()
+                            .canAcceptCharacter(alphabet.charAt(i)))
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
 
-        if (isFinal(state))
-            return true;
+    public void makeFull(String alphabet) {
+        if (!isFull(alphabet)) {
+            State trash = addState();
+            int indeks;
+            for (State state : allStates()) {
+                for (int i = 0; i < alphabet.length(); i++) {
+                    for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
+                        indeks = allOutgoingTransitions(state).indexOf(transition1);
+                        if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                            break;
+                        else if (indeks == allOutgoingTransitions(state).size()
+                                && !transition1.getTransitionLabel()
+                                .canAcceptCharacter(alphabet.charAt(i)))
+                            addTransition(state, trash,
+                                    new CharTransitionLabel(alphabet.charAt(i)));
+                    }
+                }
+            }
+        }
+    }
 
-        for (State his : history) {
+    /**
+     * Sprawdza, czy akceptowany język jest niesko�?czony.
+     */
+    public boolean isInfinite() {
+            return  findFinals(getInitialState(), new ArrayList<State>());
+    }
+
+    private boolean findFinals(State state, List<State> history){
+    boolean result = false;
+    
+    if (isFinal(state))
+        return checkForLoop(state, new ArrayList<State>());
+    
+    if (allOutgoingTransitions(state).size() == 0)
+                return false;
+    
+    for (State his : history)
             if (his == state)
                 return false;
+       history.add(state);
+    
+    for (OutgoingTransition child : allOutgoingTransitions(state)) {
+                result = result || findFinals(child.getTargetState(), history);
+                if(result)
+                break;
         }
+            return result;
+    }
 
+    private boolean checkForLoop(State state, List<State> history) { 
+    for (State his : history)
+        if (his == state)
+            if(isFinal(state))
+                return true;
+            else return false;
+    if (allOutgoingTransitions(state).size() == 0)
+            return false;
         history.add(state);
-        boolean result = true;
+        boolean result = false;
         for (OutgoingTransition child : allOutgoingTransitions(state)) {
-              result = result && checkChild(child.getTargetState(), history);
+              result = result || checkForLoop(child.getTargetState(), history);
+              if(result)
+             break;
         }
         return result;
-   }
+    }
 };
