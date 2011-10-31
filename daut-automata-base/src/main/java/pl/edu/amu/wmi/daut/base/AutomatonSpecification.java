@@ -17,21 +17,21 @@ abstract class AutomatonSpecification {
     // metody "budujące" automat
 
     /**
-    * Dodaje nowy stan do automatu.
-    *
-    * Zwraca dodany stan.
-    */
+     * Dodaje nowy stan do automatu.
+     *
+     * Zwraca dodany stan.
+     */
     public abstract State addState();
 
     /**
-    * Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą transitionLabel.
-    */
+     * Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą transitionLabel.
+     */
     public abstract void addTransition(State from, State to, TransitionLabel transitionLabel);
 
     /**
-    * Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to' etykietowane etykietą
-    * transitionLabel, a następnie zwraca utworzony stan.
-    */
+     * Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to' etykietowane etykietą
+     * transitionLabel, a następnie zwraca utworzony stan.
+     */
     public State addTransition(State from, TransitionLabel transitionLabel) {
 
         State to = addState();
@@ -41,46 +41,46 @@ abstract class AutomatonSpecification {
     }
 
     /**
-    * Oznacza stan jako początkowy.
-    */
+     * Oznacza stan jako początkowy.
+     */
     public abstract void markAsInitial(State state);
 
     /**
-    * Oznacza stan jako końcowy (akceptujący).
-    */
+     * Oznacza stan jako końcowy (akceptujący).
+     */
     public abstract void markAsFinal(State state);
 
     // metody zwracające informacje o automacie
 
     /**
-    * Zwraca listę wszystkich stanów.
-    *
-    * Stany niekoniecznie muszą być zwrócone w identycznej
-    * kolejności jak były dodane.
-    */
+     * Zwraca listę wszystkich stanów.
+     *
+     * Stany niekoniecznie muszą być zwrócone w identycznej
+     * kolejności jak były dodane.
+     */
     public abstract List<State> allStates();
 
     /**
-    * Zwraca listę wszystkich przejść wychodzących ze stanu 'from'.
-    *
-    * Przejścia niekoniecznie muszą być zwrócone w identycznej
-    * kolejności jak były dodane.
-    */
+     * Zwraca listę wszystkich przejść wychodzących ze stanu 'from'.
+     *
+     * Przejścia niekoniecznie muszą być zwrócone w identycznej
+     * kolejności jak były dodane.
+     */
     public abstract List<OutgoingTransition> allOutgoingTransitions(State from);
 
     /**
-    * Zwraca stan początkowy.
-    */
+     * Zwraca stan początkowy.
+     */
     public abstract State getInitialState();
 
     /**
-    * Zwraca true wgdy stan jest stanem końcowym.
-    */
+     * Zwraca true wgdy stan jest stanem końcowym.
+     */
     public abstract boolean isFinal(State state);
 
     /**
-    * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
-    */
+     * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
+     */
     @Override
     public String toString() {
         StringBuffer pilgrim = new StringBuffer("Automaton:\n-States: ");
@@ -154,23 +154,23 @@ abstract class AutomatonSpecification {
     }
 
     /**
-    * Dodaje przejście od stanu state z powrotem do tego samego stanu
-    * po etykiecie transitionLabel.
-    */
+     * Dodaje przejście od stanu state z powrotem do tego samego stanu
+     * po etykiecie transitionLabel.
+     */
     public void addLoop(State state, TransitionLabel transitionLabel) {
 
         addTransition(state, state, transitionLabel);
     }
 
     /**
-    * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT służący do
-    * przedstawienia automatu w formie graficznej, (w ubuntu pakiet
-    * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
-    * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
-    * png. Więcej w: man dot.
-    *
-    * @return Kod źródłowy schematu w języku DOT.
-    */
+     * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT służący do
+     * przedstawienia automatu w formie graficznej, (w ubuntu pakiet
+     * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
+     * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
+     * png. Więcej w: man dot.
+     *
+     * @return Kod źródłowy schematu w języku DOT.
+     */
     public String getDotGraph() {
 
         class DotGraph {
@@ -269,8 +269,8 @@ abstract class AutomatonSpecification {
     }
 
     /**
-    * Zwraca true, gdy automat akceptuje napis pusty.
-    */
+     * Zwraca true, gdy automat akceptuje napis pusty.
+     */
 
     public boolean acceptEmptyWord() {
 
