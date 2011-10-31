@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 import junit.framework.TestCase;
 
 /**
- * Przykładowe testy przykładowej klasy NaiveAutomatonSpecification.
+ * Testy klasy AutomatonSpecification.
  */
 public class TestAutomatonSpecification extends TestCase {
 
