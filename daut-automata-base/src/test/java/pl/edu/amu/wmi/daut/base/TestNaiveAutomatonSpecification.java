@@ -88,7 +88,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(emptyTransition.intersect(emptyTransition).isEmpty());
     }
 
-
+    /**
+     * Test metody dodajˆcej p«tle
+     */
     public final void testAddLoop() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -126,6 +128,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
     }
 
+    /**
+     * Test metody tworzˆcej jednostanowy automat z jednˆ p«tlˆ
+     */
     public final void testmakeOneLoopAutomaton(char c) {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -163,6 +168,47 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
     }
 
+    /**
+     * Test metody tworzˆcej dwustanowy automat z jednym przejæciem
+     */
+    public final void testmakeOneTransitionAutomaton(char c) {
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
+        //budowanie
+
+        State s0 = spec.addState();
+        State s1 = spec.addState();
+        spec.addTransition(s0, s1, new CharTransitionLabel('c'));
+        spec.markAsInitial(s0);
+        spec.markAsFinal(s1);
+
+        //testowanie
+
+        State r0 = spec.getInitialState();
+
+        List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
+
+        assertEquals(r0Outs.size(), 1);
+        assertFalse(spec.isFinal(r0));
+
+        State r1;
+
+        if (((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar() == 'c') {
+            r1 = r0Outs.get(0).getTargetState();
+            assertEquals(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar(), 'c');
+            assertTrue(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+            assertFalse(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
+        }
+
+        assertFalse(spec.isFinal(r0));
+        assertTrue(spec.isFinal(r1));
+        assertSame(r0, spec.getInitialState());
+        assertNotSame(r0, r1);
+
+        List<State> states = spec.allStates();
+
+        assertEquals(states.size(), 2);
+
+    }
 
 }
