@@ -89,7 +89,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody dodajˆcej p«tle
+     * Test metody dodajacej petle
      */
     public final void testAddLoop() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
@@ -129,7 +129,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody tworzˆcej jednostanowy automat z jednˆ p«tlˆ
+     * Test metody tworzacej jednostanowy automat z jedna petla
      */
     public final void testmakeOneLoopAutomaton(char c) {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
@@ -169,7 +169,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody tworzˆcej dwustanowy automat z jednym przejæciem
+     * Test metody tworzacej dwustanowy automat z jednym przejsciem
      */
     public final void testmakeOneTransitionAutomaton(char c) {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
