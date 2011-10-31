@@ -10,6 +10,7 @@ public class NaiveDeterministicAutomatonSpecification extends DeterministicAutom
 
     private NaiveAutomatonSpecification automatonSpec = new NaiveAutomatonSpecification();
 
+    @Override
     public List<State> allStates() {
         return automatonSpec.allStates();
     }
