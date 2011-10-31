@@ -2,7 +2,6 @@ package pl.edu.amu.wmi.daut.base;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
 
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -267,103 +266,6 @@ abstract class AutomatonSpecification {
             sum += allOutgoingTransitions(state).size();
         }
         return sum;
-    }
-    
-    /**
-    * Wstawia począwszy od stanu state kopię automatu automaton.
-    * Stan state będzie utożsamiony ze stanem
-    * początkowym automatu automaton.
-    */
-    void insert(State state, AutomatonSpecification automaton) {
-      List<State> loadedStates = automaton.allStates();
-      HashMap<State, State> connectedStates = new HashMap<State, State>();
-      State automatonInitialState = automaton.getInitialState();
-      for (State currentState : loadedStates) {
-        if (currentState == automatonInitialState)
-          connectedStates.put(currentState, state);
-        else
-          connectedStates.put(currentState, this.addState());
-      }
-      for (State currentState : loadedStates) {
-        List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
-        for (OutgoingTransition transition : list) {
-          this.addTransition(connectedStates.get(currentState),
-          connectedStates.get(transition.getTargetState()), transition.getTransitionLabel());
-        }
-      }
-    }
-
-    public boolean isFull(String alphabet) {
-        int index;
-        for (State state : allStates()) {
-            for (int i = 0; i < alphabet.length(); i++) {
-                for (OutgoingTransition transition : allOutgoingTransitions(state)) {
-                    index = allOutgoingTransitions(state).indexOf(transition);
-                    if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
-                        break;
-                    else if (index == allOutgoingTransitions(state).size()
-                            && !transition.getTransitionLabel()
-                            .canAcceptCharacter(alphabet.charAt(i)))
-                        return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public void makeFull(String alphabet) {
-        if (!isFull(alphabet)) {
-            State trash = addState();
-            int indeks;
-            for (State state : allStates()) {
-                for (int i = 0; i < alphabet.length(); i++) {
-                    for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                        indeks = allOutgoingTransitions(state).indexOf(transition1);
-                        if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
-                            break;
-                        else if (indeks == allOutgoingTransitions(state).size()
-                                && !transition1.getTransitionLabel()
-                                .canAcceptCharacter(alphabet.charAt(i)))
-                            addTransition(state, trash,
-                                    new CharTransitionLabel(alphabet.charAt(i)));
-                    }
-                }
-            }
-        }
-    }
-
-    public boolean prefixChecker(State state) {
-
-        if (isFinal(state)) {
-            return true;
-        }
-
-        List<State> checkedStates = new ArrayList<State>();
-        List<OutgoingTransition> outgoing = new ArrayList<OutgoingTransition>();
-        State currentState;
-
-        checkedStates.add(state);
-        int limit = checkedStates.size();
-
-        for (int i = 0; i < limit; i++) {
-            outgoing.clear();
-            outgoing = allOutgoingTransitions(checkedStates.get(i));
-
-            for (int j = 0; j < outgoing.size(); j++) {
-
-                currentState = outgoing.get(j).getTargetState();
-
-                if (isFinal(currentState)) {
-                        return true;
-                }
-
-                if (!checkedStates.contains(currentState)) {
-                    checkedStates.add(currentState);
-                    limit++;
-                }
-            }
-        }
-        return false;
     }
 
     /**
