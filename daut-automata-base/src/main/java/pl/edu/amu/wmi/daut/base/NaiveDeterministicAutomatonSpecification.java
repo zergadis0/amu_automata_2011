@@ -20,7 +20,7 @@ public class NaiveDeterministicAutomatonSpecification extends DeterministicAutom
 
     @Override
     public State targetState(State from, char c) {
-        // są warningi ponieważ klasa State nie jest typu public 
+        // są warningi ponieważ klasa State nie jest typu public
         for (OutgoingTransition outgoingTransition : allOutgoingTransitions(from)) {
             if (outgoingTransition.getTransitionLabel().canAcceptCharacter(c)) {
                 return outgoingTransition.getTargetState();
