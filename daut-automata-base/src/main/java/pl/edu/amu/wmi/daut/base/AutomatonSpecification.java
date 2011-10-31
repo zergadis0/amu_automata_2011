@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 
@@ -358,4 +359,39 @@ abstract class AutomatonSpecification {
             }
         }
     }
+
+    public boolean prefixChecker(State state) {
+
+        if (isFinal(state)) {
+            return true;
+        }
+
+        List<State> checkedStates = new ArrayList<State>();
+        List<OutgoingTransition> outgoing = new ArrayList<OutgoingTransition>();
+        State currentState;
+
+        checkedStates.add(state);
+        int limit = checkedStates.size();
+
+        for (int i = 0; i < limit; i++) {
+            outgoing.clear();
+            outgoing = allOutgoingTransitions(checkedStates.get(i));
+
+            for (int j = 0; j < outgoing.size(); j++) {
+
+                currentState = outgoing.get(j).getTargetState();
+
+                if (isFinal(currentState)) {
+                        return true;
+                }
+
+                if (!checkedStates.contains(currentState)) {
+                    checkedStates.add(currentState);
+                    limit++;
+                }
+            }
+        }
+        return false;
+    }
+
 };
