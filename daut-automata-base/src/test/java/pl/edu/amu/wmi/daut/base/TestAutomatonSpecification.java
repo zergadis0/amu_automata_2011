@@ -19,7 +19,8 @@ public class TestAutomatonSpecification extends TestCase {
         class AutomatonString {
             private String states, transitions, istates, fstates;
 
-            public AutomatonString(String states, String transitions, String istates, String fstates) {
+            public AutomatonString(String states, String transitions, String istates,
+                    String fstates) {
                 this.states = states;
                 this.transitions = transitions;
                 this.istates = istates;
