@@ -162,7 +162,4 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertEquals(states.size(), 1);
 
     }
-
-
-
 }
