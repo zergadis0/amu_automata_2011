@@ -224,4 +224,41 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         str = new AutomatonString("", "", "", "");
         assertEquals(str.toString(), ta4.toString());
     }
+
+    public final void testmakeOneLoopAutomaton(char c) {
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+
+        //budowanie
+
+        State s0 = spec.addState();
+        spec.addLoop(s0, new CharTransitionLabel('c'));
+        spec.markAsInitial(s0);
+        spec.markAsFinal(s0);
+
+        //testowanie
+
+        State r0 = spec.getInitialState();
+
+        List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
+
+        assertEquals(r0Outs.size(), 1);
+        assertTrue(spec.isFinal(r0));
+
+        State r1;
+
+        if (((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar() == 'c') {
+            r1 = r0Outs.get(0).getTargetState();
+            assertEquals(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar(), 'c');
+            assertTrue(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+            assertFalse(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
+        }
+
+        assertTrue(spec.isFinal(r0));
+        assertSame(r0, spec.getInitialState());
+
+        List<State> states = spec.allStates();
+
+        assertEquals(states.size(), 1);
+
+    }
 }
