@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
 import junit.framework.TestCase;
-import java.util.List;
 
 /**
  * Przykładowe testy przykładowej klasy NaiveAutomatonSpecification.
