@@ -46,6 +46,31 @@ public class TestAutomatonSpecification extends TestCase {
             assertFalse(angle.accepts(""));
             assertTrue(angle.accepts("aaa"));
         }
+        //TEST 3 całkowicie niepoprawny string
+        {
+            AutomatonSpecification niepoprawny = new NaiveAutomatonSpecification();
+
+            String slowo3 = "niepoprawnywogolestring";
+
+            try {
+                niepoprawny.fromString(slowo3);
+            } catch (Exception e) {
+                assertTrue("Poprawna reakcja na całkowicie niepoprawny String.", true);
+            }
+        }
+        //TEST 4 błędny string
+        {
+            AutomatonSpecification bledny = new NaiveAutomatonSpecification();
+
+            String slowo4 = "Automaton:\n-States: q0\n-Transitions:\n"+
+         "q2 -a-> q4\nq4 -a-> q0\n-Initial state: q4\n-Final states: q0";
+
+            try {
+                bledny.fromString(slowo4);
+            } catch (Exception e) {
+                assertTrue("Poprawna reakcja na błędny String.", true);
+            }
+        }
     }
     
     /**
@@ -60,7 +85,8 @@ public class TestAutomatonSpecification extends TestCase {
         class AutomatonString {
             private String states, transitions, istates, fstates;
 
-            public AutomatonString(String states, String transitions, String istates, String fstates) {
+            public AutomatonString(String states, String transitions, String istates,
+                    String fstates) {
                 this.states = states;
                 this.transitions = transitions;
                 this.istates = istates;

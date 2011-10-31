@@ -17,7 +17,8 @@ public class TestAutomataOperations extends TestCase {
             pustyOjciec.addLoop(q0, new CharTransitionLabel('b'));
             pustyOjciec.markAsInitial(q0);
         
-            AutomatonByRecursion pusteDziecko = new AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(pustyOjciec));
+            AutomatonByRecursion pusteDziecko = new
+                    AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(pustyOjciec));
         
             assertTrue(pusteDziecko.accepts("a"));
             assertTrue(pusteDziecko.accepts("abba"));
