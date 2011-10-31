@@ -135,10 +135,11 @@ abstract class AutomatonSpecification {
         pilgrim.append("-Initial state: ");
         for (int i = 0; i < link.size(); i++) {
             if (link.get(i) == getInitialState()) {
-                pilgrim.append("q" + i + "\n-Final states: ");
+                pilgrim.append("q" + i);
                 break;
             }
         }
+        pilgrim.append("\n-Final states: ");
         for (int i = 0; i < link.size(); i++) {
             if (isFinal(link.get(i))) {
                 pilgrim.append("q" + i + " ");
