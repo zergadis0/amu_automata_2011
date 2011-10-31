@@ -118,12 +118,12 @@ abstract class AutomatonSpecification {
         return pilgrim.toString();
     };
    /**
-    * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
-    * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
-    * sytuacji, gdy epsilon-przejście jest jedynym sposobem wyjścia ze stanu)
-    * oraz czy przejścia z danego stanu do innych stanów odbywają się po
-    * różnych znakach).
-    */
+     * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
+     * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
+     * sytuacji, gdy epsilon-przejście jest jedynym sposobem wyjścia ze stanu)
+     * oraz czy przejścia z danego stanu do innych stanów odbywają się po
+     * różnych znakach).
+     */
     public boolean isDeterministic() {
         List<State> states = allStates();
 
@@ -168,7 +168,7 @@ abstract class AutomatonSpecification {
      * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
      * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
      * png. Więcej w: man dot.
-     *
+     * 
      * @return Kod źródłowy schematu w języku DOT.
      */
     public String getDotGraph() {
