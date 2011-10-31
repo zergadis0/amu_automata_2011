@@ -71,7 +71,7 @@ abstract class AutomatonSpecification {
         boolean flag2 = false;
         State q = getInitialState();
         List<State> stack = new ArrayList<State>();
-        List<State> used = new ArrayList<State>();
+        List<State> used;
         used = allStates();
         int x = 0;
         while (true) {
