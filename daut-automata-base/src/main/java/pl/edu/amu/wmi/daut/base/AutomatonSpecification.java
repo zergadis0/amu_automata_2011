@@ -72,15 +72,14 @@ abstract class AutomatonSpecification {
        boolean flag2 = false;
        State q = getInitialState();
        List<State> stack = new ArrayList<State>();
-       List<OutgoingTransition> outTrans = new ArrayList<OutgoingTransition>();
        List<State> used = new ArrayList<State>();
        used = allStates();
        int x = 0;
        while (true) {
            if (flag1) {
-               outTrans = allOutgoingTransitions(q);
-               for (int i = 1; i <= outTrans.size(); i++) {
-                   stack.add(outTrans.get(i).getTargetState()); } 
+               for (int i = 1; i <= allOutgoingTransitions(q).size(); i++) {
+                   stack.add(allOutgoingTransitions(q).get(i).getTargetState()); 
+               } 
            }
            if (!stack.isEmpty()) {
                flag1 = true;
@@ -89,19 +88,16 @@ abstract class AutomatonSpecification {
                    if (used.get(i) == q) {
                        flag2 = true;
                        x = i;
-                       break; 
-                   } 
+                       break; } 
                }
                if (flag2) {
                    used.remove(x);
                    flag2 = false;
-                   continue; 
-               }
-               else flag1 = false; 
-           }
-           else break; }
-       for (int i = 1; i <= used.size(); i++) {
-           if (used.get(i) != null) return true; 
+                   continue; }
+               else flag1 = false; }
+           else break; 
        }
+       for (int i = 1; i <= used.size(); i++) {
+           if (used.get(i) != null) return true; }
        return false; }
 };
