@@ -55,7 +55,7 @@ public class TestAutomatonSpecification extends TestCase {
             try {
                 niepoprawny.fromString(slowo3);
             } catch (Exception e) {
-                assertTrue("Poprawna reakcja na całkowicie niepoprawny String.", true);
+                assertTrue(true);
             }
         }
         //TEST 4 błędny string
@@ -68,7 +68,7 @@ public class TestAutomatonSpecification extends TestCase {
             try {
                 bledny.fromString(slowo4);
             } catch (Exception e) {
-                assertTrue("Poprawna reakcja na błędny String.", true);
+                assertTrue(true);
             }
         }
     }
