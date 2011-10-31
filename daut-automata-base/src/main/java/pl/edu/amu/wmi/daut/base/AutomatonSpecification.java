@@ -66,51 +66,46 @@ abstract class AutomatonSpecification {
      */
     public abstract boolean isFinal(State state);
     
-    //true-istnieją stany zbędne
-    public boolean uselessStates()
-    {
-       boolean flag1=true;
-       boolean flag2= false;
+       //true-istnieją stany zbędne
+    public boolean uselessStates(){
+       boolean flag1 = true;
+       boolean flag2 = false;
        State q = getInitialState();
        List<State> stack = new ArrayList<State>();
        List<OutgoingTransition> outTrans = new ArrayList<OutgoingTransition>();
        List<State> used = new ArrayList<State>();
        used = allStates();
-       int x=0;
-       
-       while (true){
-           if (flag1==true){
+       int x = 0;
+       while (true) {
+           if (flag1) {
                outTrans = allOutgoingTransitions(q);
-               for (int i=1; i<=outTrans.size(); i++){
+               for (int i = 1; i <= outTrans.size(); i++) {
                    stack.add(outTrans.get(i).getTargetState());
                }
            }
-           if (!stack.isEmpty()){
-               flag1=true;
-               q=stack.get(stack.size());
-               for (int i=1;i<=used.size();i++){
-                   if (used.get(i)==q){
-                       flag2=true;
-                       x=i;
+           if (!stack.isEmpty()) {
+               flag1 = true;
+               q = stack.get(stack.size());
+               for (int i = 1;i <= used.size();i++){
+                   if (used.get(i) == q){
+                       flag2 = true;
+                       x = i;
                        break;
                    }
                }
-               if (flag2){
+               if (flag2) {
                    used.remove(x);
-                   flag2=false;
+                   flag2 = false;
                    continue;
                }
-               else flag1=false;
-           }
-           else break;
-       }
+               else flag1 = false; }
+           else break; }
        
-       for (int i=1;i<=used.size();i++){
-           if (used.get(i)!=null){
+       for (int i = 1;i <= used.size();i++) {
+           if (used.get(i) != null) {
                return true;
            }
        }
        return false;
     }
-    
 };
