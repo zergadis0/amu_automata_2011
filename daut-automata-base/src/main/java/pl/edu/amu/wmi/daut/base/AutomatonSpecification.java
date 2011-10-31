@@ -42,11 +42,11 @@ abstract class AutomatonSpecification {
     }
 
     /**
-* Tworzy "gałąź" w automacie.
-* Metoda dodaje ciąg przejść od stanu początkowego automatu,
-* dla podanej listy etykiet przejść.
-* Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
-*/
+     * Tworzy "gałąź" w automacie.
+     * Metoda dodaje ciąg przejść od stanu początkowego automatu,
+     * dla podanej listy etykiet przejść.
+     * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
+     */
     public State addBranch(State from, List<TransitionLabel> oTransition) {
         State prev = from;
         State next = prev;
@@ -59,8 +59,8 @@ abstract class AutomatonSpecification {
     }
 
     /**
-* Oznacza stan jako początkowy.
-*/
+     * Oznacza stan jako początkowy.
+     */
     public abstract void markAsInitial(State state);
 
     /**
@@ -97,8 +97,8 @@ abstract class AutomatonSpecification {
     public abstract boolean isFinal(State state);
 
     /**
-* Metoda sprawdza czy automat jest pusty.
-*/
+     * Metoda sprawdza czy automat jest pusty.
+     */
     public boolean isEmpty() {
 
         List<State> states = allStates();
@@ -108,8 +108,8 @@ abstract class AutomatonSpecification {
     }
 
     /**
-* Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
-*/
+     * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
+     */
     @Override
     public String toString() {
         StringBuffer pilgrim = new StringBuffer("Automaton:\n-States: ");
@@ -298,10 +298,10 @@ abstract class AutomatonSpecification {
     }
 
     /**
-* Wstawia począwszy od stanu state kopię automatu automaton.
-* Stan state będzie utożsamiony ze stanem
-* początkowym automatu automaton.
-*/
+     * Wstawia począwszy od stanu state kopię automatu automaton.
+     * Stan state będzie utożsamiony ze stanem
+     * początkowym automatu automaton.
+     */
     void insert(State state, AutomatonSpecification automaton) {
       List<State> loadedStates = automaton.allStates();
       HashMap<State, State> connectedStates = new HashMap<State, State>();
@@ -393,7 +393,6 @@ abstract class AutomatonSpecification {
         }
         return false;
     }
-
 
  
     /**
