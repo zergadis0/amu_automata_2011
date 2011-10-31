@@ -12,7 +12,7 @@ public class AutomataOperations {
      * Metoda zwracajaca Automat akceptujacy jezyk bedacy dopelnieniem jezyka
      * akceptowanego przez Automat otrzymywany "na wejsciu".
      */
-    public static AutomatonSpecification metodaKarola(AutomatonSpecification pierwszy) {
+    public static AutomatonSpecification complementLanguageAutomaton(AutomatonSpecification pierwszy) {
         return pierwszy;
     }
 }

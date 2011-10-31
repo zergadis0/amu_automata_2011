@@ -7,7 +7,7 @@ import junit.framework.TestCase;
  */
 public class TestAutomataOperations extends TestCase {
     
-    public final void testMetodaKarola() {
+    public final void testComplementLanguageAutomaton() {
         //TEST 1 Język pusty
         {
             AutomatonSpecification pustyOjciec = new NaiveAutomatonSpecification();
@@ -17,7 +17,7 @@ public class TestAutomataOperations extends TestCase {
             pustyOjciec.addLoop(q0, new CharTransitionLabel('b'));
             pustyOjciec.markAsInitial(q0);
         
-            AutomatonByRecursion pusteDziecko = new AutomatonByRecursion(AutomataOperations.metodaKarola(pustyOjciec));
+            AutomatonByRecursion pusteDziecko = new AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(pustyOjciec));
         
             assertTrue(pusteDziecko.accepts("a"));
             assertTrue(pusteDziecko.accepts("abba"));
@@ -40,7 +40,7 @@ public class TestAutomataOperations extends TestCase {
             autLucas.markAsFinal(q2);
             autLucas.markAsFinal(q3);
         
-            AutomatonByRecursion autLucasBR = new AutomatonByRecursion(AutomataOperations.metodaKarola(autLucas));
+            AutomatonByRecursion autLucasBR = new AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(autLucas));
             
             assertFalse(autLucasBR.accepts(""));
             assertFalse(autLucasBR.accepts("a"));
@@ -68,7 +68,7 @@ public class TestAutomataOperations extends TestCase {
             abba.markAsFinal(qab);
             abba.markAsFinal(qba);
             
-            AutomatonByRecursion abbaBR = new AutomatonByRecursion(AutomataOperations.metodaKarola(abba));
+            AutomatonByRecursion abbaBR = new AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(abba));
             
             assertTrue(abbaBR.accepts(""));
             assertTrue(abbaBR.accepts("a"));
