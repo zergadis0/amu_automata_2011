@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
+import java.util.ArrayList;
 // mała modyfikacja na potrzeby pierwszych ćwiczeń
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -64,4 +65,52 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem końcowym.
      */
     public abstract boolean isFinal(State state);
+    
+    //true-istnieją stany zbędne
+    public boolean uselessStates()
+    {
+       boolean flag1=true;
+       boolean flag2= false;
+       State q = getInitialState();
+       List<State> stack = new ArrayList<State>();
+       List<State> outTrans = new ArrayList<State>();
+       List<State> used = new ArrayList<State>();
+       used = allStates();
+       int x=0;
+       
+       while (true){
+           if (flag1==true){
+               outTrans = allOutgoingTransistions(q);
+               for (int i=1; i<=outTrans.size(); i++){
+                   stack.add(outTrans.get(i));
+               }
+           }
+           if (!stack.isEmpty()){
+               flag1=true;
+               q=stack.get(stack.size());
+               for (int i=1;i<=used.size();i++){
+                   if (used.get(i)==q){
+                       flag2=true;
+                       x=i;
+                       break;
+                   }
+               }
+               if (flag2){
+                   used.remove(x);
+                   flag2=false;
+                   continue;
+               }
+               else flag1=false;
+           }
+           else break;
+       }
+       
+       for (int i=1;i<=used.size();i++){
+           if (used.get(i)!=null){
+               return true;
+           }
+       }
+       return false;
+    }
+    
 };
