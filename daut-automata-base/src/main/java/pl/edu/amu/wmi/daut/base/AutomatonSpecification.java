@@ -67,8 +67,7 @@ abstract class AutomatonSpecification {
     public abstract boolean isFinal(State state);
     
     //true-istnieją stany zbędne
-    public boolean uselessStates()
-    {
+    public boolean uselessStates() {
        boolean flag1=true;
        boolean flag2= false;
        State q = getInitialState();
@@ -85,17 +84,18 @@ abstract class AutomatonSpecification {
                    stack.add(outTrans.get(i).getTargetState());
                }
            }
-           if (!stack.isEmpty()){
+           if (!stack.isEmpty()) {
                flag1=true;
                q=stack.get(stack.size());
-               for (int i=1;i<=used.size();i++){
+               
+               for (int i=1;i<=used.size();i++) {
                    if (used.get(i)==q){
                        flag2=true;
                        x=i;
                        break;
                    }
                }
-               if (flag2){
+               if (flag2) {
                    used.remove(x);
                    flag2=false;
                    continue;
@@ -104,7 +104,6 @@ abstract class AutomatonSpecification {
            }
            else break;
        }
-       
        for (int i=1;i<=used.size();i++){
            if (used.get(i)!=null){
                return true;
