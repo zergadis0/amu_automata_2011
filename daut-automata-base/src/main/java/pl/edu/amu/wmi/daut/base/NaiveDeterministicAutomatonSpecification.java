@@ -15,14 +15,19 @@ public class NaiveDeterministicAutomatonSpecification extends DeterministicAutom
         return automatonSpec.allStates();
     }
 
+    /**
+     *
+     * @param from
+     * @return
+     */
+    @Override
     public List<OutgoingTransition> allOutgoingTransitions(State from) {
         return automatonSpec.allOutgoingTransitions(from);
     }
 
     @Override
     public State targetState(State from, char c) {
-        // są warningi ponieważ klasa State nie jest typu public
-        for (OutgoingTransition outgoingTransition : allOutgoingTransitions(from)) {
+           for (OutgoingTransition outgoingTransition : allOutgoingTransitions(from)) {
             if (outgoingTransition.getTransitionLabel().canAcceptCharacter(c)) {
                 return outgoingTransition.getTargetState();
             }
