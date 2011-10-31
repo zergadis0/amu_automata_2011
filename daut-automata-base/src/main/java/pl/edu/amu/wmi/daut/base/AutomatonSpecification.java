@@ -80,32 +80,24 @@ abstract class AutomatonSpecification {
            if (flag1) {
                outTrans = allOutgoingTransitions(q);
                for (int i = 1; i <= outTrans.size(); i++) {
-                   stack.add(outTrans.get(i).getTargetState());
-               }
-           }
+                   stack.add(outTrans.get(i).getTargetState()); } }
            if (!stack.isEmpty()) {
                flag1 = true;
                q = stack.get(stack.size());
-               for (int i = 1;i <= used.size();i++){
+               for (int i = 1; i <= used.size(); i++){
                    if (used.get(i) == q){
                        flag2 = true;
                        x = i;
-                       break;
-                   }
-               }
+                       break; } }
                if (flag2) {
                    used.remove(x);
                    flag2 = false;
-                   continue;
-               }
+                   continue; }
                else flag1 = false; }
            else break; }
        
-       for (int i = 1;i <= used.size();i++) {
+       for (int i = 1; i <= used.size(); i++) {
            if (used.get(i) != null) {
-               return true;
-           }
-       }
-       return false;
-    }
+               return true; } }
+       return false; }
 };
