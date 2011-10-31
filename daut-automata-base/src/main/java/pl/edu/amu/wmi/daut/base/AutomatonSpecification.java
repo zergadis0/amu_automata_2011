@@ -66,10 +66,17 @@ abstract class AutomatonSpecification {
      */
     public abstract boolean isFinal(State state);
     
+<<<<<<< HEAD
        //true-istnieją stany zbędne
     public boolean uselessStates(){
        boolean flag1 = true;
        boolean flag2 = false;
+=======
+    //true-istnieją stany zbędne
+    public boolean uselessStates() {
+       boolean flag1=true;
+       boolean flag2= false;
+>>>>>>> mywork
        State q = getInitialState();
        List<State> stack = new ArrayList<State>();
        List<OutgoingTransition> outTrans = new ArrayList<OutgoingTransition>();
@@ -84,12 +91,22 @@ abstract class AutomatonSpecification {
                }
            }
            if (!stack.isEmpty()) {
+<<<<<<< HEAD
                flag1 = true;
                q = stack.get(stack.size());
                for (int i = 1;i <= used.size();i++){
                    if (used.get(i) == q){
                        flag2 = true;
                        x = i;
+=======
+               flag1=true;
+               q=stack.get(stack.size());
+               
+               for (int i=1;i<=used.size();i++) {
+                   if (used.get(i)==q){
+                       flag2=true;
+                       x=i;
+>>>>>>> mywork
                        break;
                    }
                }
@@ -98,11 +115,20 @@ abstract class AutomatonSpecification {
                    flag2 = false;
                    continue;
                }
+<<<<<<< HEAD
                else flag1 = false; }
            else break; }
        
        for (int i = 1;i <= used.size();i++) {
            if (used.get(i) != null) {
+=======
+               else flag1=false;
+           }
+           else break;
+       }
+       for (int i=1;i<=used.size();i++){
+           if (used.get(i)!=null){
+>>>>>>> mywork
                return true;
            }
        }
