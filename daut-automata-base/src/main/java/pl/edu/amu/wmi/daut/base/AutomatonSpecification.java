@@ -61,6 +61,19 @@ abstract class AutomatonSpecification {
      * Oznacza stan jako początkowy.
      */
     public abstract void markAsInitial(State state);
+    
+    /**
+     * Metoda budująca 2-stanowy automat z jednym przejściem.
+     */
+    public void makeOneTransitionAutomaton(char c)
+    {
+        AutomatonSpecification spec1=new NaiveAutomatonSpecification();
+        State q0=spec1.addState();
+        State q1=spec1.addState();
+        spec1.addTransition(q0, q1, new CharTransitionLabel('c'));
+        spec1.markAsInitial(q0);
+        spec1.markAsFinal(q1);
+    }
 
     /**
      * Oznacza stan jako końcowy (akceptujący).
