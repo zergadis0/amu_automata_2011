@@ -13,6 +13,10 @@ import java.util.Set;
  */
 public class ComplementCharClassTransitionLabel extends TransitionLabel {
 
+    /**
+     * 
+     * @param s Przyjmuje Stringa będącego wyrażeniem regularnym
+     */
     ComplementCharClassTransitionLabel(String s) {
         int l = s.length();
         st_ = s;
@@ -29,21 +33,41 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
         }
     }
 
+    /**
+     * 
+     * @return Wynikiem jest wartość logiczna odpowiadająca na pytanie czy może
+     * byc epsilon przejście
+     */
     @Override
     public boolean canBeEpsilon() {
         return false;
     }
 
+    /**
+     * 
+     * @param c Przyjmuje znak do sprawdzenia
+     * @return Wynikiem jest wartość logiczna czy znak jest akceptowany
+     */
     @Override
     public boolean canAcceptCharacter(char c) {
         return !(se_.contains(c));
     }
 
+    /**
+     * 
+     * @return Zwraca wartość logiczną czy jest puste przejście
+     */
     @Override
     public boolean isEmpty() {
         return false;
     }
 
+    /**
+     * 
+     * @param label Przyjmuje TransitionLabel
+     * @return Zwraca etykietę przejścia będącą przecięciem label i danej 
+     * etykiety
+     */
     @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
         if (label instanceof ComplementCharClassTransitionLabel) {
@@ -62,10 +86,18 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
         }
     }
 
+    /**
+     * 
+     * @return Zwraca set przechowujący spełniające podane wyrażenie regularne
+     */
     protected Set getSet() {
         return se_;
     }
 
+    /**
+     * 
+     * @return Zwraca podane wyrażenie regularne
+     */
     public String getString() {
         return st_;
     }
