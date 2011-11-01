@@ -69,6 +69,6 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     public String getString() {
         return st_;
     }
-    private Set se_;
     private String st_;
+    private Set se_;
 }
