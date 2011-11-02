@@ -69,7 +69,7 @@ abstract class AutomatonSpecification {
         AutomatonSpecification spec1 = new NaiveAutomatonSpecification();
         State q0 = spec1.addState();
         State q1 = spec1.addState();
-        spec1.addTransition(q0, q1, new CharTransitionLabel('c'));
+        spec1.addTransition(q0, q1, new CharTransitionLabel(c));
         spec1.markAsInitial(q0);
         spec1.markAsFinal(q1);
     }
