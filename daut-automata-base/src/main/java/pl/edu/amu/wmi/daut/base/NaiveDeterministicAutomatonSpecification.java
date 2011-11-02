@@ -3,8 +3,10 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.List;
 
 /**
- *
- * @author blazej
+ * Nieefektywne, przykładowe ukonkretnienie klasy abstrakcyjnej
+ * DeterministicAutomatonSpecification.
+ * 
+ * 
  */
 public class NaiveDeterministicAutomatonSpecification extends DeterministicAutomatonSpecification {
 
