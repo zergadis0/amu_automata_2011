@@ -392,11 +392,18 @@ abstract class AutomatonSpecification {
         }
         return false;
     }
- 
-    public AutomatonSpecification clone() {
+    @Override
+    public AutomatonSpecification clone(){
+       /*AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+        State q0 = automatonA.addState();
+        State q1 = automatonA.addState();
+        automatonA.addTransmisionA(q0, q1, new TransitionLabel('a') {});
+        automatonA.markAsInitial(q0);
+        automatonA.markAsFinal(q1); 
+        automatonA.addTransition(q1, q1, null)*/ 
         AutomatonSpecification mini = new NaiveAutomatonSpecification();
-        State q5 = mini.addState();
-        mini.insert(q5, this);
+        State q0 = mini.addState();
+        mini.insert(q0, this);
         return mini;
     }
 };
