@@ -135,10 +135,11 @@ abstract class AutomatonSpecification {
         pilgrim.append("-Initial state: ");
         for (int i = 0; i < link.size(); i++) {
             if (link.get(i) == getInitialState()) {
-                pilgrim.append("q" + i + "\n-Final states: ");
+                pilgrim.append("q" + i);
                 break;
             }
         }
+        pilgrim.append("\n-Final states: ");
         for (int i = 0; i < link.size(); i++) {
             if (isFinal(link.get(i))) {
                 pilgrim.append("q" + i + " ");
@@ -146,6 +147,11 @@ abstract class AutomatonSpecification {
         }
         return pilgrim.toString();
     };
+    /**
+     * Funkcja tworzaca zawartość automatu ze Stringa.
+     */
+    public void fromString(String automatonDescription) throws Exception {
+    }
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
