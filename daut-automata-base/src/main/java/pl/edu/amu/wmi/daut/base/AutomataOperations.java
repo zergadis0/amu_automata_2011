@@ -4,8 +4,7 @@ import java.util.List;
 
 public class AutomataOperations {
 
-    public AutomatonSpecification sum(AutomatonSpecification A,
-AutomatonSpecification B) 
+    public AutomatonSpecification sum(AutomatonSpecification A,AutomatonSpecification B) 
 	{
 		AutomatonSpecification automaton = new NaiveAutomatonSpecification();
         {
@@ -14,8 +13,8 @@ AutomatonSpecification B)
 		automaton.markAsInitial(q0);
         	automaton.markAsFinal(qk);
 
-Map<State, State> statesA = new HashMap<State,State>();
-Map<State, State> statesB = new HashMap<State,State>();
+        Map<State, State> statesA = new HashMap<State,State>();
+        Map<State, State> statesB = new HashMap<State,State>();
 
     for(State s:A.allStates()){
         State tmp = automaton.addState();
@@ -26,24 +25,35 @@ Map<State, State> statesB = new HashMap<State,State>();
         statesB.put(s,tmp);
         }
     for(State s: A.allStates()){
-	for(OutgoingTransition ot : allOutgoingTransitions(s)){
-            automaton.addTransition(statesA.get(ot),ot.getTargetState(),getTransitionLabel());
+	for(OutgoingTransition ot : A.allOutgoingTransitions(s)){
+            automaton.addTransition(statesA.get(ot),ot.getTargetState(), getTransitionLabel());
 	}
 }
     for(State s: B.allStates()){
-	for(OutgoingTransition ot : allOutgoingTransitions(s)){
-            automaton.addTransition(statesB.get(ot),ot.getTargetState(),getTransitionLabel());
+	for(OutgoingTransition ot : B.allOutgoingTransitions(s)){
+            automaton.addTransition(statesB.get(ot),ot.getTargetState(), getTransitionLabel());
 	}
 }
+    
+                /* brak przejsc epsilonowych i brak pomyslu jak to zrobic */
+    
 		automaton.addTransition(q0, statesA.get(A.getInitialState()) /*stanpoczatkowy automatu A*/, new TestTransition(''));
 		automaton.addTransition(q0, statesB.get(B.getInitialState()) /*stanpoczatkowy automatu B*/, new TestTransition(''));
-		automaton.addTransition(statesA.get(A.getFinalState()) /*stan koncowyautomatu A*/,qk, new TestTransition(''));
-		automaton.addTransition(statesB.get(B.getFinalState()) /*stan koncowyautomatu B*/,qk, new TestTransition(''));
-        }
-
-        return automaton;
-			
+                
+                for (State s : A.allStates()) {
+                    if(A.isFinal(s))
+                    automaton.addTransition(s /*stan koncowyautomatu A*/, qk, new TestTransition(''));
+                }
+                for (State s : B.allStates()) {
+                    if(A.isFinal(s))
+                    automaton.addTransition(s /*stan koncowyautomatu B*/, qk, new TestTransition(''));
+                }
 		
+                //automaton.addTransition(statesA.get(A.getFinalState()) /*stan koncowyautomatu A*/,qk, new TestTransition(''));
+		//automaton.addTransition(statesB.get(B.getFinalState()) /*stan koncowyautomatu B*/,qk, new TestTransition(''));
+        }
+		
+        return automaton;
     }
 
 }
