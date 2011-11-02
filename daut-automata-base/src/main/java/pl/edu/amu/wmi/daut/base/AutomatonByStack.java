@@ -8,20 +8,20 @@ import java.util.Stack;
 import java.util.List;
 
 /**
- * Klasa sprawdzająca czy niedeterministyczny automat skończenie stanowy
+ * Klasa sprawdzajaca czy niedeterministyczny automat skonczenie stanowy
  * akceptuje dany napis.
  */
 public class AutomatonByStack implements Acceptor {
 
     /**
-    * Konstruktor przyjmujący obiekt klasy AutomatonSpecification.
+    * Konstruktor przyjmujacy obiekt klasy AutomatonSpecification.
      */
     AutomatonByStack(final AutomatonSpecification specification) {
         automaton = specification;
     }
 
     /**
-     * Metoda sprawdzająca czy niedeterministyczny automat skończenie stanowy
+     * Metoda sprawdzajaca czy niedeterministyczny automat skonczenie stanowy
      * akceptuje dany napis.
      */
     public boolean accepts(final String text) {
