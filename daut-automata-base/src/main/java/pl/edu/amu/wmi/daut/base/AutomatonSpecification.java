@@ -394,15 +394,36 @@ abstract class AutomatonSpecification {
     }
     @Override
     public AutomatonSpecification clone(){
-       /*AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+       AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
         State q0 = automatonA.addState();
         State q1 = automatonA.addState();
-        automatonA.addTransmisionA(q0, q1, new TransitionLabel('a') {});
+        TransitionLabel a = new TransitionLabel() {
+
+            @Override
+            public boolean canBeEpsilon() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public boolean canAcceptCharacter(char c) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public boolean isEmpty() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            protected TransitionLabel intersectWith(TransitionLabel label) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        };
+        automatonA.addTransition(q0, q1, a);
         automatonA.markAsInitial(q0);
         automatonA.markAsFinal(q1); 
-        automatonA.addTransition(q1, q1, null)*/ 
         AutomatonSpecification mini = new NaiveAutomatonSpecification();
-        State q0 = mini.addState();
+        State q5 = mini.addState();
         mini.insert(q0, this);
         return mini;
     }
