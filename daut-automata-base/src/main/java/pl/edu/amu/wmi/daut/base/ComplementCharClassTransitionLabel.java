@@ -65,7 +65,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     /**
      * 
      * @param label Przyjmuje TransitionLabel
-     * @return Zwraca etykietę przejścia będącą przecięciem label i danej 
+     * @return Zwraca etykietę przejścia będącą przecięciem label i danej
      * etykiety
      */
     @Override
