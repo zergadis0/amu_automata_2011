@@ -26,12 +26,12 @@ public class AutomataOperations {
         }
     for(State s: A.allStates()){
 	for(OutgoingTransition ot : A.allOutgoingTransitions(s)){
-            automaton.addTransition(statesA.get(ot),ot.getTargetState(), getTransitionLabel());
+            automaton.addTransition(statesA.get(ot), ot.getTargetState(), ot.getTransitionLabel());
 	}
 }
     for(State s: B.allStates()){
 	for(OutgoingTransition ot : B.allOutgoingTransitions(s)){
-            automaton.addTransition(statesB.get(ot),ot.getTargetState(), getTransitionLabel());
+            automaton.addTransition(statesB.get(ot),ot.getTargetState(), ot.getTransitionLabel());
 	}
 }
     
