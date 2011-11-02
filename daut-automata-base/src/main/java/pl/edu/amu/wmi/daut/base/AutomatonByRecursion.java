@@ -56,7 +56,7 @@ public final class AutomatonByRecursion implements Acceptor {
     /** {@inheritDoc}*/
     public void acceptedWords(String alphabet, String word, State state) {
         int i = 0;
-        StringBuffer buf = new StringBuffer();
+        StringBuffer buf = new StringBuffer(word);
               List<OutgoingTransition> allOutTransitions;
               allOutTransitions = automaton.allOutgoingTransitions(state);
                   if (!allOutTransitions.isEmpty()) {
