@@ -19,15 +19,15 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      */
     ComplementCharClassTransitionLabel(String s) {
         int l = s.length();
-        st_ = s;
-        se_ = new HashSet();
+        st = s;
+        se = new HashSet();
         for (int i = 0; i < l; i++) {
             if (s.charAt(i) == '-') {
                 for (char k = (char) (s.charAt(i - 1) + 1); k < (s.charAt(i + 1)); k++) {
-                    se_.add(k);
+                    se.add(k);
                 }
             } else {
-                se_.add(s.charAt(i));
+                se.add(s.charAt(i));
             }
 
         }
@@ -50,7 +50,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      */
     @Override
     public boolean canAcceptCharacter(char c) {
-        return !(se_.contains(c));
+        return !(se.contains(c));
     }
 
     /**
@@ -71,15 +71,16 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
         if (label instanceof ComplementCharClassTransitionLabel) {
-            String str = "";
             Set set;
             set = ((ComplementCharClassTransitionLabel) label).getSet();
-            for (Object o : se_) {
+            for (Object o : se) {
                 set.add(o);
             }
+            StringBuilder buf = new StringBuilder();
             for (Object o : set) {
-                str += o.toString();
+                buf.append(o);
             }
+            String str = buf.toString();
             return new ComplementCharClassTransitionLabel(str);
         } else {
             throw new CannotDetermineIntersectionException();
@@ -91,7 +92,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      * @return Zwraca set przechowujący spełniające podane wyrażenie regularne
      */
     protected Set getSet() {
-        return se_;
+        return se;
     }
 
     /**
@@ -99,8 +100,8 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      * @return Zwraca podane wyrażenie regularne
      */
     public String getString() {
-        return st_;
+        return st;
     }
-    private String st_;
-    private Set se_;
+    private String st;
+    private Set se;
 }
