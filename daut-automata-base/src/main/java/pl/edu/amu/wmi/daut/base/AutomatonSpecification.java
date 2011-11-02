@@ -28,7 +28,6 @@ abstract class AutomatonSpecification {
      * Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą transitionLabel.
      */
     public abstract void addTransition(State from, State to, TransitionLabel transitionLabel);
-    
     /**
      * Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to' etykietowane etykietą
      * transitionLabel, a następnie zwraca utworzony stan.
