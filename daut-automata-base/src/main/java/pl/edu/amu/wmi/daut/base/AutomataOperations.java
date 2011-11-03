@@ -32,16 +32,16 @@ public class AutomataOperations {
                 }
             }
             /* brak przejsc epsilonowych i brak pomyslu jak to zrobic */
-            automaton.addTransition(q0, statesA.get(A.getInitialState()) /*stanpoczatkowy automatu A*/, new charTestTransition(''));
-	    automaton.addTransition(q0, statesB.get(B.getInitialState()) /*stanpoczatkowy automatu B*/, new charTestTransition(''));
+            automaton.addTransition(q0, statesA.get(A.getInitialState()) /*stanpoczatkowy automatu A*/, new EpsilonTransitionLabel());
+	    automaton.addTransition(q0, statesB.get(B.getInitialState()) /*stanpoczatkowy automatu B*/, new EpsilonTransitionLabel());
                 for (State s : A.allStates()) {
                    if (A.isFinal(s)) {
-                       automaton.addTransition(s /*stan koncowyautomatu A*/, qk, new TestTransition(''));
+                       automaton.addTransition(s /*stan koncowyautomatu A*/, qk, new EpsilonTransitionLabel());
                     }
                 }
                 for (State s : B.allStates()) {
                     if (A.isFinal(s)) {
-                        automaton.addTransition(s /*stan koncowyautomatu B*/, qk, new TestTransition(''));
+                        automaton.addTransition(s /*stan koncowyautomatu B*/, qk, new EpsilonTransitionLabel());
                     }
                 }	
                 //automaton.addTransition(statesA.get(A.getFinalState()) /*stan koncowyautomatu A*/,qk, new TestTransition(''));
