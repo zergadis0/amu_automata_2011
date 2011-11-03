@@ -43,7 +43,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     public final void testComplementLanguageAutomaton_EmptyAutomaton() {
-        AutomatonSpecification pustyOjciec = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification pustyOjciec = new
+                NaiveDeterministicAutomatonSpecification();
 
         State q0 = pustyOjciec.addState();
         pustyOjciec.addLoop(q0, new CharTransitionLabel('a'));
@@ -60,7 +61,7 @@ public class TestAutomataOperations extends TestCase {
     }
     
     public final void testComplementLanguageAutomaton_StrangeAAutomaton() {
-        AutomatonSpecification autLucas = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification autLucas = new NaiveDeterministicAutomatonSpecification();
 
         State q0 = autLucas.addState();
         State q1 = autLucas.addState(); 
@@ -84,7 +85,7 @@ public class TestAutomataOperations extends TestCase {
     }
     
     public final void testComplementLanguageAutomaton_AbBaAutomaton() {
-        AutomatonSpecification abba = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification abba = new NaiveDeterministicAutomatonSpecification();
 
         State q0 = abba.addState();
         State qa = abba.addTransition(q0, new CharTransitionLabel('a'));
