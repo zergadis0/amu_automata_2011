@@ -337,6 +337,19 @@ abstract class AutomatonSpecification {
       }
     }
 
+    /**
+     * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie
+     * napis pusty.
+     */
+    public void makeEmptyStringAutomaton() {
+        State emptyState = this.addState();
+        this.addLoop(emptyState, new EmptyTransitionLabel());
+        //Po utworzeniu EpsilonTransitionLabel zamienic powyzsze na ponizsze.
+        //this.addLoop(emptyState, new EpsilonTransitionLabel());
+        this.markAsInitial(emptyState);
+        this.markAsFinal(emptyState);
+    }
+
     public boolean isFull(String alphabet) {
         int index;
         if (allStates().isEmpty())
@@ -461,7 +474,7 @@ abstract class AutomatonSpecification {
     public boolean uselessStates() {
         boolean flag1 = true;
         boolean flag2 = false;
-        State q = getInitialState();
+         State q = getInitialState();
         List<State> stack = new ArrayList<State>();
         List<State> used;
         used = allStates();
@@ -472,7 +485,7 @@ abstract class AutomatonSpecification {
                     stack.add(allOutgoingTransitions(q).get(i).getTargetState());
                 }
             }
-            if (!stack.isEmpty()) {
+       if (!stack.isEmpty()) {
                 flag1 = true;
                 q = stack.get(stack.size());
                 for (int i = 1; i <= used.size(); i++) {
