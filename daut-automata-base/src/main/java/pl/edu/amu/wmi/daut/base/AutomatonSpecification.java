@@ -3,6 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -500,4 +501,12 @@ abstract class AutomatonSpecification {
         }
         return false;
     }
+
+    /**
+     * Metoda zwracającą wszystkie napisy akceptowane przez automat.
+     */
+    public returnAllAcceptedWords() {
+
+    }
+
 };
