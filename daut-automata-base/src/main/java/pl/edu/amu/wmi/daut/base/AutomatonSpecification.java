@@ -343,9 +343,7 @@ abstract class AutomatonSpecification {
      */
     public void makeEmptyStringAutomaton() {
         State emptyState = this.addState();
-        this.addLoop(emptyState, new EmptyTransitionLabel());
-        //Po utworzeniu EpsilonTransitionLabel zamienic powyzsze na ponizsze.
-        //this.addLoop(emptyState, new EpsilonTransitionLabel());
+        this.addLoop(emptyState, new EpsilonTransitionLabel());
         this.markAsInitial(emptyState);
         this.markAsFinal(emptyState);
     }
