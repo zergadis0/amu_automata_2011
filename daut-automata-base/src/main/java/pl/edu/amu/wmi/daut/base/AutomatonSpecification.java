@@ -496,5 +496,5 @@ abstract class AutomatonSpecification {
         State q5 = mini.addState();
         mini.insert(q5, this);
         return mini;
-    } 
+    }
 };
