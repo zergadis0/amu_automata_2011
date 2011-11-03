@@ -172,8 +172,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
      * Test metody tworzacej dwustanowy automat z jednym przejsciem
      */
     public final void testmakeOneTransitionAutomaton(char c) {
-        NaiveAutomatonSpecification spec = new makeOneTransitionAutomaton('c');
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
+        spec.makeOneTransitionAutomaton();
         //testowanie
 
         State r0 = spec.getInitialState();
