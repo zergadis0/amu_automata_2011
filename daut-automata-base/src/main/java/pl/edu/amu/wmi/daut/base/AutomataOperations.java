@@ -1,6 +1,8 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AutomataOperations {
 
@@ -31,22 +33,19 @@ public class AutomataOperations {
                     automaton.addTransition(statesB.get(ot), ot.getTargetState(), ot.getTransitionLabel());
                 }
             }
-            /* brak przejsc epsilonowych i brak pomyslu jak to zrobic */
-            automaton.addTransition(q0, statesA.get(A.getInitialState()) /*stanpoczatkowy automatu A*/, new EpsilonTransitionLabel());
-	    automaton.addTransition(q0, statesB.get(B.getInitialState()) /*stanpoczatkowy automatu B*/, new EpsilonTransitionLabel());
+            automaton.addTransition(q0, statesA.get(A.getInitialState()), new EpsilonTransitionLabel());
+	    automaton.addTransition(q0, statesB.get(B.getInitialState()), new EpsilonTransitionLabel());
                 for (State s : A.allStates()) {
                    if (A.isFinal(s)) {
-                       automaton.addTransition(s /*stan koncowyautomatu A*/, qk, new EpsilonTransitionLabel());
+                       automaton.addTransition(s , qk, new EpsilonTransitionLabel());
                     }
                 }
                 for (State s : B.allStates()) {
                     if (A.isFinal(s)) {
-                        automaton.addTransition(s /*stan koncowyautomatu B*/, qk, new EpsilonTransitionLabel());
+                        automaton.addTransition(s , qk, new EpsilonTransitionLabel());
                     }
-                }	
-                //automaton.addTransition(statesA.get(A.getFinalState()) /*stan koncowyautomatu A*/,qk, new TestTransition(''));
-		//automaton.addTransition(statesB.get(B.getFinalState()) /*stan koncowyautomatu B*/,qk, new TestTransition(''));
-        }	
+                }
+        }
         return automaton;
     }
 }
