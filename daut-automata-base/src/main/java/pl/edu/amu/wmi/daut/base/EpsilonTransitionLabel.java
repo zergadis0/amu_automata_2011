@@ -1,9 +1,9 @@
 package pl.edu.amu.wmi.daut.base;
 
 public class EpsilonTransitionLabel extends TransitionLabel {
-
+    
     /**
-     * Konstruktor domyslny
+     * Konstruktor domyslny.
      */
     public EpsilonTransitionLabel() { };
 
