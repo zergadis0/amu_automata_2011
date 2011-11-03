@@ -37,16 +37,12 @@ public class AutomatonByStack implements Acceptor {
                     return true;
                 }
             } else {
-                String tmp = v.substring(0, 1);
-                char[] a = tmp.toCharArray();
                 String u = v.substring(1);
                 List<OutgoingTransition> allOutTransitions;
                 allOutTransitions = automaton.allOutgoingTransitions(r);
-                int x = allOutTransitions.size();
-                for (int i = 0; i < x; i++) {
-                    OutgoingTransition transition = allOutTransitions.get(i);
+                for (OutgoingTransition transition : allOutTransitions) {
                     currentLabel = transition.getTransitionLabel();
-                    if (currentLabel.canAcceptCharacter(a[0])) {
+                    if (currentLabel.canAcceptCharacter(v.charAt(0))) {
                         State p = transition.getTargetState();
                         stack.push(p);
                         stack.push(u);
