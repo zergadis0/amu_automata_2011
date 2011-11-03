@@ -16,7 +16,6 @@ import java.util.HashMap;
 abstract class AutomatonSpecification {
 
     // metody "budujące" automat
-
     /**
      * Dodaje nowy stan do automatu.
      *
@@ -63,12 +62,23 @@ abstract class AutomatonSpecification {
     public abstract void markAsInitial(State state);
 
     /**
+     * Metoda budująca 2-stanowy automat z jednym przejściem.
+     */
+    public void makeOneTransitionAutomaton(char c) {
+        AutomatonSpecification spec1 = new NaiveAutomatonSpecification();
+        State q0 = spec1.addState();
+        State q1 = spec1.addState();
+        spec1.addTransition(q0, q1, new CharTransitionLabel(c));
+        spec1.markAsInitial(q0);
+        spec1.markAsFinal(q1);
+    }
+
+    /**
      * Oznacza stan jako końcowy (akceptujący).
      */
     public abstract void markAsFinal(State state);
 
     // metody zwracające informacje o automacie
-
     /**
      * Zwraca listę wszystkich stanów.
      *
@@ -134,10 +144,11 @@ abstract class AutomatonSpecification {
         pilgrim.append("-Initial state: ");
         for (int i = 0; i < link.size(); i++) {
             if (link.get(i) == getInitialState()) {
-                pilgrim.append("q" + i + "\n-Final states: ");
+                pilgrim.append("q" + i);
                 break;
             }
         }
+        pilgrim.append("\n-Final states: ");
         for (int i = 0; i < link.size(); i++) {
             if (isFinal(link.get(i))) {
                 pilgrim.append("q" + i + " ");
@@ -145,6 +156,11 @@ abstract class AutomatonSpecification {
         }
         return pilgrim.toString();
     };
+    /**
+     * Funkcja tworzaca zawartość automatu ze Stringa.
+     */
+    public void fromString(String automatonDescription) throws Exception {
+    }
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
@@ -392,11 +408,92 @@ abstract class AutomatonSpecification {
         }
         return false;
     }
-    @Override
+
+    /**
+     * Zwraca true, gdy automat akceptuje napis pusty.
+     */
+    public boolean acceptEmptyWord() {
+
+        List<State> tocheck = new ArrayList<State>();
+        List<OutgoingTransition> transitions = new ArrayList<OutgoingTransition>();
+        TransitionLabel label;
+        State state;
+
+        if (isFinal(getInitialState())) {
+            return true;
+        }
+
+        tocheck.add(getInitialState());
+        int iterator = tocheck.size();
+
+        for (int i = 0; i < iterator; ++i) {
+            transitions.clear();
+            transitions = allOutgoingTransitions(tocheck.get(i));
+
+            for (int j = 0; j < transitions.size(); ++j) {
+                label = transitions.get(j).getTransitionLabel();
+                state = transitions.get(j).getTargetState();
+
+                if (label.canBeEpsilon() && !tocheck.contains(state)) {
+                    tocheck.add(state);
+                    iterator++;
+
+                    if (isFinal(state)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    //true-istnieją stany zbędne
+    public boolean uselessStates() {
+        boolean flag1 = true;
+        boolean flag2 = false;
+        State q = getInitialState();
+        List<State> stack = new ArrayList<State>();
+        List<State> used;
+        used = allStates();
+        int x = 0;
+        while (true) {
+            if (flag1) {
+                for (int i = 1; i <= allOutgoingTransitions(q).size(); i++) {
+                    stack.add(allOutgoingTransitions(q).get(i).getTargetState());
+                }
+            }
+            if (!stack.isEmpty()) {
+                flag1 = true;
+                q = stack.get(stack.size());
+                for (int i = 1; i <= used.size(); i++) {
+                    if (used.get(i) == q) {
+                        flag2 = true;
+                        x = i;
+                        break;
+                    }
+                }
+                if (flag2) {
+                    used.remove(x);
+                    flag2 = false;
+                    continue;
+                } else {
+                    flag1 = false;
+                }
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i <= used.size(); i++) {
+            if (used.get(i) != null) {
+                return true;
+            }
+        }
+        return false;
+    }
     public AutomatonSpecification clone() {
         AutomatonSpecification mini = new NaiveAutomatonSpecification();
-        State q0 = mini.addState();
-        mini.insert(q0, this);
+        State q5 = mini.addState();
+        mini.insert(q5, this);
         return mini;
-    }
+    } 
 };
