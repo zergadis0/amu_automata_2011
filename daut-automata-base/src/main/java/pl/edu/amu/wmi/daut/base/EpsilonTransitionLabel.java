@@ -1,7 +1,10 @@
 package pl.edu.amu.wmi.daut.base;
 
+/**
+ * Klasa epsilon przejscia.
+ */
 public class EpsilonTransitionLabel extends TransitionLabel {
-    
+
     /**
      * Konstruktor domyslny.
      */
