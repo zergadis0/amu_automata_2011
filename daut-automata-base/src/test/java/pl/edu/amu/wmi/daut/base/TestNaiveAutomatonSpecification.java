@@ -167,7 +167,6 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertEquals(states.size(), 1);
 
     }
-<<<<<<< HEAD
 
     /**
      * Test metody tworzacej dwustanowy automat z jednym przejsciem
@@ -204,7 +203,6 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
     }
 
-=======
     public final void testMakeFull(){
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
         NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
@@ -227,5 +225,5 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         spec3.makeFull("abc");
         assertTrue(spec3.isFull("abc"));
     }
->>>>>>> cc906b95d8899e68a62662739aec51be0124f237
+
 }
