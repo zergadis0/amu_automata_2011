@@ -11,7 +11,7 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
     /**
      * Test prostego automatu
      */
-    public final void TestDeterministicAutomaton() {
+    public final void testDeterministicAutomaton() {
         NaiveDeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
         
         State s1 = automat.addState();
