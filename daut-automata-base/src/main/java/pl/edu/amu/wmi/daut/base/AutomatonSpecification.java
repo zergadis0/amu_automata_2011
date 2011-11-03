@@ -339,16 +339,21 @@ abstract class AutomatonSpecification {
 
     public boolean isFull(String alphabet) {
         int index;
+        if (allStates().isEmpty())
+            return false;
         for (State state : allStates()) {
+            if (allOutgoingTransitions(state).isEmpty())
+                    return false;
             for (int i = 0; i < alphabet.length(); i++) {
+                index = 0;
                 for (OutgoingTransition transition : allOutgoingTransitions(state)) {
-                    index = allOutgoingTransitions(state).indexOf(transition);
                     if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
                         break;
-                    else if (index == allOutgoingTransitions(state).size()
+                    else if ((index == allOutgoingTransitions(state).size() - 1)
                             && !transition.getTransitionLabel()
                             .canAcceptCharacter(alphabet.charAt(i)))
                         return false;
+                    else index++;
                 }
             }
         }
@@ -361,15 +366,19 @@ abstract class AutomatonSpecification {
             int indeks;
             for (State state : allStates()) {
                 for (int i = 0; i < alphabet.length(); i++) {
+                    indeks = 0;
+                    if (allOutgoingTransitions(state).isEmpty())
+                    addTransition(state, trash,
+                                    new CharTransitionLabel(alphabet.charAt(i)));
                     for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                        indeks = allOutgoingTransitions(state).indexOf(transition1);
                         if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
                             break;
-                        else if (indeks == allOutgoingTransitions(state).size()
+                        else if ((indeks == allOutgoingTransitions(state).size() - 1)
                                 && !transition1.getTransitionLabel()
                                 .canAcceptCharacter(alphabet.charAt(i)))
                             addTransition(state, trash,
                                     new CharTransitionLabel(alphabet.charAt(i)));
+                        else indeks++;
                     }
                 }
             }

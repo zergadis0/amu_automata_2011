@@ -162,4 +162,26 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertEquals(states.size(), 1);
 
     }
+    public final void testMakeFull(){
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification spec3 = new NaiveAutomatonSpecification();
+        
+        spec.makeFull("abc");
+        assertTrue(spec.isFull("abc"));
+        
+        State s = spec2.addState();
+        
+        spec2.makeFull("abc");
+        assertTrue(spec2.isFull("abc"));
+        
+        State s0 = spec3.addState();
+        State s1 = spec3.addState();
+        State s2 = spec3.addState();
+        
+        spec3.addTransition(s0, s1, new CharTransitionLabel('a'));
+        
+        spec3.makeFull("abc");
+        assertTrue(spec3.isFull("abc"));
+    }
 }
