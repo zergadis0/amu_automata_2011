@@ -7,6 +7,69 @@ import junit.framework.TestCase;
  */
 public class TestAutomatonSpecification extends TestCase {
 
+    public final void testFromString_EmptyLanguage() {
+        AutomatonSpecification pustyOjciec = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0\n-Transitions:\n"+
+     "q0 -a-> q0\nq0 -b-> q0\n-Initial state: q0\n-Final states:";
+
+        try {
+            pustyOjciec.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla poprawnego Stringa!");
+        }
+
+        AutomatonByRecursion pusteDziecko = new AutomatonByRecursion(pustyOjciec);
+
+        assertFalse(pusteDziecko.accepts("aaa"));
+        assertFalse(pusteDziecko.accepts("baba"));
+        assertFalse(pusteDziecko.accepts(""));
+    }
+
+    public final void testFromString_OddPowersOfA() {
+        AutomatonSpecification masakra = new NaiveAutomatonSpecification();
+
+        String slowo2 = "Automaton:\n-States: q0 q1\n-Transitions:\n"+
+     "q0 -a-> q1\nq1 -a-> q0\n-Initial state: q0\n-Final states: q1";
+
+        try {
+            masakra.fromString(slowo2);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla poprawnego Stringa!");
+        }
+        
+        AutomatonByRecursion angle = new AutomatonByRecursion(masakra);
+
+        assertFalse(angle.accepts("aab"));
+        assertFalse(angle.accepts(""));
+        assertTrue(angle.accepts("aaa"));
+    }
+
+    public final void testFromString_Blubbering() {
+        AutomatonSpecification niepoprawny = new NaiveAutomatonSpecification();
+
+        String slowo3 = "niepoprawnywogolestring";
+
+        try {
+            niepoprawny.fromString(slowo3);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
+    public final void testFromString_WrongAutomatonString() {
+        AutomatonSpecification bledny = new NaiveAutomatonSpecification();
+
+        String slowo4 = "Automaton:\n-States: q0\n-Transitions:\n"+
+     "q2 -a-> q4\nq4 -a-> q0\n-Initial state: q4\n-Final states: q0";
+
+        try {
+            bledny.fromString(slowo4);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
     /**
      * Testuje działanie metody toString().
      */
