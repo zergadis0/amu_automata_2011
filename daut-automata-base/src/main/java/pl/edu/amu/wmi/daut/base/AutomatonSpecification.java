@@ -490,10 +490,10 @@ abstract class AutomatonSpecification {
         }
         return false;
     }
+    @Override
     public AutomatonSpecification clone() {
         AutomatonSpecification mini = new NaiveAutomatonSpecification();
         State q5 = mini.addState();
         mini.insert(q5, this);
-        return mini;
-    } 
+        return mini; } 
 };
