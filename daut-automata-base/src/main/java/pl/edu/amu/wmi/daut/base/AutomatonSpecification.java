@@ -1,6 +1,8 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -14,7 +16,6 @@ import java.util.List;
 abstract class AutomatonSpecification {
 
     // metody "budujące" automat
-
     /**
      * Dodaje nowy stan do automatu.
      *
@@ -40,9 +41,38 @@ abstract class AutomatonSpecification {
     }
 
     /**
+     * Tworzy "gałąź" w automacie.
+     * Metoda dodaje ciąg przejść od stanu początkowego automatu,
+     * dla podanej listy etykiet przejść.
+     * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
+     */
+    public State addBranch(State from, List<TransitionLabel> oTransition) {
+        State prev = from;
+        State next = prev;
+
+         for (TransitionLabel transition : oTransition) {
+             prev = addTransition(next, transition);
+             next = prev;
+         }
+        return prev;
+    }
+
+    /**
      * Oznacza stan jako początkowy.
      */
     public abstract void markAsInitial(State state);
+
+    /**
+     * Metoda budująca 2-stanowy automat z jednym przejściem.
+     */
+    public void makeOneTransitionAutomaton(char c) {
+        AutomatonSpecification spec1 = new NaiveAutomatonSpecification();
+        State q0 = spec1.addState();
+        State q1 = spec1.addState();
+        spec1.addTransition(q0, q1, new CharTransitionLabel(c));
+        spec1.markAsInitial(q0);
+        spec1.markAsFinal(q1);
+    }
 
     /**
      * Oznacza stan jako końcowy (akceptujący).
@@ -50,7 +80,6 @@ abstract class AutomatonSpecification {
     public abstract void markAsFinal(State state);
 
     // metody zwracające informacje o automacie
-
     /**
      * Zwraca listę wszystkich stanów.
      *
@@ -76,6 +105,17 @@ abstract class AutomatonSpecification {
      * Zwraca true wgdy stan jest stanem końcowym.
      */
     public abstract boolean isFinal(State state);
+
+    /**
+     * Metoda sprawdza czy automat jest pusty.
+     */
+    public boolean isEmpty() {
+
+        List<State> states = allStates();
+        if (states.isEmpty())
+            return true;
+        return false;
+    }
 
     /**
      * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
@@ -105,10 +145,11 @@ abstract class AutomatonSpecification {
         pilgrim.append("-Initial state: ");
         for (int i = 0; i < link.size(); i++) {
             if (link.get(i) == getInitialState()) {
-                pilgrim.append("q" + i + "\n-Final states: ");
+                pilgrim.append("q" + i);
                 break;
             }
         }
+        pilgrim.append("\n-Final states: ");
         for (int i = 0; i < link.size(); i++) {
             if (isFinal(link.get(i))) {
                 pilgrim.append("q" + i + " ");
@@ -116,6 +157,11 @@ abstract class AutomatonSpecification {
         }
         return pilgrim.toString();
     };
+    /**
+     * Funkcja tworzaca zawartość automatu ze Stringa.
+     */
+    public void fromString(String automatonDescription) throws Exception {
+    }
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
@@ -167,7 +213,7 @@ abstract class AutomatonSpecification {
      * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
      * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
      * png. Więcej w: man dot.
-     * 
+     *
      * @return Kod źródłowy schematu w języku DOT.
      */
     public String getDotGraph() {
@@ -253,5 +299,205 @@ abstract class AutomatonSpecification {
 
         DotGraph tmp = new DotGraph();
         return tmp.getDotGraph();
+    }
+
+    public int countStates() {
+        return allStates().size();
+    }
+
+    public int countTransitions() {
+        int sum = 0;
+        for (State state : allStates()) {
+            sum += allOutgoingTransitions(state).size();
+        }
+        return sum;
+    }
+
+    /**
+     * Wstawia począwszy od stanu state kopię automatu automaton.
+     * Stan state będzie utożsamiony ze stanem
+     * początkowym automatu automaton.
+     */
+    void insert(State state, AutomatonSpecification automaton) {
+      List<State> loadedStates = automaton.allStates();
+      HashMap<State, State> connectedStates = new HashMap<State, State>();
+      State automatonInitialState = automaton.getInitialState();
+      for (State currentState : loadedStates) {
+        if (currentState == automatonInitialState)
+          connectedStates.put(currentState, state);
+        else
+          connectedStates.put(currentState, this.addState());
+      }
+      for (State currentState : loadedStates) {
+        List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
+        for (OutgoingTransition transition : list) {
+          this.addTransition(connectedStates.get(currentState),
+          connectedStates.get(transition.getTargetState()), transition.getTransitionLabel());
+        }
+      }
+    }
+
+    public boolean isFull(String alphabet) {
+        int index;
+        if (allStates().isEmpty())
+            return false;
+        for (State state : allStates()) {
+            if (allOutgoingTransitions(state).isEmpty())
+                    return false;
+            for (int i = 0; i < alphabet.length(); i++) {
+                index = 0;
+                for (OutgoingTransition transition : allOutgoingTransitions(state)) {
+                    if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                        break;
+                    else if ((index == allOutgoingTransitions(state).size() - 1)
+                            && !transition.getTransitionLabel()
+                            .canAcceptCharacter(alphabet.charAt(i)))
+                        return false;
+                    else index++;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void makeFull(String alphabet) {
+        if (!isFull(alphabet)) {
+            State trash = addState();
+            int indeks;
+            for (State state : allStates()) {
+                for (int i = 0; i < alphabet.length(); i++) {
+                    indeks = 0;
+                    if (allOutgoingTransitions(state).isEmpty())
+                    addTransition(state, trash,
+                                    new CharTransitionLabel(alphabet.charAt(i)));
+                    for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
+                        if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                            break;
+                        else if ((indeks == allOutgoingTransitions(state).size() - 1)
+                                && !transition1.getTransitionLabel()
+                                .canAcceptCharacter(alphabet.charAt(i)))
+                            addTransition(state, trash,
+                                    new CharTransitionLabel(alphabet.charAt(i)));
+                        else indeks++;
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean prefixChecker(State state) {
+
+        if (isFinal(state)) {
+            return true;
+        }
+
+        List<State> checkedStates = new ArrayList<State>();
+        List<OutgoingTransition> outgoing = new ArrayList<OutgoingTransition>();
+        State currentState;
+
+        checkedStates.add(state);
+        int limit = checkedStates.size();
+
+        for (int i = 0; i < limit; i++) {
+            outgoing.clear();
+            outgoing = allOutgoingTransitions(checkedStates.get(i));
+
+            for (int j = 0; j < outgoing.size(); j++) {
+
+                currentState = outgoing.get(j).getTargetState();
+
+                if (isFinal(currentState)) {
+                        return true;
+                }
+
+                if (!checkedStates.contains(currentState)) {
+                    checkedStates.add(currentState);
+                    limit++;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Zwraca true, gdy automat akceptuje napis pusty.
+     */
+    public boolean acceptEmptyWord() {
+
+        List<State> tocheck = new ArrayList<State>();
+        List<OutgoingTransition> transitions = new ArrayList<OutgoingTransition>();
+        TransitionLabel label;
+        State state;
+
+        if (isFinal(getInitialState())) {
+            return true;
+        }
+
+        tocheck.add(getInitialState());
+        int iterator = tocheck.size();
+
+        for (int i = 0; i < iterator; ++i) {
+            transitions.clear();
+            transitions = allOutgoingTransitions(tocheck.get(i));
+
+            for (int j = 0; j < transitions.size(); ++j) {
+                label = transitions.get(j).getTransitionLabel();
+                state = transitions.get(j).getTargetState();
+
+                if (label.canBeEpsilon() && !tocheck.contains(state)) {
+                    tocheck.add(state);
+                    iterator++;
+
+                    if (isFinal(state)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    //true-istnieją stany zbędne
+    public boolean uselessStates() {
+        boolean flag1 = true;
+        boolean flag2 = false;
+        State q = getInitialState();
+        List<State> stack = new ArrayList<State>();
+        List<State> used;
+        used = allStates();
+        int x = 0;
+        while (true) {
+            if (flag1) {
+                for (int i = 1; i <= allOutgoingTransitions(q).size(); i++) {
+                    stack.add(allOutgoingTransitions(q).get(i).getTargetState());
+                }
+            }
+            if (!stack.isEmpty()) {
+                flag1 = true;
+                q = stack.get(stack.size());
+                for (int i = 1; i <= used.size(); i++) {
+                    if (used.get(i) == q) {
+                        flag2 = true;
+                        x = i;
+                        break;
+                    }
+                }
+                if (flag2) {
+                    used.remove(x);
+                    flag2 = false;
+                    continue;
+                } else {
+                    flag1 = false;
+                }
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i <= used.size(); i++) {
+            if (used.get(i) != null) {
+                return true;
+            }
+        }
+        return false;
     }
 };
