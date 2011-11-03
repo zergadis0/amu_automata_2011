@@ -26,7 +26,7 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
 
         State r0 = automat.targetState(s2, 'b');
         assertSame(r0, s3);
-        assertSame(r0, s1);
+        assertNotSame(r0, s1);
 
     }
 }
