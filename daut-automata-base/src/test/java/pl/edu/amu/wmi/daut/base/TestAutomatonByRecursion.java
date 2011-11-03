@@ -8,8 +8,8 @@ public class TestAutomatonByRecursion extends TestCase {
     /**
      * Symulacja testu.
      */
-    public final void firstTest() {
-        
+    public final void testfirst() {
+
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState();
@@ -28,9 +28,8 @@ public class TestAutomatonByRecursion extends TestCase {
         assertFalse(automaton.accepts("bb"));
         assertTrue(automaton.accepts("aa"));
     }
-    
-    public final void secondTest() {
-        
+    public final void testSecond() {
+
         final AutomatonSpecification specA = new NaiveAutomatonSpecification();
 
         State q0A = specA.addState();
@@ -50,9 +49,8 @@ public class TestAutomatonByRecursion extends TestCase {
         assertFalse(automatonA.accepts("bb"));
         assertTrue(automatonA.accepts("ab"));
     }
-    
-    public final void thirdTest() {
-        
+    public final void testThird() {
+
         final AutomatonSpecification specB = new NaiveAutomatonSpecification();
 
         State q0B = specB.addState();
@@ -93,3 +91,4 @@ public class TestAutomatonByRecursion extends TestCase {
         assertTrue(automatonB.accepts("abcdefh"));
     }
 }
+
