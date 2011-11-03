@@ -23,8 +23,12 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
         se = new HashSet();
         for (int i = 0; i < l; i++) {
             if (s.charAt(i) == '-') {
-                for (char k = (char) (s.charAt(i - 1) + 1); k < (s.charAt(i + 1)); k++) {
-                    se.add(k);
+                if (i == 0 || i == l - 1) {
+                    se.add('-');
+                } else {
+                    for (char k = (char) (s.charAt(i - 1) + 1); k < (s.charAt(i + 1)); k++) {
+                        se.add(k);
+                    }
                 }
             } else {
                 se.add(s.charAt(i));
