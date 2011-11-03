@@ -1,14 +1,12 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AutomataOperations {
 
     public AutomatonSpecification sum(AutomatonSpecification A, AutomatonSpecification B) {
-        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
-        {
+        AutomatonSpecification automaton = new NaiveAutomatonSpecification(); {
             State q0 = automaton.addState();
             State qk = automaton.addState();
             automaton.markAsInitial(q0);
@@ -36,7 +34,7 @@ public class AutomataOperations {
             automaton.addTransition(q0, statesA.get(A.getInitialState()), new EpsilonTransitionLabel());
 	    automaton.addTransition(q0, statesB.get(B.getInitialState()), new EpsilonTransitionLabel());
                 for (State s : A.allStates()) {
-                   if (A.isFinal(s)) {
+                    if (A.isFinal(s)) {
                        automaton.addTransition(s , qk, new EpsilonTransitionLabel());
                     }
                 }
