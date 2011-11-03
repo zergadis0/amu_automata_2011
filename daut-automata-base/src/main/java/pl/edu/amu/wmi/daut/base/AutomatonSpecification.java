@@ -495,5 +495,5 @@ abstract class AutomatonSpecification {
         AutomatonSpecification mini = new NaiveAutomatonSpecification();
         State q5 = mini.addState();
         mini.insert(q5, this);
-        return mini; } 
+        return mini;} 
 };
