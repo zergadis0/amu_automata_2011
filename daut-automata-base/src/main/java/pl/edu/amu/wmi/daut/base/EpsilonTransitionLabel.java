@@ -37,7 +37,7 @@ public class EpsilonTransitionLabel extends TransitionLabel {
     
     @Override
     public String toString() {
-        return "epsilon";
+        return "ε";
     }
 
     @Override
