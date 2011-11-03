@@ -12,8 +12,8 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
      * Test prostego automatu
      */
     public final void testDeterministicAutomaton() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-        
+        DeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
+
         State s1 = automat.addState();
         State s2 = automat.addState();
         automat.addTransition(s1, s2, new CharTransitionLabel('a'));
@@ -33,5 +33,8 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
         assertEquals(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).getChar(), 'a');
         assertTrue(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('a'));
         assertFalse(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('b'));
+        State r0 = automat.targetState(s2, 'b');
+        assertSame(r0, s3);
+        assertNotSame(r0, s1);
     }
 }
