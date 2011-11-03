@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
 import junit.framework.TestCase;
-import java.util.List;
 
 /**
  * Przykładowe testy przykładowej klasy NaiveDeterministicAutomatonSpecification.
@@ -26,14 +25,6 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
         automat.markAsFinal(s4);
         State s0 = automat.getInitialState();
 
-        List<OutgoingTransition> s0Out = automat.allOutgoingTransitions(s0);
-	
-	assertEquals(s0Out.size(), 1);        
-	assertFalse(automat.isFinal(s0));
-        assertEquals(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).getChar(), 'a');
-        assertTrue(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('a'));
-        assertFalse(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('b'));
-
-
+        assertFalse(automat.isFinal(s0));
     }
 }
