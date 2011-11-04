@@ -62,7 +62,6 @@ public class TestAutomataOperations extends TestCase {
 
         /*Automat B*/
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-        
             State q0B = automatonB.addState();
             State q1B = automatonB.addState();
             State q2B = automatonB.addState();
@@ -72,27 +71,21 @@ public class TestAutomataOperations extends TestCase {
             automatonB.addTransition(q1B, q2B, new CharTransitionLabel('b'));
             automatonB.markAsInitial(q0B);
             automatonB.markAsFinal(q2B);
-        
         /*Automat C */
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
-        
             State q0C = automatonC.addState();
-
             automatonC.addLoop(q0C, new CharTransitionLabel('a'));
             automatonC.addLoop(q0C, new CharTransitionLabel('b'));
             automatonC.addLoop(q0C, new CharTransitionLabel('c'));
             automatonC.addLoop(q0C, new CharTransitionLabel('d'));
             automatonC.markAsInitial(q0C);
             automatonC.markAsFinal(q0C);
-        
         /* Automat D */
         AutomatonSpecification automatonD = new NaiveAutomatonSpecification();
-        
             State q0D = automatonD.addState();
             State q1D = automatonD.addState();
             State q2D = automatonD.addState();
             State q3D = automatonD.addState();
-
             automatonD.addTransition(q0D, q1D, new CharTransitionLabel('a'));
             automatonD.addTransition(q0D, q2D, new CharTransitionLabel('b'));
             automatonD.addTransition(q1D, q3D, new CharTransitionLabel('a'));
@@ -102,24 +95,17 @@ public class TestAutomataOperations extends TestCase {
             automatonD.addTransition(q2D, q3D, new CharTransitionLabel('a'));
             automatonD.addTransition(q3D, q2D, new CharTransitionLabel('c'));
             automatonD.addTransition(q3D, q0D, new CharTransitionLabel('b'));
-
             automatonD.markAsInitial(q0D);
             automatonD.markAsFinal(q3D);
-            
             /*Automat E*/
             AutomatonSpecification automatonE = new NaiveAutomatonSpecification();
-            
             State q0E = automatonE.addState();
-            
             automatonE.addTransition(q0E, q0E, new EpsilonTransitionLabel());
-
             automatonE.markAsInitial(q0E);
             automatonE.markAsFinal(q0E);
         /* Test A z B */
-         
             AutomatonSpecification result = AutomataOperations.sum(automatonA, automatonB);
             AutomatonByRecursion automaton = new AutomatonByRecursion(result);
-
             assertTrue(automaton.accepts("aa"));
             assertTrue(automaton.accepts("ba"));
             assertTrue(automaton.accepts("aaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaa"));
@@ -130,12 +116,9 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("baaaaaaaaaa"));
             assertFalse(automaton.accepts("aaaaaaaaaaaaaaaxaaaaaa"));
             assertFalse(automaton.accepts("bab"));
-        
         /*Test D z B */
-        
             result = AutomataOperations.sum(automatonB, automatonD);
             automaton = new AutomatonByRecursion(result);
-
             assertTrue(automaton.accepts("ab"));
             assertTrue(automaton.accepts("abbabba"));
             assertTrue(automaton.accepts("bbbcaacba"));
@@ -145,12 +128,9 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("b"));
             assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("aac"));
-        
         /*Test B z C */
             result = AutomataOperations.sum(automatonB, automatonC);
             automaton = new AutomatonByRecursion(result);
-        
-
             assertTrue(automaton.accepts("babbaccddcaaccb"));
             assertTrue(automaton.accepts("bbaccddbaba"));
             assertTrue(automaton.accepts("bbbcaacba"));
@@ -159,11 +139,9 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("CzyTwojProgramMackuToZaakceptuje"));
             assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
-            
            /*Test B z C */
             result = AutomataOperations.sum(automatonB, automatonE);
             automaton = new AutomatonByRecursion(result);
-            
             assertTrue(automaton.accepts(""));
             assertTrue(automaton.accepts("aa"));
             assertFalse(automaton.accepts("bbaccddxbaba"));
