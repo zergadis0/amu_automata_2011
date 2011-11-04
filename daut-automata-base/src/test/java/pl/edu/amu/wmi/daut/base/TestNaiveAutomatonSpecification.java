@@ -32,8 +32,8 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
 
-        // w ten sposob w JUnicie wyrazamy oczekiwanie, ˝e liczba
-        // przejsc wychodzacych z poczatkowego stanu powinna byç rowna 2
+        // w ten sposob w JUnicie wyrazamy oczekiwanie, ze liczba
+        // przejsc wychodzacych z poczatkowego stanu powinna byc rowna 2
         assertEquals(r0Outs.size(), 2);
         assertFalse(spec.isFinal(r0));
 
