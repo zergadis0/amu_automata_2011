@@ -12,7 +12,8 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
      * Test prostego automatu.
      */
     public final void testNaiveDeterministicAutomaton() {
-        NaiveDeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
+        NaiveDeterministicAutomatonSpecification automat = 
+                new NaiveDeterministicAutomatonSpecification();
 
         State s1 = automat.automatonSpec.addState();
         State s2 = automat.automatonSpec.addState();
@@ -30,8 +31,10 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
 
         assertEquals(s0Out.size(), 1);
         assertFalse(automat.automatonSpec.isFinal(s0));
-        assertEquals(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).getChar(), 'a');
-        assertTrue(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+        assertEquals(
+                ((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).getChar(), 'a');
+        assertTrue(
+                ((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('a'));
         assertFalse(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('b'));
         State r0 = automat.targetState(s2, 'b');
         assertSame(r0, s3);
@@ -39,7 +42,7 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody targetState
+     * Test metody targetState.
      */
     public final void testTargetState() {
         NaiveDeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
@@ -54,10 +57,10 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
         State r5 = automat.automatonSpec.addState();
         automat.automatonSpec.addTransition(r2, r5, new CharTransitionLabel('d'));
 
-        State test0 = automat.targetState(r2, 'b'); //r3
-        State test1 = automat.targetState(r2, 'c'); //r4
-        State test2 = automat.targetState(r2, 'd'); //r5
-        State test3 = automat.targetState(r1, 'a'); //r2
+        State test0 = automat.targetState(r2, 'b');
+        State test1 = automat.targetState(r2, 'c');
+        State test2 = automat.targetState(r2, 'd');
+        State test3 = automat.targetState(r1, 'a');
 
         assertSame(test0, r3);
         assertSame(test1, r4);
