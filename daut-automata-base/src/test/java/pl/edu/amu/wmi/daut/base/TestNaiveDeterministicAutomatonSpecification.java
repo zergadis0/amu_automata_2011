@@ -27,11 +27,11 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
 
         List<OutgoingTransition> s0Out = automat.allOutgoingTransitions(s0);
 
-	assertEquals(s0Out.size(), 1);
+        assertEquals(s0Out.size(), 1);
 	assertFalse(automat.automatonSpec.isFinal(s0) );
-        assertEquals(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).getChar(), 'a');
-        assertTrue(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('a') );
-        assertFalse(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('b') );
+        assertEquals(((CharTransitionLabel)s0Out.get(0).getTransitionLabel() ).getChar(), 'a');
+        assertTrue(((CharTransitionLabel)s0Out.get(0).getTransitionLabel() ).canAcceptCharacter('a'));
+        assertFalse(((CharTransitionLabel)s0Out.get(0).getTransitionLabel() ).canAcceptCharacter('b'));
         State r0 = automat.targetState(s2, 'b');
         assertSame(r0, s3);
         assertNotSame(r0, s1);
