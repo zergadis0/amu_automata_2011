@@ -93,7 +93,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
                 buf.append('-');
             }
             String str = buf.toString();
-            
+
 
             return new ComplementCharClassTransitionLabel(str);
         } else {
