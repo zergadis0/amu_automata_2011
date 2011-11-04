@@ -51,7 +51,6 @@ public class TestAutomataOperations extends TestCase {
         /*Automat A */
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
-        {
             State q0 = automatonA.addState();
             State q1 = automatonA.addState();
 
@@ -60,56 +59,64 @@ public class TestAutomataOperations extends TestCase {
             automatonA.addLoop(q1, new CharTransitionLabel('b'));
             automatonA.markAsInitial(q0);
             automatonA.markAsFinal(q1);
-        }
 
         /*Automat B*/
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-        {
-            State q0 = automatonB.addState();
-            State q1 = automatonB.addState();
-            State q2 = automatonB.addState();
-            automatonB.addTransition(q0, q1, new CharTransitionLabel('a'));
-            automatonB.addTransition(q0, q1, new CharTransitionLabel('b'));
-            automatonB.addTransition(q1, q2, new CharTransitionLabel('a'));
-            automatonB.addTransition(q1, q2, new CharTransitionLabel('b'));
-            automatonB.markAsInitial(q0);
-            automatonB.markAsFinal(q2);
-        }
+        
+            State q0B = automatonB.addState();
+            State q1B = automatonB.addState();
+            State q2B = automatonB.addState();
+            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('a'));
+            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('b'));
+            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('a'));
+            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('b'));
+            automatonB.markAsInitial(q0B);
+            automatonB.markAsFinal(q2B);
+        
         /*Automat C */
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
-        {
-            State q0 = automatonC.addState();
+        
+            State q0C = automatonC.addState();
 
-            automatonC.addLoop(q0, new CharTransitionLabel('a'));
-            automatonC.addLoop(q0, new CharTransitionLabel('b'));
-            automatonC.addLoop(q0, new CharTransitionLabel('c'));
-            automatonC.addLoop(q0, new CharTransitionLabel('d'));
-            automatonC.markAsInitial(q0);
-            automatonC.markAsFinal(q0);
-        }
+            automatonC.addLoop(q0C, new CharTransitionLabel('a'));
+            automatonC.addLoop(q0C, new CharTransitionLabel('b'));
+            automatonC.addLoop(q0C, new CharTransitionLabel('c'));
+            automatonC.addLoop(q0C, new CharTransitionLabel('d'));
+            automatonC.markAsInitial(q0C);
+            automatonC.markAsFinal(q0C);
+        
         /* Automat D */
         AutomatonSpecification automatonD = new NaiveAutomatonSpecification();
-        {
-            State q0 = automatonD.addState();
-            State q1 = automatonD.addState();
-            State q2 = automatonD.addState();
-            State q3 = automatonD.addState();
+        
+            State q0D = automatonD.addState();
+            State q1D = automatonD.addState();
+            State q2D = automatonD.addState();
+            State q3D = automatonD.addState();
 
-            automatonD.addTransition(q0, q1, new CharTransitionLabel('a'));
-            automatonD.addTransition(q0, q2, new CharTransitionLabel('b'));
-            automatonD.addTransition(q1, q3, new CharTransitionLabel('a'));
-            automatonD.addTransition(q1, q2, new CharTransitionLabel('b'));
-            automatonD.addTransition(q2, q0, new CharTransitionLabel('c'));
-            automatonD.addTransition(q2, q1, new CharTransitionLabel('b'));
-            automatonD.addTransition(q2, q3, new CharTransitionLabel('a'));
-            automatonD.addTransition(q3, q2, new CharTransitionLabel('c'));
-            automatonD.addTransition(q3, q0, new CharTransitionLabel('b'));
+            automatonD.addTransition(q0D, q1D, new CharTransitionLabel('a'));
+            automatonD.addTransition(q0D, q2D, new CharTransitionLabel('b'));
+            automatonD.addTransition(q1D, q3D, new CharTransitionLabel('a'));
+            automatonD.addTransition(q1D, q2D, new CharTransitionLabel('b'));
+            automatonD.addTransition(q2D, q0D, new CharTransitionLabel('c'));
+            automatonD.addTransition(q2D, q1D, new CharTransitionLabel('b'));
+            automatonD.addTransition(q2D, q3D, new CharTransitionLabel('a'));
+            automatonD.addTransition(q3D, q2D, new CharTransitionLabel('c'));
+            automatonD.addTransition(q3D, q0D, new CharTransitionLabel('b'));
 
-            automatonD.markAsInitial(q0);
-            automatonD.markAsFinal(q3);
-        }
+            automatonD.markAsInitial(q0D);
+            automatonD.markAsFinal(q3D);
+            
+            /*Automat E*/
+            AutomatonSpecification automatonE = new NaiveAutomatonSpecification();
+            
+            State q0E = automatonE.addState();
+            
+            automatonE.addTransition(q0E, q0E, new EpsilonTransitionLabel());
+
+            automatonE.markAsInitial(q0E);
+            automatonE.markAsFinal(q0E);
         /* Test A z B */
-        { 
+         
             AutomatonSpecification result = AutomataOperations.sum(automatonA, automatonB);
             AutomatonByRecursion automaton = new AutomatonByRecursion(result);
 
@@ -123,11 +130,11 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("baaaaaaaaaa"));
             assertFalse(automaton.accepts("aaaaaaaaaaaaaaaxaaaaaa"));
             assertFalse(automaton.accepts("bab"));
-        }
+        
         /*Test D z B */
-        {
-            AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonD);
-            AutomatonByRecursion automaton = new AutomatonByRecursion(result);
+        
+            result = AutomataOperations.sum(automatonB, automatonD);
+            automaton = new AutomatonByRecursion(result);
 
             assertTrue(automaton.accepts("ab"));
             assertTrue(automaton.accepts("abbabba"));
@@ -136,13 +143,12 @@ public class TestAutomataOperations extends TestCase {
             assertTrue(automaton.accepts("aa"));
             assertFalse(automaton.accepts("zle"));
             assertFalse(automaton.accepts("b"));
-            assertFalse(automaton.accepts(" "));
+            assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("aac"));
-        }
+        
         /*Test B z C */
-        {
-            AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonC);
-            AutomatonByRecursion automaton = new AutomatonByRecursion(result);
+            result = AutomataOperations.sum(automatonB, automatonC);
+            automaton = new AutomatonByRecursion(result);
         
 
             assertTrue(automaton.accepts("babbaccddcaaccb"));
@@ -151,9 +157,17 @@ public class TestAutomataOperations extends TestCase {
             assertTrue(automaton.accepts("aaaaaaaaaaaaaaaa"));
             assertFalse(automaton.accepts("bbaccddxbaba"));
             assertFalse(automaton.accepts("CzyTwojProgramMackuToZaakceptuje"));
-            assertFalse(automaton.accepts(" "));
+            assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
-        }
+            
+           /*Test B z C */
+            result = AutomataOperations.sum(automatonB, automatonE);
+            automaton = new AutomatonByRecursion(result);
+            
+            assertTrue(automaton.accepts(""));
+            assertTrue(automaton.accepts("aa"));
+            assertFalse(automaton.accepts("bbaccddxbaba"));
+            assertFalse(automaton.accepts("aabbbaaaa"));
     }
 }
 
