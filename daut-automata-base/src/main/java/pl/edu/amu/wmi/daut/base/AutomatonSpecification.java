@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.lang.Object;
 import java.lang.StringBuilder;
 
 /**
@@ -517,7 +516,8 @@ abstract class AutomatonSpecification {
             builder.append(it.next());
         }
         if(isFinal(state)) {
-            System.out.printl(builder.toString());
+            String Word = builder.toString();
+            System.out.printl(Word);
         }
     }
 
