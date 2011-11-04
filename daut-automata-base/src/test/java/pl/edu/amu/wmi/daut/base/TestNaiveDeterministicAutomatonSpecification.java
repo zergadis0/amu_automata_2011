@@ -11,9 +11,9 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
     /**
      * Test prostego automatu
      */
-    public final void testDeterministicAutomaton() {
+    public final void testNaiveDeterministicAutomaton() {
         DeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
-
+        
         State s1 = automat.addState();
         State s2 = automat.addState();
         automat.addTransition(s1, s2, new CharTransitionLabel('a'));
@@ -36,5 +36,34 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
         State r0 = automat.targetState(s2, 'b');
         assertSame(r0, s3);
         assertNotSame(r0, s1);
+    }
+        
+    /**
+     * Test metody targetState
+     */
+    public final void testTargetState() {
+        DeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
+        
+        State r1 = automat.addState();
+        State r2 = automat.addState();
+        automat.addTransition(r1, r2, new CharTransitionLabel('a'));
+        State r3 = automat.addState();
+        automat.addTransition(r2, r3, new CharTransitionLabel('b'));
+        State r4 = automat.addState();
+        automat.addTransition(r2, r4, new CharTransitionLabel('c'));
+        State r5 = automat.addState();
+        automat.addTransition(r2, r5, new CharTransitionLabel('d'));
+        
+        State test0 = automat.targetState(r2, 'b'); //r3
+        State test1 = automat.targetState(r2, 'c'); //r4
+        State test2 = automat.targetState(r2, 'd'); //r5
+        State test3 = automat.targetState(r1, 'a'); //r2
+        
+        assertSame(test0, r3);
+        assertSame(test1, r4);
+        assertSame(test2, r5);
+        assertSame(test3, r2);
+        assertNotSame(test0, r4);
+        assertNotSame(test1, r5);
     }
 }
