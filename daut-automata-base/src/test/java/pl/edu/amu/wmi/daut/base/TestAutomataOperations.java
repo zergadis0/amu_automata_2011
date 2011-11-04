@@ -45,9 +45,8 @@ public class TestAutomataOperations extends TestCase {
         // assertFalse(automaton.accepts("a"));
 
     }
-
+    /** Test sprawdza metode Sum w AutomataOperations.  */
     public final void testSum() {
-        
         /*Automat A */
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
