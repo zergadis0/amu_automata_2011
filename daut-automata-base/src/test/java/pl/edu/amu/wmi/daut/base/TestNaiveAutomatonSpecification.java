@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import java.util.List;
 
 /**
- * Przyk∏adowe testy przyk∏adowej klasy NaiveAutomatonSpecification.
+ * Przykladowe testy przykladowej klasy NaiveAutomatonSpecification.
  */
 public class TestNaiveAutomatonSpecification extends TestCase {
 
@@ -32,8 +32,8 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
 
-        // w ten sposób w JUnicie wyra˝amy oczekiwanie, ˝e liczba
-        // przejÊç wychodzàcych z poczàtkowego stanu powinna byç równa 2
+        // w ten sposob w JUnicie wyrazamy oczekiwanie, ˝e liczba
+        // przejsc wychodzacych z poczatkowego stanu powinna byç rowna 2
         assertEquals(r0Outs.size(), 2);
         assertFalse(spec.isFinal(r0));
 
@@ -50,7 +50,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
                 ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
             assertFalse(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
         } else {
-            // kolejnoÊç mo˝e byç odwrócona
+            // kolejnoscc moze byç odwrocona
             r1 = r0Outs.get(1).getTargetState();
             r2 = r0Outs.get(0).getTargetState();
             assertEquals(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'b');
@@ -69,7 +69,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Prosty test wyznaczania przeci´cia.
+     * Prosty test wyznaczania przeciecia.
      */
     public final void testIntersections() {
         CharTransitionLabel tA1 = new CharTransitionLabel('a');
@@ -90,7 +90,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody dodajàcej p´tl´.
+     * Test metody dodajacej petle.
      */
     public final void testAddLoop() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
@@ -133,7 +133,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody tworzàcej prosty automat.
+     * Test metody tworzacej prosty automat.
      */
     public final void testmakeOneLoopAutomaton(char c) {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
@@ -176,7 +176,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody dope∏niajàcej automat.
+     * Test metody dopelniajacej automat.
      */
     public final void testMakeFull() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
