@@ -174,7 +174,7 @@ public class TestAutomatonSpecification extends TestCase {
         State q2 = spec.addState();
         State q3 = spec.addState();
         State q4 = spec.addState();
-	      State q5 = spec.addState();
+        State q5 = spec.addState();
 
         spec.markAsInitial(q0);
         spec.markAsFinal(q3);
