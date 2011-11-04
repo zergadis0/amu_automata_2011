@@ -1,0 +1,1 @@
+INDEX VERSION 1.126+/Users/wo/amu_automata_2011/.metadata/.plugins/org.eclipse.jdt.core
