@@ -507,8 +507,9 @@ abstract class AutomatonSpecification {
      * Metoda zwracającą wszystkie napisy akceptowane przez automat.
      */
     public void reurnAllAcceptedWords() {
+        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
 //dodać pętle? zmienić list linijkę niżej
-        Iterator it = list.iterator();
+        Iterator it = automaton.iterator();
         //utworzenie pustego obiektu builder
         StringBuilder builder = new StringBuilder();
         while (it.hasNext()) {
