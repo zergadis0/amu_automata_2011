@@ -142,6 +142,7 @@
         </dependencies>
         <configuration>
           <configLocation>sun_checks.xml</configLocation>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
       </plugin>
 
@@ -237,6 +238,7 @@
         <version>2.6</version>
         <configuration>
           <configLocation>sun_checks.xml</configLocation>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
       </plugin>
 
