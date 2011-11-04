@@ -7,24 +7,23 @@ import java.util.List;
  * Przykładowe testy przykładowej klasy NaiveDeterministicAutomatonSpecification.
  */
 public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
-    
     /**
      * Test prostego automatu
      */
     public final void testNaiveDeterministicAutomaton() {
-        DeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
+        NaiveDeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
         
-        State s1 = automat.addState();
-        State s2 = automat.addState();
-        automat.addTransition(s1, s2, new CharTransitionLabel('a'));
-        State s3 = automat.addState();
-        automat.addTransition(s2, s3, new CharTransitionLabel('b'));
-        State s4 = automat.addState();
-        automat.addTransition(s3, s4, new CharTransitionLabel('c'));
+        State s1 = automat.automatonSpec.addState();
+        State s2 = automat.automatonSpec.addState();
+        automat.automatonSpec.addTransition(s1, s2, new CharTransitionLabel('a'));
+        State s3 = automat.automatonSpec.addState();
+        automat.automatonSpec.addTransition(s2, s3, new CharTransitionLabel('b'));
+        State s4 = automat.automatonSpec.addState();
+        automat.automatonSpec.addTransition(s3, s4, new CharTransitionLabel('c'));
 
-        automat.markAsInitial(s1);
-        automat.markAsFinal(s4);
-        State s0 = automat.getInitialState();
+        automat.automatonSpec.markAsInitial(s1);
+        automat.automatonSpec.markAsFinal(s4);
+        State s0 = automat.automatonSpec.getInitialState();
 
         List<OutgoingTransition> s0Out = automat.allOutgoingTransitions(s0);
 	
@@ -42,17 +41,17 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
      * Test metody targetState
      */
     public final void testTargetState() {
-        DeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
+        NaiveDeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
         
-        State r1 = automat.addState();
-        State r2 = automat.addState();
-        automat.addTransition(r1, r2, new CharTransitionLabel('a'));
-        State r3 = automat.addState();
-        automat.addTransition(r2, r3, new CharTransitionLabel('b'));
-        State r4 = automat.addState();
-        automat.addTransition(r2, r4, new CharTransitionLabel('c'));
-        State r5 = automat.addState();
-        automat.addTransition(r2, r5, new CharTransitionLabel('d'));
+        State r1 = automat.automatonSpec.addState();
+        State r2 = automat.automatonSpec.addState();
+        automat.automatonSpec.addTransition(r1, r2, new CharTransitionLabel('a'));
+        State r3 = automat.automatonSpec.addState();
+        automat.automatonSpec.addTransition(r2, r3, new CharTransitionLabel('b'));
+        State r4 = automat.automatonSpec.addState();
+        automat.automatonSpec.addTransition(r2, r4, new CharTransitionLabel('c'));
+        State r5 = automat.automatonSpec.addState();
+        automat.automatonSpec.addTransition(r2, r5, new CharTransitionLabel('d'));
         
         State test0 = automat.targetState(r2, 'b'); //r3
         State test1 = automat.targetState(r2, 'c'); //r4

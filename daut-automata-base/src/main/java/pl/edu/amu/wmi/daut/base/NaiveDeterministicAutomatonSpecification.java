@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class NaiveDeterministicAutomatonSpecification extends DeterministicAutomatonSpecification {
 
-    private NaiveAutomatonSpecification automatonSpec = new NaiveAutomatonSpecification();
+    public NaiveAutomatonSpecification automatonSpec = new NaiveAutomatonSpecification();
 
     @Override
     public List<State> allStates() {
