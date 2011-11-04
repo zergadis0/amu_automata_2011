@@ -198,20 +198,20 @@ public class TestAutomatonSpecification extends TestCase {
         // Stan 4 jest pułapką
 
         spec.addLoop(q4, new CharTransitionLabel('a'));
-	      spec.addLoop(q4, new CharTransitionLabel('b'));
-	      spec.addLoop(q4, new CharTransitionLabel('c'));
+        spec.addLoop(q4, new CharTransitionLabel('b'));
+        spec.addLoop(q4, new CharTransitionLabel('c'));
 
         // Stan 5 prowadzi tylko do stanu 4
 
-	      spec.addLoop(q5, new CharTransitionLabel('a'));
-	      spec.addTransition(q5, q4, new CharTransitionLabel('b'));
-	      spec.addLoop(q5, new CharTransitionLabel('c'));
+        spec.addLoop(q5, new CharTransitionLabel('a'));
+        spec.addTransition(q5, q4, new CharTransitionLabel('b'));
+        spec.addLoop(q5, new CharTransitionLabel('c'));
 
-	      assertTrue(spec.prefixChecker(q0));
-	      assertTrue(spec.prefixChecker(q1));
-	      assertTrue(spec.prefixChecker(q2));
-	      assertTrue(spec.prefixChecker(q3));
-	      assertFalse(spec.prefixChecker(q4));
-	      assertFalse(spec.prefixChecker(q5));
+        assertTrue(spec.prefixChecker(q0));
+        assertTrue(spec.prefixChecker(q1));
+        assertTrue(spec.prefixChecker(q2));
+        assertTrue(spec.prefixChecker(q3));
+        assertFalse(spec.prefixChecker(q4));
+        assertFalse(spec.prefixChecker(q5));
     }
 }
