@@ -12,7 +12,7 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
      * Test prostego automatu.
      */
     public final void testNaiveDeterministicAutomaton() {
-        NaiveDeterministicAutomatonSpecification automat = 
+        NaiveDeterministicAutomatonSpecification automat =
                 new NaiveDeterministicAutomatonSpecification();
 
         State s1 = automat.automatonSpec.addState();
@@ -32,10 +32,11 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
         assertEquals(s0Out.size(), 1);
         assertFalse(automat.automatonSpec.isFinal(s0));
         assertEquals(
-                ((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).getChar(), 'a');
+                ((CharTransitionLabel) s0Out.get(0).getTransitionLabel()).getChar(), 'a');
         assertTrue(
-                ((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('a'));
-        assertFalse(((CharTransitionLabel)s0Out.get(0).getTransitionLabel()).canAcceptCharacter('b'));
+                ((CharTransitionLabel) s0Out.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+        assertFalse(
+                ((CharTransitionLabel) s0Out.get(0).getTransitionLabel()).canAcceptCharacter('b'));
         State r0 = automat.targetState(s2, 'b');
         assertSame(r0, s3);
         assertNotSame(r0, s1);
@@ -45,7 +46,8 @@ public class TestNaiveDeterministicAutomatonSpecification extends TestCase {
      * Test metody targetState.
      */
     public final void testTargetState() {
-        NaiveDeterministicAutomatonSpecification automat = new NaiveDeterministicAutomatonSpecification();
+        NaiveDeterministicAutomatonSpecification automat =
+                new NaiveDeterministicAutomatonSpecification();
 
         State r1 = automat.automatonSpec.addState();
         State r2 = automat.automatonSpec.addState();
