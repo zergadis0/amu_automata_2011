@@ -507,12 +507,15 @@ abstract class AutomatonSpecification {
      * Metoda zwracającą wszystkie napisy akceptowane przez automat.
      */
     public void reurnAllAcceptedWords() {
-        Iterator it=list.iterator();
+//dodać pętle? zmienić list linijkę niżej
+        Iterator it = list.iterator();
+        //utworzenie pustego obiektu builder
+        StringBuilder builder = new StringBuilder();
         while (it.hasNext()) {
-            //utworzenie pustego obiektu builder
-            StringBuilder builder = new StringBuilder();
             //dodanie jednego znaku
             builder.append(it.next());
+        }
+        if(isFinal(state)) {
             System.out.printl(builder.toString());
         }
     }
