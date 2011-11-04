@@ -2,15 +2,17 @@ package pl.edu.amu.wmi.daut.base;
 
 import junit.framework.TestCase;
 
-<<<<<<< HEAD
-public class TestAutomatonSpecification extends TestCase {
-=======
 /**
  * Testy klasy AutomatonSpecification.
  */
-    public final void testCountStates(){
+public class TestAutomatonSpecification extends TestCase {
+
+    /**
+     * Test metody countStates.
+     */
+    public final void testCountStates() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
-        
+
         //Test 1
         assertEquals(spec.countStates(), 0);
 
@@ -19,15 +21,16 @@ public class TestAutomatonSpecification extends TestCase {
         assertEquals(spec.countStates(), 1);
 
         //Test 3
-        for(int i = 1; i <= 123456; i++)
-        {
+        for (int i = 1; i <= 123456; i++) {
             State q = spec.addState();
         }
         assertEquals(spec.countStates(), 123456 + 1);
-        
     }
 
-    public final void testCountTransitions(){
+    /**
+     * Test metody countStates.
+     */
+    public final void testCountTransitions() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         //Test 1
@@ -37,7 +40,7 @@ public class TestAutomatonSpecification extends TestCase {
         State q0 = spec.addState();
         State q1 = spec.addState();
         State q2 = spec.addState();
-        
+
         spec.addTransition(q0, q1, new CharTransitionLabel('a'));
         spec.addTransition(q1, q2, new CharTransitionLabel('b'));
 
@@ -162,4 +165,3 @@ public class TestAutomatonSpecification extends TestCase {
         assertEquals(str.toString(), ta4.toString());
     }
 }
->>>>>>> f988b9905842050ddc6eb6c6b39ade992a00a7be
