@@ -505,7 +505,7 @@ abstract class AutomatonSpecification {
     /**
      * Metoda zwracającą wszystkie napisy akceptowane przez automat.
      */
-    public returnAllAcceptedWords() {
+    public void reurnAllAcceptedWords() {
 
     }
 
