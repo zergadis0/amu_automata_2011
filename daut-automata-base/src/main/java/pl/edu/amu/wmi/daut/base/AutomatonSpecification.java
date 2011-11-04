@@ -514,6 +514,7 @@ abstract class AutomatonSpecification {
             //dodanie jednego znaku
             builder.append(it.next());
             System.out.printl(builder.toString());
+        }
     }
 
 };
