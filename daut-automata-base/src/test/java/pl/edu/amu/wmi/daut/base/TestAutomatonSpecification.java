@@ -165,15 +165,15 @@ public class TestAutomatonSpecification extends TestCase {
         assertEquals(str.toString(), ta4.toString());
     }
     /**
-    * Test metody PrefixChecker
-    */
+     * Testuje działanie metody testPrefixChecker().
+     */
     public final void testPrefixChecker() {
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
         State q0 = spec.addState();
         State q1 = spec.addState();
         State q2 = spec.addState();
         State q3 = spec.addState();
-	      State q4 = spec.addState();
+        State q4 = spec.addState();
 	      State q5 = spec.addState();
 
         spec.markAsInitial(q0);
