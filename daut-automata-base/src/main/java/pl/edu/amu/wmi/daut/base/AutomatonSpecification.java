@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.lang.StringBuilder;
 
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -506,7 +507,13 @@ abstract class AutomatonSpecification {
      * Metoda zwracającą wszystkie napisy akceptowane przez automat.
      */
     public void reurnAllAcceptedWords() {
-
+        Iterator it=list.iterator();
+        while (it.hasNext()) {
+            //utworzenie pustego obiektu builder
+            StringBuilder builder = new StringBuilder();
+            //dodanie jednego znaku
+            builder.append(it.next());
+            System.out.printl(builder.toString());
     }
 
 };
