@@ -50,7 +50,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
                 ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
             assertFalse(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
         } else {
-            // kolejnoscc moze byç odwrocona
+            // kolejnoscc moze byc odwrocona
             r1 = r0Outs.get(1).getTargetState();
             r2 = r0Outs.get(0).getTargetState();
             assertEquals(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'b');
