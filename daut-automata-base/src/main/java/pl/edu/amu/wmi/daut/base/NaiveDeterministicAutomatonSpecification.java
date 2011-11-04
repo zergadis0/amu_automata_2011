@@ -8,9 +8,10 @@ import java.util.List;
  * 
  * 
  */
-public final class NaiveDeterministicAutomatonSpecification extends DeterministicAutomatonSpecification {
+public final class NaiveDeterministicAutomatonSpecification
+           extends DeterministicAutomatonSpecification {
 
-    public NaiveAutomatonSpecification automatonSpec = new NaiveAutomatonSpecification();
+    protected NaiveAutomatonSpecification automatonSpec = new NaiveAutomatonSpecification();
 
     @Override
     public List<State> allStates() {
