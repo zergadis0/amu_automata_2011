@@ -6,10 +6,11 @@ import junit.framework.TestCase;
  * Klasa testujaca EpsilonTransitionLabel.
  */
 public class TestEpsilonTransitionLabel extends TestCase {
+
     /**
      * Metoda testująca EpsilonTransitionLabel.
      */
-    public final void testEpsilonTransitionLabel(){
+    public final void testEpsilonTransitionLabel() {
         AutomatonSpecification test = new NaiveAutomatonSpecification();
         State koniec = test.addState();
         State pierwszy = test.addState();
@@ -22,7 +23,8 @@ public class TestEpsilonTransitionLabel extends TestCase {
         test.addTransition(drugi, koniec, new CharTransitionLabel('a'));
         test.addTransition(trzeci, koniec, new CharTransitionLabel('ε'));
         test.addTransition(czwarty, koniec, new EmptyTransitionLabel());
-        TransitionLabel testowany = test.allOutgoingTransitions(pierwszy).get(0).getTransitionLabel();
+        TransitionLabel testowany =
+            test.allOutgoingTransitions(pierwszy).get(0).getTransitionLabel();
         TransitionLabel char1 = test.allOutgoingTransitions(drugi).get(0).getTransitionLabel();
         TransitionLabel char2 = test.allOutgoingTransitions(trzeci).get(0).getTransitionLabel();
         TransitionLabel empty = test.allOutgoingTransitions(czwarty).get(0).getTransitionLabel();
