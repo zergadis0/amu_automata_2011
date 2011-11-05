@@ -472,7 +472,7 @@ abstract class AutomatonSpecification {
     public boolean uselessStates() {
         boolean flag1 = true;
         boolean flag2 = false;
-         State q = getInitialState();
+        State q = getInitialState();
         List<State> stack = new ArrayList<State>();
         List<State> used;
         used = allStates();
@@ -483,7 +483,7 @@ abstract class AutomatonSpecification {
                     stack.add(allOutgoingTransitions(q).get(i).getTargetState());
                 }
             }
-       if (!stack.isEmpty()) {
+            if (!stack.isEmpty()) {
                 flag1 = true;
                 q = stack.get(stack.size());
                 for (int i = 1; i <= used.size(); i++) {
