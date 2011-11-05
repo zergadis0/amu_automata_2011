@@ -513,9 +513,9 @@ abstract class AutomatonSpecification {
         while (it.hasNext()) {
             //dodanie jednego znaku
             builder.append(it.next());
-        }
-        if (isFinal(state)) {
-            System.out.println(builder.toString());
+            if (isFinal(state)) {
+                System.out.println(builder.toString());
+            }
         }
     }
 
