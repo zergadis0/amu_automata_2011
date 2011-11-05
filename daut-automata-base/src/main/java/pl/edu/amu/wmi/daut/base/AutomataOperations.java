@@ -41,7 +41,7 @@ public class AutomataOperations {
         State qB = automatonB.getInitialState();
         State qC = automatonC.addState();
         automatonC.markAsInitial(qC);
-        
+
         stanC.set(qA, qB, qC);
 
         List<OutgoingTransition> lA;
