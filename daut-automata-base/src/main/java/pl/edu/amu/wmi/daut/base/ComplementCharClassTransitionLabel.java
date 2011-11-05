@@ -23,8 +23,12 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
         se = new HashSet();
         for (int i = 0; i < l; i++) {
             if (s.charAt(i) == '-') {
-                for (char k = (char) (s.charAt(i - 1) + 1); k < (s.charAt(i + 1)); k++) {
-                    se.add(k);
+                if (i == 0 || i == l - 1) {
+                    se.add('-');
+                } else {
+                    for (char k = (char) (s.charAt(i - 1) + 1); k < (s.charAt(i + 1)); k++) {
+                        se.add(k);
+                    }
                 }
             } else {
                 se.add(s.charAt(i));
@@ -36,7 +40,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     /**
      * 
      * @return Wynikiem jest wartość logiczna odpowiadająca na pytanie czy może
-     * byc epsilon przejście
+     * być epsilon przejście
      */
     @Override
     public boolean canBeEpsilon() {
@@ -77,10 +81,20 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
                 set.add(o);
             }
             StringBuilder buf = new StringBuilder();
+            boolean f = false;
             for (Object o : set) {
+                if (o.toString().equals("-")) {
+                    f = true;
+                    continue;
+                }
                 buf.append(o);
             }
+            if (f) {
+                buf.append('-');
+            }
             String str = buf.toString();
+
+
             return new ComplementCharClassTransitionLabel(str);
         } else {
             throw new CannotDetermineIntersectionException();

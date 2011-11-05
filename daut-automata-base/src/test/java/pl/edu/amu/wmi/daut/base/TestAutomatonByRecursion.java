@@ -1,10 +1,12 @@
 package pl.edu.amu.wmi.daut.base;
 
 import junit.framework.TestCase;
+
 /**
  * Test klasy AutomatonByRecursion.
  */
 public class TestAutomatonByRecursion extends TestCase {
+
     /**
      * Symulacja testu.
      */
@@ -28,6 +30,10 @@ public class TestAutomatonByRecursion extends TestCase {
         assertFalse(automaton.accepts("bb"));
         assertTrue(automaton.accepts("aa"));
     }
+
+    /**
+     * Trochę bardziej skomplikowany test.
+     */
     public final void testSecond() {
 
         final AutomatonSpecification specA = new NaiveAutomatonSpecification();
@@ -49,6 +55,10 @@ public class TestAutomatonByRecursion extends TestCase {
         assertFalse(automatonA.accepts("bb"));
         assertTrue(automatonA.accepts("ab"));
     }
+
+    /**
+     * Najbardziej skomplikowany test.
+     */
     public final void testThird() {
 
         final AutomatonSpecification specB = new NaiveAutomatonSpecification();
