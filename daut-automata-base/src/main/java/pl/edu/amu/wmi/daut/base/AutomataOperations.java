@@ -11,14 +11,14 @@ public class AutomataOperations {
      * Reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
      * intersection.
      */
-    private class Structure
+    protected class Structure
     {
         /**
          * Konstruktor
          */
         public Structure(State a, State b, State c)
         {
-            qA = c;
+            qA = a;
             qB = b;
             qC = c;
         }
@@ -40,7 +40,7 @@ public class AutomataOperations {
         automatonC.markAsInitial(qC);
         Structure stanQC = new Structure(qA, qB, qC);
 
-        List<Structure> lC = null;
+        List<Structure> lC = new java.util.LinkedList<Structure>();
         List<OutgoingTransition> lA;
         List<OutgoingTransition> lB;
         lC.add(stanQC);
