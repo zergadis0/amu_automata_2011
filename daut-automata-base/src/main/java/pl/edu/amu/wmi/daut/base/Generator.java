@@ -18,7 +18,7 @@ public class Generator {
      * dodaje symbol. Jeżeli z danego stanu nie wychodzą żadne etykiety a stan ten nie jest
      * akceptującu to napis jest usuwany
      */
-   void acceptedWords(AutomatonSpecification automaton, String alphabet, String word, State state) {
+    void acceptedWords(AutomatonSpecification automaton,String alphabet, String word, State state) {
         int i = 0;
         StringBuffer buf = new StringBuffer(word);
         List<OutgoingTransition> allOutTransitions;
