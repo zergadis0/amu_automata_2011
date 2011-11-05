@@ -505,7 +505,7 @@ abstract class AutomatonSpecification {
     /**
      * Metoda zwracającą wszystkie napisy akceptowane przez automat.
      */
-    public void reurnAllAcceptedWords(State state) {
+    public void returnAllAcceptedWords(State state) {
         AutomatonSpecification automaton = new NaiveAutomatonSpecification();
         Iterator it = automaton.iterator();
         //utworzenie pustego obiektu builder
