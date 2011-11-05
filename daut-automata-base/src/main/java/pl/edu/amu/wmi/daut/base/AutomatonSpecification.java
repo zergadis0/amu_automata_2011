@@ -506,8 +506,8 @@ abstract class AutomatonSpecification {
     /**
      * Metoda zwracającą wszystkie napisy akceptowane przez automat.
      */
-    public void reurnAllAcceptedWords() {
-        AutomatonSpecification automaton = new AutomatonSpecification();
+    public void reurnAllAcceptedWords(State state) {
+        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
 //dodać pętle? zmienić list linijkę niżej
         Iterator it = automaton.iterator();
         //utworzenie pustego obiektu builder
@@ -520,6 +520,10 @@ abstract class AutomatonSpecification {
             String Word = builder.toString();
             System.out.println(Word);
         }
+    }
+
+    private Iterator iterator() {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 };
