@@ -489,7 +489,7 @@ abstract class AutomatonSpecification {
         return false;
     }
     
-    public void makeAllStringsAutomation(String alphabet){
+    public void makeAllStringsAutomation(String alphabet) {
         State state = addState();
         markAsInitial(state);
         markAsFinal(state);
