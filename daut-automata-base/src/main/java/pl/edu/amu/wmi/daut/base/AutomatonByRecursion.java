@@ -1,10 +1,9 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
-
 /**
- * klasa która decyduje czy automat zaakceptuje dany napis.
- */
+* klasa która decyduje czy automat zaakceptuje dany napis.
+*/
 public final class AutomatonByRecursion implements Acceptor {
     AutomatonByRecursion(final AutomatonSpecification specification) {
         automaton = specification;
@@ -16,16 +15,16 @@ public final class AutomatonByRecursion implements Acceptor {
         return accept;
     }
     /**
-     * Metoda, która będzie wywoływana rekurencyjnie dla aktualnych stanów,
-     * pobiera wszystkie przejscia z bieżącego stanu,
-     * porównuje ich etykiety ze znakiem
-     * (tzn.characters.charAt(from)) z wprowadzonego napisu,
-     * jeśli sie zgadzają, porównuje stan docelowy przejścia.
-     */
+* Metoda, która będzie wywoływana rekurencyjnie dla aktualnych stanów,
+* pobiera wszystkie przejscia z bieżącego stanu,
+* porównuje ich etykiety ze znakiem
+* (tzn.characters.charAt(from)) z wprowadzonego napisu,
+* jeśli sie zgadzają, porównuje stan docelowy przejścia.
+*/
     private void check(final String text, final int from, final int toEnd, final State state) {
         if (from > toEnd) {
             if (automaton.isFinal(state)) {
-                accept =  true;
+                accept = true;
             }
         } else {
               List<OutgoingTransition> allOutTransitions;
