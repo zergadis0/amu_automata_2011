@@ -515,12 +515,12 @@ abstract class AutomatonSpecification {
             builder.append(it.next());
         }
         if (isFinal(state)) {
-            String word = builder.toString();
-            System.out.println(word);
+            System.out.println(builder.toString());
         }
     }
 
     private Iterator iterator() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
 };
