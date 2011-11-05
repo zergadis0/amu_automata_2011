@@ -34,15 +34,13 @@ public class TestAutomataOperations extends TestCase {
         automatonB.markAsFinal(q12);
 
 
-        // proszę odkomentować, kiedy AutomataOperations.intersection
-        // będzie gotowe!!!
-        // AutomatonSpecification Result = AutomataOperations.intersection(automatonA, automatonB);
-        // AutomatonByRecursion automaton = AutomatonByRecursion(Result);
+        AutomatonSpecification Result = AutomataOperations.intersection(automatonA, automatonB);
+        AutomatonByRecursion automaton = AutomatonByRecursion(Result);
 
-        // assertTrue(automaton.accepts("aa"));
-        // assertTrue(automaton.accepts("ab"));
-        // assertFalse(automaton.accepts(""));
-        // assertFalse(automaton.accepts("a"));
+        assertTrue(automaton.accepts("aa"));
+        assertTrue(automaton.accepts("ab"));
+        assertFalse(automaton.accepts(""));
+        assertFalse(automaton.accepts("a"));
 
     }
 }
