@@ -11,13 +11,7 @@ public class AutomataOperations {
      * Reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
      * intersection.
      */
-    protected static class Structure {
-        /**
-         * Domyślny konstruktor.
-         */
-        private Structure(){
-            
-        }
+    protected final class Structure {
         /**
          * Przypisuje stanowi C jego składowe stany A i B.
          */
@@ -34,7 +28,7 @@ public class AutomataOperations {
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
      * dwa podane automaty.
      */
-    public static AutomatonSpecification intersection(AutomatonSpecification automatonA,
+    public AutomatonSpecification intersection(AutomatonSpecification automatonA,
             AutomatonSpecification automatonB) {
         boolean empty;
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
