@@ -11,7 +11,7 @@ public class AutomataOperations {
      * Reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
      * intersection.
      */
-    protected final static class Structure {
+    protected static final class Structure {
         /**
          * Przypisuje stanowi C jego składowe stany A i B.
          */
