@@ -8,7 +8,8 @@ import java.util.List;
  *
  *
  */
-public class NaiveDeterministicAutomatonSpecification extends DeterministicAutomatonSpecification {
+public class NaiveDeterministicAutomatonSpecification
+           extends DeterministicAutomatonSpecification {
 
     private NaiveAutomatonSpecification automatonSpec = new NaiveAutomatonSpecification();
 
