@@ -14,6 +14,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- workaround for PMD see http://jira.codehaus.org/browse/MPMD-86 -->
+    <targetJdk>1.6</targetJdk>
   </properties>
 
   <profiles>
@@ -112,6 +115,11 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
+        <configuration>
+          <excludeFilterFile>fb-excludes.xml</excludeFilterFile>
+          <findbugsXmlOutput>true</findbugsXmlOutput>
+          <xmlOutput>true</xmlOutput>
+        </configuration>
         <dependencies>
           <dependency>
             <groupId>pl.edu.amu.wmi.daut</groupId>
@@ -134,6 +142,7 @@
         </dependencies>
         <configuration>
           <configLocation>sun_checks.xml</configLocation>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
       </plugin>
 
@@ -219,14 +228,6 @@
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <configuration>
-          <excludeFilterFile>fb-excludes.xml</excludeFilterFile>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
         <artifactId>emma-maven-plugin</artifactId>
         <version>1.0-alpha-2</version>
       </plugin>
@@ -237,6 +238,7 @@
         <version>2.6</version>
         <configuration>
           <configLocation>sun_checks.xml</configLocation>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
       </plugin>
 
