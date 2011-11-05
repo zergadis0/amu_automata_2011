@@ -7,13 +7,10 @@ import junit.framework.TestCase;
  */
 public class TestAutomatonByStack extends TestCase {
 /**
- * Test klasy AutomatonByStack.
+ * Pierwszy test.
  */
     public final void test1() {
-    /**
-     * Pierwszy test.
-     */
-        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
+       final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState();
         State q1a = spec.addState();
@@ -53,12 +50,11 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("cccccccccabbbbbbc"));
         assertFalse(automaton.accepts("aaaaaaacbaaaaabc"));
         assertFalse(automaton.accepts("bbbbbbccbbbbbbc"));
-    }
-    public final void test2 () {
+   }
     /**
-     * Drugi test.
+     *Drugi test.
      */
-
+     public final void test2() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState();
@@ -98,11 +94,11 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("aaabcbcbcbbccbabcabccc"));
         assertFalse(automaton.accepts("aaacacbcbaabc"));
         assertFalse(automaton.accepts("cccccccccccccccccccccccc"));
-   }
+    }
+   /**
+    *Test trzeci.
+    */
     public final void test3() {
-    /**
-     * Trzeci test.
-     */
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState();
@@ -162,10 +158,11 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("cdecdecedecccdadaadceebaababaeb"));
         assertFalse(automaton.accepts("dcddcececdabbbeababababdaeeeaccedbc"));
     }
+
+  /**
+    * Test czwarty.
+    */
     public final void test4() {
-    /**
-     * Pierwszy test.
-     */
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -212,10 +209,10 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("aaabccbcaabccbaaaaaaaacb"));
         assertFalse(automaton.accepts("abababababababababababababababacb"));
     }
+   /**
+    *Test piaty.
+    */
     public final void test5() {
-    /**
-     * Piaty test.
-     */
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -295,10 +292,10 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("cacacadccccabbagfgcddaadadfffa"));
         assertFalse(automaton.accepts("ccacacdddcccccccfadgdcabbcccfggfbaca"));
     }
+   /**
+    * Szosty test.
+    */
     public final void test6() {
-    /**
-     * Szosty test.
-     */
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
