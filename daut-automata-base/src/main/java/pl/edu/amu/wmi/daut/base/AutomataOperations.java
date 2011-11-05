@@ -11,7 +11,7 @@ public class AutomataOperations {
      * Reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
      * intersection.
      */
-    protected class Structure
+    protected static class Structure
     {
         /**
          * Konstruktor
@@ -30,9 +30,9 @@ public class AutomataOperations {
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
      * dwa podane automaty.
      */
-    public AutomatonSpecification intersection(AutomatonSpecification automatonA,
+    public static AutomatonSpecification intersection(AutomatonSpecification automatonA,
             AutomatonSpecification automatonB) {
-
+        boolean empty;
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
         State qA = automatonA.getInitialState();
         State qB = automatonB.getInitialState();
@@ -41,29 +41,40 @@ public class AutomataOperations {
         Structure stanQC = new Structure(qA, qB, qC);
 
         List<Structure> lC = new java.util.LinkedList<Structure>();
+        List<Structure> temporary = new java.util.LinkedList<Structure>();
         List<OutgoingTransition> lA;
         List<OutgoingTransition> lB;
-        lC.add(stanQC);
-
-        for(Structure struct: lC)
+        temporary.add(stanQC);
+        System.out.println(automatonA.toString());
+        System.out.println(automatonB.toString());
+        
+        do
         {
-            lA = automatonA.allOutgoingTransitions(struct.qA);
-            lB = automatonB.allOutgoingTransitions(struct.qB);
+            lC.addAll(temporary);
+            temporary.clear();
+            empty = true;
+            for(Structure struct: lC)
+            {
+                lA = automatonA.allOutgoingTransitions(struct.qA);
+                lB = automatonB.allOutgoingTransitions(struct.qB);
 
-            for(OutgoingTransition qAn: lA) {
-                for(OutgoingTransition qBn: lB) {
-                    TransitionLabel tL = qAn.getTransitionLabel().intersect(qBn.getTransitionLabel());
-                    if(!tL.isEmpty()) {
-                        State qCn = automatonC.addState();
-                        automatonC.addTransition(struct.qC, qCn, tL);
-                        if(automatonA.isFinal(qAn.getTargetState()) && automatonB.isFinal(qBn.getTargetState()))
-                            automatonC.markAsFinal(qCn);
-                        stanQC = new Structure(qAn.getTargetState(), qBn.getTargetState(), qCn);
-                        lC.add(stanQC);
+                for(OutgoingTransition qAn: lA) {
+                    for(OutgoingTransition qBn: lB) {
+                        TransitionLabel tL = qAn.getTransitionLabel().intersect(qBn.getTransitionLabel());
+                        if(!tL.isEmpty()) {
+                            State qCn = automatonC.addState();
+                            automatonC.addTransition(struct.qC, qCn, tL);
+                            if(automatonA.isFinal(qAn.getTargetState()) && automatonB.isFinal(qBn.getTargetState()))
+                                automatonC.markAsFinal(qCn);
+                            stanQC = new Structure(qAn.getTargetState(), qBn.getTargetState(), qCn);
+                            temporary.add(stanQC);
+                            empty = false;
+                        }
                     }
                 }
             }
-        }
+            lC.clear();
+        }while(!empty);
         return automatonC;
     }
 }
