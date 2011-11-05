@@ -344,7 +344,7 @@ abstract class AutomatonSpecification {
      */
     public void makeEmptyStringAutomaton() {
         State emptyState = this.addState();
-        this.addLoop(emptyState, new EpsilonTransitionLabel());
+        this.addLoop(emptyState, new EmptyTransitionLabel());
         this.markAsInitial(emptyState);
         this.markAsFinal(emptyState);
     }
