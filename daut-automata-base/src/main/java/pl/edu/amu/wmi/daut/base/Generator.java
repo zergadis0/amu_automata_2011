@@ -2,6 +2,9 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa zwracająca wszystkie akceptowane słowa
+ */
 public class Generator {
  /**
      * Metoda zwracająca listę wszystkich słów akceptowanych przez automat bez cykli.
@@ -15,7 +18,7 @@ public class Generator {
     private List<String> acceptedWords = new ArrayList<String>();
     private TransitionLabel currentLabel;
     /** {@inheritDoc}*/
-    public void acceptedWords(AutomatonSpecification automaton, String alphabet, String word, State state) {
+void acceptedWords(AutomatonSpecification automaton, String alphabet, String word, State state) {
         int i = 0;
         StringBuffer buf = new StringBuffer(word);
         List<OutgoingTransition> allOutTransitions;
