@@ -11,20 +11,18 @@ public class AutomataOperations {
      * Reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
      * intersection.
      */
-    protected static class Structure
-    {
+    protected static class Structure {
         /**
-         * Konstruktor
+         * Przypisuje stanowi C jego składowe stany A i B.
          */
-        public Structure(State a, State b, State c)
-        {
+        public set(State a, State b, State c) {
             qA = a;
             qB = b;
             qC = c;
         }
-        protected State qA;
-        protected State qB;
-        protected State qC;
+        private State qA;
+        private State qB;
+        private State qC;
     }
     /**
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
@@ -45,26 +43,22 @@ public class AutomataOperations {
         List<OutgoingTransition> lA;
         List<OutgoingTransition> lB;
         temporary.add(stanQC);
-        System.out.println(automatonA.toString());
-        System.out.println(automatonB.toString());
-        
-        do
-        {
+
+        do {
             lC.addAll(temporary);
             temporary.clear();
             empty = true;
-            for(Structure struct: lC)
-            {
+            for (Structure struct : lC) {
                 lA = automatonA.allOutgoingTransitions(struct.qA);
                 lB = automatonB.allOutgoingTransitions(struct.qB);
 
-                for(OutgoingTransition qAn: lA) {
-                    for(OutgoingTransition qBn: lB) {
+                for (OutgoingTransition qAn : lA) {
+                    for (OutgoingTransition qBn: lB) {
                         TransitionLabel tL = qAn.getTransitionLabel().intersect(qBn.getTransitionLabel());
-                        if(!tL.isEmpty()) {
+                        if (!tL.isEmpty()) {
                             State qCn = automatonC.addState();
                             automatonC.addTransition(struct.qC, qCn, tL);
-                            if(automatonA.isFinal(qAn.getTargetState()) && automatonB.isFinal(qBn.getTargetState()))
+                            if (automatonA.isFinal(qAn.getTargetState()) && automatonB.isFinal(qBn.getTargetState()))
                                 automatonC.markAsFinal(qCn);
                             stanQC = new Structure(qAn.getTargetState(), qBn.getTargetState(), qCn);
                             temporary.add(stanQC);
@@ -74,7 +68,7 @@ public class AutomataOperations {
                 }
             }
             lC.clear();
-        }while(!empty);
+        } while (!empty);
         return automatonC;
     }
 }
