@@ -15,7 +15,7 @@ public class AutomataOperations {
         /**
          * Przypisuje stanowi C jego składowe stany A i B.
          */
-        public set(State a, State b, State c) {
+        public void set(State a, State b, State c) {
             qA = a;
             qB = b;
             qC = c;
@@ -36,7 +36,8 @@ public class AutomataOperations {
         State qB = automatonB.getInitialState();
         State qC = automatonC.addState();
         automatonC.markAsInitial(qC);
-        Structure stanQC = new Structure(qA, qB, qC);
+        Structure stanQC = new Structure();
+        stanQC.set(qA, qB, qC);
 
         List<Structure> lC = new java.util.LinkedList<Structure>();
         List<Structure> temporary = new java.util.LinkedList<Structure>();
@@ -58,9 +59,11 @@ public class AutomataOperations {
                         if (!tL.isEmpty()) {
                             State qCn = automatonC.addState();
                             automatonC.addTransition(struct.qC, qCn, tL);
-                            if (automatonA.isFinal(qAn.getTargetState()) && automatonB.isFinal(qBn.getTargetState()))
+                            if (automatonA.isFinal(qAn.getTargetState()) &&
+                                    automatonB.isFinal(qBn.getTargetState()))
                                 automatonC.markAsFinal(qCn);
-                            stanQC = new Structure(qAn.getTargetState(), qBn.getTargetState(), qCn);
+                            stanQC = new Structure();
+                            stanQC.set(qAn.getTargetState(), qBn.getTargetState(), qCn);
                             temporary.add(stanQC);
                             empty = false;
                         }
