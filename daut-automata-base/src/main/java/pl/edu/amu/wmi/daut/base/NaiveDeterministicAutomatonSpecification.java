@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * Nieefektywne, przykładowe ukonkretnienie klasy abstrakcyjnej
  * DeterministicAutomatonSpecification.
- * 
- * 
+ *
+ *
  */
 public class NaiveDeterministicAutomatonSpecification extends DeterministicAutomatonSpecification {
 
@@ -39,31 +39,31 @@ public class NaiveDeterministicAutomatonSpecification extends DeterministicAutom
 
     @Override
     public State addState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.automatonSpec.addState();
     }
 
     @Override
     public void addTransition(State from, State to, TransitionLabel transitionLabel) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.automatonSpec.addTransition(from, to, transitionLabel);
     }
 
     @Override
     public void markAsInitial(State state) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.automatonSpec.markAsInitial(state);
     }
 
     @Override
     public void markAsFinal(State state) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.automatonSpec.markAsFinal(state);
     }
 
     @Override
     public State getInitialState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.automatonSpec.getInitialState();
     }
 
     @Override
     public boolean isFinal(State state) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.automatonSpec.isFinal(state);
     }
 }
