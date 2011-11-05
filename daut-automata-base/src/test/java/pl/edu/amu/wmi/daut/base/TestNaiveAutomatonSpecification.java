@@ -206,7 +206,6 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     public final void testMakeAllStringsAutomaton() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
         spec.makeAllStringsAutomaton("abc");
-        
         assertEquals(1, spec.countStates());
         assertTrue(spec.isFinal(spec.getInitialState()));
         assertTrue(spec.acceptEmptyWord());
