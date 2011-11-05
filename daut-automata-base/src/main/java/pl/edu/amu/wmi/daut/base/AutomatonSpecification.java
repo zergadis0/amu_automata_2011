@@ -515,8 +515,8 @@ abstract class AutomatonSpecification {
             builder.append(it.next());
         }
         if (isFinal(state)) {
-            String Word = builder.toString();
-            System.out.println(Word);
+            String word = builder.toString();
+            System.out.println(word);
         }
     }
 
