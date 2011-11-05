@@ -40,19 +40,20 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         State r1;
         State r2;
 
-        if (((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
+        if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
             r1 = r0Outs.get(0).getTargetState();
             r2 = r0Outs.get(1).getTargetState();
-            assertEquals(((CharTransitionLabel)r0Outs.get(1).getTransitionLabel()).getChar(), 'b');
-            assertTrue(((CharTransitionLabel)r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
-            assertFalse(((CharTransitionLabel)r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
-            assertFalse(((CharTransitionLabel)r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
-        }
-        else {
+            assertEquals(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).getChar(), 'b');
+            assertTrue(
+                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
+            assertFalse(
+                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
+            assertFalse(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
+        } else {
             // kolejność może być odwrócona
             r1 = r0Outs.get(1).getTargetState();
             r2 = r0Outs.get(0).getTargetState();
-            assertEquals(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar(), 'b');
+            assertEquals(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'b');
         }
 
         assertFalse(spec.isFinal(r1));
@@ -88,7 +89,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(emptyTransition.intersect(emptyTransition).isEmpty());
     }
 
-
+    /**
+     * Test metody dodającej pętlę.
+     */
     public final void testAddLoop() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -110,11 +113,14 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         State r1;
 
-        if (((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
+        if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
             r1 = r0Outs.get(0).getTargetState();
-            assertEquals(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
-            assertTrue(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
-            assertFalse(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
+            assertEquals(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
+            assertTrue(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+            assertFalse(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
         }
 
         assertTrue(spec.isFinal(r0));
@@ -126,6 +132,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
     }
 
+    /**
+     * Test metody tworzącej prosty automat.
+     */
     public final void testmakeOneLoopAutomaton(char c) {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -147,11 +156,14 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         State r1;
 
-        if (((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar() == 'c') {
+        if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'c') {
             r1 = r0Outs.get(0).getTargetState();
-            assertEquals(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar(), 'c');
-            assertTrue(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('c'));
-            assertFalse(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
+            assertEquals(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'c');
+            assertTrue(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+            assertFalse(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
         }
 
         assertTrue(spec.isFinal(r0));
@@ -163,6 +175,29 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
     }
 
+    /**
+     * Test metody dopełniającej automat.
+     */
+    public final void testMakeFull() {
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification spec3 = new NaiveAutomatonSpecification();
 
+        spec.makeFull("abc");
+        assertTrue(spec.isFull("abc"));
 
+        State s = spec2.addState();
+
+        spec2.makeFull("abc");
+        assertTrue(spec2.isFull("abc"));
+
+        State s0 = spec3.addState();
+        State s1 = spec3.addState();
+        State s2 = spec3.addState();
+
+        spec3.addTransition(s0, s1, new CharTransitionLabel('a'));
+
+        spec3.makeFull("abc");
+        assertTrue(spec3.isFull("abc"));
+    }
 }
