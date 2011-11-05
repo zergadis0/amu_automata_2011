@@ -8,10 +8,11 @@ import java.util.List;
 public class AutomataOperations {
 
     /**
-     * Reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
+     * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
      * intersection.
      */
     protected static final class Structure {
+
         /**
          * Przypisuje stanowi C jego składowe stany A i B.
          */
@@ -24,48 +25,57 @@ public class AutomataOperations {
         private State qB;
         private State qC;
     }
+
     /**
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
      * dwa podane automaty.
      */
     public AutomatonSpecification intersection(AutomatonSpecification automatonA,
             AutomatonSpecification automatonB) {
+
         boolean empty;
+        Structure stanC = new Structure();
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
+
         State qA = automatonA.getInitialState();
         State qB = automatonB.getInitialState();
         State qC = automatonC.addState();
         automatonC.markAsInitial(qC);
-        Structure stanQC = new Structure();
-        stanQC.set(qA, qB, qC);
+        
+        stanC.set(qA, qB, qC);
 
-        List<Structure> lC = new java.util.LinkedList<Structure>();
-        List<Structure> temporary = new java.util.LinkedList<Structure>();
         List<OutgoingTransition> lA;
         List<OutgoingTransition> lB;
-        temporary.add(stanQC);
+        List<Structure> lC = new java.util.LinkedList<Structure>();
+        List<Structure> temporary = new java.util.LinkedList<Structure>();
+        temporary.add(stanC);
 
         do {
             lC.addAll(temporary);
             temporary.clear();
             empty = true;
+
             for (Structure struct : lC) {
                 lA = automatonA.allOutgoingTransitions(struct.qA);
                 lB = automatonB.allOutgoingTransitions(struct.qB);
 
                 for (OutgoingTransition qAn : lA) {
                     for (OutgoingTransition qBn : lB) {
+
                         TransitionLabel tL = qAn.getTransitionLabel().intersect(
                                 qBn.getTransitionLabel());
+
                         if (!tL.isEmpty()) {
                             State qCn = automatonC.addState();
                             automatonC.addTransition(struct.qC, qCn, tL);
+
                             if (automatonA.isFinal(qAn.getTargetState())
                                     && automatonB.isFinal(qBn.getTargetState()))
                                 automatonC.markAsFinal(qCn);
-                            stanQC = new Structure();
-                            stanQC.set(qAn.getTargetState(), qBn.getTargetState(), qCn);
-                            temporary.add(stanQC);
+
+                            stanC = new Structure();
+                            stanC.set(qAn.getTargetState(), qBn.getTargetState(), qCn);
+                            temporary.add(stanC);
                             empty = false;
                         }
                     }
