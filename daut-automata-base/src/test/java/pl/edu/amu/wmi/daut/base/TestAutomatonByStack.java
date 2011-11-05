@@ -6,10 +6,10 @@ import junit.framework.TestCase;
  * Test klasy AutomatonStack.
  */
 public class TestAutomatonByStack extends TestCase {
-
-    /**
-     * Testy.
-     */
+/**
+ * Test klasy AutomatonByStack.
+ */
+    
     public final void test1() {
     /**
      * Pierwszy test.
@@ -55,7 +55,7 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("aaaaaaacbaaaaabc"));
         assertFalse(automaton.accepts("bbbbbbccbbbbbbc"));
     }
-    public final void test2() {
+    public final void test2 () {
 /**
 * Drugi test.
 */
@@ -164,9 +164,10 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("dcddcececdabbbeababababdaeeeaccedbc"));
     }
     public final void test4() {
-    /**
-     *Czwarty test.
-     */
+/**
+ * Test 4.
+ * 
+ */
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -296,9 +297,9 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("cacacadccccabbagfgcddaadadfffa"));
         assertFalse(automaton.accepts("ccacacdddcccccccfadgdcabbcccfggfbaca"));
     }
-    public final void test6(){
+    public final void test6() {
     /**
-     * Szosty test.
+    *Test 6
      */
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
