@@ -1,5 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.Set;
+
 /**
  *
  */
@@ -11,9 +13,10 @@ public class AutomataOperations {
     /**
      * Metoda zwracajaca Automat akceptujacy jezyk bedacy dopelnieniem jezyka
      * akceptowanego przez Automat otrzymywany "na wejsciu".
+     * @return AutomatonSpecification
      */
-    public static AutomatonSpecification
-            complementLanguageAutomaton(AutomatonSpecification pierwszy) {
-        return pierwszy;
+    static AutomatonSpecification
+            complementLanguageAutomaton(AutomatonSpecification automat, Set<Character> alfabet) {
+        return automat;
     }
 }

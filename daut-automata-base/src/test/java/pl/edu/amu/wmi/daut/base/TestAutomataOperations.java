@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.HashSet;
 import junit.framework.TestCase;
 
 /**
@@ -55,16 +56,19 @@ public class TestAutomataOperations extends TestCase {
 
         State q0 = pustyOjciec.addState();
         pustyOjciec.addLoop(q0, new CharTransitionLabel('a'));
-        pustyOjciec.addLoop(q0, new CharTransitionLabel('b'));
         pustyOjciec.markAsInitial(q0);
+        HashSet<Character> zbior = new HashSet<Character>();
+        zbior.add('a');
+        zbior.add('b');
+        zbior.add('c');
 
         AutomatonByRecursion pusteDziecko = new
-                AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(pustyOjciec));
+         AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(pustyOjciec, zbior));
 
         assertTrue(pusteDziecko.accepts("a"));
         assertTrue(pusteDziecko.accepts("abba"));
         assertTrue(pusteDziecko.accepts(""));
-        //assertFalse(pusteDziecko.accepts("cc")); Niepewnosc!
+        assertFalse(pusteDziecko.accepts("cc"));
     }
 
     /**
@@ -85,9 +89,11 @@ public class TestAutomataOperations extends TestCase {
         autLucas.markAsInitial(q0);
         autLucas.markAsFinal(q2);
         autLucas.markAsFinal(q3);
+        HashSet<Character> zbior = new HashSet<Character>();
+        zbior.add('a');
 
         AutomatonByRecursion autLucasBR = new
-                AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(autLucas));
+            AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(autLucas, zbior));
 
         assertTrue(autLucasBR.accepts(""));
         assertTrue(autLucasBR.accepts("a"));
@@ -117,9 +123,12 @@ public class TestAutomataOperations extends TestCase {
         abba.markAsInitial(q0);
         abba.markAsFinal(qab);
         abba.markAsFinal(qba);
+        HashSet<Character> zbior = new HashSet<Character>();
+        zbior.add('a');
+        zbior.add('b');
 
         AutomatonByRecursion abbaBR = new
-                AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(abba));
+                AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(abba, zbior));
 
         assertTrue(abbaBR.accepts(""));
         assertTrue(abbaBR.accepts("a"));
