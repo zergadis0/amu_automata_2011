@@ -9,7 +9,6 @@ public class Generator {
 
     private List<String> acceptedWords = new ArrayList<String>();
     private TransitionLabel currentLabel;
-  //  /** {@inheritDoc}*/
     /**
      * Metoda zwracająca listę wszystkich słów akceptowanych przez automat bez cykli.
      * Pobiera wszystkie przejscia z bieżącego stanu,
