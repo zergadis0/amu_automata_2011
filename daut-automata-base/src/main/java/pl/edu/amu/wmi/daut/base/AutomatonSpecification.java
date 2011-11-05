@@ -65,13 +65,14 @@ abstract class AutomatonSpecification {
     /**
      * Metoda budująca 2-stanowy automat z jednym przejściem.
      */
-    public void makeOneTransitionAutomaton(char c) {
+    public AutomatonSpecification makeOneTransitionAutomaton(char c) {
         AutomatonSpecification spec1 = new NaiveAutomatonSpecification();
         State q0 = spec1.addState();
         State q1 = spec1.addState();
         spec1.addTransition(q0, q1, new CharTransitionLabel(c));
         spec1.markAsInitial(q0);
         spec1.markAsFinal(q1);
+        return spec1;
     }
 
     /**
@@ -499,5 +500,12 @@ abstract class AutomatonSpecification {
             }
         }
         return false;
+    }
+    public void makeAllStringsAutomaton(String alphabet) {
+        State state = addState();
+        markAsInitial(state);
+        markAsFinal(state);
+        for (int i = 0; i < alphabet.length(); i++)
+            addLoop(state, new CharTransitionLabel(alphabet.charAt(i)));
     }
 };
