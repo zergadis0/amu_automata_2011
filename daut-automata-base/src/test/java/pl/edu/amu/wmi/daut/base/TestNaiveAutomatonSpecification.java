@@ -200,8 +200,10 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         spec3.makeFull("abc");
         assertTrue(spec3.isFull("abc"));
     }
-    public final void testMakeAllStringsAutomaton()
-    {
+    /**
+     * Test metody tworzącej automat akceptujący wszystkie napisy nad zadanym językiem.
+     */
+    public final void testMakeAllStringsAutomaton() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
         spec.makeAllStringsAutomaton("abc");
         
@@ -209,6 +211,5 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(spec.isFinal(spec.getInitialState()));
         assertTrue(spec.acceptEmptyWord());
         assertTrue(spec.isFull("abc"));
-        
     }
 }
