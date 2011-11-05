@@ -13,6 +13,12 @@ public class AutomataOperations {
      */
     protected static class Structure {
         /**
+         * Domyślny konstruktor.
+         */
+        private Structure(){
+            
+        }
+        /**
          * Przypisuje stanowi C jego składowe stany A i B.
          */
         public void set(State a, State b, State c) {
@@ -54,13 +60,14 @@ public class AutomataOperations {
                 lB = automatonB.allOutgoingTransitions(struct.qB);
 
                 for (OutgoingTransition qAn : lA) {
-                    for (OutgoingTransition qBn: lB) {
-                        TransitionLabel tL = qAn.getTransitionLabel().intersect(qBn.getTransitionLabel());
+                    for (OutgoingTransition qBn : lB) {
+                        TransitionLabel tL = qAn.getTransitionLabel().intersect(
+                                qBn.getTransitionLabel());
                         if (!tL.isEmpty()) {
                             State qCn = automatonC.addState();
                             automatonC.addTransition(struct.qC, qCn, tL);
-                            if (automatonA.isFinal(qAn.getTargetState()) &&
-                                    automatonB.isFinal(qBn.getTargetState()))
+                            if (automatonA.isFinal(qAn.getTargetState())
+                                    && automatonB.isFinal(qBn.getTargetState()))
                                 automatonC.markAsFinal(qCn);
                             stanQC = new Structure();
                             stanQC.set(qAn.getTargetState(), qBn.getTargetState(), qCn);
