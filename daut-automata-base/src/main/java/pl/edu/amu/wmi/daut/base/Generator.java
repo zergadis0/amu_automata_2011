@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Klasa zwracająca wszystkie akceptowane słowa
+ * Klasa zwracająca akceptowane słowa.
  */
 public class Generator {
  /**
@@ -40,12 +40,12 @@ void acceptedWords(AutomatonSpecification automaton, String alphabet, String wor
                                     acceptedWords.remove(word);
                                 }
                         }
-                      }
                     }
-        } else {
-                if (!automaton.isFinal(state)) {
-                    acceptedWords.remove(word);
                 }
-                }
+            } else {
+                    if (!automaton.isFinal(state)) {
+                        acceptedWords.remove(word);
+                    }
+            }
     }
 }
