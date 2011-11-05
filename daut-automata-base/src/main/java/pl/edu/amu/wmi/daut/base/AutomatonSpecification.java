@@ -508,7 +508,6 @@ abstract class AutomatonSpecification {
      */
     public void reurnAllAcceptedWords(State state) {
         AutomatonSpecification automaton = new NaiveAutomatonSpecification();
-//dodać pętle? zmienić list linijkę niżej
         Iterator it = automaton.iterator();
         //utworzenie pustego obiektu builder
         StringBuilder builder = new StringBuilder();
@@ -516,7 +515,7 @@ abstract class AutomatonSpecification {
             //dodanie jednego znaku
             builder.append(it.next());
         }
-        if(isFinal(state)) {
+        if (isFinal(state)) {
             String Word = builder.toString();
             System.out.println(Word);
         }
@@ -525,5 +524,4 @@ abstract class AutomatonSpecification {
     private Iterator iterator() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-
 };
