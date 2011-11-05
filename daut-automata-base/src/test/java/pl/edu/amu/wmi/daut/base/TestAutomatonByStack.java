@@ -10,7 +10,7 @@ public class TestAutomatonByStack extends TestCase {
     /**
      * Testy.
      */
-    public final void test1(){
+    public final void test1() {
     /**
      * Pierwszy test.
      */
@@ -54,12 +54,11 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("cccccccccabbbbbbc"));
         assertFalse(automaton.accepts("aaaaaaacbaaaaabc"));
         assertFalse(automaton.accepts("bbbbbbccbbbbbbc"));
-
-}   
+    }
     public final void test2() {
-    /**
-     * Drugi test.
-     */    
+/**
+* Drugi test.
+*/
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -163,7 +162,7 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("aaaabdcedbcadecbadecabdbbbdddaecbaecdbeacdbecaecb"));
         assertFalse(automaton.accepts("cdecdecedecccdadaadceebaababaeb"));
         assertFalse(automaton.accepts("dcddcececdabbbeababababdaeeeaccedbc"));
-    }                                         
+    }
     public final void test4() {
     /**
      *Czwarty test.
@@ -213,7 +212,7 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("abcaaabbbcccaacb"));
         assertFalse(automaton.accepts("aaabccbcaabccbaaaaaaaacb"));
         assertFalse(automaton.accepts("abababababababababababababababacb"));
-    }                                                                                                         
+    }
     public final void test5() {
     /**
      * Piaty test.
@@ -282,16 +281,12 @@ public class TestAutomatonByStack extends TestCase {
         spec.addTransition(q13a, q15a, new CharTransitionLabel('f'));
         spec.addLoop(q13a, new CharTransitionLabel('f'));
         spec.addLoop(q13a, new CharTransitionLabel('d'));
-
-
         spec.markAsInitial(q0a);
         spec.markAsFinal(q10a);
         spec.markAsFinal(q11a);
         spec.markAsFinal(q15a);
         spec.markAsFinal(q14a);
-
         final AutomatonByStack automaton = new AutomatonByStack(spec);
-
         assertTrue(automaton.accepts("ccaacababccbadgffgfgabbbbb"));
         assertTrue(automaton.accepts("aaaabaaaaecccafggfcdadadadaddddff"));
         assertFalse(automaton.accepts("accacaccdccccbfggfcdaaaddabaffafaadaabbababa"));
@@ -312,13 +307,11 @@ public class TestAutomatonByStack extends TestCase {
         State q1a = spec.addState();
         State q2a = spec.addState();
         State q3a = spec.addState();
-            
         spec.addTransition(q0a, q1a, new CharTransitionLabel('a'));
         spec.addTransition(q1a, q3a, new CharTransitionLabel('b'));
         spec.addTransition(q2a, q1a, new CharTransitionLabel('c'));
         spec.addTransition(q0a, q2a, new CharTransitionLabel('b'));
         spec.addTransition(q2a, q3a, new CharTransitionLabel('a'));
-        
         spec.addLoop(q0a, new CharTransitionLabel('a'));
         spec.addLoop(q0a, new CharTransitionLabel('b'));
         spec.addLoop(q0a, new CharTransitionLabel('c'));
@@ -327,12 +320,9 @@ public class TestAutomatonByStack extends TestCase {
         spec.addLoop(q2a, new CharTransitionLabel('b'));
         spec.addLoop(q3a, new CharTransitionLabel('a'));
         spec.addLoop(q3a, new CharTransitionLabel('b'));
-        
         spec.markAsInitial(q0a);
         spec.markAsFinal(q3a);
-        
         final AutomatonByStack automaton = new AutomatonByStack(spec);
-
         assertTrue(automaton.accepts("ab"));
         assertTrue(automaton.accepts("ba"));
         assertTrue(automaton.accepts("bcb"));
