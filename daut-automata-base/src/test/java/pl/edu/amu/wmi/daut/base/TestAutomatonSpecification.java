@@ -7,6 +7,112 @@ import junit.framework.TestCase;
  */
 public class TestAutomatonSpecification extends TestCase {
 
+    public final void testFromString_EmptyLanguage() {
+        AutomatonSpecification pustyOjciec = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0\n-Transitions:\n"+
+     "q0 -a-> q0\nq0 -b-> q0\n-Initial state: q0\n-Final states:";
+
+        try {
+            pustyOjciec.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla poprawnego Stringa!");
+        }
+
+        AutomatonByRecursion pusteDziecko = new AutomatonByRecursion(pustyOjciec);
+
+        assertFalse(pusteDziecko.accepts("aaa"));
+        assertFalse(pusteDziecko.accepts("baba"));
+        assertFalse(pusteDziecko.accepts(""));
+    }
+
+    public final void testFromString_EmptyStringAutomaton() {
+        AutomatonSpecification dziwny = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0\n-Transitions:\n"+
+     "q0 -ε-> q0\n-Initial state: q0\n-Final states: q0";
+
+        try {
+            dziwny.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla poprawnego Stringa!");
+        }
+
+        AutomatonByRecursion wynik = new AutomatonByRecursion(dziwny);
+
+        assertFalse(wynik.accepts("aaa"));
+        assertFalse(wynik.accepts("baba"));
+        assertTrue(wynik.accepts(""));
+    }
+
+    public final void testFromString_OddPowersOfA() {
+        AutomatonSpecification masakra = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0 q1\n-Transitions:\n"+
+     "q0 -a-> q1\nq1 -a-> q0\n-Initial state: q0\n-Final states: q1";
+
+        try {
+            masakra.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla poprawnego Stringa!");
+        }
+        
+        AutomatonByRecursion angle = new AutomatonByRecursion(masakra);
+
+        assertFalse(angle.accepts("aab"));
+        assertFalse(angle.accepts(""));
+        assertTrue(angle.accepts("aaa"));
+    }
+    
+    public final void testFromString_AutomatWithEpsilon() {
+        AutomatonSpecification epsilon = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0 qa qb q00\n-Transitions:\n"+
+     "q0 -ε-> qa\nq0 -ε-> qb\nqa -a-> q00\nqb -b-> q00\n-Initial state: q0\n-Final states: q00";
+
+        try {
+            epsilon.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla automatu z Epsilonem!");
+        }
+        
+        AutomatonByRecursion ep = new AutomatonByRecursion(epsilon);
+
+        assertTrue(ep.accepts("a"));
+        assertTrue(ep.accepts("b"));
+        assertFalse(ep.accepts(""));
+        assertFalse(ep.accepts("ε"));
+        assertFalse(ep.accepts("aa"));
+        assertFalse(ep.accepts("ab"));
+        assertFalse(ep.accepts("ba"));
+        assertFalse(ep.accepts("bb"));
+    }
+
+    public final void testFromString_Blubbering() {
+        AutomatonSpecification niepoprawny = new NaiveAutomatonSpecification();
+
+        String slowo = "niepoprawnywogolestring";
+
+        try {
+            niepoprawny.fromString(slowo);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
+    public final void testFromString_WrongAutomatonString() {
+        AutomatonSpecification bledny = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0\n-Transitions:\n"+
+     "q2 -a-> q4\nq4 -a-> q0\n-Initial state: q4\n-Final states: q0";
+
+        try {
+            bledny.fromString(slowo);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
     /**
      * Test metody countStates.
      */
