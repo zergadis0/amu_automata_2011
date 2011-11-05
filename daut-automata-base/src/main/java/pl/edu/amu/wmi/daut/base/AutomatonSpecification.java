@@ -493,9 +493,7 @@ abstract class AutomatonSpecification {
         State state = addState();
         markAsInitial(state);
         markAsFinal(state);
-        for(int i = 0; i < alphabet.length(); i++)
-        {
+        for (int i = 0; i < alphabet.length(); i++)
             addLoop(state, new CharTransitionLabel(alphabet.charAt(i)));
-        }
     }
 };
