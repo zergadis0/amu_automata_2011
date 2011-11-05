@@ -8,10 +8,10 @@ import java.util.List;
  * 
  * 
  */
-public final class NaiveDeterministicAutomatonSpecification
+public class NaiveDeterministicAutomatonSpecification
            extends DeterministicAutomatonSpecification {
 
-    protected NaiveAutomatonSpecification automatonSpec = new NaiveAutomatonSpecification();
+    private NaiveAutomatonSpecification automatonSpec = new NaiveAutomatonSpecification();
 
     @Override
     public List<State> allStates() {
@@ -40,31 +40,31 @@ public final class NaiveDeterministicAutomatonSpecification
 
     @Override
     public State addState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.automatonSpec.addState();
     }
 
     @Override
     public void addTransition(State from, State to, TransitionLabel transitionLabel) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.automatonSpec.addTransition(from, to, transitionLabel);
     }
 
     @Override
     public void markAsInitial(State state) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.automatonSpec.markAsInitial(state);
     }
 
     @Override
     public void markAsFinal(State state) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.automatonSpec.markAsFinal(state);
     }
 
     @Override
     public State getInitialState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.automatonSpec.getInitialState();
     }
 
     @Override
     public boolean isFinal(State state) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.automatonSpec.isFinal(state);
     }
 }
