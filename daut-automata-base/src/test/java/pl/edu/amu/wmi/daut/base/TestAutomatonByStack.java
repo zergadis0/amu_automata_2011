@@ -9,7 +9,6 @@ public class TestAutomatonByStack extends TestCase {
 /**
  * Test klasy AutomatonByStack.
  */
-    
     public final void test1() {
     /**
      * Pierwszy test.
@@ -56,9 +55,9 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("bbbbbbccbbbbbbc"));
     }
     public final void test2 () {
-/**
-* Drugi test.
-*/
+    /**
+     * Drugi test.
+     */
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -164,10 +163,9 @@ public class TestAutomatonByStack extends TestCase {
         assertFalse(automaton.accepts("dcddcececdabbbeababababdaeeeaccedbc"));
     }
     public final void test4() {
-/**
- * Test 4.
- * 
- */
+    /**
+     * Pierwszy test.
+     */
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -299,7 +297,7 @@ public class TestAutomatonByStack extends TestCase {
     }
     public final void test6() {
     /**
-    *Test 6
+     * Szosty test.
      */
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
