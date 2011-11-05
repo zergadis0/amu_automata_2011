@@ -34,7 +34,7 @@ public class Generator {
                             buf.append(alphabet.charAt(i));
                             word = buf.toString();
                             acceptedWords.add(word);
-                            acceptedWords(automaton, alphabet, word, transition.getTargetState());
+                            acceptWords(automaton, alphabet, word, transition.getTargetState());
                         } else {
                                 if (!automaton.isFinal(state)) {
                                     acceptedWords.remove(word);
