@@ -3,7 +3,6 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -500,27 +499,6 @@ abstract class AutomatonSpecification {
             }
         }
         return false;
-    }
-
-    /**
-     * Metoda zwracającą wszystkie napisy akceptowane przez automat.
-     */
-    public void returnAllAcceptedWords(State state) {
-        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
-        Iterator it = automaton.iterator();
-        //utworzenie pustego obiektu builder
-        StringBuilder builder = new StringBuilder();
-        while (it.hasNext()) {
-            //dodanie jednego znaku
-            builder.append(it.next());
-            if (isFinal(state)) {
-                System.out.println(builder.toString());
-            }
-        }
-    }
-
-    private Iterator iterator() {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 };
