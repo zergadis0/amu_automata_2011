@@ -6,7 +6,11 @@ import java.util.List;
  * Klasa zwracająca akceptowane słowa.
  */
 public class Generator {
- /**
+
+    private List<String> acceptedWords = new ArrayList<String>();
+    private TransitionLabel currentLabel;
+  //  /** {@inheritDoc}*/
+    /**
      * Metoda zwracająca listę wszystkich słów akceptowanych przez automat bez cykli.
      * Pobiera wszystkie przejscia z bieżącego stanu,
      * jeżeli takie istnieją to każdą po kolei etykietę porównuje z zadanym alfabetem
@@ -15,9 +19,6 @@ public class Generator {
      * dodaje symbol. Jeżeli z danego stanu nie wychodzą żadne etykiety a stan ten nie jest
      * akceptującu to napis jest usuwany
      */
-    private List<String> acceptedWords = new ArrayList<String>();
-    private TransitionLabel currentLabel;
-    /** {@inheritDoc}*/
 void acceptedWords(AutomatonSpecification automaton, String alphabet, String word, State state) {
         int i = 0;
         StringBuffer buf = new StringBuffer(word);
