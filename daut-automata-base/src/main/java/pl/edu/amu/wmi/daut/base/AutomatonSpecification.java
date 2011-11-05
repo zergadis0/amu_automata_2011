@@ -270,11 +270,18 @@ abstract class AutomatonSpecification {
                     }
                 }
             }
-
+            private void addIsolatedStates() {
+                dotCode.append(";\n" + "    node [shape = circle];\n" + "");
+                for (State it : states) {
+                    if (allOutgoingTransitions(it).size() == 0 ) {
+                        dotCode.append("    \"State #" + states.indexOf(it) + "\";\n");
+                    }
+                }
+            }
             public String  getDotGraph() {
                 getDotGraphIntro();
                 getDotGraphFinalStates();
-                dotCode.append(";\n" + "    node [shape = circle];\n" + "");
+                addIsolatedStates();
                 getDotGraphEdges();
                 dotCode.append("\n}\n");
                 return dotCode.toString();
