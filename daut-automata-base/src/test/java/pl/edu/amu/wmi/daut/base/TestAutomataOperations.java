@@ -1,21 +1,24 @@
 package pl.edu.amu.wmi.daut.base;
 
-import java.lang.Object;
 import junit.framework.TestCase;
-import java.util.List;
 
-
+/**
+* Testy różnych operacji na automatach.
+*/
 public class TestAutomataOperations extends TestCase {
 
-    public final void testSimpleAutomaton(){
+    /**
+* Test prostego automatu.
+*/
+    public final void testSimpleAutomaton() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
         State q0 = automatonA.addState();
         State q1 = automatonA.addState();
         automatonA.addTransition(q0, q1, new CharTransitionLabel('a'));
-        automatonA.addLoop(q1 ,new CharTransitionLabel('a') );
-        automatonA.addLoop(q1, new CharTransitionLabel('b') );
+        automatonA.addLoop(q1, new CharTransitionLabel('a'));
+        automatonA.addLoop(q1, new CharTransitionLabel('b'));
         automatonA.markAsInitial(q0);
         automatonA.markAsFinal(q1);
 
@@ -31,14 +34,15 @@ public class TestAutomataOperations extends TestCase {
         automatonB.markAsFinal(q12);
 
 
-        //AutomatonSpecification Result = AutomataOperations.intersection(automatonA, automatonB);
-        //AutomatonByRecursion automaton = AutomatonByRecursion(Result);
+        // proszę odkomentować, kiedy AutomataOperations.intersection
+        // będzie gotowe!!!
+        // AutomatonSpecification Result = AutomataOperations.intersection(automatonA, automatonB);
+        // AutomatonByRecursion automaton = AutomatonByRecursion(Result);
 
-        //assertTrue(automaton.accepts("aa"));
-        //assertTrue(automaton.accepts("ab"));
-        //assertFalse(automaton.accepts(""));
-        //assertFalse(automaton.accepts("a"));
+        // assertTrue(automaton.accepts("aa"));
+        // assertTrue(automaton.accepts("ab"));
+        // assertFalse(automaton.accepts(""));
+        // assertFalse(automaton.accepts("a"));
 
     }
 }
-
