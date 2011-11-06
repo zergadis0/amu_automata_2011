@@ -14,7 +14,7 @@ public class TestAutomatonSpecification extends TestCase {
         AutomatonSpecification pustyOjciec = new NaiveAutomatonSpecification();
 
         String slowo = "Automaton:\n-States: q0\n-Transitions:\n"
-                + "q0 -a-> q0\nq0 -b-> q0\n-Initial state: q0\n-Final states:";
+                + "q0 -a-> q0\nq0 -b-> q0\nq0 -ε-> q0\n-Initial state: q0\n-Final states:";
 
         try {
             pustyOjciec.fromString(slowo);
