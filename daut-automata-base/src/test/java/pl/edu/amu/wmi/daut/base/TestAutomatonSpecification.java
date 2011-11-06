@@ -80,9 +80,9 @@ public class TestAutomatonSpecification extends TestCase {
     public final void testFromString3AutomatWithEpsilon() {
         AutomatonSpecification epsilon = new NaiveAutomatonSpecification();
 
-        String slowo = "Automaton:\n-States: q0 qa qb q00\n-Transitions:\n"
-                + "q0 -ε-> qa\nq0 -ε-> qb\nqa -a-> q00\nqb -b-> q00\n-Initial state: q0\n"
-                + "-Final states: q00";
+        String slowo = "Automaton:\n-States: q0 q1 q2 q3\n-Transitions:\n"
+                + "q0 -ε-> q1\nq0 -ε-> q2\nq1 -a-> q3\nq2 -b-> q3\n-Initial state: q0\n"
+                + "-Final states: q3";
 
         try {
             epsilon.fromString(slowo);
