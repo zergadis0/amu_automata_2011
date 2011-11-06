@@ -158,11 +158,7 @@ abstract class AutomatonSpecification {
         }
         return pilgrim.toString();
     };
-    /**
-     * Funkcja tworzaca zawartość automatu ze Stringa.
-     */
-    public void fromString(String automatonDescription) throws Exception {
-    }
+    
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
@@ -427,6 +423,10 @@ abstract class AutomatonSpecification {
         return false;
     }
     
+    /**
+     * Funkcja tworzaca zawartość automatu ze Stringa.
+     */
+    
     void fromString(String automatonDescription) throws StructureException {
         class MakeGraph {
             private String[] codeTable;
@@ -450,7 +450,7 @@ abstract class AutomatonSpecification {
             }
             
             private boolean isCorrectLabel(String name) {
-                if ( name.length() < 4 ) return false;
+                if (! (name.length() == 4) ) return false;
                 if (! name.startsWith("-") ) return false;
                 if (! name.endsWith("->") ) return false;
                 return true;
@@ -529,9 +529,10 @@ abstract class AutomatonSpecification {
                     markAsFinal(stateList.get(getIndex(codeTable[i])));
                 }
                 for (int i=transitionPoiner+1; i<initialPointer; i+=3) {
-                    //addTransition(stateList.get(getIndex(codeTable[i])), 
-                      //      stateList.get(getIndex(codeTable[i+2])), 
-                        //    new TransitionLabel());
+                    
+                    addTransition(stateList.get(getIndex(codeTable[i])), 
+                            stateList.get(getIndex(codeTable[i+2])), 
+                            new CharTransitionLabel(codeTable[i+1].charAt(1)));
                             
                 }
                 
