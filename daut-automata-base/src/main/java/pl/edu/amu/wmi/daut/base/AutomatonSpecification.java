@@ -404,11 +404,11 @@ abstract class AutomatonSpecification {
     void fromString(String automatonDescription) throws StructureException {
         class MakeGraph {
             private String[] codeTable;
-            private List<State> tmpStateList;
+            private List<State> stateList;
             private int transitionPoiner, initialPointer;
             public MakeGraph(String description) {
                 codeTable = description.split("\\s+");
-                tmpStateList = new ArrayList<State>();
+                stateList = allStates();
             }
             
             private boolean isCorrectStateName(String name) {
@@ -477,17 +477,40 @@ abstract class AutomatonSpecification {
                         throw new StructureException();
                 }
             }
-            public void isCorrectString() throws StructureException {
-                //for(String str : codeTable) System.out.println(str);
+            
+            private void isCorrectInitialWords() throws StructureException {
                 if ( codeTable.length < 5 ) throw new StructureException();
                 if (! codeTable[0].equals("Automaton:") ) throw new StructureException();
                 if (! codeTable[1].equals("-States:") ) throw new StructureException();
+            }
+            public void isCorrectString() throws StructureException {
+                isCorrectInitialWords();
                 checkStates();
                 checkTransitions();
                 isCorrectSpecialState();
+                constructGraph();
             }
-                        
-     
+            
+            private int getIndex(String stateName) {
+                String indexStr = stateName.substring(1);
+                return Integer.decode(indexStr);
+            }
+            
+            private void constructGraph() {
+                for (int i=0; i < transitionPoiner-2; ++i) addState();
+                markAsInitial( stateList.get(getIndex(codeTable[initialPointer + 2])) );
+                for (int i=initialPointer+5;i <codeTable.length;++i) {
+                    markAsFinal(stateList.get(getIndex(codeTable[i])));
+                }
+                for (int i=transitionPoiner+1; i<initialPointer; i+=3) {
+                    //addTransition(stateList.get(getIndex(codeTable[i])), 
+                      //      stateList.get(getIndex(codeTable[i+2])), 
+                        //    new TransitionLabel());
+                            
+                }
+                
+            }
+            
         };
         MakeGraph graph = new MakeGraph(automatonDescription);
         graph.isCorrectString();
