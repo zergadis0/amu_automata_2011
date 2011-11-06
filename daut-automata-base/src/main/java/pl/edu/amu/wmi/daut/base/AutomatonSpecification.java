@@ -521,7 +521,7 @@ abstract class AutomatonSpecification {
                     throw new StructureException();
                 if (!codeTable[initialPointer + FINAL_STR_INDEX + 1].equals("states:"))
                     throw new StructureException();
-                for (int iter = initialPointer + FINAL_STR_INDEX + 2; iter < codeTable.length; ++iter) {
+                for (int iter = initialPointer+FINAL_STR_INDEX+2; iter<codeTable.length; ++iter) {
                     if (!isCorrectStateName(codeTable[iter]))
                         throw new StructureException();
                 }
