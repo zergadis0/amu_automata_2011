@@ -446,6 +446,8 @@ abstract class AutomatonSpecification {
 
     void fromString(String automatonDescription) throws StructureException {
         class MakeGraph {
+            private final int TRAN_PARTS = 3;
+            private final int LABEL_LENGTH = 4;
             private String[] codeTable;
             private List<State> stateList;
             private int transitionPoiner, initialPointer;
@@ -469,7 +471,7 @@ abstract class AutomatonSpecification {
             }
 
             private boolean isCorrectLabel(String name) {
-                if (!(name.length() == 4))
+                if (!(name.length() == LABEL_LENGTH))
                     return false;
                 if (!name.startsWith("-"))
                     return false;
@@ -493,7 +495,7 @@ abstract class AutomatonSpecification {
             }
 
             private void checkTransitions() throws StructureException {
-                for (int i = transitionPoiner + 1; i < codeTable.length; i += 3) {
+                for (int i = transitionPoiner + 1; i < codeTable.length; i += TRAN_PARTS) {
                     if (codeTable[i].equals("-Initial")) {
                         initialPointer = i;
                         break;
@@ -566,7 +568,7 @@ abstract class AutomatonSpecification {
             }
 
         }
-        ;
+
         MakeGraph graph = new MakeGraph(automatonDescription);
         graph.isCorrectString();
     }
