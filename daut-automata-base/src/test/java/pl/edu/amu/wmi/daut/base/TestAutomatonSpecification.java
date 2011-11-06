@@ -164,4 +164,54 @@ public class TestAutomatonSpecification extends TestCase {
         str = new AutomatonString("", "", "", "");
         assertEquals(str.toString(), ta4.toString());
     }
+    /**
+     * Testuje działanie metody testPrefixChecker().
+     */
+    public final void testPrefixChecker() {
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        State q0 = spec.addState();
+        State q1 = spec.addState();
+        State q2 = spec.addState();
+        State q3 = spec.addState();
+        State q4 = spec.addState();
+        State q5 = spec.addState();
+
+        spec.markAsInitial(q0);
+        spec.markAsFinal(q3);
+
+        spec.addTransition(q0, q1, new CharTransitionLabel('a'));
+        spec.addTransition(q0, q1, new CharTransitionLabel('b'));
+        spec.addTransition(q0, q3, new CharTransitionLabel('c'));
+
+        spec.addTransition(q1, q3, new CharTransitionLabel('a'));
+        spec.addTransition(q1, q2, new CharTransitionLabel('b'));
+        spec.addTransition(q1, q2, new CharTransitionLabel('c'));
+
+        spec.addTransition(q2, q3, new CharTransitionLabel('a'));
+        spec.addLoop(q2, new CharTransitionLabel('b'));
+        spec.addTransition(q2, q5, new CharTransitionLabel('c'));
+
+        spec.addTransition(q3, q0, new CharTransitionLabel('a'));
+        spec.addTransition(q3, q0, new CharTransitionLabel('b'));
+        spec.addTransition(q3, q4, new CharTransitionLabel('c'));
+
+        // Stan 4 jest pułapką
+
+        spec.addLoop(q4, new CharTransitionLabel('a'));
+        spec.addLoop(q4, new CharTransitionLabel('b'));
+        spec.addLoop(q4, new CharTransitionLabel('c'));
+
+        // Stan 5 prowadzi tylko do stanu 4
+
+        spec.addLoop(q5, new CharTransitionLabel('a'));
+        spec.addTransition(q5, q4, new CharTransitionLabel('b'));
+        spec.addLoop(q5, new CharTransitionLabel('c'));
+
+        assertTrue(spec.prefixChecker(q0));
+        assertTrue(spec.prefixChecker(q1));
+        assertTrue(spec.prefixChecker(q2));
+        assertTrue(spec.prefixChecker(q3));
+        assertFalse(spec.prefixChecker(q4));
+        assertFalse(spec.prefixChecker(q5));
+    }
 }
