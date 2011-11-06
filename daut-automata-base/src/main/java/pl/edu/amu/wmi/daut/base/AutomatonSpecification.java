@@ -554,7 +554,7 @@ abstract class AutomatonSpecification {
                     addState();
                 markAsInitial(stateList
                         .get(getIndex(codeTable[initialPointer + 2])));
-                for (int i = initialPointer + MINIMUM_TABLE_SIZE + 2; i < codeTable.length; ++i) {
+                for (int i = initialPointer + FINAL_STR_INDEX + 2; i < codeTable.length; ++i) {
                     markAsFinal(stateList.get(getIndex(codeTable[i])));
                 }
                 for (int i = transitionPoiner + 1; i < initialPointer; i += TRANSITION_PARTS) {
