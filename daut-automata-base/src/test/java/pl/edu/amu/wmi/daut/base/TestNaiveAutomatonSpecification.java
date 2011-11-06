@@ -200,4 +200,18 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         spec3.makeFull("abc");
         assertTrue(spec3.isFull("abc"));
     }
+    /**
+     * Test metody tworzącej automat akceptujący wszystkie napisy nad zadanym językiem.
+     */
+    public final void testMakeAllStringsAutomaton() {
+        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        spec.makeAllStringsAutomaton("abc");
+        assertTrue(spec.acceptEmptyWord());
+        AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
+        assertFalse(automaton.accepts("defffadegbc"));
+        assertFalse(automaton.accepts("abecadlo"));
+        assertTrue(automaton.accepts("abcbcabbbaaa"));
+        assertTrue(automaton.accepts("bbccaabcbabab"));
+        assertTrue(automaton.accepts("cacacacbbccccc"));
+    }
 }
