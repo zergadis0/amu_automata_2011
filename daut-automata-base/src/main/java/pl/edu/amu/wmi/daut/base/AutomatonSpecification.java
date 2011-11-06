@@ -419,7 +419,7 @@ abstract class AutomatonSpecification {
         }
         return false;
     };
-    
+
     /**
      * Zwraca true, gdy automat akceptuje napis pusty.
      */
@@ -534,10 +534,10 @@ abstract class AutomatonSpecification {
         finalStates.add(getInitialState());
         int size = finalStates.size();
 
-        for(int j = 0; j < size; j++) {
+        for (int j = 0; j < size; j++) {
             outgoing.clear();
-            outgoing = allOutgoingTransitions(finalStates.get(j)); 
-            for(int k = 0; k < outgoing.size(); k++) {
+            outgoing = allOutgoingTransitions(finalStates.get(j));
+            for (int k = 0; k < outgoing.size(); k++) {
                 label = outgoing.get(k).getTransitionLabel();
                 state = outgoing.get(k).getTargetState();
 
@@ -548,11 +548,11 @@ abstract class AutomatonSpecification {
             }
         }
 
-        for(int i = 0; i < wordArray.length; i++) {
-            for(int j = 0; j < size; j++) {
+        for (int i = 0; i < wordArray.length; i++) {
+            for (int j = 0; j < size; j++) {
                 outgoing.clear();
-                outgoing = allOutgoingTransitions(finalStates.get(j)); 
-                for(int k = 0; k < outgoing.size(); k++) {
+                outgoing = allOutgoingTransitions(finalStates.get(j));
+                for (int k = 0; k < outgoing.size(); k++) {
                     label = outgoing.get(k).getTransitionLabel();
                     state = outgoing.get(k).getTargetState();
 
@@ -560,7 +560,7 @@ abstract class AutomatonSpecification {
                         finalStates.add(state);
                         size++;
                     } else {
-                        if (label.canAcceptCharacter(wordArray[i]) && !finalStates.contains(state)) {
+                    if (label.canAcceptCharacter(wordArray[i]) && !finalStates.contains(state)) {
                             finalStates.add(state);
                             size++;
                         }
@@ -569,10 +569,10 @@ abstract class AutomatonSpecification {
             }
         }
 
-        for(int j = 0; j < size; j++) {
+        for (int j = 0; j < size; j++) {
             outgoing.clear();
-            outgoing = allOutgoingTransitions(finalStates.get(j)); 
-            for(int k = 0; k < outgoing.size(); k++) {
+            outgoing = allOutgoingTransitions(finalStates.get(j));
+            for (int k = 0; k < outgoing.size(); k++) {
                 label = outgoing.get(k).getTransitionLabel();
                 state = outgoing.get(k).getTargetState();
 
@@ -585,10 +585,10 @@ abstract class AutomatonSpecification {
 
         boolean istrue;
 
-        for(int i = 0; i <finalStates.size(); i++) {
+        for (int i = 0; i < finalStates.size(); i++) {
             istrue = prefixChecker(finalStates.get(i));
 
-            if(istrue == true)
+            if (istrue)
                 return true;
         }
         return false;
