@@ -508,7 +508,7 @@ abstract class AutomatonSpecification {
         for (int i = 0; i < alphabet.length(); i++)
             addLoop(state, new CharTransitionLabel(alphabet.charAt(i)));
     }
-    
+
     public void makeAllNonEmptyStringsAutomaton(String alphabet) {
         State s0 = addState();
         State s1 = addState();
