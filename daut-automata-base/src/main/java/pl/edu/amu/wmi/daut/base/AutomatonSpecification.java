@@ -501,6 +501,7 @@ abstract class AutomatonSpecification {
         }
         return false;
     }
+
     public void makeAllStringsAutomaton(String alphabet) {
         State state = addState();
         markAsInitial(state);
