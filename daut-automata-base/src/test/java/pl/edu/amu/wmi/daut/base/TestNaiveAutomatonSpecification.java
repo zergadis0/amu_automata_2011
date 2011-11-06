@@ -205,13 +205,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
      */
     public final void testMakeAllStringsAutomaton() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
-        
         spec.makeAllStringsAutomaton("abc");
-        
         assertTrue(spec.acceptEmptyWord());
-        
         AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
-        
         assertFalse(automaton.accepts("defffadegbc"));
         assertFalse(automaton.accepts("abecadlo"));
         assertTrue(automaton.accepts("abcbcabbbaaa"));
