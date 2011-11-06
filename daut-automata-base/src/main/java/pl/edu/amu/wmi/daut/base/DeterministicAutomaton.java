@@ -5,7 +5,6 @@ package pl.edu.amu.wmi.daut.base;
 public class DeterministicAutomaton implements Acceptor {
 
     private DeterministicAutomatonSpecification automaton;
-    private State currentState;
     /**
      * Tworzy "działający" automat na podstawie podanej specyfikacji automatu deterministycznego.
      */
@@ -21,7 +20,7 @@ public class DeterministicAutomaton implements Acceptor {
      */
     public boolean accepts(String text) {
 
-
+        State currentState;
         currentState = automaton.getInitialState();
 
         for (int i = 0; i < text.length(); i++) {
@@ -30,8 +29,8 @@ public class DeterministicAutomaton implements Acceptor {
             } else {
                 return false;
             }
-
         }
+
         return automaton.isFinal(currentState);
     }
 }
