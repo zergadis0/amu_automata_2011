@@ -502,6 +502,7 @@ abstract class AutomatonSpecification {
         }
         return false;
     }
+
     public void makeAllStringsAutomaton(String alphabet) {
         State state = addState();
         markAsInitial(state);
@@ -510,4 +511,86 @@ abstract class AutomatonSpecification {
             addLoop(state, new CharTransitionLabel(alphabet.charAt(i)));
     }
 
+    public void makeAllNonEmptyStringsAutomaton(String alphabet) {
+        State s0 = addState();
+        State s1 = addState();
+        markAsInitial(s0);
+        markAsFinal(s1);
+        addLoop(s0, new EpsilonTransitionLabel());
+        s1 = addTransition(s0, new CharTransitionLabel(alphabet.charAt(0)));
+        for (int i = 1; i < alphabet.length(); i++)
+            addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
+    }
+
+    public boolean checkPrefix(String word) {
+
+        List<State> finalStates = new ArrayList<State>();
+        List<OutgoingTransition> outgoing = new ArrayList<OutgoingTransition>();
+        char[] wordArray;
+        TransitionLabel label;
+        State state;
+
+        wordArray = word.toCharArray();
+        finalStates.add(getInitialState());
+        int size = finalStates.size();
+
+        for(int j = 0; j < size; j++) {
+            outgoing.clear();
+            outgoing = allOutgoingTransitions(finalStates.get(j)); 
+            for(int k = 0; k < outgoing.size(); k++) {
+                label = outgoing.get(k).getTransitionLabel();
+                state = outgoing.get(k).getTargetState();
+
+                if (label.canBeEpsilon() && !finalStates.contains(state)) {
+                    finalStates.add(state);
+                    size++;
+                }
+            }
+        }
+
+        for(int i = 0; i < wordArray.length; i++) {
+            for(int j = 0; j < size; j++) {
+                outgoing.clear();
+                outgoing = allOutgoingTransitions(finalStates.get(j)); 
+                for(int k = 0; k < outgoing.size(); k++) {
+                    label = outgoing.get(k).getTransitionLabel();
+                    state = outgoing.get(k).getTargetState();
+
+                    if (label.canBeEpsilon() && !finalStates.contains(state)) {
+                        finalStates.add(state);
+                        size++;
+                    } else {
+                        if (label.canAcceptCharacter(wordArray[i]) && !finalStates.contains(state)) {
+                            finalStates.add(state);
+                            size++;
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int j = 0; j < size; j++) {
+            outgoing.clear();
+            outgoing = allOutgoingTransitions(finalStates.get(j)); 
+            for(int k = 0; k < outgoing.size(); k++) {
+                label = outgoing.get(k).getTransitionLabel();
+                state = outgoing.get(k).getTargetState();
+
+                if (label.canBeEpsilon() && !finalStates.contains(state)) {
+                    finalStates.add(state);
+                    size++;
+                }
+            }
+        }
+
+        boolean istrue;
+
+        for(int i = 0; i <finalStates.size(); i++) {
+            istrue = prefixChecker(finalStates.get(i));
+
+            if(istrue == true)
+                return true;
+        }
+        return false;
+    }
 };
