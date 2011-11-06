@@ -446,7 +446,7 @@ abstract class AutomatonSpecification {
 
     void fromString(String automatonDescription) throws StructureException {
         class MakeGraph {
-            private static final int transitionParts = 3;
+            private static final int TRANSITION_PARTS = 3;
             private static final int labelLength = 4;
             private static final int finalStrIndex = 3;
             private String[] codeTable;
@@ -496,7 +496,7 @@ abstract class AutomatonSpecification {
             }
 
             private void checkTransitions() throws StructureException {
-                for (int i = transitionPoiner + 1; i < codeTable.length; i += transitionParts) {
+                for (int i = transitionPoiner + 1; i < codeTable.length; i += TRANSITION_PARTS) {
                     if (codeTable[i].equals("-Initial")) {
                         initialPointer = i;
                         break;
