@@ -420,7 +420,6 @@ abstract class AutomatonSpecification {
         return false;
     }
 
-    
     /**
      * Zwraca true, gdy automat akceptuje napis pusty.
      */
