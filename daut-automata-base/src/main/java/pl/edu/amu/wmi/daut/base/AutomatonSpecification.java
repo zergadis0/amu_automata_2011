@@ -425,6 +425,98 @@ abstract class AutomatonSpecification {
         }
         return false;
     }
+    
+    void fromString(String automatonDescription) throws StructureException {
+        class MakeGraph {
+            private String[] codeTable;
+            private List<State> tmpStateList;
+            private int transitionPoiner, initialPointer;
+            public MakeGraph(String description) {
+                codeTable = description.split("\\s+");
+                tmpStateList = new ArrayList<State>();
+            }
+            
+            private boolean isCorrectStateName(String name) {
+                if ( name.length() < 2 ) return false;
+                if (! name.startsWith("q") ) return false;
+                try {
+                    Integer.decode(name.substring(1));
+                }
+                catch (NumberFormatException exp) {
+                    return false;
+                }
+                return true;
+            }
+            
+            private boolean isCorrectLabel(String name) {
+                if ( name.length() < 4 ) return false;
+                if (! name.startsWith("-") ) return false;
+                if (! name.endsWith("->") ) return false;
+                return true;
+            }
+            
+            private void checkStates() throws StructureException {
+                for (int i=2 ; i < codeTable.length ; ++i) {
+                    if (! isCorrectStateName( codeTable[i]  ) ) 
+                    {
+                        if (! codeTable[i].equals("-Transitions:")) 
+                        {
+                            throw new StructureException();
+                        }
+                        else 
+                        {
+                            transitionPoiner = i;
+                            break;
+                        }
+                        
+                    }
+                }
+            }
+            
+            private void checkTransitions() throws StructureException {
+                for (int i = transitionPoiner+1;i < codeTable.length;i+=3) {
+                    if ( codeTable[i].equals("-Initial") ) {
+                        initialPointer = i;
+                        break;
+                    }
+                    else {
+                        //System.out.print("trans: " + codeTable[i] + " " + codeTable[i+1] + " " + codeTable[i+2] + "\n");
+                        if (! isCorrectStateName(codeTable[i]) )throw new StructureException();
+                        if (! isCorrectLabel(codeTable[i+1]) ) throw new StructureException();
+                        if (! isCorrectStateName(codeTable[i+2])) throw new StructureException();
+                    }
+                }
+            }
+            
+            private void isCorrectSpecialState() throws StructureException {
+                if (! codeTable[initialPointer + 1].equals("state:") ) 
+                    throw new StructureException();
+                if ( !isCorrectStateName(codeTable[initialPointer + 2]) ) 
+                    throw new StructureException();
+                if (! codeTable[initialPointer + 3].equals("-Final"))
+                    throw new StructureException();
+                if (! codeTable[initialPointer + 4].equals("states:"))
+                    throw new StructureException();
+                for (int iter = initialPointer + 5; iter < codeTable.length; ++iter) {
+                    if (! isCorrectStateName(codeTable[iter]) )
+                        throw new StructureException();
+                }
+            }
+            public void isCorrectString() throws StructureException {
+                //for(String str : codeTable) System.out.println(str);
+                if ( codeTable.length < 5 ) throw new StructureException();
+                if (! codeTable[0].equals("Automaton:") ) throw new StructureException();
+                if (! codeTable[1].equals("-States:") ) throw new StructureException();
+                checkStates();
+                checkTransitions();
+                isCorrectSpecialState();
+            }
+                        
+     
+        };
+        MakeGraph graph = new MakeGraph(automatonDescription);
+        graph.isCorrectString();
+    }
 
     /**
      * Zwraca true, gdy automat akceptuje napis pusty.
@@ -508,3 +600,5 @@ abstract class AutomatonSpecification {
         return false;
     }
 };
+
+class StructureException extends Exception {}
