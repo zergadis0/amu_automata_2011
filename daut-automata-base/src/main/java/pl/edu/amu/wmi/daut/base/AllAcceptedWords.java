@@ -20,5 +20,5 @@ public class AllAcceptedWords implements java.util.Iterator {
     public void remove() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
 }
