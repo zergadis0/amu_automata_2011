@@ -521,7 +521,7 @@ abstract class AutomatonSpecification {
                     throw new StructureException();
                 if (!codeTable[initialPointer + FINAL_STR_INDEX + 1].equals("states:"))
                     throw new StructureException();
-                for (int iter = initialPointer + 5; iter < codeTable.length; ++iter) {
+                for (int iter = initialPointer + FINAL_STR_INDEX + 2; iter < codeTable.length; ++iter) {
                     if (!isCorrectStateName(codeTable[iter]))
                         throw new StructureException();
                 }
@@ -554,10 +554,10 @@ abstract class AutomatonSpecification {
                     addState();
                 markAsInitial(stateList
                         .get(getIndex(codeTable[initialPointer + 2])));
-                for (int i = initialPointer + 5; i < codeTable.length; ++i) {
+                for (int i = initialPointer + MINIMUM_TABLE_SIZE + 2; i < codeTable.length; ++i) {
                     markAsFinal(stateList.get(getIndex(codeTable[i])));
                 }
-                for (int i = transitionPoiner + 1; i < initialPointer; i += 3) {
+                for (int i = transitionPoiner + 1; i < initialPointer; i += TRANSITION_PARTS) {
 
                     addTransition(stateList.get(getIndex(codeTable[i])),
                             stateList.get(getIndex(codeTable[i + 2])),
