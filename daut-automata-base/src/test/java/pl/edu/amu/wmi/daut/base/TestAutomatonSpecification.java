@@ -8,6 +8,132 @@ import junit.framework.TestCase;
 public class TestAutomatonSpecification extends TestCase {
 
     /**
+     * Test metody fromString() tworzacy pusty automat.
+     */
+    public final void testFromString0EmptyLanguage() {
+        AutomatonSpecification pustyOjciec = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0\n-Transitions:\n"
+                + "q0 -a-> q0\nq0 -b-> q0\n-Initial state: q0\n-Final states:";
+
+        try {
+            pustyOjciec.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla poprawnego Stringa!");
+        }
+
+        AutomatonByRecursion pusteDziecko = new AutomatonByRecursion(pustyOjciec);
+
+        assertFalse(pusteDziecko.accepts("aaa"));
+        assertFalse(pusteDziecko.accepts("baba"));
+        assertFalse(pusteDziecko.accepts(""));
+    }
+
+    /**
+     * Test metody fromString() tworzący automat akceptujacy slowo puste.
+     */
+    public final void testFromString1EmptyStringAutomaton() {
+        AutomatonSpecification dziwny = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0\n-Transitions:\n"
+                + "q0 -ε-> q0\n-Initial state: q0\n-Final states: q0";
+
+        try {
+            dziwny.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla poprawnego Stringa!");
+        }
+
+        AutomatonByRecursion wynik = new AutomatonByRecursion(dziwny);
+
+        assertFalse(wynik.accepts("aaa"));
+        assertFalse(wynik.accepts("baba"));
+        assertTrue(wynik.accepts(""));
+    }
+
+    /**
+     * Test metody fromString() tworzący automat akceptujacy nieparzyste
+     * potegi 'a'.
+     */
+    public final void testFromString2OddPowersOfA() {
+        AutomatonSpecification masakra = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 -a-> q1\nq1 -a-> q0\n-Initial state: q0\n-Final states: q1";
+
+        try {
+            masakra.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla poprawnego Stringa!");
+        }
+
+        AutomatonByRecursion angle = new AutomatonByRecursion(masakra);
+
+        assertFalse(angle.accepts("aab"));
+        assertFalse(angle.accepts(""));
+        assertTrue(angle.accepts("aaa"));
+    }
+
+    /**
+     * Test metody fromString() tworzący automat z epsilonem.
+     */
+    public final void testFromString3AutomatWithEpsilon() {
+        AutomatonSpecification epsilon = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0 qa qb q00\n-Transitions:\n"
+                + "q0 -ε-> qa\nq0 -ε-> qb\nqa -a-> q00\nqb -b-> q00\n-Initial state: q0\n"
+                + "-Final states: q00";
+
+        try {
+            epsilon.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla automatu z Epsilonem!");
+        }
+
+        AutomatonByRecursion ep = new AutomatonByRecursion(epsilon);
+
+        assertTrue(ep.accepts("a"));
+        assertTrue(ep.accepts("b"));
+        assertFalse(ep.accepts(""));
+        assertFalse(ep.accepts("ε"));
+        assertFalse(ep.accepts("aa"));
+        assertFalse(ep.accepts("ab"));
+        assertFalse(ep.accepts("ba"));
+        assertFalse(ep.accepts("bb"));
+    }
+
+    /**
+     * Test metody fromString() z bełkotem.
+     */
+    public final void testFromString4Blubbering() {
+        AutomatonSpecification niepoprawny = new NaiveAutomatonSpecification();
+
+        String slowo = "niepoprawnywogolestring";
+
+        try {
+            niepoprawny.fromString(slowo);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * Test metody fromString() z błędnym opisem automatu.
+     */
+    public final void testFromString5WrongAutomatonString() {
+        AutomatonSpecification bledny = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0\n-Transitions:\n"
+                + "q2 -a-> q4\nq4 -a-> q0\n-Initial state: q4\n-Final states: q0";
+
+        try {
+            bledny.fromString(slowo);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
+    /**
      * Test metody countStates.
      */
     public final void testCountStates() {
