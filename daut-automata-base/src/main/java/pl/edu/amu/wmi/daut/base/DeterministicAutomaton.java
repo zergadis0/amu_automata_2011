@@ -19,7 +19,6 @@ public class DeterministicAutomaton implements Acceptor {
      * powinna być zaimplementowana w NaiveAutomatonSpecification.
      */
     public boolean accepts(String text) {
-
         State currentState;
         currentState = automaton.getInitialState();
 
