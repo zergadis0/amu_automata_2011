@@ -524,7 +524,7 @@ abstract class AutomatonSpecification {
     public boolean checkPrefix(String word) {
 
         List<State> finalStates = new ArrayList<State>();
-        List<State> nowChecking= new ArrayList<State>();
+        List<State> nowChecking = new ArrayList<State>();
         List<OutgoingTransition> outgoing = new ArrayList<OutgoingTransition>();
         TransitionLabel label;
         State state;
