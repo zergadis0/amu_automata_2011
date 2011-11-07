@@ -1,6 +1,5 @@
-package testy;
+﻿package pl.edu.amu.wmi.daut.base;
 
-import automaty.*;
 import junit.framework.TestCase;
 
 public class TestAnyTransitionLabel extends TestCase {
