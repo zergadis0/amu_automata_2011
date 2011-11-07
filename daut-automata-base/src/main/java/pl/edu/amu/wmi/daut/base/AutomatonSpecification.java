@@ -520,4 +520,8 @@ abstract class AutomatonSpecification {
         for (int i = 1; i < alphabet.length(); i++)
             addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
     }
+
+    // Metoda zwracająca pierwszy, według kolejności alfabetycznej,
+    // napis akceptowany przez automat. 
+
 };
