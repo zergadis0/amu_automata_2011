@@ -40,19 +40,20 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         State r1;
         State r2;
 
-        if (((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
+        if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
             r1 = r0Outs.get(0).getTargetState();
             r2 = r0Outs.get(1).getTargetState();
-            assertEquals(((CharTransitionLabel)r0Outs.get(1).getTransitionLabel()).getChar(), 'b');
-            assertTrue(((CharTransitionLabel)r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
-            assertFalse(((CharTransitionLabel)r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
-            assertFalse(((CharTransitionLabel)r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
-        }
-        else {
+            assertEquals(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).getChar(), 'b');
+            assertTrue(
+                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
+            assertFalse(
+                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
+            assertFalse(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
+        } else {
             // kolejność może być odwrócona
             r1 = r0Outs.get(1).getTargetState();
             r2 = r0Outs.get(0).getTargetState();
-            assertEquals(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar(), 'b');
+            assertEquals(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'b');
         }
 
         assertFalse(spec.isFinal(r1));
@@ -88,7 +89,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(emptyTransition.intersect(emptyTransition).isEmpty());
     }
 
-
+    /**
+     * Test metody dodającej pętlę.
+     */
     public final void testAddLoop() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -110,11 +113,14 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         State r1;
 
-        if (((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
+        if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
             r1 = r0Outs.get(0).getTargetState();
-            assertEquals(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
-            assertTrue(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
-            assertFalse(((CharTransitionLabel)r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
+            assertEquals(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
+            assertTrue(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+            assertFalse(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
         }
 
         assertTrue(spec.isFinal(r0));
@@ -152,127 +158,86 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(automat.isInfinite());
     }
 
-    public final void testInfinite2() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-        State s0 = automat.addState();
-        State s1 = automat.addState();
-        State s2 = automat.addState();
-        State s3 = automat.addState();
-        automat.addTransition(s0, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s1, s2, new CharTransitionLabel('a'));
-        automat.addTransition(s2, s3, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s1, new CharTransitionLabel('a'));
-        automat.markAsInitial(s0);
-        automat.markAsFinal(s2);
-        automat.markAsFinal(s1);
-        assertTrue(automat.isInfinite());
+    /**
+     * Test metody tworzącej prosty automat.
+     */
+    public final void testmakeOneLoopAutomaton(char c) {
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+
+        //budowanie
+
+        State s0 = spec.addState();
+        spec.addLoop(s0, new CharTransitionLabel('c'));
+        spec.markAsInitial(s0);
+        spec.markAsFinal(s0);
+
+        //testowanie
+
+        State r0 = spec.getInitialState();
+
+        List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
+
+        assertEquals(r0Outs.size(), 1);
+        assertTrue(spec.isFinal(r0));
+
+        State r1;
+
+        if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'c') {
+            r1 = r0Outs.get(0).getTargetState();
+            assertEquals(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'c');
+            assertTrue(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+            assertFalse(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
+        }
+
+        assertTrue(spec.isFinal(r0));
+        assertSame(r0, spec.getInitialState());
+
+        List<State> states = spec.allStates();
+
+        assertEquals(states.size(), 1);
+
     }
 
-    public final void testInfinite3() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-        State s0 = automat.addState();
-        State s1 = automat.addState();
-        State s2 = automat.addState();
-        State s3 = automat.addState();
-        State s4 = automat.addState();
-        automat.addTransition(s0, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s1, s2, new CharTransitionLabel('a'));
-        automat.addTransition(s2, s3, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s4, new CharTransitionLabel('b'));
-        automat.markAsInitial(s0);
-        automat.markAsFinal(s2);
-        automat.markAsFinal(s1);
-        automat.markAsFinal(s4);
-        assertTrue(automat.isInfinite());
-    }
+    /**
+     * Test metody dopełniającej automat.
+     */
+    public final void testMakeFull() {
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification spec3 = new NaiveAutomatonSpecification();
 
-    public final void testInfinite4() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-        State s0 = automat.addState();
-        State s1 = automat.addState();
-        State s2 = automat.addState();
-        State s3 = automat.addState();
-        State s4 = automat.addState();
-        State s5 = automat.addState();
-        automat.addTransition(s0, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s1, s2, new CharTransitionLabel('a'));
-        automat.addTransition(s2, s3, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s2, new CharTransitionLabel('b'));
-        automat.addTransition(s3, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s4, new CharTransitionLabel('b'));
-        automat.addTransition(s4, s5, new CharTransitionLabel('a'));
-        automat.addTransition(s5, s4, new CharTransitionLabel('a'));
-        automat.markAsInitial(s0);
-        automat.markAsFinal(s1);
-        assertTrue(automat.isInfinite());
-    }
+        spec.makeFull("abc");
+        assertTrue(spec.isFull("abc"));
 
-    public final void testInfinite5() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-        State s0 = automat.addState();
-        State s1 = automat.addState();
-        State s2 = automat.addState();
-        State s3 = automat.addState();
-        State s4 = automat.addState();
-        automat.addTransition(s0, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s1, s2, new CharTransitionLabel('a'));
-        automat.addTransition(s2, s3, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s4, new CharTransitionLabel('b'));
-        automat.markAsInitial(s0);
-        automat.markAsFinal(s4);
-        assertFalse(automat.isInfinite());
-    }
+        State s = spec2.addState();
 
-    public final void testInfinite6() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-        State s0 = automat.addState();
-        State s1 = automat.addState();
-        State s2 = automat.addState();
-        State s3 = automat.addState();
-        State s4 = automat.addState();
-        automat.addTransition(s0, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s1, s2, new CharTransitionLabel('a'));
-        automat.addTransition(s2, s3, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s4, new CharTransitionLabel('a'));
-        automat.markAsInitial(s0);
-        automat.markAsFinal(s3);
-        assertFalse(automat.isInfinite());
-    }
+        spec2.makeFull("abc");
+        assertTrue(spec2.isFull("abc"));
 
-    public final void testInfinite7() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-        State s0 = automat.addState();
-        State s1 = automat.addState();
-        State s2 = automat.addState();
-        State s3 = automat.addState();
-        automat.addTransition(s1, s2, new CharTransitionLabel('a'));
-        automat.addTransition(s2, s3, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s1, new CharTransitionLabel('a'));
-        automat.markAsInitial(s0);
-        automat.markAsFinal(s2);
-        automat.markAsFinal(s1);
-        assertFalse(automat.isInfinite());
-    }
+        State s0 = spec3.addState();
+        State s1 = spec3.addState();
+        State s2 = spec3.addState();
 
-    public final void testInfinite8() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-        State s0 = automat.addState();
-        automat.addLoop(s0, new CharTransitionLabel('a'));
-        automat.markAsInitial(s0);
-        automat.markAsFinal(s0);
-        assertTrue(automat.isInfinite());
-    }
+        spec3.addTransition(s0, s1, new CharTransitionLabel('a'));
 
-    public final void testInfinite9() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-        State s0 = automat.addState();
-        State s1 = automat.addState();
-        automat.addTransition(s0, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s1, s0, new CharTransitionLabel('a'));
-        automat.markAsInitial(s0);
-        automat.markAsFinal(s0);
-        assertTrue(automat.isInfinite());
+        spec3.makeFull("abc");
+        assertTrue(spec3.isFull("abc"));
+    }
+    /**
+     * Test metody tworzącej automat akceptujący wszystkie napisy nad zadanym językiem.
+     */
+    public final void testMakeAllStringsAutomaton() {
+        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        spec.makeAllStringsAutomaton("abc");
+        assertTrue(spec.acceptEmptyWord());
+        AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
+        assertFalse(automaton.accepts("defffadegbc"));
+        assertFalse(automaton.accepts("abecadlo"));
+        assertTrue(automaton.accepts("abcbcabbbaaa"));
+        assertTrue(automaton.accepts("bbccaabcbabab"));
+        assertTrue(automaton.accepts("cacacacbbccccc"));
     }
 }
