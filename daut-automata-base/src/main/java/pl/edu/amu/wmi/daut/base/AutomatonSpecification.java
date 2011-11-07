@@ -520,4 +520,12 @@ abstract class AutomatonSpecification {
         for (int i = 1; i < alphabet.length(); i++)
             addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
     }
+    
+    /**
+     * Metoda zwracającą wszystkie napisy akceptowane przez automat.
+     */
+    public AllAcceptedWords returnAllAcceptedWords() {
+        AllAcceptedWords words = new AllAcceptedWords();
+        return words;
+    }
 };
