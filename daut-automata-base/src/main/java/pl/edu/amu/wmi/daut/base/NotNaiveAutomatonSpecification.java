@@ -1,0 +1,132 @@
+package pl.edu.amu.wmi.daut.base;
+
+import java.util.List;
+import java.util.LinkedList;
+
+/**
+* Ukonkretnienie klasy abstrakcyjnej AutomatonSpecification.
+*
+* Wykorzystuje dodatkowa Listę w klasie State do zapamiętania Stanów wychodzących.
+*/
+
+class NotNaiveAutomatonSpecification extends AutomatonSpecification {
+
+    static class NotNaiveState implements State {
+        /**
+        * Konstruuje stan.
+        * Zapamietuje w stanie liste przejsc oraz pomocniczo ich ilosc. 
+        */
+        public NotNaiveState() {
+            
+         OutgoingTransitions = null;   
+        }
+        
+        private LinkedList<OutgoingTransition> OutgoingTransitions = new LinkedList<OutgoingTransition>();
+    }
+
+   
+    /**
+    * Pomocnicza klasa reprezentujaca przejscie.
+    */
+    private static class NotNaiveTransition {
+        /**
+	* Konstruuje przejscie.
+	*/
+        public NotNaiveTransition(NotNaiveState aFrom, NotNaiveState aTo, TransitionLabel aTransitionLabel) {
+            from = aFrom;
+            to = aTo;
+            transitionLabel = aTransitionLabel;
+        }
+        
+        
+
+        /**
+	* Zwraca stan zrodlowy.
+	*/
+        public NotNaiveState getSourceState() {
+            return from;
+        }
+
+        /**
+	* Zwraca stan docelowy.
+	*/
+        public NotNaiveState getTargetState() {
+            return to;
+        }
+
+        /**
+	* Zwraca etykiete przejscia.
+	*/
+        public TransitionLabel getTransitionLabel() {
+            return transitionLabel;
+        }
+
+        private NotNaiveState from;
+        private NotNaiveState to;
+        private TransitionLabel transitionLabel;
+    }
+  
+    
+    public NotNaiveState addState() {
+        NotNaiveState newState = new NotNaiveState();
+        allStates.add(newState);
+        return newState;
+    }
+    
+    /**
+    * Dodaje przejscie
+    * Przejscia wychodzace zapamietuje w stanach.
+    */
+    public void addTransition(State from, State to, TransitionLabel transitionLabel) {
+        // transitions.add(new NotNaiveTransition((NotNaiveState) from, (NotNaiveState) to, transitionLabel));
+        // tworzenie listy wszystkich przejsc nie jest potrzebne, skoro kazdy stan sam zapamietuje swoje przejscia
+        addToOutgoingList((NotNaiveState) from, (NotNaiveState) to, transitionLabel);
+    }   
+    
+    /**
+    * Konwertuje State na NotNaiveState 
+    */
+    public void addToOutgoingList(NotNaiveState from, NotNaiveState to, TransitionLabel transitionLabel){
+        from.OutgoingTransitions.add(new OutgoingTransition(transitionLabel, (State) to));
+    }
+       
+    public void markAsInitial(State state) {
+        initialState = (NotNaiveState) state;
+    }
+
+    public void markAsFinal(State state) {
+        finalStates.add((NotNaiveState) state);
+    }
+
+    public List<State> allStates() {
+        return allStates;
+    }
+             
+    public List<OutgoingTransition> allOutgoingTransitions(State from) {
+        
+        return ((NotNaiveState)from).OutgoingTransitions;  
+    }
+
+    public State getInitialState() {
+        return initialState;
+    }
+
+    public boolean isFinal(State state) {
+        for (NotNaiveState someState : finalStates) {
+            if (someState == state)
+                return true;
+        }
+
+        return false;
+    }
+    
+    
+    /**
+    * Deklaracja potrzebnych list.
+    */
+    private LinkedList<State> allStates = new LinkedList<State>();
+    // private LinkedList<NotNaiveTransition> transitions = new LinkedList<NotNaiveTransition>();
+    // tworzenie listy wszystkich przejsc nie jest potrzebne, skoro kazdy stan sam zapamietuje swoje przejscia
+    private NotNaiveState initialState;
+    private LinkedList<NotNaiveState> finalStates = new LinkedList<NotNaiveState>();
+}
