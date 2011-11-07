@@ -147,4 +147,3 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("aabbbaaaa"));
     }
 }
-
