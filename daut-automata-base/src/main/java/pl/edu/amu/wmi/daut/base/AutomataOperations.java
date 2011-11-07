@@ -20,7 +20,7 @@ public class AutomataOperations {
             complementLanguageAutomaton(DeterministicAutomatonSpecification automaton,
             Set<Character> alfabet) {
         Vector<State> lista = new Vector<State>();
-        
-        return automaton;
+        NaiveDeterministicAutomatonSpecification returned;
+        return returned;
     }
 }
