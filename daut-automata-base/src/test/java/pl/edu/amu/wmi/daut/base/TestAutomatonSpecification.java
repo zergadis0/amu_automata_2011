@@ -72,9 +72,7 @@ public class TestAutomatonSpecification extends TestCase {
      */
     public final void testaddBranch() {
 
-       /**
-         * Budowanie automatu o 3 stanach.
-         */
+       // Budowanie automatu o 3 stanach.
        AutomatonSpecification spec = new NaiveAutomatonSpecification();
        State s0 = spec.addState();
        spec.markAsInitial(s0);
