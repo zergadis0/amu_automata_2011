@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
+import java.util.LinkedList;
 import java.util.HashMap;
 
 /**
@@ -23,7 +24,7 @@ public class AutomataOperations {
         }
         @Override
         public String toString() {
-            return "A"+String.valueOf(qA.hashCode())+"B"+String.valueOf(qB.hashCode());
+            return "A" + String.valueOf(qA.hashCode()) + "B" + String.valueOf(qB.hashCode());
         }
         public State getB() {
             return qB;
@@ -36,32 +37,28 @@ public class AutomataOperations {
     }
 
     /**
-     * Metoda tworzy przejscie od stanu stateC do nowego stanu utworzonego przez pare stateA i 
-     * stateB po etykiecie transition. Sprawdzane jest czy stateA i stateB są stanami końcowymi oraz
-     * dodanie nowo utworzonego stanu stateCn do listy 'newStates' wraz z wpisaniem jej oraz jej
-     * kombinacji stanów do HashMap.
+     * Metoda tworzy przejscie od stanu stateC do nowego stanu utworzonego przez pare A i B w
+     * combinedC po etykiecie transition. Dodanie nowo utworzonego stanu stateCn do listy newStates
+     * wraz z wpisaniem jej oraz jej kombinacji stanów do HashMap.
+     * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
      */
-    private boolean makeTransition(State stateA, State stateB, List newStates,
-            TransitionLabel transition, HashMap statesC, HashMap statesCHandle,
-            HashMap combinedStatesC, State stateC, AutomatonSpecification automatonC,
-            AutomatonSpecification automatonB, AutomatonSpecification automatonA) {
+    private boolean makeTransition(CombinedState combinedC, List newStates,
+            TransitionLabel transition, List<HashMap> hashMaps, State stateC,
+            AutomatonSpecification automatonC, boolean isFinal) {
         State stateCn;
         boolean empty = true;
-        CombinedState combinedC = new CombinedState();
-        combinedC.set(stateA, stateB);
-        if (statesC.containsValue(combinedC.toString()))
-            stateCn = (State)statesCHandle.get(combinedC.toString());
+        if (hashMaps.get(0).containsValue(combinedC.toString()))
+            stateCn = (State) hashMaps.get(1).get(hashMaps.get(2).toString());
         else {
             stateCn = automatonC.addState();
-            combinedStatesC.put(combinedC.toString(), combinedC);
-            statesC.put(stateCn, combinedC.toString());
-            statesCHandle.put(combinedC.toString(), stateCn);
+            hashMaps.get(2).put(combinedC.toString(), combinedC);
+            hashMaps.get(0).put(stateCn, combinedC.toString());
+            hashMaps.get(1).put(combinedC.toString(), stateCn);
             newStates.add(stateCn);
             empty = false;
         }
         automatonC.addTransition(stateC, stateCn, transition);
-        if (automatonA.isFinal(stateB)
-                    && automatonB.isFinal(stateA))
+        if (isFinal)
                 automatonC.markAsFinal(stateCn);
         return empty;
     }
@@ -72,7 +69,7 @@ public class AutomataOperations {
     public AutomatonSpecification intersection(
             AutomatonSpecification automatonA, AutomatonSpecification automatonB) {
 
-        boolean empty;
+        boolean empty, isFinal = false;
         CombinedState combinedC = new CombinedState();
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
 
@@ -80,7 +77,7 @@ public class AutomataOperations {
         State qB = automatonB.getInitialState();
         State qC = automatonC.addState();
         automatonC.markAsInitial(qC);
-        if(automatonA.isFinal(qA) && automatonB.isFinal(qB))
+        if (automatonA.isFinal(qA) && automatonB.isFinal(qB))
             automatonC.markAsFinal(qC);
 
         List<OutgoingTransition> lA;
@@ -98,6 +95,7 @@ public class AutomataOperations {
         HashMap<String, CombinedState> combinedStatesC = new HashMap<String, CombinedState>();
         HashMap<State, String> statesC = new HashMap<State, String>();
         HashMap<String, State> statesCHandle = new HashMap<String, State>();
+        List<HashMap> hashMaps = new LinkedList<HashMap>();
 
         combinedC.set(qA, qB);
         combinedStatesC.put(combinedC.toString(), combinedC);
@@ -123,9 +121,19 @@ public class AutomataOperations {
                                 qBn.getTransitionLabel());
 
                         if (!tL.isEmpty()) {
-                            empty = makeTransition(qAn.getTargetState(), qBn.getTargetState(),
-                                    temporary, tL, statesC, statesCHandle, combinedStatesC, stateC,
-                                    automatonC, automatonB, automatonA);
+                            combinedC = new CombinedState();
+                            combinedC.set(qAn.getTargetState(), qBn.getTargetState());
+                            if (automatonA.isFinal(qAn.getTargetState())
+                                    && automatonB.isFinal(qBn.getTargetState()))
+                                isFinal = true;
+                            else
+                                isFinal = false;
+                            hashMaps.add(statesC);
+                            hashMaps.add(statesCHandle);
+                            hashMaps.add(combinedStatesC);
+                            empty = makeTransition(combinedC,
+                                    temporary, tL, hashMaps, stateC,
+                                    automatonC, isFinal);
 
                             break;
                         }
@@ -134,18 +142,32 @@ public class AutomataOperations {
                 //Epsilon przejscia
                 for (OutgoingTransition transitionToAn : lA) {
                     if (transitionToAn.getTransitionLabel().canBeEpsilon()) {
-                        empty = makeTransition(transitionToAn.getTargetState(), qB, temporary,
-                                new EpsilonTransitionLabel(), statesC, statesCHandle,
-                                combinedStatesC, stateC, automatonC, automatonB, automatonA);
+                        combinedC = new CombinedState();
+                        combinedC.set(transitionToAn.getTargetState(), qB);
+                        if (automatonA.isFinal(transitionToAn.getTargetState())
+                                && automatonB.isFinal(qB))
+                            isFinal = true;
+                        else
+                            isFinal = false;
+                        empty = makeTransition(combinedC, temporary,
+                                new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
+                                isFinal);
 
                         break;
                     }
                 }
                 for (OutgoingTransition transitionToBn : lB) {
                     if (transitionToBn.getTransitionLabel().canBeEpsilon()) {
-                        empty = makeTransition(qA, transitionToBn.getTargetState(), temporary,
-                                new EpsilonTransitionLabel(), statesC, statesCHandle,
-                                combinedStatesC, stateC, automatonC, automatonB, automatonA);
+                        combinedC = new CombinedState();
+                        combinedC.set(qA, transitionToBn.getTargetState());
+                        if (automatonA.isFinal(qA)
+                                && automatonB.isFinal(transitionToBn.getTargetState()))
+                            isFinal = true;
+                        else
+                            isFinal = false;
+                        empty = makeTransition(combinedC, temporary,
+                                new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
+                                isFinal);
 
                         break;
                     }
