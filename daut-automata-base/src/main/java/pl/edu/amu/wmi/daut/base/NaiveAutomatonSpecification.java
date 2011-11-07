@@ -81,7 +81,7 @@ class NaiveAutomatonSpecification extends AutomatonSpecification {
     public void markAsFinal(State state) {
         finalStates.add((NaiveState) state);
     }
-    
+
     public void unmarkAsFinalState(State state) {
         finalStates.remove((NaiveState) state);
     }
