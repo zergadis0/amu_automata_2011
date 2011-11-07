@@ -1,6 +1,5 @@
 package pl.edu.amu.wmi.daut.base;
 
-import java.util.Vector;
 import java.util.Set;
 
 /**
