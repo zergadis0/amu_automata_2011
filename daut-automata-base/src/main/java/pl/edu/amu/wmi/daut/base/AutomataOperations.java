@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.Vector;
 import java.util.Set;
 
 /**
@@ -16,7 +17,10 @@ public class AutomataOperations {
      * @return AutomatonSpecification
      */
     static AutomatonSpecification
-            complementLanguageAutomaton(AutomatonSpecification automat, Set<Character> alfabet) {
-        return automat;
+            complementLanguageAutomaton(DeterministicAutomatonSpecification automaton,
+            Set<Character> alfabet) {
+        Vector<State> lista = new Vector<State>();
+        
+        return automaton;
     }
 }
