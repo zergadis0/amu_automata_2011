@@ -524,17 +524,22 @@ abstract class AutomatonSpecification {
     //Metoda zwracająca pierwszy, według kolejności alfabetycznej,
     //napis akceptowany przez automat.
     public String firstAcceptedString() {
+        StringBuffer output = new StringBuffer("First accepted word by automaton is: ");
         List<OutgoingTransition> stack = new ArrayList<OutgoingTransition>();
         List<State> states = allStates();
         int k = 1;
         while (true) {
-            if (states.isEmpty())
-                return "automat pusty";
+            if (states.isEmpty()) {
+                output.append("Empty Automaton.");
+                return output.toString();
+            }
             for (int j = 0; j <= states.size(); j++) {
                 for (int i = 0; i <= allOutgoingTransitions(states.get(j)).size(); i++) {
         String tmp = allOutgoingTransitions(states.get(j)).get(i).getTransitionLabel().toString();
-                    if (tmp.equals(""))
-                        return "";
+                    if (tmp.equals("")) {
+                        output.append("empty string");
+                        return output.toString();
+                    }
                     else
                         stack.add(allOutgoingTransitions(states.get(j)).get(i));
                 }
@@ -547,7 +552,8 @@ abstract class AutomatonSpecification {
                 }
                 k++;
             }
-            return napis;
+            output.append(napis);
+            return output.toString();
         }
     }
 };
