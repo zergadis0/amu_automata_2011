@@ -530,17 +530,15 @@ abstract class AutomatonSpecification {
         int k = 1;
         while (true) {
             if (states.isEmpty()) {
-                output.append("Empty Automaton.");
+                output.append("\n Empty Automaton");
                 return output.toString();
             }
             for (int j = 0; j <= states.size(); j++) {
                 for (int i = 0; i <= allOutgoingTransitions(states.get(j)).size(); i++) {
         String tmp = allOutgoingTransitions(states.get(j)).get(i).getTransitionLabel().toString();
                     if (tmp.equals("")) {
-                        output.append("empty string");
-                        return output.toString();
-                    }
-                    else
+                        return output.append("\n empty string").toString();
+                    } else
                         stack.add(allOutgoingTransitions(states.get(j)).get(i));
                 }
             }
@@ -552,8 +550,7 @@ abstract class AutomatonSpecification {
                 }
                 k++;
             }
-            output.append(napis);
-            return output.toString();
+            return output.append(napis).toString();
         }
     }
 };
