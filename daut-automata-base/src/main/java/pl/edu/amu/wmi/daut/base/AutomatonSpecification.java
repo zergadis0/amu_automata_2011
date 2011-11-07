@@ -45,6 +45,9 @@ abstract class AutomatonSpecification {
      * Stany niekoniecznie muszą być zwrócone w identycznej
      * kolejności jak były dodane.
      */
+    
+    public abstract void unmarkAsFinalState(State state);
+    
     public abstract List<State> allStates();
 
     /**
