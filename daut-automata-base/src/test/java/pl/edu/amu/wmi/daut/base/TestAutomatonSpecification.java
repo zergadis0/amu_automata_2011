@@ -70,7 +70,6 @@ public class TestAutomatonSpecification extends TestCase {
     /*
      * Test metody addBranch.
      */
-    /** {@inheritDoc } */
     public final void testaddBranch() {
 
        // Budowanie automatu o 3 stanach.
