@@ -524,48 +524,39 @@ abstract class AutomatonSpecification {
     public boolean checkPrefix(String word) {
 
         List<State> finalStates = new ArrayList<State>();
+        List<State> nowChecking= new ArrayList<State>();
         List<OutgoingTransition> outgoing = new ArrayList<OutgoingTransition>();
         TransitionLabel label;
         State state;
 
         finalStates.add(getInitialState());
-        int size = finalStates.size();
-
-        for (int j = 0; j < size; j++) {
-            outgoing.clear();
-            outgoing = allOutgoingTransitions(finalStates.get(j));
-            for (int k = 0; k < outgoing.size(); k++) {
-                label = outgoing.get(k).getTransitionLabel();
-                state = outgoing.get(k).getTargetState();
-
-                if (label.canBeEpsilon() && !finalStates.contains(state)) {
-                    finalStates.add(state);
-                    size++;
-                }
-            }
-        }
 
         for (int i = 0; i < word.length(); i++) {
+            nowChecking.clear();
+            nowChecking.addAll(finalStates);
+            finalStates.clear();
+            int size = nowChecking.size();
+
             for (int j = 0; j < size; j++) {
                 outgoing.clear();
-                outgoing = allOutgoingTransitions(finalStates.get(j));
+                outgoing = allOutgoingTransitions(nowChecking.get(j));
                 for (int k = 0; k < outgoing.size(); k++) {
                     label = outgoing.get(k).getTransitionLabel();
                     state = outgoing.get(k).getTargetState();
 
-                    if (label.canBeEpsilon() && !finalStates.contains(state)) {
-                        finalStates.add(state);
+                    if (label.canBeEpsilon() && !nowChecking.contains(state)) {
+                        nowChecking.add(state);
                         size++;
-                    } else {
-                        boolean term = label.canAcceptCharacter(word.charAt(i));
-                        if (term && !finalStates.contains(state)) {
-                            finalStates.add(state);
-                            size++;
-                        }
+                    }
+                    boolean term = label.canAcceptCharacter(word.charAt(i));
+                    if (term && !finalStates.contains(state)) {
+                        finalStates.add(state);
                     }
                 }
             }
         }
+
+        int size = finalStates.size();
 
         for (int j = 0; j < size; j++) {
             outgoing.clear();
