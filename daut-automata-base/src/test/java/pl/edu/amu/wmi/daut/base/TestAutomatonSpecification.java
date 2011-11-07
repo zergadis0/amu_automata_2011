@@ -115,17 +115,17 @@ public class TestAutomatonSpecification extends TestCase {
         } catch (Exception e) {
             assertTrue(true);
         }
-        
+
         slowo = "Magia: dwa trzy cztery piec";
-        
+
         try {
             niepoprawny.fromString(slowo);
         } catch (Exception e) {
             assertTrue(true);
         }
-        
+
         slowo = "Automaton:\n-Niestates: q0\n-Transitions: magia";
-        
+
         try {
             niepoprawny.fromString(slowo);
         } catch (Exception e) {
@@ -221,6 +221,59 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectTransitionName2);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * Test metody fromString() z błędnymi opisami automatu.
+     * Błędy nazw stanów specjalnych.
+     */
+    public final void testFromString5WrongAutomatonStrings2SpecialStates() {
+        AutomatonSpecification bledny = new NaiveAutomatonSpecification();
+
+        String nonCorrectSpecialStates0 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 -a-> q0\nInitial error";
+
+        try {
+            bledny.fromString(nonCorrectSpecialStates0);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectSpecialStates1 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 -a-> q0\nInitial state: qa";
+
+        try {
+            bledny.fromString(nonCorrectSpecialStates1);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectSpecialStates2 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 -a-> q0\nInitial state: q0\nerror";
+
+        try {
+            bledny.fromString(nonCorrectSpecialStates2);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectSpecialStates3 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 -a-> q0\nInitial state: q0\nFinal error";
+
+        try {
+            bledny.fromString(nonCorrectSpecialStates3);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectSpecialStates4 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 -a-> q0\nInitial state: q0\nFinal states: qk";
+
+        try {
+            bledny.fromString(nonCorrectSpecialStates4);
         } catch (Exception e) {
             assertTrue(true);
         }
