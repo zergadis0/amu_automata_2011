@@ -68,9 +68,10 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /*
-     * Test metody addBranch().
+     * Test metody addBranch.
      */
     public final void testaddBranch() {
+
        /**
          * Budowanie automatu o 3 stanach.
          */
@@ -97,7 +98,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'c');
         assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
 
-        State r1 =r0Outs.get(0).getTargetState();
+        State r1 = r0Outs.get(0).getTargetState();
         List<OutgoingTransition> r1Outs = spec.allOutgoingTransitions(r1);
         assertEquals(r1Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
         assertTrue(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'b');
@@ -105,7 +106,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'c');
         assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).canBeEpsilon());
 
-        State r2 =r1Outs.get(0).getTargetState();
+        State r2 = r1Outs.get(0).getTargetState();
         List<OutgoingTransition> r2Outs = spec.allOutgoingTransitions(r2);
         assertEquals(r2Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
         assertTrue(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'c');
@@ -113,7 +114,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'b');
         assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).canBeEpsilon());
 
-        State r3 =r2Outs.get(0).getTargetState();
+        State r3 = r2Outs.get(0).getTargetState();
 
         assertFalse(spec.isFinal(r2));
         assertTrue(spec.isFinal(r3));
