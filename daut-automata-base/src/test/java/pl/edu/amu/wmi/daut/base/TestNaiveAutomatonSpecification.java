@@ -67,7 +67,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         assertEquals(states.size(), 3);
     }
-    
+
     /**
      * Prosty test wyznaczania przecięcia.
      */
@@ -214,9 +214,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(automaton.accepts("bbccaabcbabab"));
         assertTrue(automaton.accepts("cacacacbbccccc"));
     }
-    
+
     /**
-* Testy metody sprawdzającej, czy akceptowany język jest nieskończony.
+* Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
     public final void testInfinite1() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
@@ -241,6 +241,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(automat.isInfinite());
     }
 
+    /**
+* Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+*/
     public final void testInfinite2() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -257,6 +260,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(automat.isInfinite());
     }
 
+    /**
+* Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+*/
     public final void testInfinite3() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -276,6 +282,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(automat.isInfinite());
     }
 
+    /**
+* Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+*/
     public final void testInfinite4() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -297,6 +306,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(automat.isInfinite());
     }
 
+    /**
+* Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+*/
     public final void testInfinite5() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -314,6 +326,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertFalse(automat.isInfinite());
     }
 
+    /**
+* Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+*/
     public final void testInfinite6() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -330,6 +345,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertFalse(automat.isInfinite());
     }
 
+    /**
+* Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+*/
     public final void testInfinite7() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -345,6 +363,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertFalse(automat.isInfinite());
     }
 
+    /**
+* Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+*/
     public final void testInfinite8() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -354,6 +375,9 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(automat.isInfinite());
     }
 
+    /**
+* Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+*/
     public final void testInfinite9() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
