@@ -19,8 +19,8 @@ public class AutomataOperations {
     static AutomatonSpecification
             complementLanguageAutomaton(DeterministicAutomatonSpecification automaton,
             Set<Character> alfabet) {
-        Vector<State> lista = new Vector<State>();
-        NaiveDeterministicAutomatonSpecification returned;
+        NaiveDeterministicAutomatonSpecification returned = automaton.clone();
+        returned.makeFull(alfabet.toString());
         return returned;
     }
 }
