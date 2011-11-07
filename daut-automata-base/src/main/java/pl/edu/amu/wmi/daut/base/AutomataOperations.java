@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class AutomataOperations {
 
-    public AutomatonSpecification sum(AutomatonSpecification A, AutomatonSpecification B) {
+    public static AutomatonSpecification sum(AutomatonSpecification A, AutomatonSpecification B) {
         AutomatonSpecification automaton = new NaiveAutomatonSpecification(); {
             State q0 = automaton.addState();
             State qk = automaton.addState();
