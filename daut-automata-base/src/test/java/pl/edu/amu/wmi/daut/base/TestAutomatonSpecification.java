@@ -1,4 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
+import java.util.List;
+import java.util.Arrays;
 
 import junit.framework.TestCase;
 
@@ -64,6 +66,68 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertEquals(spec.countTransitions(), 5);
     }
+    
+    /*
+     * Test metody addBranch().
+     */
+    public final void testaddBranch()
+    {
+       /**
+         * Budowanie automatu o 3 stanach.
+         */  
+       AutomatonSpecification spec = new NaiveAutomatonSpecification();
+       State s0 = spec.addState();
+       spec.markAsInitial(s0);
+       List<TransitionLabel> transitions =
+               Arrays.<TransitionLabel>asList(
+            new CharTransitionLabel('a'),
+            new CharTransitionLabel('b'),
+            new CharTransitionLabel('c')
+            );
+       State s3 = spec.addBranch(s0, transitions);
+       spec.markAsFinal(s3);
+        
+       //testowanie
+
+        State r0 = spec.getInitialState();
+
+        List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
+        assertEquals(r0Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
+        assertTrue(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a');
+        assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'b');
+        assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'c');
+        assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
+        
+        State r1 =r0Outs.get(0).getTargetState();
+        List<OutgoingTransition> r1Outs = spec.allOutgoingTransitions(r1);
+        assertEquals(r1Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
+        assertTrue(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'b');
+        assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'a');
+        assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'c');
+        assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).canBeEpsilon());
+        
+        State r2 =r1Outs.get(0).getTargetState();
+        List<OutgoingTransition> r2Outs = spec.allOutgoingTransitions(r2);
+        assertEquals(r2Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
+        assertTrue(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'c');
+        assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'a');
+        assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'b');
+        assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).canBeEpsilon());
+        
+        State r3 =r2Outs.get(0).getTargetState();
+        
+        assertFalse(spec.isFinal(r2));
+        assertTrue(spec.isFinal(r3));
+        assertSame(r0, spec.getInitialState());
+        assertNotSame(r0, r1);
+        assertNotSame(r1, r2);
+        assertNotSame(r2, r3);
+
+        List<State> states = spec.allStates();
+
+        assertEquals(states.size(), 4);
+    }
+
 
     /**
      * Testuje działanie metody toString().
