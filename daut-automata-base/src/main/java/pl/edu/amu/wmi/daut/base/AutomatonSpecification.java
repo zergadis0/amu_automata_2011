@@ -521,31 +521,33 @@ abstract class AutomatonSpecification {
             addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
     }
 
-    // Metoda zwracająca pierwszy, według kolejności alfabetycznej,
-    // napis akceptowany przez automat. 
-    public String firstAcceptedString(){
-        State q = getInitialState();
+    //Metoda zwracająca pierwszy, według kolejności alfabetycznej,
+    //napis akceptowany przez automat.
+    public String firstAcceptedString() {
         List<OutgoingTransition> stack = new ArrayList<OutgoingTransition>();
         List<State> states = allStates();
-        boolean flag = true;
-        String napis = "";
         int k = 1;
-        while (flag=true){  
+        while (true) {
             if (states.isEmpty())
-            flag=false;
-            
+                return "automat pusty";
             for (int j = 0; j <= states.size(); j++) {
                 for (int i = 0; i <= allOutgoingTransitions(states.get(j)).size(); i++) {
+        String tmp = allOutgoingTransitions(states.get(j)).get(i).getTransitionLabel().toString();
+                    if (tmp.equals(""))
+                        return "";
+                    else
                         stack.add(allOutgoingTransitions(states.get(j)).get(i));
                 }
             }
-            TransitionLabel label = stack.get(0).getTransitionLabel();
+            String napis = stack.get(0).getTransitionLabel().toString();
             while (k < stack.size()) {
-                TransitionLabel label2 = stack.get(k).getTransitionLabel();
-                
+                String temp = stack.get(k).getTransitionLabel().toString();
+                if (napis.compareTo(temp) > 0) {
+                   napis = temp;
+                }
+                k++;
             }
-            
+            return napis;
         }
-       return napis;
     }
 };
