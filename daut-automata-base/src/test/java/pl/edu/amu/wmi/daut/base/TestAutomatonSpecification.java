@@ -234,7 +234,7 @@ public class TestAutomatonSpecification extends TestCase {
         AutomatonSpecification bledny = new NaiveAutomatonSpecification();
 
         String nonCorrectSpecialStates0 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
-                + "q0 -a-> q0\nInitial error";
+                + "q0 -a-> q0\n-Initial error";
 
         try {
             bledny.fromString(nonCorrectSpecialStates0);
@@ -243,7 +243,7 @@ public class TestAutomatonSpecification extends TestCase {
         }
 
         String nonCorrectSpecialStates1 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
-                + "q0 -a-> q0\nInitial state: qa";
+                + "q0 -a-> q0\n-Initial state: qa";
 
         try {
             bledny.fromString(nonCorrectSpecialStates1);
@@ -252,7 +252,7 @@ public class TestAutomatonSpecification extends TestCase {
         }
 
         String nonCorrectSpecialStates2 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
-                + "q0 -a-> q0\nInitial state: q0\nerror";
+                + "q0 -a-> q0\n-Initial state: q0\nerror";
 
         try {
             bledny.fromString(nonCorrectSpecialStates2);
@@ -261,7 +261,7 @@ public class TestAutomatonSpecification extends TestCase {
         }
 
         String nonCorrectSpecialStates3 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
-                + "q0 -a-> q0\nInitial state: q0\nFinal error";
+                + "q0 -a-> q0\n-Initial state: q0\n-Final error";
 
         try {
             bledny.fromString(nonCorrectSpecialStates3);
@@ -270,7 +270,7 @@ public class TestAutomatonSpecification extends TestCase {
         }
 
         String nonCorrectSpecialStates4 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
-                + "q0 -a-> q0\nInitial state: q0\nFinal states: qk";
+                + "q0 -a-> q0\n-Initial state: q0\n-Final states: qk";
 
         try {
             bledny.fromString(nonCorrectSpecialStates4);
