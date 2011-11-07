@@ -5,8 +5,8 @@ package pl.edu.amu.wmi.daut.base;
  */
 
 /*
-* Implementacja Transition Label reprezentuj¹ca
-* przejœcie po dowolnym znaku.
+* Implementacja Transition Label reprezentujaca
+* przejscie po dowolnym znaku.
 */
 class AnyTransitionLabel extends TransitionLabel {
 
