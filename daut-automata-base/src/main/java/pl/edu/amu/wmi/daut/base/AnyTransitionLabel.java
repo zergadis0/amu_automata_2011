@@ -29,5 +29,5 @@ class AnyTransitionLabel extends TransitionLabel {
     protected TransitionLabel intersectWith(TransitionLabel label) {
           return label.isEmpty() ? new EmptyTransitionLabel() : this;
     }
-    
 }
+
