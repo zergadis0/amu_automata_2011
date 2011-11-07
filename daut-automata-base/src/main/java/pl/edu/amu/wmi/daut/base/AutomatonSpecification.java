@@ -1,4 +1,4 @@
--package pl.edu.amu.wmi.daut.base;
+package pl.edu.amu.wmi.daut.base;
 
 import java.util.ArrayList;
 import java.util.List;
