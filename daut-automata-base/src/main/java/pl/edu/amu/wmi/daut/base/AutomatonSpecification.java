@@ -418,7 +418,7 @@ abstract class AutomatonSpecification {
             }
         }
         return false;
-    };
+    }
 
     /**
      * Zwraca true, gdy automat akceptuje napis pusty.
@@ -456,8 +456,7 @@ abstract class AutomatonSpecification {
             }
         }
         return false;
-
-    };
+    }
 
     //true-istnieją stany zbędne
     public boolean uselessStates() {
@@ -526,11 +525,9 @@ abstract class AutomatonSpecification {
 
         List<State> finalStates = new ArrayList<State>();
         List<OutgoingTransition> outgoing = new ArrayList<OutgoingTransition>();
-        char[] wordArray;
         TransitionLabel label;
         State state;
 
-        wordArray = word.toCharArray();
         finalStates.add(getInitialState());
         int size = finalStates.size();
 
@@ -548,7 +545,7 @@ abstract class AutomatonSpecification {
             }
         }
 
-        for (int i = 0; i < wordArray.length; i++) {
+        for (int i = 0; i < word.length(); i++) {
             for (int j = 0; j < size; j++) {
                 outgoing.clear();
                 outgoing = allOutgoingTransitions(finalStates.get(j));
@@ -560,7 +557,8 @@ abstract class AutomatonSpecification {
                         finalStates.add(state);
                         size++;
                     } else {
-                    if (label.canAcceptCharacter(wordArray[i]) && !finalStates.contains(state)) {
+                        boolean term = label.canAcceptCharacter(word.charAt(i));
+                        if (term && !finalStates.contains(state)) {
                             finalStates.add(state);
                             size++;
                         }
@@ -583,10 +581,8 @@ abstract class AutomatonSpecification {
             }
         }
 
-        boolean istrue;
-
         for (int i = 0; i < finalStates.size(); i++) {
-            istrue = prefixChecker(finalStates.get(i));
+            boolean istrue = prefixChecker(finalStates.get(i));
 
             if (istrue)
                 return true;
