@@ -14,7 +14,7 @@ public class TestAutomatonSpecification extends TestCase {
         AutomatonSpecification pustyOjciec = new NaiveAutomatonSpecification();
 
         String slowo = "Automaton:\n-States: q0\n-Transitions:\n"
-                + "q0 -a-> q0\nq0 -b-> q0\n-Initial state: q0\n-Final states:";
+                + "-Initial state: q0\n-Final states:";
 
         try {
             pustyOjciec.fromString(slowo);
@@ -115,19 +115,112 @@ public class TestAutomatonSpecification extends TestCase {
         } catch (Exception e) {
             assertTrue(true);
         }
+        
+        slowo = "Magia: dwa trzy cztery piec";
+        
+        try {
+            niepoprawny.fromString(slowo);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+        
+        slowo = "Automaton:\n-Niestates: q0\n-Transitions: magia";
+        
+        try {
+            niepoprawny.fromString(slowo);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
     }
 
     /**
-     * Test metody fromString() z błędnym opisem automatu.
+     * Test metody fromString() z błędnymi opisami automatu.
+     * Błędy nazw stanów.
      */
-    public final void testFromString5WrongAutomatonStrings() {
+    public final void testFromString5WrongAutomatonStrings0States() {
         AutomatonSpecification bledny = new NaiveAutomatonSpecification();
 
-        String slowo = "Automaton:\n-States: q0\n-Transitions:\n"
-                + "q2 -a-> q4\nq4 -a-> q0\n-Initial state: q4\n-Final states: q0";
+        String nonCorrectStateName0 = "Automaton:\n-States: q\n-Transitions:\n a";
 
         try {
-            bledny.fromString(slowo);
+            bledny.fromString(nonCorrectStateName0);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectStateName1 = "Automaton:\n-States: a1\n-Transitions:\n a";
+
+        try {
+            bledny.fromString(nonCorrectStateName1);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectStateName2 = "Automaton:\n-States: q1.2\n-Transitions:\n a";
+
+        try {
+            bledny.fromString(nonCorrectStateName2);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectStateName3 = "Automaton:\n-States: qa\n-Transitions:\n a";
+
+        try {
+            bledny.fromString(nonCorrectStateName3);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * Test metody fromString() z błędnymi opisami automatu.
+     * Błędy nazw przejść.
+     */
+    public final void testFromString5WrongAutomatonStrings1Transitions() {
+        AutomatonSpecification bledny = new NaiveAutomatonSpecification();
+
+        String nonCorrectTransitionName0Label0 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 --> q0";
+
+        try {
+            bledny.fromString(nonCorrectTransitionName0Label0);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectTransitionName0Label1 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 .q-> q0";
+
+        try {
+            bledny.fromString(nonCorrectTransitionName0Label1);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectTransitionName0Label2 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 --q> q0";
+
+        try {
+            bledny.fromString(nonCorrectTransitionName0Label2);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectTransitionName1 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "qa -a-> q0";
+
+        try {
+            bledny.fromString(nonCorrectTransitionName1);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectTransitionName2 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 -a-> qa";
+
+        try {
+            bledny.fromString(nonCorrectTransitionName2);
         } catch (Exception e) {
             assertTrue(true);
         }
