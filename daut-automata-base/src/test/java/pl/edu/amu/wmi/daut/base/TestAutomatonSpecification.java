@@ -66,15 +66,14 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertEquals(spec.countTransitions(), 5);
     }
-    
+
     /*
      * Test metody addBranch().
      */
-    public final void testaddBranch()
-    {
+    public final void testaddBranch() {
        /**
          * Budowanie automatu o 3 stanach.
-         */  
+         */
        AutomatonSpecification spec = new NaiveAutomatonSpecification();
        State s0 = spec.addState();
        spec.markAsInitial(s0);
@@ -86,7 +85,7 @@ public class TestAutomatonSpecification extends TestCase {
             );
        State s3 = spec.addBranch(s0, transitions);
        spec.markAsFinal(s3);
-        
+
        //testowanie
 
         State r0 = spec.getInitialState();
@@ -97,7 +96,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'b');
         assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'c');
         assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
-        
+
         State r1 =r0Outs.get(0).getTargetState();
         List<OutgoingTransition> r1Outs = spec.allOutgoingTransitions(r1);
         assertEquals(r1Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
@@ -105,7 +104,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'a');
         assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'c');
         assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).canBeEpsilon());
-        
+
         State r2 =r1Outs.get(0).getTargetState();
         List<OutgoingTransition> r2Outs = spec.allOutgoingTransitions(r2);
         assertEquals(r2Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
@@ -113,9 +112,9 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'a');
         assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'b');
         assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).canBeEpsilon());
-        
+
         State r3 =r2Outs.get(0).getTargetState();
-        
+
         assertFalse(spec.isFinal(r2));
         assertTrue(spec.isFinal(r3));
         assertSame(r0, spec.getInitialState());
