@@ -96,7 +96,7 @@ public class AutomataOperations {
         HashMap<State, String> statesC = new HashMap<State, String>();
         HashMap<String, State> statesCHandle = new HashMap<String, State>();
         List<HashMap> hashMaps = new LinkedList<HashMap>();
-	hashMaps.add(statesC);
+        hashMaps.add(statesC);
         hashMaps.add(statesCHandle);
         hashMaps.add(combinedStatesC);
 
