@@ -523,5 +523,29 @@ abstract class AutomatonSpecification {
 
     // Metoda zwracająca pierwszy, według kolejności alfabetycznej,
     // napis akceptowany przez automat. 
-
+    public String firstAcceptedString(){
+        State q = getInitialState();
+        List<OutgoingTransition> stack = new ArrayList<OutgoingTransition>();
+        List<State> states = allStates();
+        boolean flag = true;
+        String napis = "";
+        int k = 1;
+        while (flag=true){  
+            if (states.isEmpty())
+            flag=false;
+            
+            for (int j = 0; j <= states.size(); j++) {
+                for (int i = 0; i <= allOutgoingTransitions(states.get(j)).size(); i++) {
+                        stack.add(allOutgoingTransitions(states.get(j)).get(i));
+                }
+            }
+            TransitionLabel label = stack.get(0).getTransitionLabel();
+            while (k < stack.size()) {
+                TransitionLabel label2 = stack.get(k).getTransitionLabel();
+                
+            }
+            
+        }
+       return napis;
+    }
 };
