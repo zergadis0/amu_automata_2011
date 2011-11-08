@@ -27,10 +27,10 @@ public class AutomataOperations {
         returned.makeFull(alfabet.toString());
         for(State obecny : returned.allStates()) {
             if (returned.isFinal(obecny)) {
-                returned.unmarkAsFinalState(obecny);
+                returned.markAsFinal(obecny);
             }
             else {
-                returned.markAsFinalState(obecny);
+                returned.markAsFinal(obecny);
             }
         }
         return returned;
