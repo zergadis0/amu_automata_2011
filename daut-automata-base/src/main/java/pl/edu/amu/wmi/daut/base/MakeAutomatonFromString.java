@@ -49,7 +49,7 @@ public class MakeAutomatonFromString {
     private boolean isCorrectLabel(String name) {
         if (name.equals("-epsilon->"))
             return true;
-        if (name.equals("ANY"))
+        if (name.equals("-ANY->"))
             return true;
         if (name.startsWith("-[") && name.endsWith("]->"))
             return true;

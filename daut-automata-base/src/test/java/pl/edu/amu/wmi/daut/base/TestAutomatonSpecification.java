@@ -77,26 +77,42 @@ public class TestAutomatonSpecification extends TestCase {
     /**
      * Test metody fromString() tworzący automat z epsilonem.
      */
-//    public final void testFromString3AutomatonWithEpsilonTransition() {
-//        AutomatonSpecification epsilon = new NaiveAutomatonSpecification();
-//
-//        String slowo = "Automaton:\n-States: q0 q1 q2\n-Transitions:\n"
-//                + "q0 -ε-> q1\nq1 -a-> q2\n-Initial state: q0\n"
-//                + "-Final states: q2";
-//
-//        try {
-//            epsilon.fromString(slowo);
-//        } catch (Exception e) {
-//            fail("fromString() zwrocil wyjatek dla automatu z Epsilonem!");
-//        }
-//
-//        AutomatonByStack ep = new AutomatonByStack(epsilon);
+    public final void testFromString3AutomatonWithEpsilonTransition() {
+        AutomatonSpecification epsilon = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0 q1 q2 q3\n-Transitions:\n"
+                + "q0 -epsilon-> q1\nq1 -a-> q2\n-Initial state: q0\n"
+                + "-Final states: q3";
+
+        try {
+            epsilon.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla automatu z Epsilonem!");
+        }
+
+        boolean potworek = false;
+        for ( int i = 0; i < 3; i++ ) {
+            if ( !epsilon.allOutgoingTransitions(epsilon.allStates().get(i)).isEmpty() ) {
+                if ( epsilon.allOutgoingTransitions(epsilon.allStates().get(i))
+                        .get(0).getTransitionLabel().canBeEpsilon() ) {
+                    potworek = true;
+                    break;
+                }
+            }
+        }
+        assertTrue(potworek);
+//  Wykomentowane do czasu obsługiwania przez jakikolwiek automat przejść epsilonowych.
+//        AutomatonByRecursion ep = new AutomatonByRecursion(epsilon);
 //
 //        assertTrue(ep.accepts("a"));
+//        assertTrue(ep.accepts("b"));
 //        assertFalse(ep.accepts(""));
 //        assertFalse(ep.accepts("ε"));
 //        assertFalse(ep.accepts("aa"));
-//    }
+//        assertFalse(ep.accepts("ab"));
+//        assertFalse(ep.accepts("ba"));
+//        assertFalse(ep.accepts("bb"));
+    }
 
     /**
      * Test metody fromString() z bełkotem.
