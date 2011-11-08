@@ -215,14 +215,14 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(spec.prefixChecker(q5));
     }
     /**
-     *test automatu pustego 
+     *test automatu pustego.
      */
     public final void testIsEmpty() {
-        AutomatonSpecification automat = new NaiveAutomatonSpecification();  
+        AutomatonSpecification automat = new NaiveAutomatonSpecification();
         assertTrue(automat.isEmpty());
     }
     /**
-     *test automatu niepustego 
+     *test automatu niepustego.
      */
     public final void testIsEmptyforNotEmpty() {
         AutomatonSpecification automat = new NaiveAutomatonSpecification();
