@@ -16,12 +16,12 @@ import java.util.HashSet;
 public class AllAcceptedWords implements Iterator<String> {
   private AutomatonSpecification automat;
 
-  private class StateWord
-  {
+  private class StateWord {
+
     public State state;
     public String word;
-    public StateWord(State s, String w)
-    {
+    public StateWord(State s, String w) {
+
       state = s;
       word = w;
     }
@@ -31,8 +31,8 @@ public class AllAcceptedWords implements Iterator<String> {
   private Stack<StateWord> stack;
   private String nextWord;
 
-  AllAcceptedWords(AutomatonSpecification a)
-  {
+  AllAcceptedWords(AutomatonSpecification a) {
+
     automat = a;
     nextWord = null;
     stack = new Stack<StateWord>();
@@ -41,25 +41,25 @@ public class AllAcceptedWords implements Iterator<String> {
     prepareNextWord (true);
   }
   
-  private void prepareNextWord(boolean forced)
-  {
+  private void prepareNextWord(boolean forced) {
+
     if (nextWord == null && forced == false)
       return;
       
 
-    while (!stack.empty())
-    {
+    while (!stack.empty()) {
+
       boolean found = false;
       StateWord sw = stack.peek();
-      if (automat.isFinal(sw.state))
-      {
+      if (automat.isFinal(sw.state)) {
+
         found = true;
         nextWord = sw.word;
       }
 
       List<StateWord> statesToAdd = new ArrayList<StateWord>();
-      for (OutgoingTransition ot : automat.allOutgoingTransitions(sw.state))
-      {
+      for (OutgoingTransition ot : automat.allOutgoingTransitions(sw.state)) {
+
         String newWord = sw.word;
         TransitionLabel tl = ot.getTransitionLabel();
 
