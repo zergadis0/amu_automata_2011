@@ -74,9 +74,6 @@ abstract class AutomatonSpecification {
         return prev;
     }
 
- 
-    
-    
     /**
      * Oznacza stan jako początkowy.
      */
