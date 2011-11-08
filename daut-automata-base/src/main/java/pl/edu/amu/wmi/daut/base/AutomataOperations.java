@@ -25,7 +25,7 @@ public class AutomataOperations {
         NaiveDeterministicAutomatonSpecification returned = automaton.clone();
         returned.makeFull(alfabet.toString());
         for(State obecny : returned.allStates()) {
-            if (returned.isFinal(obecny)) 
+            if (returned.isFinal(obecny))
                 returned.unmarkAsFinal(obecny);
             else
                 returned.markAsFinal(obecny);
