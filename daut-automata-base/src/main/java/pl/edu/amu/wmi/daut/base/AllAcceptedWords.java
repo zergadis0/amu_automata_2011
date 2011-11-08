@@ -73,7 +73,8 @@ public class AllAcceptedWords implements Iterator<String> {
               throw new UnsupportedOperationException("Not supported yet.");
           
         StateWord newSW = new StateWord(ot.getTargetState(), newWord);
-        if (statesVisited.contains(newSW)) //to do - pod lupę: sprawdzaj po zawartości atrybutów, a nie po zgodności referencji
+        if (statesVisited.contains(newSW)) //to do - pod lupę: sprawdzaj po 
+                                // zawartości atrybutów, a nie po zgodności referencji
           continue;
 
         statesVisited.add(newSW);
