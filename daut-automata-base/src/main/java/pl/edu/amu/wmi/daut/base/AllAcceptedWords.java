@@ -1,12 +1,14 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.Iterator;
+
 /**
  * Klasa implementująca interfejs: java.util.Iterator
  * Iterator umożliwia iterowanie po kolekcjach.
  * Iteratory tworzone są metodą iterator() odpowiedniej klasy kolekcji.
  */
 
-public class AllAcceptedWords implements java.util.Iterator {
+public class AllAcceptedWords implements Iterator<String> {
 
     @Override
     /**
@@ -24,7 +26,7 @@ public class AllAcceptedWords implements java.util.Iterator {
      * 
      * Każde wywołanie metody `next` zwraca/podaje kolejne napisy akceptowane przez automat.
      */
-    public Object next() {
+    public String next() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
