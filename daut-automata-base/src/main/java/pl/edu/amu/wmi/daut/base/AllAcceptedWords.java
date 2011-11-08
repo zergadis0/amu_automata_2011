@@ -29,7 +29,7 @@ public class AllAcceptedWords implements Iterator<String> {
 
   private Set<StateWord> statesVisited;
   private Stack<StateWord> stack;
-  String nextWord;
+  private String nextWord;
 
   AllAcceptedWords(AutomatonSpecification a)
   {
@@ -60,7 +60,7 @@ public class AllAcceptedWords implements Iterator<String> {
       List<StateWord> statesToAdd = new ArrayList<StateWord>();
       for (OutgoingTransition ot : automat.allOutgoingTransitions(sw.state))
       {
-        String newWord = new String(sw.word);
+        String newWord = sw.word;
         TransitionLabel tl = ot.getTransitionLabel();
 
         if (tl instanceof EpsilonTransitionLabel)
