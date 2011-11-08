@@ -78,6 +78,19 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
         assertEquals(test1.getString(), "abc");
         assertEquals(test2.getString(), "abcFHG5678");
         assertEquals(test3.getString(), "a-dA-G0-5");
+        assertFalse(test1.canAcceptCharacter('b'));
+        assertTrue(test1.canAcceptCharacter('e'));
+        assertFalse(test2.canAcceptCharacter('F'));
+        assertFalse(test2.canAcceptCharacter('b'));
+        assertFalse(test2.canAcceptCharacter('8'));
+        assertTrue(test2.canAcceptCharacter('k'));
+        assertTrue(test2.canAcceptCharacter('9'));
+        assertFalse(test3.canAcceptCharacter('b'));
+        assertFalse(test3.canAcceptCharacter('B'));
+        assertFalse(test3.canAcceptCharacter('5'));
+        assertTrue(test3.canAcceptCharacter('q'));
+        assertTrue(test3.canAcceptCharacter('P'));
+        assertTrue(test3.canAcceptCharacter('8'));
     }
 
     /**
@@ -122,19 +135,24 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
 
         ComplementCharClassTransitionLabel test =
                 new ComplementCharClassTransitionLabel("a");
+
         ComplementCharClassTransitionLabel test1 =
-                new ComplementCharClassTransitionLabel("AFG0-9-");
+                new ComplementCharClassTransitionLabel("-A-G0-9-");
+
         ComplementCharClassTransitionLabel test2 =
                 new ComplementCharClassTransitionLabel("abc");
+
         EmptyTransitionLabel emptyTransition = new EmptyTransitionLabel();
+
+        TransitionLabel charTest = new CharTransitionLabel('n');
+
         ComplementCharClassTransitionLabel inter =
                 new ComplementCharClassTransitionLabel("");
 
         //testowanie
 
         assertTrue(emptyTransition.intersectWith(test1).isEmpty());
-        //assertTrue(test1.intersectWith(emptyTransition).isEmpty());
-        assertTrue(emptyTransition.intersectWith(emptyTransition).isEmpty());
+        //assertFalse(test1.intersectWith(emptyTransition).isEmpty()); wyjatek
 
         inter = (ComplementCharClassTransitionLabel) test.intersectWith(test);
         Set hashTest = new HashSet();
@@ -154,14 +172,22 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
         assertEquals(inter.getString(), "bca");
 
         inter = (ComplementCharClassTransitionLabel) test1.intersectWith(test2);
-        String str = "AFGabc0123456789-";
 
         assertTrue(inter.canAcceptCharacter('k'));
-        assertFalse(inter.canAcceptCharacter('a'));
+        assertTrue(inter.canAcceptCharacter('j'));
+        assertFalse(inter.canAcceptCharacter('0'));
+        assertFalse(inter.canAcceptCharacter('9'));
+        assertFalse(inter.canAcceptCharacter('5'));
         assertFalse(inter.canAcceptCharacter('1'));
+        assertFalse(inter.canAcceptCharacter('a'));
+        assertFalse(inter.canAcceptCharacter('b'));
+        assertFalse(inter.canAcceptCharacter('c'));
+        assertTrue(inter.canAcceptCharacter('K'));
+        assertFalse(inter.canAcceptCharacter('A'));
+        assertFalse(inter.canAcceptCharacter('C'));
+        assertFalse(inter.canAcceptCharacter('G'));
+        assertFalse(inter.canAcceptCharacter('-'));
         assertFalse(inter.canBeEpsilon());
-        assertTrue(str.length() == (inter.getString()).length());
-        assertFalse((str.length() + 1) == (inter.getString()).length());
 
     }
 }
