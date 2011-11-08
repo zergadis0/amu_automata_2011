@@ -2,6 +2,15 @@ package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
 
+/**
+ * 
+ * @author tomekd
+ * 
+ * Klasa odpowiedzialna za zbudowanie poprawnego automatu, po pobraniu
+ * informacji z metody toString() wykonanej na wybranym automacie.
+ *
+ */
+
 public class MakeAutomatonFromString {
     private static final int TRANSITION_PARTS = 3;
     private static final int LABEL_LENGHT = 4;
@@ -11,6 +20,13 @@ public class MakeAutomatonFromString {
     private List<State> stateList;
     private int transitionPoiner, initialPointer;
     private AutomatonSpecification automaton;
+    
+    /**
+     * Konstruktor przyjmujący za argumenty automat (powinien być pusty!) i 
+     * strumień znaków, który pochodzi z metody toString() automatu.
+     * @param emptyAutomaton pusty automat, na którym chcemy zbudować wybrany automat
+     * @param description opis automatu w formie, jaką zwraca metoda toString()
+     */
     public MakeAutomatonFromString(AutomatonSpecification emptyAutomaton, String description) {
         automaton = emptyAutomaton;
         codeTable = description.split("\\s+");
@@ -102,7 +118,12 @@ public class MakeAutomatonFromString {
             throw new StructureException();
     }
 
-    public void isCorrectString() throws StructureException {
+    /**
+     * Sprawdza czy podany ciag znaków jest poprawny; jeżeli tak
+     * to dodaje stany i przejścia zgodnie z danym opisem automatu.
+     * @throws StructureException zwracany, gdy podany ciąg znaków jest niepoprawny.
+     */
+    public void make() throws StructureException {
         isCorrectInitialWords();
         checkStates();
         checkTransitions();
@@ -115,7 +136,7 @@ public class MakeAutomatonFromString {
         return Integer.decode(indexStr);
     }
 
-    private TransitionLabel getLabel(String name) {
+    private TransitionLabel getLabel(String name) throws StructureException {
         if (name.length() == LABEL_LENGHT)
             return new CharTransitionLabel(name.charAt(1));
         if (name.equals("-epsilon->"))
@@ -125,10 +146,10 @@ public class MakeAutomatonFromString {
                     .substring(2, name.length() - 2));
         if (name.equals("-ANY->"))
             return new AnyTransitionLabel();
-        return new EmptyTransitionLabel();
+        throw new StructureException();
     }
 
-    private void constructGraph() {
+    private void constructGraph() throws StructureException {
         for (int i = 0; i < transitionPoiner - 2; ++i)
             automaton.addState();
         automaton.markAsInitial(stateList
