@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.Iterator;
+import java.util.Stack;
 
 /**
  * Klasa implementująca interfejs: java.util.Iterator
@@ -15,7 +16,7 @@ public class AllAcceptedWords implements Iterator<String> {
      * Do sprawdzenia, czy odwiedzono wszystkie elementy kolekcji stosuje się metodę hasNext()
      */
     public boolean hasNext() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return true;
     }
 
     @Override
@@ -27,6 +28,9 @@ public class AllAcceptedWords implements Iterator<String> {
      * Każde wywołanie metody `next` zwraca/podaje kolejne napisy akceptowane przez automat.
      */
     public String next() {
+        // if isFinal(state)
+        //     then break;
+        //
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
