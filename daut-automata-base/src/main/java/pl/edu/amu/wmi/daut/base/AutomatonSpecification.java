@@ -330,12 +330,24 @@ abstract class AutomatonSpecification {
           connectedStates.put(currentState, this.addState());
       }
       for (State currentState : loadedStates) {
+          if (automaton.isFinal(currentState))
+              markAsFinal(connectedStates.get(currentState));
         List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
         for (OutgoingTransition transition : list) {
           this.addTransition(connectedStates.get(currentState),
           connectedStates.get(transition.getTargetState()), transition.getTransitionLabel());
         }
       }
+    }
+
+    /**
+     * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie
+     * napis pusty.
+     */
+    public void makeEmptyStringAutomaton() {
+        State emptyState = this.addState();
+        this.markAsInitial(emptyState);
+        this.markAsFinal(emptyState);
     }
 
     public boolean isFull(String alphabet) {
@@ -362,25 +374,23 @@ abstract class AutomatonSpecification {
     }
 
     public void makeFull(String alphabet) {
-        if (!isFull(alphabet)) {
-            State trash = addState();
-            int indeks;
-            for (State state : allStates()) {
-                for (int i = 0; i < alphabet.length(); i++) {
-                    indeks = 0;
-                    if (allOutgoingTransitions(state).isEmpty())
+        State trash = addState();
+        int indeks;
+        for (State state : allStates()) {
+            for (int i = 0; i < alphabet.length(); i++) {
+                indeks = 0;
+                if (allOutgoingTransitions(state).isEmpty())
                     addTransition(state, trash,
-                                    new CharTransitionLabel(alphabet.charAt(i)));
-                    for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                        if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
-                            break;
-                        else if ((indeks == allOutgoingTransitions(state).size() - 1)
-                                && !transition1.getTransitionLabel()
-                                .canAcceptCharacter(alphabet.charAt(i)))
-                            addTransition(state, trash,
-                                    new CharTransitionLabel(alphabet.charAt(i)));
-                        else indeks++;
-                    }
+                            new CharTransitionLabel(alphabet.charAt(i)));
+                for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
+                    if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                        break;
+                    else if ((indeks == allOutgoingTransitions(state).size() - 1)
+                            && !transition1.getTransitionLabel()
+                            .canAcceptCharacter(alphabet.charAt(i)))
+                        addTransition(state, trash,
+                                new CharTransitionLabel(alphabet.charAt(i)));
+                    else indeks++;
                 }
             }
         }
@@ -500,5 +510,24 @@ abstract class AutomatonSpecification {
             }
         }
         return false;
+    }
+
+    public void makeAllStringsAutomaton(String alphabet) {
+        State state = addState();
+        markAsInitial(state);
+        markAsFinal(state);
+        for (int i = 0; i < alphabet.length(); i++)
+            addLoop(state, new CharTransitionLabel(alphabet.charAt(i)));
+    }
+
+    public void makeAllNonEmptyStringsAutomaton(String alphabet) {
+        State s0 = addState();
+        State s1 = addState();
+        markAsInitial(s0);
+        markAsFinal(s1);
+        addLoop(s0, new EpsilonTransitionLabel());
+        s1 = addTransition(s0, new CharTransitionLabel(alphabet.charAt(0)));
+        for (int i = 1; i < alphabet.length(); i++)
+            addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
     }
 };
