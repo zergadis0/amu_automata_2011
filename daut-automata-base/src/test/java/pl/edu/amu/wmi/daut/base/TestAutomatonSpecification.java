@@ -217,12 +217,13 @@ public class TestAutomatonSpecification extends TestCase {
     /**
      * Testuje działanie metody makeAllNonEmptyStringsAutomaton().
      */
-    public final void testMakeAllNonEmptyStringsAutomaton() implements Acceptor {
+    public final void testMakeAllNonEmptyStringsAutomaton() {
 
         //Buduję automat na 2 stanach korzystając z testowanej metody
 
-        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
-        automaton.makeAllNonEmptyStringsAutomaton("ab");
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        spec.makeAllNonEmptyStringsAutomaton("ab");
+        AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
 
         //Sprawdzam czy automat akceptuje losowe słowa i czy odrzuca słowo puste
 
