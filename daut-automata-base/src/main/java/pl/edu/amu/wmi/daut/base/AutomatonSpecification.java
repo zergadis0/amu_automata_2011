@@ -5,34 +5,32 @@ import java.util.List;
 import java.util.HashMap;
 
 /**
- * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu (jakie są
- * stany, przejścia, który stan jest stanem początkowym, które stany są stanami
- * akceptującymi).
- * 
+ * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
+ * (jakie są stany, przejścia, który stan jest stanem początkowym,
+ * które stany są stanami akceptującymi).
+ *
  * Uwaga: klasa ta nie reprezentuje działającego automatu (nie ma tu funkcji
- * odpowiadających na pytanie, czy automat akceptuje napis, czy nie), tylko
- * "zawartość" automatu.
+ * odpowiadających na pytanie, czy automat akceptuje napis, czy nie),
+ * tylko "zawartość" automatu.
  */
 abstract class AutomatonSpecification {
 
     // metody "budujące" automat
     /**
      * Dodaje nowy stan do automatu.
-     * 
+     *
      * Zwraca dodany stan.
      */
     public abstract State addState();
 
     /**
-     * Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą
-     * transitionLabel.
+     * Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą transitionLabel.
      */
-    public abstract void addTransition(State from, State to,
-            TransitionLabel transitionLabel);
+    public abstract void addTransition(State from, State to, TransitionLabel transitionLabel);
 
     /**
-     * Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to'
-     * etykietowane etykietą transitionLabel, a następnie zwraca utworzony stan.
+     * Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to' etykietowane etykietą
+     * transitionLabel, a następnie zwraca utworzony stan.
      */
     public State addTransition(State from, TransitionLabel transitionLabel) {
 
@@ -43,18 +41,19 @@ abstract class AutomatonSpecification {
     }
 
     /**
-     * Tworzy "gałąź" w automacie. Metoda dodaje ciąg przejść od stanu
-     * początkowego automatu, dla podanej listy etykiet przejść. Metoda zwraca
-     * (nowo utworzony) stan docelowy ostatniego przejścia.
+     * Tworzy "gałąź" w automacie.
+     * Metoda dodaje ciąg przejść od stanu początkowego automatu,
+     * dla podanej listy etykiet przejść.
+     * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
      */
     public State addBranch(State from, List<TransitionLabel> oTransition) {
         State prev = from;
         State next = prev;
 
-        for (TransitionLabel transition : oTransition) {
-            prev = addTransition(next, transition);
-            next = prev;
-        }
+         for (TransitionLabel transition : oTransition) {
+             prev = addTransition(next, transition);
+             next = prev;
+         }
         return prev;
     }
 
@@ -84,17 +83,17 @@ abstract class AutomatonSpecification {
     // metody zwracające informacje o automacie
     /**
      * Zwraca listę wszystkich stanów.
-     * 
-     * Stany niekoniecznie muszą być zwrócone w identycznej kolejności jak były
-     * dodane.
+     *
+     * Stany niekoniecznie muszą być zwrócone w identycznej
+     * kolejności jak były dodane.
      */
     public abstract List<State> allStates();
 
     /**
      * Zwraca listę wszystkich przejść wychodzących ze stanu 'from'.
-     * 
-     * Przejścia niekoniecznie muszą być zwrócone w identycznej kolejności jak
-     * były dodane.
+     *
+     * Przejścia niekoniecznie muszą być zwrócone w identycznej
+     * kolejności jak były dodane.
      */
     public abstract List<OutgoingTransition> allOutgoingTransitions(State from);
 
@@ -131,11 +130,9 @@ abstract class AutomatonSpecification {
         }
         pilgrim.append("\n-Transitions:\n");
         for (int i = 0; i < link.size(); i++) {
-            List<OutgoingTransition> listOfTrans = allOutgoingTransitions(link
-                    .get(i));
+            List<OutgoingTransition> listOfTrans = allOutgoingTransitions(link.get(i));
             for (int j = 0; j < listOfTrans.size(); j++) {
-                pilgrim.append("  q" + i + " -"
-                        + listOfTrans.get(j).getTransitionLabel() + "-> q");
+                pilgrim.append("  q" + i + " -" + listOfTrans.get(j).getTransitionLabel() + "-> q");
                 State target = listOfTrans.get(j).getTargetState();
                 for (int m = 0; m < link.size(); m++) {
                     if (target == link.get(m)) {
@@ -161,8 +158,7 @@ abstract class AutomatonSpecification {
         }
         return pilgrim.toString();
     };
-
-    /**
+   /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
      * sytuacji, gdy epsilon-przejście jest jedynym sposobem wyjścia ze stanu)
@@ -188,8 +184,7 @@ abstract class AutomatonSpecification {
                     return false;
 
                 for (int j = i + 1; j < transitions.size(); ++j) {
-                    TransitionLabel label2 = transitions.get(j)
-                            .getTransitionLabel();
+                    TransitionLabel label2 = transitions.get(j).getTransitionLabel();
                     if (!label2.intersect(label).isEmpty())
                         return false;
                 }
@@ -200,8 +195,8 @@ abstract class AutomatonSpecification {
     }
 
     /**
-     * Dodaje przejście od stanu state z powrotem do tego samego stanu po
-     * etykiecie transitionLabel.
+     * Dodaje przejście od stanu state z powrotem do tego samego stanu
+     * po etykiecie transitionLabel.
      */
     public void addLoop(State state, TransitionLabel transitionLabel) {
 
@@ -209,12 +204,12 @@ abstract class AutomatonSpecification {
     }
 
     /**
-     * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT służący
-     * do przedstawienia automatu w formie graficznej, (w ubuntu pakiet
+     * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT służący do
+     * przedstawienia automatu w formie graficznej, (w ubuntu pakiet
      * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
      * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
      * png. Więcej w: man dot.
-     * 
+     *
      * @return Kod źródłowy schematu w języku DOT.
      */
     public String getDotGraph() {
@@ -229,25 +224,22 @@ abstract class AutomatonSpecification {
             }
 
             private void getDotGraphIntro() {
-                dotCode
-                        .append("digraph finite_state_machine {\n"
-                                + "    rankdir=LR;\n"
-                                + "    size=\"8,5\"\n"
-                                + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
-                if (isFinal(getInitialState()))
-                    dotCode.append("double");
-                dotCode.append("circle];\n" + "    \"State #"
-                        + states.indexOf(getInitialState()) + "\";\n"
-                        + "    node [shape = doublecircle style=filled "
-                        + "fillcolor=\"#00000000\"];\n    ");
+                dotCode.append(
+                        "digraph finite_state_machine {\n"
+                         + "    rankdir=LR;\n"
+                         + "    size=\"8,5\"\n"
+                         + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
+                if (isFinal(getInitialState())) dotCode.append("double");
+                dotCode.append("circle];\n"
+                               + "    \"State #" + states.indexOf(getInitialState()) + "\";\n"
+                               + "    node [shape = doublecircle style=filled "
+                               + "fillcolor=\"#00000000\"];\n    ");
             }
 
             private void getDotGraphFinalStates() {
                 for (State it : states) {
                     if (isFinal(it)) {
-                        dotCode
-                                .append("\"State #" + states.indexOf(it)
-                                        + "\" ");
+                        dotCode.append("\"State #" + states.indexOf(it) + "\" ");
                     }
                 }
             }
@@ -259,7 +251,8 @@ abstract class AutomatonSpecification {
                     dotCode.append(" -> ");
                     dotCode.append("\"State #");
                     dotCode.append(target + "\"");
-                    dotCode.append(" [ label = \"" + label + "\" ]");
+                    dotCode.append(" [ label = \"" + label
+                            + "\" ]");
                     dotCode.append(";\n");
                 }
 
@@ -267,8 +260,7 @@ abstract class AutomatonSpecification {
 
             private void getDotGraphEdges() {
                 for (State it : states) {
-                    final StringBuffer[] labelList = new StringBuffer[states
-                            .size()];
+                    final StringBuffer[] labelList = new StringBuffer[states.size()];
                     for (int i = 0; i < labelList.length; ++i) {
                         labelList[i] = new StringBuffer();
                     }
@@ -276,8 +268,7 @@ abstract class AutomatonSpecification {
                     final List<OutgoingTransition> edges = allOutgoingTransitions(it);
 
                     for (OutgoingTransition edgeIt : edges) {
-                        if (labelList[states.indexOf(edgeIt.getTargetState())]
-                                .length() == 0) {
+                        if (labelList[states.indexOf(edgeIt.getTargetState())].length() == 0) {
                             labelList[states.indexOf(edgeIt.getTargetState())]
                                     .append(edgeIt.getTransitionLabel());
                         } else {
@@ -292,20 +283,10 @@ abstract class AutomatonSpecification {
                 }
             }
 
-            private void addIsolatedStates() {
-                dotCode.append(";\n" + "    node [shape = circle];\n" + "");
-                for (State it : states) {
-                    if (allOutgoingTransitions(it).size() == 0) {
-                        dotCode.append("    \"State #" + states.indexOf(it)
-                                + "\";\n");
-                    }
-                }
-            }
-
-            public String getDotGraph() {
+            public String  getDotGraph() {
                 getDotGraphIntro();
                 getDotGraphFinalStates();
-                addIsolatedStates();
+                dotCode.append(";\n" + "    node [shape = circle];\n" + "");
                 getDotGraphEdges();
                 dotCode.append("\n}\n");
                 return dotCode.toString();
@@ -329,8 +310,9 @@ abstract class AutomatonSpecification {
     }
 
     /**
-     * Wstawia począwszy od stanu state kopię automatu automaton. Stan state
-     * będzie utożsamiony ze stanem początkowym automatu automaton.
+     * Wstawia począwszy od stanu state kopię automatu automaton.
+     * Stan state będzie utożsamiony ze stanem
+     * początkowym automatu automaton.
      */
     void insert(State state, AutomatonSpecification automaton) {
         List<State> loadedStates = automaton.allStates();
@@ -354,6 +336,7 @@ abstract class AutomatonSpecification {
             }
         }
     }
+    
 
     /**
      * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie napis
@@ -371,19 +354,17 @@ abstract class AutomatonSpecification {
             return false;
         for (State state : allStates()) {
             if (allOutgoingTransitions(state).isEmpty())
-                return false;
+                    return false;
             for (int i = 0; i < alphabet.length(); i++) {
                 index = 0;
                 for (OutgoingTransition transition : allOutgoingTransitions(state)) {
-                    if (transition.getTransitionLabel().canAcceptCharacter(
-                            alphabet.charAt(i)))
+                    if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
                         break;
                     else if ((index == allOutgoingTransitions(state).size() - 1)
                             && !transition.getTransitionLabel()
-                                    .canAcceptCharacter(alphabet.charAt(i)))
+                            .canAcceptCharacter(alphabet.charAt(i)))
                         return false;
-                    else
-                        index++;
+                    else index++;
                 }
             }
         }
@@ -437,7 +418,7 @@ abstract class AutomatonSpecification {
                 currentState = outgoing.get(j).getTargetState();
 
                 if (isFinal(currentState)) {
-                    return true;
+                        return true;
                 }
 
                 if (!checkedStates.contains(currentState)) {
@@ -640,7 +621,7 @@ abstract class AutomatonSpecification {
         return false;
     }
 
-    // true-istnieją stany zbędne
+    //true-istnieją stany zbędne
     public boolean uselessStates() {
         boolean flag1 = true;
         boolean flag2 = false;
@@ -652,9 +633,7 @@ abstract class AutomatonSpecification {
         while (true) {
             if (flag1) {
                 for (int i = 1; i <= allOutgoingTransitions(q).size(); i++) {
-                    stack
-                            .add(allOutgoingTransitions(q).get(i)
-                                    .getTargetState());
+                    stack.add(allOutgoingTransitions(q).get(i).getTargetState());
                 }
             }
             if (!stack.isEmpty()) {
