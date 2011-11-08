@@ -123,13 +123,18 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
         ComplementCharClassTransitionLabel test =
                 new ComplementCharClassTransitionLabel("a");
         ComplementCharClassTransitionLabel test1 =
-                new ComplementCharClassTransitionLabel("AFG0-9");
+                new ComplementCharClassTransitionLabel("AFG0-9-");
         ComplementCharClassTransitionLabel test2 =
                 new ComplementCharClassTransitionLabel("abc");
+        EmptyTransitionLabel emptyTransition = new EmptyTransitionLabel();
         ComplementCharClassTransitionLabel inter =
                 new ComplementCharClassTransitionLabel("");
 
         //testowanie
+
+        assertTrue(emptyTransition.intersectWith(test1).isEmpty());
+        //assertTrue(test1.intersectWith(emptyTransition).isEmpty());
+        assertTrue(emptyTransition.intersectWith(emptyTransition).isEmpty());
 
         inter = (ComplementCharClassTransitionLabel) test.intersectWith(test);
         Set hashTest = new HashSet();
@@ -149,7 +154,7 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
         assertEquals(inter.getString(), "bca");
 
         inter = (ComplementCharClassTransitionLabel) test1.intersectWith(test2);
-        String str = "AFGabc0123456789";
+        String str = "AFGabc0123456789-";
 
         assertTrue(inter.canAcceptCharacter('k'));
         assertFalse(inter.canAcceptCharacter('a'));
