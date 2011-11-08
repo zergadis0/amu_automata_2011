@@ -164,8 +164,8 @@ public class TestAutomatonSpecification extends TestCase {
         str = new AutomatonString("", "", "", "");
         assertEquals(str.toString(), ta4.toString());
 
-        // Pierwszy testowy automat:
-        // Jeden stan z krawędzią
+        // Piąty testowy automat:
+        // Brak stanów początkowych i końcowych
         NaiveAutomatonSpecification ta5 = new NaiveAutomatonSpecification();
 
         State ta5s0 = ta5.addState();
