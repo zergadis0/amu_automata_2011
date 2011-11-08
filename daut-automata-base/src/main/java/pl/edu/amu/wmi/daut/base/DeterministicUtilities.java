@@ -1,13 +1,13 @@
 package pl.edu.amu.wmi.daut.base;
 import java.util.Set;
 /**
- *
- * @author drzejzi
+ * klasa ktora na razie przechowuje tylko metode
+ * createAutomatonForFiniteLanguage
  */
 public class DeterministicUtilities {
      /**
      * Tworzy automat deterministyczny, który akceptuje napisy ze zbioru `language`
-     * i nie akceptuje żadnych innych napisów. Automat powinien powstać przez
+     * i nie akceptuje żadnych innych napisów. Automat powstaje przez
      * rozbudowanie pustego automatu deterministycznego przekazanego jako argument `automaton`.
      */
     public void createAutomatonForFiniteLanguage(DeterministicAutomatonSpecification automaton,
