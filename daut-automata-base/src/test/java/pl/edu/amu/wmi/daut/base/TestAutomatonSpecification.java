@@ -221,7 +221,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         //Buduję automat na 2 stanach korzystając z testowanej metody
 
-        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
         spec.makeAllNonEmptyStringsAutomaton("ab");
         AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
 
