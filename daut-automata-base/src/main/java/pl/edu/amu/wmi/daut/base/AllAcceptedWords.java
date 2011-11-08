@@ -18,8 +18,8 @@ public class AllAcceptedWords implements Iterator<String> {
 
   private class StateWord {
 
-    public State state;
-    public String word;
+    private State state;
+    private String word;
     public StateWord(State s, String w) {
 
       state = s;
