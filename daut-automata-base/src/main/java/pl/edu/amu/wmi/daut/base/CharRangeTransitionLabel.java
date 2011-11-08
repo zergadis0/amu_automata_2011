@@ -21,7 +21,7 @@ class CharRangeTransitionLabel extends TransitionLabel {
     @Override
     public boolean canAcceptCharacter(char c) {
 
-        return (c >= firstChar & c <= secondChar) ;
+        return (c >= firstChar & c <= secondChar);
     }
 
     @Override
