@@ -124,7 +124,7 @@ public class TestAutomatonSpecification extends TestCase {
         List<State> states = spec.allStates();
 
         assertEquals(states.size(), 4);
-        
+
         // Budowanie automatu o 1 stanie.
         AutomatonSpecification spec2 = new NaiveAutomatonSpecification();
         State st0 = spec2.addState();
@@ -132,17 +132,18 @@ public class TestAutomatonSpecification extends TestCase {
         List<TransitionLabel> transitions2 =
                 Arrays.<TransitionLabel>asList(
             );
-        st0=spec2.addBranch(st0, transitions2);
+        State st1 = spec2.addBranch(st0, transitions2);
         spec.markAsFinal(st0);
-        
+
         //testowanie
         State rr0 = spec2.getInitialState();
-        
+
         List<OutgoingTransition> r0Outs2 = spec2.allOutgoingTransitions(rr0);
         assertEquals(r0Outs2.size(), 0);
-        
-        
-        
+
+        assertTrue(spec.isFinal(st1));
+        assertSame(st1, spec.getInitialState());
+
     }
 
 
