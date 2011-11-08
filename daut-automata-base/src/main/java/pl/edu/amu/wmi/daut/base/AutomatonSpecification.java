@@ -535,11 +535,11 @@ abstract class AutomatonSpecification {
             }
             for (int j = 0; j < states.size(); j++) {
                 for (int i = 0; i < allOutgoingTransitions(states.get(j)).size(); i++) {
-                    tmp = allOutgoingTransitions(states.get(j)).get(i).getTransitionLabel().toString();
+                tmp = allOutgoingTransitions(states.get(j)).get(i).getTransitionLabel().toString();
                     if (tmp.equals("")) {
                         return output.append("\n empty string").toString();
-                    } else if (napis.compareTo(tmp) > 0) 
-                              napis = tmp;
+                    } else if (napis.compareTo(tmp) > 0)
+                        napis = tmp;
                 }
             }
             return output.append(napis).toString();
