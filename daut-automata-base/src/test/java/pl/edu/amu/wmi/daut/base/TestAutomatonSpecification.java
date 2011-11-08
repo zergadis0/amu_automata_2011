@@ -91,10 +91,10 @@ public class TestAutomatonSpecification extends TestCase {
         }
 
         boolean potworek = false;
-        for ( int i = 0; i < 3; i++ ) {
-            if ( !epsilon.allOutgoingTransitions(epsilon.allStates().get(i)).isEmpty() ) {
-                if ( epsilon.allOutgoingTransitions(epsilon.allStates().get(i))
-                        .get(0).getTransitionLabel().canBeEpsilon() ) {
+        for (int i = 0; i < 3; i++) {
+            if (!epsilon.allOutgoingTransitions(epsilon.allStates().get(i)).isEmpty()) {
+                if (epsilon.allOutgoingTransitions(epsilon.allStates().get(i))
+                        .get(0).getTransitionLabel().canBeEpsilon()) {
                     potworek = true;
                     break;
                 }
