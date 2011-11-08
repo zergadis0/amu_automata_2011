@@ -1,8 +1,8 @@
 package pl.edu.amu.wmi.daut.base;
 import java.util.Set;
 /**
-*
-* klasa ktora na razie przechowuje tylko metode createAutomatonForFiniteLanguage
+* Klasa ktora na razie przechowuje tylko
+* metode createAutomatonForFiniteLanguage.
 */
 public class DeterministicUtilities {
      /**
