@@ -1,4 +1,4 @@
-package automaty;
+package pl.edu.amu.wmi.daut.base;
 
 /*
  * @author cole1911
@@ -8,7 +8,7 @@ package automaty;
 * Implementacja Transition Label reprezentujaca
 * przejscie po dowolnym znaku.
 */
-public class AnyTransitionLabel extends TransitionLabel {
+class AnyTransitionLabel extends TransitionLabel {
 
     @Override
     public boolean canBeEpsilon() {
@@ -26,7 +26,7 @@ public class AnyTransitionLabel extends TransitionLabel {
     }
 
     @Override
-    public TransitionLabel intersectWith(TransitionLabel label) {
+    protected TransitionLabel intersectWith(TransitionLabel label) {
           return label.isEmpty() ? new EmptyTransitionLabel() : this;
     }
 }
