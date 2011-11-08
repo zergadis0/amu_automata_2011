@@ -124,6 +124,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             niepoprawny.fromString(slowo);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -132,6 +133,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             niepoprawny.fromString(slowo);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -140,6 +142,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             niepoprawny.fromString(slowo);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -156,6 +159,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectStateName0);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -164,6 +168,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectStateName1);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -172,6 +177,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectStateName2);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -180,6 +186,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectStateName3);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -197,6 +204,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectTransitionName0Label0);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -206,6 +214,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectTransitionName0Label1);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -215,15 +224,17 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectTransitionName0Label2);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
 
         String nonCorrectTransitionName0Label3 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
-                + "q0 --> q0";
+                + "q0 -\t-> q0";
 
         try {
             bledny.fromString(nonCorrectTransitionName0Label2);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -233,6 +244,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectTransitionName1);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -242,6 +254,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectTransitionName2);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -259,6 +272,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectSpecialStates0);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -268,6 +282,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectSpecialStates1);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -277,6 +292,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectSpecialStates2);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -286,6 +302,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectSpecialStates3);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -295,6 +312,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         try {
             bledny.fromString(nonCorrectSpecialStates4);
+            fail();
         } catch (Exception e) {
             assertTrue(true);
         }
