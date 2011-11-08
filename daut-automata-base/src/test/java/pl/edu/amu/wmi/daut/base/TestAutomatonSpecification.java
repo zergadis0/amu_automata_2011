@@ -227,7 +227,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         //Sprawdzam czy automat akceptuje losowe słowa i czy odrzuca słowo puste
 
-        assertFalse(automaton.acceptEmptyWord());
+        assertFalse(spec.acceptEmptyWord());
         assertTrue(automaton.accepts("abbabbabbabbaaa"));
         assertFalse(automaton.accepts("caba"));
         assertTrue(automaton.accepts("a"));
