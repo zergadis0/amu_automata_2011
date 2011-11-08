@@ -6,8 +6,8 @@ import junit.framework.TestCase;
  */
 public class TestAnyTransitionLabel extends TestCase {
     /**
-	 * Metoda testujaca EpsilonTransitionLabel.
-	 */
+     * Metoda testujaca EpsilonTransitionLabel.
+     */
     public final void testAnyTransitionLabel() {
         AutomatonSpecification test = new NaiveAutomatonSpecification();
         State koniec = test.addState();
