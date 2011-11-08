@@ -25,12 +25,12 @@ class AnyTransitionLabel extends TransitionLabel {
          return false;
     }
 
+    public String toString() {
+         return "ANY";
+    }
+
     @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
-          return label.isEmpty() ? new EmptyTransitionLabel() : this;
+         return label.isEmpty() ? new EmptyTransitionLabel() : this;
     }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 2e161c580c93eaf865b4f740bb7ca44c8b4b8910
