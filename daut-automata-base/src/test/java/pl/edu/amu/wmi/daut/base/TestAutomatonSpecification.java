@@ -211,6 +211,15 @@ public class TestAutomatonSpecification extends TestCase {
         }
 
         String nonCorrectTransitionName0Label2 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 --.> q0";
+
+        try {
+            bledny.fromString(nonCorrectTransitionName0Label2);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        String nonCorrectTransitionName0Label3 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
                 + "q0 --> q0";
 
         try {
