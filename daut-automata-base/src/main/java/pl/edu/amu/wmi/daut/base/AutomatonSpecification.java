@@ -524,30 +524,25 @@ abstract class AutomatonSpecification {
     //Metoda zwracająca pierwszy, według kolejności alfabetycznej,
     //napis akceptowany przez automat.
     public String firstAcceptedString() {
-        List<OutgoingTransition> stack = new ArrayList<OutgoingTransition>();
+        StringBuffer output = new StringBuffer("First accepted word by automaton is: ");
         List<State> states = allStates();
-        int k = 1;
+        String napis = allOutgoingTransitions(states.get(0)).get(0).getTransitionLabel().toString();
+        String tmp;
         while (true) {
-            if (states.isEmpty())
-                return "automat pusty";
-            for (int j = 0; j <= states.size(); j++) {
-                for (int i = 0; i <= allOutgoingTransitions(states.get(j)).size(); i++) {
-        String tmp = allOutgoingTransitions(states.get(j)).get(i).getTransitionLabel().toString();
-                    if (tmp.equals(""))
-                        return "";
-                    else
-                        stack.add(allOutgoingTransitions(states.get(j)).get(i));
+            if (states.isEmpty()) {
+                output.append("\n Empty Automaton");
+                return output.toString();
+            }
+            for (int j = 0; j < states.size(); j++) {
+                for (int i = 0; i < allOutgoingTransitions(states.get(j)).size(); i++) {
+                    tmp = allOutgoingTransitions(states.get(j)).get(i).getTransitionLabel().toString();
+                    if (tmp.equals("")) {
+                        return output.append("\n empty string").toString();
+                    } else if (napis.compareTo(tmp) > 0) 
+                              napis = tmp;
                 }
             }
-            String napis = stack.get(0).getTransitionLabel().toString();
-            while (k < stack.size()) {
-                String temp = stack.get(k).getTransitionLabel().toString();
-                if (napis.compareTo(temp) > 0) {
-                   napis = temp;
-                }
-                k++;
-            }
-            return napis;
+            return output.append(napis).toString();
         }
     }
 };
