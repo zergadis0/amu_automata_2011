@@ -530,4 +530,10 @@ abstract class AutomatonSpecification {
         for (int i = 1; i < alphabet.length(); i++)
             addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
     }
+    public void makeOneLoopAutomaton(char c) {
+        State q0 = addState();
+        addLoop(q0, new CharTransitionLabel(c));
+        markAsInitial(q0);
+        markAsFinal(q0);
+    }
 };
