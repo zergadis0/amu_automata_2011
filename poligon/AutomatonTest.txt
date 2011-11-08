@@ -1,0 +1,17 @@
+AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+State q0 = automatonA.addState();
+State q1 = automatonA.addState();
+automatonA.addTransmisionA(q0, q1, new TestTransmision('a'));
+automatonA.addLoop(q1 new TestTransmiosion('a') );
+automatonA.addLoop(q1 new TestTransmiosion('b') );
+automatonA.markAsInitial(q0);
+automatonA.markAsFinal(q1);
+
+AutomatonSpecification automatonB = new....
+
+AutomatonSpecificationResult = Automata.Operations.sum(automatonA, automatonB);
+AutomatonByRecursion automaton = new AutomatonByRecursion(result);
+
+assertTrue(automaton.accepts("aa"));
+assertTrue(automaton.accepts("abababa"));
+assertFalse(automaton.accepts("bbb"));
