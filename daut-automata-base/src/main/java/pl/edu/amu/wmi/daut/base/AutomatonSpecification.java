@@ -525,10 +525,10 @@ abstract class AutomatonSpecification {
         State s1 = addState();
         markAsInitial(s0);
         markAsFinal(s1);
-        addLoop(s0, new EpsilonTransitionLabel());
-        s1 = addTransition(s0, new CharTransitionLabel(alphabet.charAt(0)));
-        for (int i = 1; i < alphabet.length(); i++)
+        for (int i = 0; i < alphabet.length(); i++) {
+            addTransition(s0, s1, new CharTransitionLabel(alphabet.charAt(i)));
             addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
+        }
     }
 
     public boolean checkPrefix(String word) {
