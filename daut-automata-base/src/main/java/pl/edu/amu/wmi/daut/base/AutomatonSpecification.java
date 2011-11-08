@@ -340,6 +340,16 @@ abstract class AutomatonSpecification {
       }
     }
 
+    /**
+     * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie
+     * napis pusty.
+     */
+    public void makeEmptyStringAutomaton() {
+        State emptyState = this.addState();
+        this.markAsInitial(emptyState);
+        this.markAsFinal(emptyState);
+    }
+
     public boolean isFull(String alphabet) {
         int index;
         if (allStates().isEmpty())
