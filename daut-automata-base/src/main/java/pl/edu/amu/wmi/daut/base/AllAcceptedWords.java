@@ -38,7 +38,7 @@ public class AllAcceptedWords implements Iterator<String> {
     stack = new Stack<StateWord>();
     statesVisited = new HashSet<StateWord>();
     stack.push(new StateWord(automat.getInitialState(), ""));
-    prepareNextWord (true);
+    prepareNextWord(true);
   }
   
   private void prepareNextWord(boolean forced) {
