@@ -340,8 +340,7 @@ abstract class AutomatonSpecification {
       }
     }
 
-<<<<<<< HEAD
-=======
+
     /**
      * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie
      * napis pusty.
@@ -352,7 +351,7 @@ abstract class AutomatonSpecification {
         this.markAsFinal(emptyState);
     }
 
->>>>>>> 2e161c580c93eaf865b4f740bb7ca44c8b4b8910
+
     public boolean isFull(String alphabet) {
         int index;
         if (allStates().isEmpty())
