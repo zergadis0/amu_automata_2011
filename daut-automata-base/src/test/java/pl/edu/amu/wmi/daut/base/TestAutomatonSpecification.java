@@ -67,7 +67,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertEquals(spec.countTransitions(), 5);
     }
 
-    /*
+    /**
      * Test metody addBranch.
      */
     public final void testaddBranch() {
