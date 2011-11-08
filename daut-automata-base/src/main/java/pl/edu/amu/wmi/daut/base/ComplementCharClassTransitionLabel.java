@@ -19,7 +19,6 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      */
     ComplementCharClassTransitionLabel(String s) {
         int l = s.length();
-        st = s;
         se = new HashSet();
         for (int i = 0; i < l; i++) {
             if (s.charAt(i) == '-') {
@@ -76,7 +75,8 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     protected TransitionLabel intersectWith(TransitionLabel label) {
         if (label instanceof ComplementCharClassTransitionLabel) {
 
-            return new ComplementCharClassTransitionLabel(getString((ComplementCharClassTransitionLabel) label));
+            return new ComplementCharClassTransitionLabel(
+                    getString((ComplementCharClassTransitionLabel) label));
         } else {
             throw new CannotDetermineIntersectionException();
         }
@@ -117,18 +117,18 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
         if (str.length() == 0) {
             return "";
         }
-        String n = "";
+        StringBuilder n = new StringBuilder();
         p = str.charAt(1);
         k = p;
         for (int i = 0; i < str.length(); i++) {
             if (k + 1 != str.charAt(i)) {
                 if (p != k) {
-                    n += p;
-                    n += '-';
-                    n += k;
+                    n.append(p);
+                    n.append('-');
+                    n.append(k);
 
                 } else {
-                    n += p;
+                    n.append(p);
                 }
                 p = str.charAt(i);
                 k = p;
@@ -137,20 +137,20 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
             }
         }
         if (p != k) {
-            n += p;
-            n += '-';
-            n += k;
+            n.append(p);
+            n.append('-');
+            n.append(k);
 
         } else {
-            n += p;
+            n.append(p);
         }
 
-        return n;
+        return n.toString();
     }
 
     /**
      * 
-     * @return Zwraca wyrażenie regularne 
+     * @return Zwraca wyrażenie regularne
      */
     @Override
     public String toString() {
@@ -161,6 +161,5 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
         return q;
 
     }
-    private String st;
     private Set se;
 }
