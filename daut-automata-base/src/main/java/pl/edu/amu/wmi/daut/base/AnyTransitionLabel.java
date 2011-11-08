@@ -26,7 +26,7 @@ class AnyTransitionLabel extends TransitionLabel {
     }
 
     public String toString() {
-	     return "ANY";
+         return "ANY";
     }
 
     @Override
