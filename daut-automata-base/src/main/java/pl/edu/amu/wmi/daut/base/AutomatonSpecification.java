@@ -330,8 +330,8 @@ abstract class AutomatonSpecification {
           connectedStates.put(currentState, this.addState());
       }
       for (State currentState : loadedStates) {
-        if (currentState.isFinal())
-          markAsFinal(connectedStates.get(currentState));
+          if (automaton.isFinal(currentState))
+              markAsFinal(connectedStates.get(currentState));
         List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
         for (OutgoingTransition transition : list) {
           this.addTransition(connectedStates.get(currentState),
