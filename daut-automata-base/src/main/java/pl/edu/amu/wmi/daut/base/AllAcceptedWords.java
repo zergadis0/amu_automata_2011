@@ -40,12 +40,11 @@ public class AllAcceptedWords implements Iterator<String> {
     stack.push(new StateWord(automat.getInitialState(), ""));
     prepareNextWord(true);
   }
-  
+
   private void prepareNextWord(boolean forced) {
 
     if (nextWord == null && forced == false)
       return;
-      
 
     while (!stack.empty()) {
 
@@ -71,7 +70,7 @@ public class AllAcceptedWords implements Iterator<String> {
           newWord += ((CharTransitionLabel)tl).toString();
         else if (tl instanceof EmptyTransitionLabel)
               throw new UnsupportedOperationException("Not supported yet.");
-          
+
         StateWord newSW = new StateWord(ot.getTargetState(), newWord);
         if (statesVisited.contains(newSW)) //to do - pod lupę: sprawdzaj po 
                                 // zawartości atrybutów, a nie po zgodności referencji
@@ -80,7 +79,7 @@ public class AllAcceptedWords implements Iterator<String> {
         statesVisited.add(newSW);
         statesToAdd.add(newSW);
       }
-      
+
       stack.pop();
       stack.addAll(statesToAdd);
 
