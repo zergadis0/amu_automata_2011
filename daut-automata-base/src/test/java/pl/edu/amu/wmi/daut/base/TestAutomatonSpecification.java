@@ -68,7 +68,7 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody addBranch.
+     * Test metody addBranch().
      */
     public final void testaddBranch() {
 
