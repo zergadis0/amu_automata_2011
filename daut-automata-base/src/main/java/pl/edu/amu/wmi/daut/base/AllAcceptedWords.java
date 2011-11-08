@@ -69,7 +69,7 @@ newWord += "{cokolwiek poza " + ((ComplementCharClassTransitionLabel)tl).getSet(
         else if (tl instanceof CharTransitionLabel)
           newWord += ((CharTransitionLabel)tl).toString();
         else if (tl instanceof EmptyTransitionLabel)
-              throw new UnsupportedOperationException("Not supported yet.");
+          throw new UnsupportedOperationException("Not supported yet.");
 
         StateWord newSW = new StateWord(ot.getTargetState(), newWord);
         if (statesVisited.contains(newSW)) //to do - pod lupę: sprawdzaj po
