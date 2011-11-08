@@ -330,6 +330,8 @@ abstract class AutomatonSpecification {
           connectedStates.put(currentState, this.addState());
       }
       for (State currentState : loadedStates) {
+          if (automaton.isFinal(currentState))
+              markAsFinal(connectedStates.get(currentState));
         List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
         for (OutgoingTransition transition : list) {
           this.addTransition(connectedStates.get(currentState),
@@ -362,25 +364,23 @@ abstract class AutomatonSpecification {
     }
 
     public void makeFull(String alphabet) {
-        if (!isFull(alphabet)) {
-            State trash = addState();
-            int indeks;
-            for (State state : allStates()) {
-                for (int i = 0; i < alphabet.length(); i++) {
-                    indeks = 0;
-                    if (allOutgoingTransitions(state).isEmpty())
+        State trash = addState();
+        int indeks;
+        for (State state : allStates()) {
+            for (int i = 0; i < alphabet.length(); i++) {
+                indeks = 0;
+                if (allOutgoingTransitions(state).isEmpty())
                     addTransition(state, trash,
-                                    new CharTransitionLabel(alphabet.charAt(i)));
-                    for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                        if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
-                            break;
-                        else if ((indeks == allOutgoingTransitions(state).size() - 1)
-                                && !transition1.getTransitionLabel()
-                                .canAcceptCharacter(alphabet.charAt(i)))
-                            addTransition(state, trash,
-                                    new CharTransitionLabel(alphabet.charAt(i)));
-                        else indeks++;
-                    }
+                            new CharTransitionLabel(alphabet.charAt(i)));
+                for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
+                    if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                        break;
+                    else if ((indeks == allOutgoingTransitions(state).size() - 1)
+                            && !transition1.getTransitionLabel()
+                            .canAcceptCharacter(alphabet.charAt(i)))
+                        addTransition(state, trash,
+                                new CharTransitionLabel(alphabet.charAt(i)));
+                    else indeks++;
                 }
             }
         }
