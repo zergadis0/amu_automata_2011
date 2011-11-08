@@ -33,28 +33,30 @@ class IndeterministicAutomaton implements Acceptor {
                 someStateTransitions = automaton.allOutgoingTransitions(someState);
 
                 for (OutgoingTransition transition : someStateTransitions) {
-                    if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))) {
-                        if (!aStates.contains(transition.getTargetState())) {
-                            aStates.add(transition.getTargetState());
-                        }
+                    if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))
+                            && !aStates.contains(transition.getTargetState())) {
+                        aStates.add(transition.getTargetState());
                     }
                 }
             }
-
-            oStates = aStates;
-            aStates.clear();
         }
 
-        for (State someState : oStates) {
-            if (automaton.isFinal(someState)) {
-                accept = true;
-            }
-        }
-
-        return accept;
+        oStates = aStates;
+        aStates.clear();
     }
+    
+    for (State someState : oStates
 
-    private List<State> epsilonClosure(State state) {
+    
+        ) {
+            if (automaton.isFinal(someState)) {
+            accept = true;
+        }
+    }
+    
+    return accept ;
+}
+private List<State> epsilonClosure(State state) {
         List<State> eStates = new LinkedList();
         List<State> cStates = new LinkedList();
         boolean added;
