@@ -22,6 +22,8 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
                 new ComplementCharClassTransitionLabel("A-Ya-y0-8");
         ComplementCharClassTransitionLabel test1 =
                 new ComplementCharClassTransitionLabel("A-Hakrwhelz46753");
+        ComplementCharClassTransitionLabel test2 =
+                new ComplementCharClassTransitionLabel("-");
 
         //testowanie
 
@@ -37,6 +39,8 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
         assertFalse(test1.canAcceptCharacter('B'));
         assertFalse(test1.canAcceptCharacter('6'));
         assertFalse(test1.canAcceptCharacter('r'));
+        assertTrue(test2.canAcceptCharacter('g'));
+        assertFalse(test2.canAcceptCharacter('-'));
     }
 
     /**
@@ -75,6 +79,7 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
         assertEquals(test2.getString(), "abcFHG5678");
         assertEquals(test3.getString(), "a-dA-G0-5");
     }
+
     /**
      * Test metody getSet.
      */
@@ -109,12 +114,49 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
     }
 
     /**
-     * Prosty test wyznaczania przecięcia.
+     * Test wyznaczania przecięcia.
      */
     public final void testintersectWith() {
-        ComplementCharClassTransitionLabel test1 =
+
+        //budowanie
+
+        ComplementCharClassTransitionLabel test =
                 new ComplementCharClassTransitionLabel("a");
+        ComplementCharClassTransitionLabel test1 =
+                new ComplementCharClassTransitionLabel("AFG0-9");
         ComplementCharClassTransitionLabel test2 =
-                new ComplementCharClassTransitionLabel("a-b");
+                new ComplementCharClassTransitionLabel("abc");
+        ComplementCharClassTransitionLabel inter =
+                new ComplementCharClassTransitionLabel("");
+
+        //testowanie
+
+        inter = (ComplementCharClassTransitionLabel) test.intersectWith(test);
+        Set hashTest = new HashSet();
+        hashTest.add('a');
+
+        assertTrue(inter.canAcceptCharacter('e'));
+        assertFalse(inter.canAcceptCharacter('a'));
+        assertFalse(inter.canBeEpsilon());
+        assertEquals("a", inter.getString());
+        assertTrue(hashTest.equals(inter.getSet()));
+
+        inter = (ComplementCharClassTransitionLabel) test.intersectWith(test2);
+
+        assertTrue(inter.canAcceptCharacter('d'));
+        assertFalse(inter.canAcceptCharacter('a'));
+        assertEquals(inter.getSet(), test2.getSet());
+        assertEquals(inter.getString(), "bca");
+
+        inter = (ComplementCharClassTransitionLabel) test1.intersectWith(test2);
+        String str = "AFGabc0123456789";
+
+        assertTrue(inter.canAcceptCharacter('k'));
+        assertFalse(inter.canAcceptCharacter('a'));
+        assertFalse(inter.canAcceptCharacter('1'));
+        assertFalse(inter.canBeEpsilon());
+        assertTrue(str.length() == (inter.getString()).length());
+        assertFalse((str.length() + 1) == (inter.getString()).length());
+
     }
 }
