@@ -22,16 +22,13 @@ public class AutomataOperations {
     static AutomatonSpecification
             complementLanguageAutomaton(DeterministicAutomatonSpecification automaton,
             Set<Character> alfabet) {
-        NaiveDeterministicAutomatonSpecification returned //= automaton.clone();
-        = new NaiveDeterministicAutomatonSpecification();
+        NaiveDeterministicAutomatonSpecification returned = automaton.clone();
         returned.makeFull(alfabet.toString());
         for(State obecny : returned.allStates()) {
-            if (returned.isFinal(obecny)) {
+            if (returned.isFinal(obecny)) 
+                returned.unmarkAsFinal(obecny);
+            else
                 returned.markAsFinal(obecny);
-            }
-            else {
-                returned.markAsFinal(obecny);
-            }
         }
         return returned;
     }
