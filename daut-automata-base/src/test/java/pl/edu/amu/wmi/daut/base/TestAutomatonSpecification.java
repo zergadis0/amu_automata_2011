@@ -72,7 +72,7 @@ public class TestAutomatonSpecification extends TestCase {
      */
     public final void testaddBranch() {
 
-       // Budowanie automatu o 3 stanach.
+       // Budowanie automatu o 4 stanach.
        AutomatonSpecification spec = new NaiveAutomatonSpecification();
        State s0 = spec.addState();
        spec.markAsInitial(s0);
@@ -124,6 +124,25 @@ public class TestAutomatonSpecification extends TestCase {
         List<State> states = spec.allStates();
 
         assertEquals(states.size(), 4);
+        
+        // Budowanie automatu o 1 stanie.
+        AutomatonSpecification spec2 = new NaiveAutomatonSpecification();
+        State st0 = spec2.addState();
+        spec.markAsInitial(st0);
+        List<TransitionLabel> transitions2 =
+                Arrays.<TransitionLabel>asList(
+            );
+        st0=spec2.addBranch(st0, transitions2);
+        spec.markAsFinal(st0);
+        
+        //testowanie
+        State rr0 = spec2.getInitialState();
+        
+        List<OutgoingTransition> r0Outs2 = spec2.allOutgoingTransitions(rr0);
+        assertEquals(r0Outs2.size(), 0);
+        
+        
+        
     }
 
 
