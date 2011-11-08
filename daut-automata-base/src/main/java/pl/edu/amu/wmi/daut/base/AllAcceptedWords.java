@@ -72,7 +72,7 @@ newWord += "{cokolwiek poza " + ((ComplementCharClassTransitionLabel)tl).getSet(
               throw new UnsupportedOperationException("Not supported yet.");
 
         StateWord newSW = new StateWord(ot.getTargetState(), newWord);
-        if (statesVisited.contains(newSW)) //to do - pod lupę: sprawdzaj po 
+        if (statesVisited.contains(newSW)) //to do - pod lupę: sprawdzaj po
                                 // zawartości atrybutów, a nie po zgodności referencji
           continue;
 
