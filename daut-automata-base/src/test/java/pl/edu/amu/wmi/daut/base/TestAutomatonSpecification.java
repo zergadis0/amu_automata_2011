@@ -226,6 +226,7 @@ public class TestAutomatonSpecification extends TestCase {
         State q3 = spec.addState();
         State q4 = spec.addState();
         State q5 = spec.addState();
+        State q6 = spec.addState();
 
         spec.markAsInitial(q0);
         spec.markAsFinal(q3);
@@ -233,6 +234,7 @@ public class TestAutomatonSpecification extends TestCase {
         spec.addTransition(q0, q1, new CharTransitionLabel('a'));
         spec.addTransition(q0, q1, new CharTransitionLabel('b'));
         spec.addTransition(q0, q3, new CharTransitionLabel('c'));
+        spec.addTransition(q0, q6, new EpsilonTransitionLabel());
 
         spec.addTransition(q1, q3, new CharTransitionLabel('a'));
         spec.addTransition(q1, q2, new CharTransitionLabel('b'));
@@ -257,6 +259,8 @@ public class TestAutomatonSpecification extends TestCase {
         spec.addLoop(q5, new CharTransitionLabel('a'));
         spec.addTransition(q5, q4, new CharTransitionLabel('b'));
         spec.addLoop(q5, new CharTransitionLabel('c'));
+
+        spec.addTransition(q6, q3, new CharTransitionLabel('c'));
 
         assertTrue(spec.checkPrefix("abbb"));
         assertTrue(spec.checkPrefix("cacbab"));
