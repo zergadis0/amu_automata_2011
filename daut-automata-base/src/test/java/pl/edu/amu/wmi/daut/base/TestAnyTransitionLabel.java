@@ -21,8 +21,8 @@ public class TestAnyTransitionLabel extends TestCase {
         test.addTransition(drugi, koniec, new CharTransitionLabel('a'));
         test.addTransition(czwarty, koniec, new EmptyTransitionLabel());
         test.addTransition(trzeci, koniec, new AnyTransitionLabel());
-        TransitionLabel testowany 
-		= test.allOutgoingTransitions(pierwszy).get(0).getTransitionLabel();
+        TransitionLabel testowany
+        = test.allOutgoingTransitions(pierwszy).get(0).getTransitionLabel();
         TransitionLabel char1 = test.allOutgoingTransitions(drugi).get(0).getTransitionLabel();
         TransitionLabel any = test.allOutgoingTransitions(trzeci).get(0).getTransitionLabel();
         TransitionLabel empty = test.allOutgoingTransitions(czwarty).get(0).getTransitionLabel();
