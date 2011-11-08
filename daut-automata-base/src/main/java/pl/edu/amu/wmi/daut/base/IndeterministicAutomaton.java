@@ -42,11 +42,12 @@ class IndeterministicAutomaton implements Acceptor {
         }
 
         oStates = aStates;
-        aStates.clear();    
-    
-    return accept ;
-}
-private List<State> epsilonClosure(State state) {
+        aStates.clear();
+
+        return accept;
+    }
+
+    private List<State> epsilonClosure(State state) {
         List<State> eStates = new LinkedList();
         List<State> cStates = new LinkedList();
         boolean added;
