@@ -24,7 +24,7 @@ class AnyTransitionLabel extends TransitionLabel {
     public boolean isEmpty() {
          return false;
     }
-	
+
 	public String toString() {
 	     return "ANY";
 	}
