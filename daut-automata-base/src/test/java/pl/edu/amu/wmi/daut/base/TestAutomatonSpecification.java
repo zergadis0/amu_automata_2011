@@ -77,26 +77,26 @@ public class TestAutomatonSpecification extends TestCase {
     /**
      * Test metody fromString() tworzący automat z epsilonem.
      */
-    public final void testFromString3AutomatonWithEpsilonTransition() {
-        AutomatonSpecification epsilon = new NaiveAutomatonSpecification();
-
-        String slowo = "Automaton:\n-States: q0 q1 q2\n-Transitions:\n"
-                + "q0 -ε-> q1\nq1 -a-> q2\n-Initial state: q0\n"
-                + "-Final states: q2";
-
-        try {
-            epsilon.fromString(slowo);
-        } catch (Exception e) {
-            fail("fromString() zwrocil wyjatek dla automatu z Epsilonem!");
-        }
-
-        AutomatonByRecursion ep = new AutomatonByRecursion(epsilon);
-
-        assertTrue(ep.accepts("a"));
-        assertFalse(ep.accepts(""));
-        assertFalse(ep.accepts("ε"));
-        assertFalse(ep.accepts("aa"));
-    }
+//    public final void testFromString3AutomatonWithEpsilonTransition() {
+//        AutomatonSpecification epsilon = new NaiveAutomatonSpecification();
+//
+//        String slowo = "Automaton:\n-States: q0 q1 q2\n-Transitions:\n"
+//                + "q0 -ε-> q1\nq1 -a-> q2\n-Initial state: q0\n"
+//                + "-Final states: q2";
+//
+//        try {
+//            epsilon.fromString(slowo);
+//        } catch (Exception e) {
+//            fail("fromString() zwrocil wyjatek dla automatu z Epsilonem!");
+//        }
+//
+//        AutomatonByStack ep = new AutomatonByStack(epsilon);
+//
+//        assertTrue(ep.accepts("a"));
+//        assertFalse(ep.accepts(""));
+//        assertFalse(ep.accepts("ε"));
+//        assertFalse(ep.accepts("aa"));
+//    }
 
     /**
      * Test metody fromString() z bełkotem.
