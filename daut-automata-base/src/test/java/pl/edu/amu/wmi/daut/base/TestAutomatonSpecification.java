@@ -217,7 +217,7 @@ public class TestAutomatonSpecification extends TestCase {
     /**
      * Testuje działanie metody makeAllNonEmptyStringsAutomaton().
      */
-    public final void testMakeAllNonEmptyStringsAutomaton() {
+    public final void testMakeAllNonEmptyStringsAutomaton() implements Acceptor {
 
         //Buduję automat na 2 stanach korzystając z testowanej metody
 
