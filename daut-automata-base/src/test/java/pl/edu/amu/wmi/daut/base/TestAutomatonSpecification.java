@@ -77,30 +77,26 @@ public class TestAutomatonSpecification extends TestCase {
     /**
      * Test metody fromString() tworzący automat z epsilonem.
      */
-//    public final void testFromString3AutomatWithEpsilon() {
-//        AutomatonSpecification epsilon = new NaiveAutomatonSpecification();
-//
-//        String slowo = "Automaton:\n-States: q0 q1 q2 q3\n-Transitions:\n"
-//                + "q0 -ε-> q1\nq0 -ε-> q2\nq1 -a-> q3\nq2 -b-> q3\n-Initial state: q0\n"
-//                + "-Final states: q3";
-//
-//        try {
-//            epsilon.fromString(slowo);
-//        } catch (Exception e) {
-//            fail("fromString() zwrocil wyjatek dla automatu z Epsilonem!");
-//        }
-//
-//        AutomatonByRecursion ep = new AutomatonByRecursion(epsilon);
-//
-//        assertTrue(ep.accepts("a"));
-//        assertTrue(ep.accepts("b"));
-//        assertFalse(ep.accepts(""));
-//        assertFalse(ep.accepts("ε"));
-//        assertFalse(ep.accepts("aa"));
-//        assertFalse(ep.accepts("ab"));
-//        assertFalse(ep.accepts("ba"));
-//        assertFalse(ep.accepts("bb"));
-//    }
+    public final void testFromString3AutomatonWithEpsilonTransition() {
+        AutomatonSpecification epsilon = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0 q1 q2\n-Transitions:\n"
+                + "q0 -ε-> q1\nq1 -a-> q2\n-Initial state: q0\n"
+                + "-Final states: q2";
+
+        try {
+            epsilon.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla automatu z Epsilonem!");
+        }
+
+        AutomatonByRecursion ep = new AutomatonByRecursion(epsilon);
+
+        assertTrue(ep.accepts("a"));
+        assertFalse(ep.accepts(""));
+        assertFalse(ep.accepts("ε"));
+        assertFalse(ep.accepts("aa"));
+    }
 
     /**
      * Test metody fromString() z bełkotem.
@@ -199,7 +195,7 @@ public class TestAutomatonSpecification extends TestCase {
         }
 
         String nonCorrectTransitionName0Label2 = "Automaton:\n-States: q0 q1\n-Transitions:\n"
-                + "q0 --q> q0";
+                + "q0 --> q0";
 
         try {
             bledny.fromString(nonCorrectTransitionName0Label2);
@@ -278,6 +274,87 @@ public class TestAutomatonSpecification extends TestCase {
             assertTrue(true);
         }
     }
+
+    /**
+     * Test metody fromString() tworzący automat z przejściem ANY.
+     */
+    public final void testFromString6AutomatonWithAnyTransition() {
+        AutomatonSpecification anyone = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0 q1 q2\n-Transitions:\n"
+                + "q0 -q-> q1\nq1 -ANY-> q2\n-Initial state: q0\n-Final states: q2";
+
+        try {
+            anyone.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla automatu z przejściem dowolnym!");
+        }
+
+        AutomatonByRecursion ap = new AutomatonByRecursion(anyone);
+
+        assertTrue(ap.accepts("q0"));
+        assertTrue(ap.accepts("qε"));
+        assertFalse(ap.accepts(""));
+        assertFalse(ap.accepts("q"));
+        assertFalse(ap.accepts("q10"));
+        assertFalse(ap.accepts("aq0"));
+        assertFalse(ap.accepts("01"));
+    }
+
+    /**
+     * Test metody fromString() tworzący automat z przejściem po znaku z dopełnienia
+     * sumy przedziałów.
+     */
+    public final void testFromString7AutomatonWithCCharClassTransition() {
+        AutomatonSpecification ccchar = new NaiveAutomatonSpecification();
+
+        String slowo = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+                + "q0 -[^ac-e]-> q1\n-Initial state: q0\n-Final states: q1";
+
+        try {
+            ccchar.fromString(slowo);
+        } catch (Exception e) {
+            fail("fromString() zwrocil wyjatek dla automatu z odwrotnością przejścia"
+                    + "z sumy przedziałów!");
+        }
+
+        AutomatonByRecursion cccp = new AutomatonByRecursion(ccchar);
+
+        assertFalse(cccp.accepts("a"));
+        assertFalse(cccp.accepts("c"));
+        assertFalse(cccp.accepts("d"));
+        assertFalse(cccp.accepts("e"));
+        assertFalse(cccp.accepts(""));
+        assertTrue(cccp.accepts("f"));
+        assertTrue(cccp.accepts("b"));
+    }
+
+    /**
+     * Test metody fromString() tworzący automat z przejściem po znaku z sumy przedziałów.
+     */
+//    public final void testFromString8AutomatonWithCharClassTransition() {
+//        AutomatonSpecification cchar = new NaiveAutomatonSpecification();
+//
+//        String slowo = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+//                + "q0 -[ac-e]-> q1\n-Initial state: q0\n-Final states: q1";
+//
+//        try {
+//            cchar.fromString(slowo);
+//        } catch (Exception e) {
+//            fail("fromString() zwrocil wyjatek dla automatu z odwrotnością przejścia"
+//                    + "z sumy przedziałów!");
+//        }
+//
+//        AutomatonByRecursion ccp = new AutomatonByRecursion(cchar);
+//
+//        assertTrue(ccp.accepts("a"));
+//        assertTrue(ccp.accepts("c"));
+//        assertTrue(ccp.accepts("d"));
+//        assertTrue(ccp.accepts("e"));
+//        assertFalse(ccp.accepts(""));
+//        assertFalse(ccp.accepts("b"));
+//        assertFalse(ccp.accepts("f"));
+//    }
 
     /**
      * Test metody countStates.
