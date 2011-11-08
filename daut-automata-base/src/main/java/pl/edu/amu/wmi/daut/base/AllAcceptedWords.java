@@ -65,7 +65,7 @@ public class AllAcceptedWords implements Iterator<String> {
         if (tl instanceof EpsilonTransitionLabel)
           newWord += "";
         else if (tl instanceof ComplementCharClassTransitionLabel)
-      newWord+="{cokolwiek poza "+((ComplementCharClassTransitionLabel)tl).getSet().toString()+"}";
+newWord += "{cokolwiek poza " + ((ComplementCharClassTransitionLabel)tl).getSet().toString() + "}";
         else if (tl instanceof CharTransitionLabel)
           newWord += ((CharTransitionLabel)tl).toString();
         else if (tl instanceof EmptyTransitionLabel)
