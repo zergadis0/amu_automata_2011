@@ -263,10 +263,11 @@ public class TestAutomatonSpecification extends TestCase {
         assertTrue(spec.checkPrefix("bbaabcaa"));
         assertTrue(spec.checkPrefix("cababbc"));
         assertTrue(spec.checkPrefix("c"));
-        assertTrue(spec.checkPrefix("cbcbcbcbcbacbbbb"));
+        assertTrue(spec.checkPrefix("cbcbcbcbcbacbbbbaab"));
 
         assertFalse(spec.checkPrefix("aacc"));
-        assertFalse(spec.checkPrefix("cbcbcbcbcbacbbbbcccac"));
+        assertFalse(spec.checkPrefix("sdfcs"));
+        assertFalse(spec.checkPrefix("bcca"));
         assertFalse(spec.checkPrefix("cc"));
         assertFalse(spec.checkPrefix("abaabacac"));
         assertFalse(spec.checkPrefix("caccb"));
