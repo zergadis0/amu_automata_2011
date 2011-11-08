@@ -230,8 +230,8 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(spec.acceptEmptyWord());
         assertTrue(automaton.accepts("abbabbabbabbaaa"));
         assertFalse(automaton.accepts("caba"));
-        //assertTrue(automaton.accepts("a"));
-        //assertTrue(automaton.accepts("b"));
+        assertTrue(automaton.accepts("a"));
+        assertTrue(automaton.accepts("b"));
         assertTrue(automaton.accepts("aaaa"));
         assertTrue(automaton.accepts("bbbb"));
     }
