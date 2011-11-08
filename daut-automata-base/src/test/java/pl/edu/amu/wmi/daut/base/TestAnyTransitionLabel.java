@@ -1,13 +1,14 @@
-package pl.edu.amu.wmi.daut.base;
+package testy;
 
+import automaty.*;
 import junit.framework.TestCase;
 /**
  * Klasa testujaca AnyTransitionLabel.
  */
 public class TestAnyTransitionLabel extends TestCase {
-    /**
-     * Metoda testujaca AnyTransitionLabel.
-     */
+	/**
+	 * Metoda testujaca EpsilonTransitionLabel.
+	 */
     public final void testAnyTransitionLabel() {
         AutomatonSpecification test = new NaiveAutomatonSpecification();
         State koniec = test.addState();
@@ -21,11 +22,12 @@ public class TestAnyTransitionLabel extends TestCase {
         test.addTransition(drugi, koniec, new CharTransitionLabel('a'));
         test.addTransition(czwarty, koniec, new EmptyTransitionLabel());
         test.addTransition(trzeci, koniec, new AnyTransitionLabel());
-        TransitionLabel testowany
+        TransitionLabel testowany 
         = test.allOutgoingTransitions(pierwszy).get(0).getTransitionLabel();
         TransitionLabel char1 = test.allOutgoingTransitions(drugi).get(0).getTransitionLabel();
         TransitionLabel any = test.allOutgoingTransitions(trzeci).get(0).getTransitionLabel();
         TransitionLabel empty = test.allOutgoingTransitions(czwarty).get(0).getTransitionLabel();
+        assertEquals("ANY", testowany.toString());
         assertFalse(testowany.canBeEpsilon());
         assertFalse(testowany.isEmpty());
         assertTrue(testowany.canAcceptCharacter(' '));
@@ -35,8 +37,10 @@ public class TestAnyTransitionLabel extends TestCase {
         assertFalse((testowany.intersect(char1)).isEmpty());
         assertTrue((testowany.intersect(empty)).isEmpty());
         assertFalse((testowany.intersect(any)).isEmpty());
+        assertEquals("ANY", (testowany.intersect(testowany)).toString());
         assertFalse((testowany.intersectWith(testowany)).canBeEpsilon());
         assertFalse((testowany.intersectWith(char1)).isEmpty());
+        assertEquals("ANY", (testowany.intersectWith(testowany)).toString());
         assertTrue((testowany.intersectWith(empty)).isEmpty());
         assertFalse((testowany.intersectWith(any)).isEmpty());
     }
