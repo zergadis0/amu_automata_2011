@@ -543,11 +543,10 @@ abstract class AutomatonSpecification {
                 }
             }
             String napis = stack.get(0).getTransitionLabel().toString();
-            while (k < stack.size()) {
+            while (k <= stack.size()) {
                 String temp = stack.get(k).getTransitionLabel().toString();
-                if (napis.compareTo(temp) > 0) {
+                if (napis.compareTo(temp) > 0)
                    napis = temp;
-                }
                 k++;
             }
             return output.append(napis).toString();
