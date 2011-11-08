@@ -20,8 +20,8 @@ class CharRangeTransitionLabel extends TransitionLabel {
 
     @Override
     public boolean canAcceptCharacter(char c) {
-        if (c>=firstChar & c<=secondChar) {return true;}
-        else {return false;}
+        if (c >= firstChar & c <= secondChar) { return true; }
+        else { return false; }
     }
 
     @Override
