@@ -178,4 +178,25 @@ public class AutomataOperations {
 
         return automatonC;
     }
+    /**
+     * Zwraca automat akceptujący domknięcie Kleene'ego
+     * języka akceptowanego przez dany automat.
+     */
+    public AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
+        AutomatonSpecification kleeneautomaton = new NaiveAutomatonSpecification();
+        State state1 = kleeneautomaton.addState();
+        kleeneautomaton.markAsInitial(state1);
+        kleeneautomaton.markAsFinal(state1);
+        if (!automaton.isEmpty()) {
+            State state2 = kleeneautomaton.addState();
+            kleeneautomaton.addTransition(state1, state2, new EpsilonTransitionLabel());
+            kleeneautomaton.insert(state2, automaton);
+            for (State state : automaton.allStates()) {
+                if (automaton.isFinal(state)) {
+                    kleeneautomaton.addTransition(state, state1, new EpsilonTransitionLabel());
+                }
+            }
+        }
+        return kleeneautomaton;
+    }
 }
