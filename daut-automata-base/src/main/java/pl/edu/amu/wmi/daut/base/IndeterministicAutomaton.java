@@ -39,10 +39,18 @@ class IndeterministicAutomaton implements Acceptor {
                     }
                 }
             }
+
+            oStates = aStates;
+            aStates.clear();
+
         }
 
-        oStates = aStates;
-        aStates.clear();
+        for (State someState : oStates) {
+            if (automaton.isFinal(someState)) {
+                accept = true;
+            }
+        }
+
 
         return accept;
     }
