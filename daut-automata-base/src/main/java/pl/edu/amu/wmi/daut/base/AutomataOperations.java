@@ -199,4 +199,19 @@ public class AutomataOperations {
         }
         return kleeneautomaton;
     }
+    
+    public static AutomatonSpecification sum(
+        AutomatonSpecification A, AutomatonSpecification B) {
+        AutomatonSpecification automaton = new NaiveAutomatonSpecification(); {
+        State q0 = automaton.addState();
+        State q1 = automaton.addState();
+        State q2 = automaton.addState();
+        automaton.markAsInitial(q0);
+        automaton.insert(q1, A);
+        automaton.insert(q2, B);
+        automaton.addTransition(q0, q1, new EpsilonTransitionLabel());
+	automaton.addTransition(q0, q2, new EpsilonTransitionLabel());
+                }
+        return automaton;
+    }
 }
