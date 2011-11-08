@@ -158,11 +158,6 @@ abstract class AutomatonSpecification {
         }
         return pilgrim.toString();
     };
-    /**
-     * Funkcja tworzaca zawartość automatu ze Stringa.
-     */
-    public void fromString(String automatonDescription) throws Exception {
-    }
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
