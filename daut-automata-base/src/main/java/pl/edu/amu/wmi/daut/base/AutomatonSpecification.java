@@ -333,29 +333,31 @@ abstract class AutomatonSpecification {
      * będzie utożsamiony ze stanem początkowym automatu automaton.
      */
     void insert(State state, AutomatonSpecification automaton) {
-      List<State> loadedStates = automaton.allStates();
-      HashMap<State, State> connectedStates = new HashMap<State, State>();
-      State automatonInitialState = automaton.getInitialState();
-      for (State currentState : loadedStates) {
-        if (currentState == automatonInitialState)
-          connectedStates.put(currentState, state);
-        else
-          connectedStates.put(currentState, this.addState());
-      }
-      for (State currentState : loadedStates) {
-          if (automaton.isFinal(currentState))
-              markAsFinal(connectedStates.get(currentState));
-        List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
-        for (OutgoingTransition transition : list) {
-          this.addTransition(connectedStates.get(currentState),
-          connectedStates.get(transition.getTargetState()), transition.getTransitionLabel());
+        List<State> loadedStates = automaton.allStates();
+        HashMap<State, State> connectedStates = new HashMap<State, State>();
+        State automatonInitialState = automaton.getInitialState();
+        for (State currentState : loadedStates) {
+            if (currentState == automatonInitialState)
+                connectedStates.put(currentState, state);
+            else
+                connectedStates.put(currentState, this.addState());
         }
-      }
+        for (State currentState : loadedStates) {
+            if (automaton.isFinal(currentState))
+                markAsFinal(connectedStates.get(currentState));
+            List<OutgoingTransition> list = automaton
+                    .allOutgoingTransitions(currentState);
+            for (OutgoingTransition transition : list) {
+                this.addTransition(connectedStates.get(currentState),
+                        connectedStates.get(transition.getTargetState()),
+                        transition.getTransitionLabel());
+            }
+        }
     }
 
     /**
-     * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie
-     * napis pusty.
+     * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie napis
+     * pusty.
      */
     public void makeEmptyStringAutomaton() {
         State emptyState = this.addState();
@@ -395,17 +397,19 @@ abstract class AutomatonSpecification {
             for (int i = 0; i < alphabet.length(); i++) {
                 indeks = 0;
                 if (allOutgoingTransitions(state).isEmpty())
-                    addTransition(state, trash,
-                            new CharTransitionLabel(alphabet.charAt(i)));
+                    addTransition(state, trash, new CharTransitionLabel(
+                            alphabet.charAt(i)));
                 for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                    if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                    if (transition1.getTransitionLabel().canAcceptCharacter(
+                            alphabet.charAt(i)))
                         break;
                     else if ((indeks == allOutgoingTransitions(state).size() - 1)
                             && !transition1.getTransitionLabel()
-                            .canAcceptCharacter(alphabet.charAt(i)))
-                        addTransition(state, trash,
-                                new CharTransitionLabel(alphabet.charAt(i)));
-                    else indeks++;
+                                    .canAcceptCharacter(alphabet.charAt(i)))
+                        addTransition(state, trash, new CharTransitionLabel(
+                                alphabet.charAt(i)));
+                    else
+                        indeks++;
                 }
             }
         }
@@ -478,6 +482,12 @@ abstract class AutomatonSpecification {
             }
 
             private boolean isCorrectLabel(String name) {
+                if (name.equals("-epsilon->"))
+                    return true;
+                if (name.equals("ANY"))
+                    return true;
+                if (name.startsWith("-[") && name.endsWith("]->"))
+                    return true;
                 if (!(name.length() == LABEL_LENGHT))
                     return false;
                 if (!name.startsWith("-"))
@@ -522,9 +532,11 @@ abstract class AutomatonSpecification {
                     throw new StructureException();
                 if (!isCorrectStateName(codeTable[initialPointer + 2]))
                     throw new StructureException();
-                if (!codeTable[initialPointer + FINAL_STR_INDEX].equals("-Final"))
+                if (!codeTable[initialPointer + FINAL_STR_INDEX]
+                        .equals("-Final"))
                     throw new StructureException();
-                if (!codeTable[initialPointer + FINAL_STR_INDEX + 1].equals("states:"))
+                if (!codeTable[initialPointer + FINAL_STR_INDEX + 1]
+                        .equals("states:"))
                     throw new StructureException();
                 for (int it = initialPointer + FINAL_STR_INDEX + 2; it < codeTable.length; ++it) {
                     if (!isCorrectStateName(codeTable[it]))
@@ -554,6 +566,19 @@ abstract class AutomatonSpecification {
                 return Integer.decode(indexStr);
             }
 
+            private TransitionLabel getLabel(String name) {
+                if (name.length() == LABEL_LENGHT)
+                    return new CharTransitionLabel(name.charAt(1));
+                if (name.equals("-epsilon->"))
+                    return new EpsilonTransitionLabel();
+                if (name.startsWith("-[") && name.endsWith("]->"))
+                    return new ComplementCharClassTransitionLabel(name
+                            .substring(2, name.length() - 2));
+                if (name.equals("-ANY->"))
+                    return new AnyTransitionLabel();
+                return new EmptyTransitionLabel();
+            }
+
             private void constructGraph() {
                 for (int i = 0; i < transitionPoiner - 2; ++i)
                     addState();
@@ -563,10 +588,9 @@ abstract class AutomatonSpecification {
                     markAsFinal(stateList.get(getIndex(codeTable[i])));
                 }
                 for (int i = transitionPoiner + 1; i < initialPointer; i += TRANSITION_PARTS) {
-
                     addTransition(stateList.get(getIndex(codeTable[i])),
                             stateList.get(getIndex(codeTable[i + 2])),
-                            new CharTransitionLabel(codeTable[i + 1].charAt(1)));
+                            getLabel(codeTable[i + 1]));
 
                 }
 
