@@ -41,6 +41,23 @@ abstract class AutomatonSpecification {
     }
 
     /**
+     * Dla zadanego słowa dodaje stany i przejścia.
+     *
+     * Zwraca stan końcowy.
+     */
+    public State addTransitionSequence(State from, String text) {
+        State prev = from;
+        State next = prev;
+        int i = 1;
+
+        for (i = 1; i <= text.length(); i++) {
+            prev = addTransition(next, new CharTransitionLabel(text.charAt(i)));
+            next = prev;
+        }
+       return prev;
+    }
+
+    /**
      * Tworzy "gałąź" w automacie.
      * Metoda dodaje ciąg przejść od stanu początkowego automatu,
      * dla podanej listy etykiet przejść.
