@@ -28,6 +28,7 @@ class AnyTransitionLabel extends TransitionLabel {
 	public String toString() {
 	     return "ANY";
 	}
+	
     @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
          return label.isEmpty() ? new EmptyTransitionLabel() : this;
