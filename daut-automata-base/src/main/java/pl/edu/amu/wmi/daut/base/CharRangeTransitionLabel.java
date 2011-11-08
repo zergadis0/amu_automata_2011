@@ -15,12 +15,13 @@ class CharRangeTransitionLabel extends TransitionLabel {
 
     @Override
     public boolean canBeEpsilon() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean canAcceptCharacter(char c) {
-        return true;
+        if (c>=firstChar & c<=secondChar){return true;}
+        else {return false;}
     }
 
     @Override
@@ -28,7 +29,7 @@ class CharRangeTransitionLabel extends TransitionLabel {
         return false;
     }
 
-    @Override
+    
     protected TransitionLabel intersectWith(TransitionLabel label) {
         return this;
     }
