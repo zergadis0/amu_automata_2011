@@ -128,7 +128,7 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("aac"));
         /*Test B z C ok */
-         /*   result = AutomataOperations.sum(automatonB, automatonC);
+            result = AutomataOperations.sum(automatonB, automatonC);
             automaton = new AutomatonByRecursion(result);
             assertTrue(automaton.accepts("babbaccddcaaccb"));
             assertTrue(automaton.accepts("bbaccddbaba"));
@@ -139,11 +139,11 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("CzyTwojProgramMackuToZaakceptuje"));
             assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
            /*Test B z E */
-           /* result = AutomataOperations.sum(automatonB, automatonE);
+            result = AutomataOperations.sum(automatonB, automatonE);
             automaton = new AutomatonByRecursion(result);
             assertTrue(automaton.accepts(""));
             assertTrue(automaton.accepts("aa"));
             assertFalse(automaton.accepts("bbaccddxbaba"));
-            assertFalse(automaton.accepts("aabbbaaaa")); */
+            assertFalse(automaton.accepts("aabbbaaaa")); 
     }
 }
