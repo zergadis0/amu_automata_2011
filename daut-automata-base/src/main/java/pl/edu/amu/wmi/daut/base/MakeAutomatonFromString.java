@@ -20,9 +20,9 @@ public class MakeAutomatonFromString {
     private List<State> stateList;
     private int transitionPoiner, initialPointer;
     private AutomatonSpecification automaton;
-    
+
     /**
-     * Konstruktor przyjmujący za argumenty automat (powinien być pusty!) i 
+     * Konstruktor przyjmujący za argumenty automat (powinien być pusty!) i
      * strumień znaków, który pochodzi z metody toString() automatu.
      * @param emptyAutomaton pusty automat, na którym chcemy zbudować wybrany automat
      * @param description opis automatu w formie, jaką zwraca metoda toString()
