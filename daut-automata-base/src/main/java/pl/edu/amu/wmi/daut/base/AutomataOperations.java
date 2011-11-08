@@ -13,7 +13,7 @@ public class AutomataOperations {
     protected AutomataOperations() {
         throw new UnsupportedOperationException(); // prevents calls from subclass
     }
-    
+
     /**
      * Metoda zwracajaca Automat akceptujacy jezyk bedacy dopelnieniem jezyka
      * akceptowanego przez Automat otrzymywany "na wejsciu".
@@ -27,7 +27,7 @@ public class AutomataOperations {
         //return returned;
         return automaton;
     }
-    
+
     /**
      * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
      * intersection.
