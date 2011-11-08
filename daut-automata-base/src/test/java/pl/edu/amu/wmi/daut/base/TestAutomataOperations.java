@@ -102,7 +102,7 @@ public class TestAutomataOperations extends TestCase {
             automatonE.addTransition(q0E, q0E, new EpsilonTransitionLabel());
             automatonE.markAsInitial(q0E);
             automatonE.markAsFinal(q0E);
-        /* Test A z B */
+        /* Test A z B ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonA, automatonB);
             AutomatonByRecursion automaton = new AutomatonByRecursion(result);
             assertTrue(automaton.accepts("aa"));
@@ -115,7 +115,7 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("baaaaaaaaaa"));
             assertFalse(automaton.accepts("aaaaaaaaaaaaaaaxaaaaaa"));
             assertFalse(automaton.accepts("bab"));
-        /*Test D z B */
+        /*Test D z B ok */
             result = AutomataOperations.sum(automatonB, automatonD);
             automaton = new AutomatonByRecursion(result);
             assertTrue(automaton.accepts("ab"));
@@ -127,18 +127,18 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("b"));
             assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("aac"));
-        /*Test B z C */
+        /*Test B z C ok */
             result = AutomataOperations.sum(automatonB, automatonC);
             automaton = new AutomatonByRecursion(result);
             assertTrue(automaton.accepts("babbaccddcaaccb"));
             assertTrue(automaton.accepts("bbaccddbaba"));
             assertTrue(automaton.accepts("bbbcaacba"));
             assertTrue(automaton.accepts("aaaaaaaaaaaaaaaa"));
+            assertTrue(automaton.accepts(""));
             assertFalse(automaton.accepts("bbaccddxbaba"));
             assertFalse(automaton.accepts("CzyTwojProgramMackuToZaakceptuje"));
-            assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
-           /*Test B z C */
+           /*Test B z E */
             result = AutomataOperations.sum(automatonB, automatonE);
             automaton = new AutomatonByRecursion(result);
             assertTrue(automaton.accepts(""));
