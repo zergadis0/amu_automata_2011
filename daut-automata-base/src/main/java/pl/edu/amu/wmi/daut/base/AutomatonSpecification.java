@@ -45,6 +45,17 @@ abstract class AutomatonSpecification {
      *
      * Zwraca stan końcowy.
      */
+    public State addTransitionSequence(State from, String text) {
+        State prev = from;
+        State next = prev;
+        int i = 1;
+
+        for (i = 1; i <= text.length(); i++) {
+            prev = addTransition(next, new CharTransitionLabel(text.charAt(i)));
+            next = prev;
+        }
+       return prev;
+    }
 
     /**
      * Tworzy "gałąź" w automacie.
