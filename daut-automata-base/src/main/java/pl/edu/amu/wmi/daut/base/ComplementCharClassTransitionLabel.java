@@ -155,7 +155,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     @Override
     public String toString() {
         String q = "";
-        q += "[";
+        q += "[^";
         q += getString(new ComplementCharClassTransitionLabel(""));
         q += "]";
         return q;
