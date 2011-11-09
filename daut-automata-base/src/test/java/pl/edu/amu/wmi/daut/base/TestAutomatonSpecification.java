@@ -512,7 +512,7 @@ public class TestAutomatonSpecification extends TestCase {
         // Sprawdzamy czy przejścia mają odpowiednie oznaczenia oraz
         // akceptują odpowiednie znaki, dla ciągu "abc"
         State s;
-        List<OutgoingTransition> r0Outs;
+        List<OutgoingTransition> sOuts;
 
         // Dla jasności pobieramy stan początkowy automatu
         s = spec.getInitialState();
@@ -520,38 +520,38 @@ public class TestAutomatonSpecification extends TestCase {
         // Sprawdzamy możliwe przejścia ze stanu początkowego,
         // sprawdzamy ich ilość, oznaczenia oraz jakie znaki akceptują
         // (oczekujemy a)
-        r0Outs = spec.allOutgoingTransitions(s);
-        assertEquals(1, r0Outs.size());
+        sOuts = spec.allOutgoingTransitions(s);
+        assertEquals(1, sOuts.size());
         assertEquals('a', ((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).getChar());
+                sOuts.get(0).getTransitionLabel()).getChar());
         assertTrue(((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
         assertFalse(((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
 
         // Kolejne przejście (oczekujemy b)
-        s = r0Outs.get(0).getTargetState();
-        r0Outs = spec.allOutgoingTransitions(s);
-        assertEquals(1, r0Outs.size());
+        s = sOuts.get(0).getTargetState();
+        sOuts = spec.allOutgoingTransitions(s);
+        assertEquals(1, sOuts.size());
         assertEquals('b', ((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).getChar());
+                sOuts.get(0).getTransitionLabel()).getChar());
         assertTrue(((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('b'));
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('b'));
         assertFalse(((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
         assertFalse(((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
 
         // Kolejne przejście (oczekujemy c)
-        s = r0Outs.get(0).getTargetState();
-        r0Outs = spec.allOutgoingTransitions(s);
-        assertEquals(1, r0Outs.size());
+        s = sOuts.get(0).getTargetState();
+        sOuts = spec.allOutgoingTransitions(s);
+        assertEquals(1, sOuts.size());
         assertEquals('c', ((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).getChar());
+                sOuts.get(0).getTransitionLabel()).getChar());
         assertTrue(((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
         assertFalse(((CharTransitionLabel)
-                r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
     }
 
     /**
