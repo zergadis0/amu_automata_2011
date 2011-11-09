@@ -36,12 +36,14 @@ public class AutomataOperations {
         private State qA;
         private State qB;
     }
-    
+
     /**
-    *Metoda zwracaja automat akceptujący odwrócenie języka akceptowanego przez dany automat "parent".
+    *Metoda zwraca automat akceptujący odwrócenie języka,
+    * akceptowanego przez dany automat "parent".
     */
-    public AutomatonSpecification reverseLanguageAutomat(NaiveAutomatonSpecification parent){
-        
+    public AutomatonSpecification reverseLanguageAutomat(
+            NaiveAutomatonSpecification parent) {
+
         NaiveAutomatonSpecification son = new NaiveAutomatonSpecification();
 
         if (parent.isEmpty()) { return son; }
@@ -50,17 +52,21 @@ public class AutomataOperations {
         List<State> sstates = new ArrayList<State>();
         pstates = parent.allStates();
 
-        List<OutgoingTransition> outtransitions = new ArrayList<OutgoingTransition>();
+        List<OutgoingTransition> outtransitions =
+                new ArrayList<OutgoingTransition>();
 
         sstates.add(son.addState());
         son.markAsInitial(sstates.get(0));
-        
+
         for (State state : pstates) {
             sstates.add(son.addState());
-            if (state == parent.getInitialState()) { son.markAsFinal(sstates.get(sstates.size() - 1)); }
+            if (state == parent.getInitialState()) {
+                son.markAsFinal(sstates.get(sstates.size() - 1));
+            }
             else if (parent.isFinal(state)) {
                 EpsilonTransitionLabel eps = new EpsilonTransitionLabel();
-                son.addTransition(sstates.get(0), sstates.get(sstates.size() - 1), eps);
+                son.addTransition(
+                        sstates.get(0), sstates.get(sstates.size() - 1), eps);
             }
 
             outtransitions = parent.allOutgoingTransitions(state);
@@ -71,21 +77,25 @@ public class AutomataOperations {
                 State currentstate = null;
                 boolean exist = false;
                 for (State tmpstate : son.allStates()) {
-                    if (tmpstate == targetstate) { exist = true; currentstate = tmpstate; break; }
+                    if (tmpstate == targetstate) {
+                        exist = true; currentstate = tmpstate; break;
+                    }
                 }
                 if (exist) {
-                    son.addTransition(targetstate, currentstate, outtransition.getTransitionLabel());
+                    son.addTransition(
+                            targetstate, currentstate, outtransition.getTransitionLabel());
                 }
                 else {
                     sstates.add(son.addState());
-                    son.addTransition(targetstate, sstates.get(sstates.size() - 1), outtransition.getTransitionLabel());
+                    son.addTransition(targetstate, sstates.get(sstates.size() - 1),
+                            outtransition.getTransitionLabel());
                 }
             }
         }
 
         return son;
     }
-        
+
     /**
 * Metoda tworzy przejscie od stanu stateC do nowego stanu utworzonego przez pare A i B w
 * combinedC po etykiecie transition. Dodanie nowo utworzonego stanu stateCn do listy newStates
