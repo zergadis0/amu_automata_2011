@@ -7,6 +7,9 @@ import junit.framework.TestCase;
  */
 public class TestIsDeterministic extends TestCase {
 
+    /**
+    * Metoda testujaca metodę isDeterministic.
+    */
     public final void testOneTransition() {
 
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
@@ -14,7 +17,10 @@ public class TestIsDeterministic extends TestCase {
 
         assertTrue(automata.isDeterministic());
     }
-
+    
+    /**
+     * Metoda testujaca metodę isDeterministic.
+     */
     public final void testFourTransitions() {
 
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
@@ -35,7 +41,9 @@ public class TestIsDeterministic extends TestCase {
 
         assertFalse(aut.isDeterministic());
     }
-
+    /**
+     * Metoda testujaca metodę isDeterministic.
+     */
     public final void testSixTransitions() {
 
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
