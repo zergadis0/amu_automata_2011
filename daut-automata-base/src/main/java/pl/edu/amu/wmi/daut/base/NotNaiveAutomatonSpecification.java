@@ -19,6 +19,7 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         public List<OutgoingTransition> returnOutgoingTrasitions() {
             return outgoingTransitions;
         }
+        
         private LinkedList<OutgoingTransition> outgoingTransitions
                 = new LinkedList<OutgoingTransition>();
     }
@@ -101,7 +102,13 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         }
 
         return false;
+    }   
+    
+    public List<OutgoingTransition> getOutReturnOutgoingTransitions(State from) {
+        return ((NotNaiveState)from).returnOutgoingTrasitions();
     }
+            
+            
     private LinkedList<State> allStates = new LinkedList<State>();
     private NotNaiveState initialState;
     private LinkedList<NotNaiveState> finalStates = new LinkedList<NotNaiveState>();
