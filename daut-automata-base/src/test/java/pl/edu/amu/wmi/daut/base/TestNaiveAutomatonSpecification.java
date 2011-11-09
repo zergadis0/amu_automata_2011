@@ -214,4 +214,25 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(automaton.accepts("bbccaabcbabab"));
         assertTrue(automaton.accepts("cacacacbbccccc"));
     }
+    /**
+     * Testuje działanie metody makeAllNonEmptyStringsAutomaton().
+     */
+    public final void testMakeAllNonEmptyStringsAutomaton() {
+
+        //Buduję automat na 2 stanach korzystając z testowanej metody
+
+        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        spec.makeAllNonEmptyStringsAutomaton("ab");
+        AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
+
+        //Sprawdzam czy automat akceptuje losowe słowa i czy odrzuca słowo puste
+
+        assertFalse(spec.acceptEmptyWord());
+        assertTrue(automaton.accepts("abbabbabbabbaaa"));
+        assertFalse(automaton.accepts("caba"));
+        assertTrue(automaton.accepts("a"));
+        assertTrue(automaton.accepts("b"));
+        assertTrue(automaton.accepts("aaaa"));
+        assertTrue(automaton.accepts("bbbb"));
+    }
 }
