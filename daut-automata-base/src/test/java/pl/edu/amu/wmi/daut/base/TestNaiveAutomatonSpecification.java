@@ -111,10 +111,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertEquals(r0Outs.size(), 1);
         assertTrue(spec.isFinal(r0));
 
-        State r1;
-
         if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
-            r1 = r0Outs.get(0).getTargetState();
             assertEquals(
                 ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
             assertTrue(
@@ -199,5 +196,77 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         spec3.makeFull("abc");
         assertTrue(spec3.isFull("abc"));
+    }
+
+    /**
+     * Test metody tworzącej prosty automat.
+     */
+    public final void testmakeOneTransitionAutomaton(char c) {
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+
+        spec = spec.makeOneTransitionAutomaton(c);
+
+        //testowanie
+
+        State r0 = spec.getInitialState();
+
+        List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
+
+        assertEquals(r0Outs.size(), 1);
+        assertFalse(spec.isFinal(r0));
+
+        State r1 = r0Outs.get(0).getTargetState();
+
+        if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'c') {
+            assertEquals(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'c');
+            assertTrue(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+            assertFalse(
+                ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
+        }
+
+        assertTrue(spec.isFinal(r1));
+        assertSame(r0, spec.getInitialState());
+
+        List<State> states = spec.allStates();
+
+        assertEquals(states.size(), 2);
+    }
+
+    /**
+     * Test metody tworzącej automat akceptujący wszystkie napisy nad zadanym językiem.
+     */
+    public final void testMakeAllStringsAutomaton() {
+        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        spec.makeAllStringsAutomaton("abc");
+        assertTrue(spec.acceptEmptyWord());
+        AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
+        assertFalse(automaton.accepts("defffadegbc"));
+        assertFalse(automaton.accepts("abecadlo"));
+        assertTrue(automaton.accepts("abcbcabbbaaa"));
+        assertTrue(automaton.accepts("bbccaabcbabab"));
+        assertTrue(automaton.accepts("cacacacbbccccc"));
+    }
+    /**
+     * Testuje działanie metody makeAllNonEmptyStringsAutomaton().
+     */
+    public final void testMakeAllNonEmptyStringsAutomaton() {
+
+        //Buduję automat na 2 stanach korzystając z testowanej metody
+
+        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        spec.makeAllNonEmptyStringsAutomaton("ab");
+        AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
+
+        //Sprawdzam czy automat akceptuje losowe słowa i czy odrzuca słowo puste
+
+        assertFalse(spec.acceptEmptyWord());
+        assertTrue(automaton.accepts("abbabbabbabbaaa"));
+        assertFalse(automaton.accepts("caba"));
+        assertTrue(automaton.accepts("a"));
+        assertTrue(automaton.accepts("b"));
+        assertTrue(automaton.accepts("aaaa"));
+        assertTrue(automaton.accepts("bbbb"));
     }
 }
