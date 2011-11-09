@@ -16,7 +16,8 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         public NotNaiveState() {
             outgoingTransitions = null;
         }
-        private LinkedList<OutgoingTransition> outgoingTransitions
+                
+        public LinkedList<OutgoingTransition> outgoingTransitions
                 = new LinkedList<OutgoingTransition>();
     }
 
