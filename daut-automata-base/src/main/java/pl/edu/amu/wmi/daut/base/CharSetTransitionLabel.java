@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Implementacja TransitionLabel reprezentujaca przejscie po dowolnym znaku danego zbioru .
@@ -10,7 +9,7 @@ class CharSetTransitionLabel extends TransitionLabel {
     /**
     * Konstruuje etykietę oznaczoną zbiorem znakow 'charSet'.
     */
-    public CharSetTransitionLabel(Set<Character> charSet) {
+    public CharSetTransitionLabel(HashSet<Character> charSet) {
         this.charSet = charSet;
     }
 
@@ -26,31 +25,31 @@ class CharSetTransitionLabel extends TransitionLabel {
         return false;
     }
 
-    public Set<Character> getCharSet() {
+    public HashSet<Character> getCharSet() {
         return charSet;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-    	sb.append("{");
+    	StringBuilder sb = new StringBuilder();
+        sb.append("{");
     	for (Character c : charSet) {
     		sb.append(c + ",");
     	}
     	sb.deleteCharAt(sb.length() - 1);
     	sb.append("}");
-        return sb.toString();
+    	return sb.toString();
     }
 
     protected TransitionLabel intersectWith(TransitionLabel label) {
-    	Set<Character> newCharSet = new HashSet<Character>();
+    	HashSet<Character> newCharSet = new HashSet<Character>();
     	for (Character c : charSet) {
     		if (label.canAcceptCharacter(c))
     			newCharSet.add(c);
     	}
-        return newCharSet.isEmpty() ? 
-        		new EmptyTransitionLabel() : new CharSetTransitionLabel(newCharSet);
+        return newCharSet.isEmpty()
+        		? new EmptyTransitionLabel() : new CharSetTransitionLabel(newCharSet);
     }
 
-    private Set<Character> charSet;
+    private HashSet<Character> charSet;
 }
