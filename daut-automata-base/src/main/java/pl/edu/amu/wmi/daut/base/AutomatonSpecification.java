@@ -523,26 +523,27 @@ abstract class AutomatonSpecification {
 
     //Metoda zwracająca pierwszy, według kolejności alfabetycznej,
     //napis akceptowany przez automat.
-    public String firstAcceptedString() {
-        StringBuffer output = new StringBuffer("First accepted word by automaton is: ");
-        List<State> states = allStates();
-        String napis = allOutgoingTransitions(states.get(0)).get(0).getTransitionLabel().toString();
+    public String firstAcceptedString(State state) {
+        StringBuffer output = new StringBuffer();
+        List<State> states = new ArrayList<State>();
+        State q = getInitialState();
         String tmp;
         while (true) {
             if (states.isEmpty()) {
                 output.append("\n Empty Automaton");
                 return output.toString();
             }
-            for (int j = 0; j < states.size(); j++) {
-                for (int i = 0; i < allOutgoingTransitions(states.get(j)).size(); i++) {
-                tmp = allOutgoingTransitions(states.get(j)).get(i).getTransitionLabel().toString();
-                    if (tmp.equals("")) {
-                        return output.append("\n empty string").toString();
-                    } else if (napis.compareTo(tmp) > 0)
-                        napis = tmp;
-                }
-            }
-            return output.append(napis).toString();
+            
+//            for (int j = 0; j < states.size(); j++) {
+//                for (int i = 0; i < allOutgoingTransitions(states.get(j)).size(); i++) {
+//                tmp = allOutgoingTransitions(states.get(j)).get(i).getTransitionLabel().toString();
+//                    if (tmp.equals("")) {
+//                        return output.append("\n empty string").toString();
+//                    } else if (napis.compareTo(tmp) > 0)
+//                        napis = tmp;
+//                }
+//            }
+//            return output.append(napis).toString();
         }
     }
 };
