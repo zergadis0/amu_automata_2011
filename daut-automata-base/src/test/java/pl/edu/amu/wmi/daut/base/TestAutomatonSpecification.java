@@ -472,6 +472,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(angle.accepts("x"));
         assertFalse(angle.accepts("qwertyuiopasdfghjklzxcvbnm1234567890"));
         assertFalse(angle.accepts(" "));
+    }
 
     /**
      * Testy dla metody addTransitionSequence().
@@ -566,7 +567,6 @@ public class TestAutomatonSpecification extends TestCase {
                 sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
         assertFalse(((CharTransitionLabel)
                 sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
->>>>>>> a10d68566fb80015b7932a0ac09422c8a28baa1b
     }
 
     /**
@@ -812,7 +812,6 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(spec.prefixChecker(q5));
     }
     /**
-<<<<<<< HEAD
      * Testuje działanie metody checkPrefix().
      * Bazuje bezpośrednio na teście metody prefixChecker()
      */
