@@ -472,6 +472,101 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(angle.accepts("x"));
         assertFalse(angle.accepts("qwertyuiopasdfghjklzxcvbnm1234567890"));
         assertFalse(angle.accepts(" "));
+
+    /**
+     * Testy dla metody addTransitionSequence().
+     */
+    public final void testAddTransitionSequence() {
+        // Tworzymy automat do testów
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+
+        // Proste testy ilości stanów i przejść
+        // Pusty ciąg przejść
+        State s0 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.addTransitionSequence(s0, "");
+        assertEquals(0, spec.countTransitions());
+        assertEquals(1, spec.countStates());
+
+        // Ciąg przejść składający się z jednego znaku
+        spec = new NaiveAutomatonSpecification();
+        s0 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.addTransitionSequence(s0, "a");
+        assertEquals(1, spec.countTransitions());
+        assertEquals(2, spec.countStates());
+
+        // Ciąg przejść składający się z jednego znaku
+        // i dodanie stanu na podstawie tego co zwróciła
+        // metoda addTransitionSequence()
+        spec = new NaiveAutomatonSpecification();
+        s0 = spec.addState();
+        spec.markAsInitial(s0);
+        State s1 = spec.addTransitionSequence(s0, "a");
+        spec.addTransition(s1, new CharTransitionLabel('b'));
+        assertEquals(2, spec.countTransitions());
+        assertEquals(3, spec.countStates());
+
+        // Ciąg przejść składający się z takich samych znaków
+        spec = new NaiveAutomatonSpecification();
+        s0 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.addTransitionSequence(s0, "aa");
+        assertEquals(2, spec.countTransitions());
+        assertEquals(3, spec.countStates());
+
+        // Ciąg przejść składający się z różnych znaków
+        spec = new NaiveAutomatonSpecification();
+        s0 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.addTransitionSequence(s0, "abc");
+        assertEquals(3, spec.countTransitions());
+        assertEquals(4, spec.countStates());
+
+        // Sprawdzamy czy przejścia mają odpowiednie oznaczenia oraz
+        // akceptują odpowiednie znaki, dla ciągu "abc"
+        State s;
+        List<OutgoingTransition> sOuts;
+
+        // Dla jasności pobieramy stan początkowy automatu
+        s = spec.getInitialState();
+
+        // Sprawdzamy możliwe przejścia ze stanu początkowego,
+        // sprawdzamy ich ilość, oznaczenia oraz jakie znaki akceptują
+        // (oczekujemy a)
+        sOuts = spec.allOutgoingTransitions(s);
+        assertEquals(1, sOuts.size());
+        assertEquals('a', ((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).getChar());
+        assertTrue(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+
+        // Kolejne przejście (oczekujemy b)
+        s = sOuts.get(0).getTargetState();
+        sOuts = spec.allOutgoingTransitions(s);
+        assertEquals(1, sOuts.size());
+        assertEquals('b', ((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).getChar());
+        assertTrue(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('b'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+
+        // Kolejne przejście (oczekujemy c)
+        s = sOuts.get(0).getTargetState();
+        sOuts = spec.allOutgoingTransitions(s);
+        assertEquals(1, sOuts.size());
+        assertEquals('c', ((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).getChar());
+        assertTrue(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+>>>>>>> a10d68566fb80015b7932a0ac09422c8a28baa1b
     }
 
     /**
@@ -566,8 +661,11 @@ public class TestAutomatonSpecification extends TestCase {
         class AutomatonString {
             private String states, transitions, istates, fstates;
 
-            public AutomatonString(String states, String transitions, String istates,
-                    String fstates) {
+            /**
+             * Ustala stany, przejścia, stan początkowy oraz stany końcowe
+             */
+            public AutomatonString(String states, String transitions,
+                    String istates, String fstates) {
                 this.states = states;
                 this.transitions = transitions;
                 this.istates = istates;

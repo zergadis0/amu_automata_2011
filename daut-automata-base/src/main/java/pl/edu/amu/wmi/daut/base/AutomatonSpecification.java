@@ -47,10 +47,10 @@ abstract class AutomatonSpecification implements Cloneable  {
     public State addTransitionSequence(State from, String text) {
         State prev = from;
         State next = prev;
-        int i = 1;
 
-        for (i = 1; i <= text.length(); i++) {
-            prev = addTransition(next, new CharTransitionLabel(text.charAt(i)));
+        for (int i = 1; i <= text.length(); i++) {
+            prev = addTransition(next,
+                    new CharTransitionLabel(text.charAt(i - 1)));
             next = prev;
         }
        return prev;
@@ -627,6 +627,14 @@ abstract class AutomatonSpecification implements Cloneable  {
         addLoop(q0, new CharTransitionLabel(c));
         markAsInitial(q0);
         markAsFinal(q0);
+    }
+
+    /**
+     * Metoda zwracającą wszystkie napisy akceptowane przez automat.
+     */
+    public AllAcceptedWords returnAllAcceptedWords() {
+        AllAcceptedWords words = new AllAcceptedWords(this);
+        return words;
     }
 };
 
