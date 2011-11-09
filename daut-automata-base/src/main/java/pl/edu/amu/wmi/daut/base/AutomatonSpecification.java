@@ -628,6 +628,14 @@ abstract class AutomatonSpecification implements Cloneable  {
         markAsInitial(q0);
         markAsFinal(q0);
     }
+
+    /**
+     * Metoda zwracającą wszystkie napisy akceptowane przez automat.
+     */
+    public AllAcceptedWords returnAllAcceptedWords() {
+        AllAcceptedWords words = new AllAcceptedWords(this);
+        return words;
+    }
 };
 
 class StructureException extends Exception {
