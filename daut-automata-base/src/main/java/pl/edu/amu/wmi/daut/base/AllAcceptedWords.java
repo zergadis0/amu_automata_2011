@@ -20,7 +20,7 @@ public class AllAcceptedWords implements Iterator<String> {
 
     private State state;
     private String word;
-    public StateWord(State s, String w) {
+    private StateWord(State s, String w) {
 
       state = s;
       word = w;
@@ -68,7 +68,7 @@ public class AllAcceptedWords implements Iterator<String> {
             newWord += "{cokolwiek poza " + ((ComplementCharClassTransitionLabel) tl)
                     .getSet().toString() + "}";
         else if (tl instanceof CharTransitionLabel)
-            newWord += ((CharTransitionLabel)tl).toString();
+            newWord += ((CharTransitionLabel) tl).toString();
         else if (tl instanceof EmptyTransitionLabel)
               throw new UnsupportedOperationException("Not supported yet.");
 
