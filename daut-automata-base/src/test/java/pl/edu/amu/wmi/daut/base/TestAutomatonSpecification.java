@@ -458,9 +458,9 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertEquals(spec.countTransitions(), 5);
     }
-    
+
     /**
-     *  
+     * Testy dla metody addTransitionSequence().
      */
     public final void testAddTransitionSequence() {
         // Tworzymy automat do testów
