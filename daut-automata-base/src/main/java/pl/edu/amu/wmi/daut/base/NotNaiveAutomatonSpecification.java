@@ -16,7 +16,7 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         public NotNaiveState() {
             outgoingTransitions = null;
         }
-        private LinkedList<OutgoingTransition> outgoingTransitions 
+        private LinkedList<OutgoingTransition> outgoingTransitions
                 = new LinkedList<OutgoingTransition>();
     }
 
@@ -28,8 +28,7 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         /**
          * Konstruuje przejscie.
          */
-        public NotNaiveTransition(NotNaiveState aFrom,
-                NotNaiveState aTo, TransitionLabel aTransitionLabel) {
+        public NotNaiveTransition(NotNaiveState aFrom, NotNaiveState aTo, TransitionLabel aTransitionLabel) {
             from = aFrom;
             to = aTo;
             transitionLabel = aTransitionLabel;
@@ -66,15 +65,11 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         return newState;
     }
 
-    /**
-     * Dodaje przejscie
-     */
     public void addTransition(State from, State to, TransitionLabel transitionLabel) {
         addToOutgoingList((NotNaiveState) from, (NotNaiveState) to, transitionLabel);
     }
-    
-    public void addToOutgoingList(NotNaiveState from, NotNaiveState to,
-            TransitionLabel transitionLabel) {
+
+    public void addToOutgoingList(NotNaiveState from, NotNaiveState to, TransitionLabel transitionLabel) {
         from.outgoingTransitions.add(new OutgoingTransition(transitionLabel, (State) to));
     }
 
