@@ -34,13 +34,13 @@ public class TestAutomataOperations extends TestCase {
         automatonB.markAsFinal(q12);
 
 
-        //AutomatonSpecification Result = AutomataOperations.intersection(automatonA, automatonB);
-        //AutomatonByRecursion automaton = AutomatonByRecursion(Result);
+        AutomatonSpecification Result = AutomataOperations.intersection(automatonA, automatonB);
+        AutomatonByRecursion automaton = new AutomatonByRecursion(Result);
 
-        //assertTrue(automaton.accepts("aa"));
-        //assertTrue(automaton.accepts("ab"));
-        //assertFalse(automaton.accepts(""));
-        //assertFalse(automaton.accepts("a"));
+        assertTrue(automaton.accepts("aa"));
+        assertTrue(automaton.accepts("ab"));
+        assertFalse(automaton.accepts(""));
+        assertFalse(automaton.accepts("a"));
 
     }
 }
