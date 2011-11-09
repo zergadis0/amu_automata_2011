@@ -201,7 +201,6 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(spec3.isFull("abc"));
     }
 
-
     /**
      * Test metody tworzącej prosty automat.
      */
@@ -237,6 +236,20 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         List<State> states = spec.allStates();
 
         assertEquals(states.size(), 2);
+    }
 
+    /**
+     * Test metody tworzącej automat akceptujący wszystkie napisy nad zadanym językiem.
+     */
+    public final void testMakeAllStringsAutomaton() {
+        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        spec.makeAllStringsAutomaton("abc");
+        assertTrue(spec.acceptEmptyWord());
+        AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
+        assertFalse(automaton.accepts("defffadegbc"));
+        assertFalse(automaton.accepts("abecadlo"));
+        assertTrue(automaton.accepts("abcbcabbbaaa"));
+        assertTrue(automaton.accepts("bbccaabcbabab"));
+        assertTrue(automaton.accepts("cacacacbbccccc"));
     }
 }

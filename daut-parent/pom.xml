@@ -41,7 +41,36 @@
          <surefire.jvm.args></surefire.jvm.args>
       </properties>
     </profile>
-   </profiles>
+
+    <!-- Obejście dziwnych problemów z Emmą: najpierw
+         uruchomić mvn -Pemma-run clean install, a potem
+         mvn emma:emma (w zwykłym profilu!) -->
+    <profile>
+      <id>emma-run</id>
+      <activation>
+         <activeByDefault>false</activeByDefault>
+      </activation>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>emma-maven-plugin</artifactId>
+            <version>1.0-alpha-3</version>
+            <inherited>true</inherited>          
+            <executions>
+              <execution>
+                <phase>process-classes</phase>               
+                <goals>
+                  <goal>instrument</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <build>
     <resources>
@@ -69,7 +98,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
 
         <configuration>
-            <skip>true</skip>
+          <skip>true</skip>
         </configuration>
 
         <executions>
@@ -109,7 +138,8 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>emma-maven-plugin</artifactId>
-        <version>1.0-alpha-2</version>
+        <version>1.0-alpha-3</version>
+        <inherited>true</inherited>          
       </plugin>
 
       <plugin>
@@ -229,7 +259,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>emma-maven-plugin</artifactId>
-        <version>1.0-alpha-2</version>
+        <version>1.0-alpha-3</version>
       </plugin>
 
       <plugin>
