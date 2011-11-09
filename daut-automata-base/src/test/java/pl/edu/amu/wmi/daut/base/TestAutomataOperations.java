@@ -83,4 +83,3 @@ public class TestAutomataOperations extends TestCase {
     }      
 }
 
-
