@@ -42,7 +42,7 @@ public class AutomataOperations {
      * wraz z wpisaniem jej oraz jej kombinacji stanów do HashMap.
      * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
      */
-    private boolean makeTransition(CombinedState combinedC, List newStates,
+    private static boolean makeTransition(CombinedState combinedC, List newStates,
             TransitionLabel transition, List<HashMap> hashMaps, State stateC,
             AutomatonSpecification automatonC, boolean isFinal) {
         State stateCn;
@@ -66,7 +66,7 @@ public class AutomataOperations {
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
      * dwa podane automaty.
      */
-    public AutomatonSpecification intersection(
+    public static AutomatonSpecification intersection(
             AutomatonSpecification automatonA, AutomatonSpecification automatonB) {
 
         boolean empty, isFinal = false;
@@ -182,7 +182,7 @@ public class AutomataOperations {
      * Zwraca automat akceptujący domknięcie Kleene'ego
      * języka akceptowanego przez dany automat.
      */
-    public AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
+    public static AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
         AutomatonSpecification kleeneautomaton = new NaiveAutomatonSpecification();
         State state1 = kleeneautomaton.addState();
         kleeneautomaton.markAsInitial(state1);
