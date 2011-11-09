@@ -207,7 +207,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     public final void testmakeOneTransitionAutomaton(char c) {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
-        spec = spec.makeOneTransitionAutomaton("c");
+        spec = spec.makeOneTransitionAutomaton('c');
 
         //testowanie
 
