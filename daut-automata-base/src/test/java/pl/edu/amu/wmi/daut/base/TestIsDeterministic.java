@@ -8,48 +8,30 @@ import java.util.List;
  */
 public class TestIsDeterministic extends TestCase {
 
-    /**
-     * Metoda testująca metodę isDeterministic.
-     */
-    public final void testIsDeterministic() {
 
-        //budowanie
-        AutomatonSpecification test = new NaiveAutomatonSpecification();
-        State s0 = test.addState();
+    public final void oneTransition() {
         
-        test.markAsInitial(s0);
-        test.markAsFinal(s0);
- 
-        test.addTransition(s0, new CharTransitionLabel('a'));
+        AutomatonSpecification aut = new NaiveAutomatonSpecification();
         
-        //testowanie
-        State r0 = test.getInitialState();
+        AutomatonSpecification automata = aut.makeOneTransitionAutomaton('a');
         
-        List<OutgoingTransition> OutgoingTransitionsList = test.allOutgoingTransitions(r0);
-        
-        assertEquals(OutgoingTransitionsList.size(), 1);
-        assertTrue(test.isFinal(r0));
-        
-        assertFalse(test.isFinal(s0));
-        assertTrue(test.isFinal(s0));
-        assertSame(r0, test.getInitialState());
-        assertSame(r0, s0);
+        assertTrue(automata.isDeterministic());
 
-        assertTrue(test.isDeterministic());
-        
-        
-        assertEquals(OutgoingTransitionsList.size(), 1);
-        assertTrue(test.isFinal(r0));
-        
-        assertFalse(test.isFinal(s0));
-        assertTrue(test.isFinal(s0));
-        assertSame(r0, test.getInitialState());
-        assertSame(r0, s0);
-    
-        List<State> states = test.allStates();
-
-        assertEquals(states.size(), 1);
-    
     }
-  
+    
+    /**public final void fourTransitions() {
+    	
+    	AutomatonSpecification aut = new NaiveAutomatonSpecification();
+    	
+    	State s0 = aut.addState();
+    	State s1 = aut.addState();
+    	State s2 = aut.addState();
+    	State s3 = aut.addState();
+    	
+    	
+    	
+    	spec.addTransition(s0, s1, new CharTransitionLabel('a'));
+    	
+    }*/
+
 };
