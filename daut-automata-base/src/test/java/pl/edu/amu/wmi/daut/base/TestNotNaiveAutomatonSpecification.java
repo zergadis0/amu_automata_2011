@@ -56,18 +56,18 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
         assertNotSame(r1, r2);
 
         List<State> states = spec.allStates();
-        
 
         assertEquals(states.size(), 3);
-        
-        State x0 = spec.getInitialState();
-        
-        List<OutgoingTransition> x0Outs = spec.getOutReturnOutgoingTransitions(x0);
-                
-        assertEquals(x0Outs.size(), 2);
-        
-        
-        
-       
+   
     }
+     public final void testSimpleNaiveCompatibleAutomaton() {
+        NotNaiveAutomatonSpecification spec2 = new NotNaiveAutomatonSpecification();
+    
+        State x0 = spec2.addState();
+        State x1 = spec2.addState();
+        spec2.addNaiveTransition(x0, x1, new CharTransitionLabel('x'));
+        
+        spec2.markAsInitial(x0);
+        spec2.markAsFinal(x1);
+     }
 }
