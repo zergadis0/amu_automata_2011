@@ -60,9 +60,8 @@ public class AutomataOperations {
 
         for (State state : pstates) {
             sstates.add(son.addState());
-            if (state == parent.getInitialState()) {
+            if (state == parent.getInitialState())
                 son.markAsFinal(sstates.get(sstates.size() - 1));
-            }
             else if (parent.isFinal(state)) {
                 EpsilonTransitionLabel eps = new EpsilonTransitionLabel();
                 son.addTransition(
@@ -81,10 +80,9 @@ public class AutomataOperations {
                         exist = true; currentstate = tmpstate; break;
                     }
                 }
-                if (exist) {
+                if (exist)
                     son.addTransition(
                             targetstate, currentstate, outtransition.getTransitionLabel());
-                }
                 else {
                     sstates.add(son.addState());
                     son.addTransition(targetstate, sstates.get(sstates.size() - 1),
