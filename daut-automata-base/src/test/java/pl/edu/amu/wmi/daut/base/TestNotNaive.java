@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * Przykładowe testy przykładowej klasy NaiveAutomatonSpecification.
  */
-public class TestNotNaiveAutomatonSpecification extends TestCase {
+public class TestNaiveAutomatonSpecification extends TestCase {
 
     /**
      * Test prostego automatu o trzech stanach.
      */
     public final void testSimpleAutomaton() {
-        NotNaiveAutomatonSpecification spec = new NotNaiveAutomatonSpecification();
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         // budowanie
 
@@ -67,26 +67,4 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
 
         assertEquals(states.size(), 3);
     }
-
-    /**
-     * Prosty test wyznaczania przecięcia.
-     */
-    public final void testIntersections() {
-        CharTransitionLabel tA1 = new CharTransitionLabel('a');
-        CharTransitionLabel tA2 = new CharTransitionLabel('a');
-        CharTransitionLabel tB = new CharTransitionLabel('b');
-        EmptyTransitionLabel emptyTransition = new EmptyTransitionLabel();
-
-        TransitionLabel intersectedA = tA1.intersect(tA2);
-        assertFalse(intersectedA.isEmpty());
-        assertTrue(intersectedA.canAcceptCharacter('a'));
-        assertFalse(intersectedA.canAcceptCharacter('b'));
-
-        assertTrue(tA1.intersect(tB).isEmpty());
-        assertTrue(tB.intersect(tA1).isEmpty());
-        assertTrue(emptyTransition.intersect(tA1).isEmpty());
-        assertTrue(tA1.intersect(emptyTransition).isEmpty());
-        assertTrue(emptyTransition.intersect(emptyTransition).isEmpty());
-    }
-
 }
