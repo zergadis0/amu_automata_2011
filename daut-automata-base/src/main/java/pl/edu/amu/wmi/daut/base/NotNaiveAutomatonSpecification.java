@@ -19,44 +19,8 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         public List<OutgoingTransition> returnOutgoingTrasitions() {
             return outgoingTransitions;
         }
-        
-        private LinkedList<OutgoingTransition> outgoingTransitions
-                = new LinkedList<OutgoingTransition>();
+        private LinkedList<OutgoingTransition> outgoingTransitions = new LinkedList<OutgoingTransition>();
     }
-
-    /**
-     * Pomocnicza klasa reprezentujaca przejscie.
-    
-    private static class NotNaiveTransition {
-
-        
-        public NotNaiveTransition(NotNaiveState aFrom, NotNaiveState aTo,
-                TransitionLabel aTransitionLabel) {
-            from = aFrom;
-            to = aTo;
-            transitionLabel = aTransitionLabel;
-        }
-
-        /
-        public NotNaiveState getSourceState() {
-            return from;
-        }
-
-        
-        public NotNaiveState getTargetState() {
-            return to;
-        }
-
-        
-        public TransitionLabel getTransitionLabel() {
-            return transitionLabel;
-        }
-        private NotNaiveState from;
-        private NotNaiveState to;
-        private TransitionLabel transitionLabel;
-    } */
-    
-    
 
     public NotNaiveState addState() {
         NotNaiveState newState = new NotNaiveState();
@@ -65,14 +29,9 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
     }
 
     public void addTransition(State from, State to, TransitionLabel transitionLabel) {
-        ((NotNaiveState)from).outgoingTransitions.add(new OutgoingTransition((CharTransitionLabel)transitionLabel, (State) to));
+        ((NotNaiveState) from).outgoingTransitions.add(new OutgoingTransition((CharTransitionLabel) transitionLabel, (State) to));
     }
-    /*
-    public void addNaiveTransition(State from, State to, TransitionLabel transitionLabel) {
-        naiveTransitions.add(new NotNaiveTransition((NotNaiveState) from, (NotNaiveState) to,
-                transitionLabel));
-    }*/
- 
+
     public void markAsInitial(State state) {
         initialState = (NotNaiveState) state;
     }
@@ -101,19 +60,12 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         }
 
         return false;
-    }   
-    
-    public List<OutgoingTransition> getOutReturnOutgoingTransitions(State from) {
-        return ((NotNaiveState)from).returnOutgoingTrasitions();
     }
-    
-    
-            
-            
+
+    public List<OutgoingTransition> getOutReturnOutgoingTransitions(State from) {
+        return ((NotNaiveState) from).returnOutgoingTrasitions();
+    }
     private LinkedList<State> allStates = new LinkedList<State>();
     private NotNaiveState initialState;
     private LinkedList<NotNaiveState> finalStates = new LinkedList<NotNaiveState>();
-   /* private LinkedList<NotNaiveTransition> naiveTransitions = new LinkedList<NotNaiveTransition>();
-
-     */
 }
