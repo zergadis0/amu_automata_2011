@@ -19,7 +19,8 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         public List<OutgoingTransition> returnOutgoingTrasitions() {
             return outgoingTransitions;
         }
-        private LinkedList<OutgoingTransition> outgoingTransitions = new LinkedList<OutgoingTransition>();
+        private LinkedList<OutgoingTransition> outgoingTransitions
+                = new LinkedList<OutgoingTransition>();
     }
 
     public NotNaiveState addState() {
@@ -29,7 +30,8 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
     }
 
     public void addTransition(State from, State to, TransitionLabel transitionLabel) {
-        ((NotNaiveState) from).outgoingTransitions.add(new OutgoingTransition((CharTransitionLabel) transitionLabel, (State) to));
+        ((NotNaiveState) from).outgoingTransitions.add(new
+                OutgoingTransition((CharTransitionLabel) transitionLabel, (State) to));
     }
 
     public void markAsInitial(State state) {
