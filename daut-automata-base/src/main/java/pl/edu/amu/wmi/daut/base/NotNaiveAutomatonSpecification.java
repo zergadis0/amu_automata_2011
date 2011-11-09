@@ -8,15 +8,15 @@ import java.util.LinkedList;
  */
 class NotNaiveAutomatonSpecification extends AutomatonSpecification {
 
-    class NotNaiveState implements State {
+    static class NotNaiveState implements State {
 
         /**
          * Konstruuje stan.
          */
         public NotNaiveState() {
-            OutgoingTransitions = null;
+            outgoingTransitions = null;
         }
-        private LinkedList<OutgoingTransition> OutgoingTransitions = new LinkedList<OutgoingTransition>();
+        private LinkedList<OutgoingTransition> outgoingTransitions = new LinkedList<OutgoingTransition>();
     }
 
     /**
@@ -27,7 +27,7 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         /**
          * Konstruuje przejscie.
          */
-        public NotNaiveTransition(NotNaiveState aFrom, 
+        public NotNaiveTransition(NotNaiveState aFrom,
                 NotNaiveState aTo, TransitionLabel aTransitionLabel) {
             from = aFrom;
             to = aTo;
@@ -76,7 +76,7 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
      * Konwertuje State na NotNaiveState 
      */
     public void addToOutgoingList(NotNaiveState from, NotNaiveState to, TransitionLabel transitionLabel) {
-        from.OutgoingTransitions.add(new OutgoingTransition(transitionLabel, (State) to));
+        from.outgoingTransitions.add(new OutgoingTransition(transitionLabel, (State) to));
     }
 
     public void markAsInitial(State state) {
@@ -92,7 +92,7 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
     }
 
     public List<OutgoingTransition> allOutgoingTransitions(State from) {
-        return ((NotNaiveState) from).OutgoingTransitions;
+        return ((NotNaiveState) from).outgoingTransitions;
     }
 
     public State getInitialState() {
@@ -108,9 +108,6 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
 
         return false;
     }
-    /**
-     * Deklaracja potrzebnych list.
-     */
     private LinkedList<State> allStates = new LinkedList<State>();
     private NotNaiveState initialState;
     private LinkedList<NotNaiveState> finalStates = new LinkedList<NotNaiveState>();
