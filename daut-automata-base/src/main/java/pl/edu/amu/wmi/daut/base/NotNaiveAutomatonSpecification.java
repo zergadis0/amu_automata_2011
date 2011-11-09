@@ -26,12 +26,10 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
 
     /**
      * Pomocnicza klasa reprezentujaca przejscie.
-     */
+    
     private static class NotNaiveTransition {
 
-        /**
-         * Konstruuje przejscie.
-         */
+        
         public NotNaiveTransition(NotNaiveState aFrom, NotNaiveState aTo,
                 TransitionLabel aTransitionLabel) {
             from = aFrom;
@@ -39,30 +37,26 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
             transitionLabel = aTransitionLabel;
         }
 
-        /**
-         * Zwraca stan zrodlowy.
-         */
+        /
         public NotNaiveState getSourceState() {
             return from;
         }
 
-        /**
-         * Zwraca stan docelowy.
-         */
+        
         public NotNaiveState getTargetState() {
             return to;
         }
 
-        /**
-         * Zwraca etykiete przejscia.
-         */
+        
         public TransitionLabel getTransitionLabel() {
             return transitionLabel;
         }
         private NotNaiveState from;
         private NotNaiveState to;
         private TransitionLabel transitionLabel;
-    }
+    } */
+    
+    
 
     public NotNaiveState addState() {
         NotNaiveState newState = new NotNaiveState();
@@ -73,11 +67,11 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
     public void addTransition(State from, State to, TransitionLabel transitionLabel) {
         ((NotNaiveState)from).outgoingTransitions.add(new OutgoingTransition((CharTransitionLabel)transitionLabel, (State) to));
     }
-    
+    /*
     public void addNaiveTransition(State from, State to, TransitionLabel transitionLabel) {
         naiveTransitions.add(new NotNaiveTransition((NotNaiveState) from, (NotNaiveState) to,
                 transitionLabel));
-    }
+    }*/
  
     public void markAsInitial(State state) {
         initialState = (NotNaiveState) state;
@@ -112,10 +106,14 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
     public List<OutgoingTransition> getOutReturnOutgoingTransitions(State from) {
         return ((NotNaiveState)from).returnOutgoingTrasitions();
     }
+    
+    
             
             
     private LinkedList<State> allStates = new LinkedList<State>();
     private NotNaiveState initialState;
     private LinkedList<NotNaiveState> finalStates = new LinkedList<NotNaiveState>();
-    private LinkedList<NotNaiveTransition> naiveTransitions = new LinkedList<NotNaiveTransition>();
+   /* private LinkedList<NotNaiveTransition> naiveTransitions = new LinkedList<NotNaiveTransition>();
+
+     */
 }
