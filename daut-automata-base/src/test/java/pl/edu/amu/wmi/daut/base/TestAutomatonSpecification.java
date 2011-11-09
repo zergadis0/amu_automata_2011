@@ -8,13 +8,6 @@ import junit.framework.TestCase;
 public class TestAutomatonSpecification extends TestCase {
 
     /**
-     * Test metody fromString(String)
-     */
-    public final void testFromString() {
-        
-    }
-    
-    /**
      * Test metody countStates.
      */
     public final void testCountStates() {
