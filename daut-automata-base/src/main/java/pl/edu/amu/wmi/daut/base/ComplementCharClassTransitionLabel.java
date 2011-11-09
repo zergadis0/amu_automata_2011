@@ -4,8 +4,8 @@
  */
 package pl.edu.amu.wmi.daut.base;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  *
@@ -19,7 +19,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      */
     ComplementCharClassTransitionLabel(String s) {
         int l = s.length();
-        se = new HashSet();
+        se = new TreeSet();
         for (int i = 0; i < l; i++) {
             if (s.charAt(i) == '-') {
                 if (i == 0 || i == l - 1) {
@@ -86,7 +86,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      * 
      * @return Zwraca set przechowujący spełniające podane wyrażenie regularne
      */
-    protected Set getSet() {
+    protected SortedSet getSet() {
         return se;
     }
 
@@ -95,7 +95,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      * @return Zwraca wyrażenie regularne jako String
      */
     private String getString(ComplementCharClassTransitionLabel label) {
-        Set set;
+        SortedSet set;
         set = ((ComplementCharClassTransitionLabel) label).getSet();
         for (Object o : se) {
             set.add(o);
@@ -161,5 +161,5 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
         return q;
 
     }
-    private Set se;
+    private SortedSet se;
 }
