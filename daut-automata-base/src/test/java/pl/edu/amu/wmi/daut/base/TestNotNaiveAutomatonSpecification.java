@@ -29,6 +29,36 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
         
         assertEquals(r0Outs.size(), 2);
         
+        State r1;
+        State r2;
+
+        if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
+            r1 = r0Outs.get(0).getTargetState();
+            r2 = r0Outs.get(1).getTargetState();
+            assertEquals(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).getChar(), 'b');
+            assertTrue(
+                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
+            assertFalse(
+                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
+            assertFalse(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
+        } else {
+            // kolejność może być odwrócona
+            r1 = r0Outs.get(1).getTargetState();
+            r2 = r0Outs.get(0).getTargetState();
+            assertEquals(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'b');
+        }
+
+        assertFalse(spec.isFinal(r1));
+        assertTrue(spec.isFinal(r2));
+        assertSame(r0, spec.getInitialState());
+        assertNotSame(r0, r1);
+        assertNotSame(r0, r2);
+        assertNotSame(r1, r2);
+
+        List<State> states = spec.allStates();
+
+        assertEquals(states.size(), 3);
+        
         
        
     }
