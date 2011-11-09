@@ -31,24 +31,24 @@ class CharSetTransitionLabel extends TransitionLabel {
 
     @Override
     public String toString() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append("{");
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
         for (Character c : charSet) {
-    		sb.append(c + ",");
-    	}
-    	sb.deleteCharAt(sb.length() - 1);
-    	sb.append("}");
-    	return sb.toString();
+            sb.append(c + ",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append("}");
+        return sb.toString();
     }
 
     protected TransitionLabel intersectWith(TransitionLabel label) {
-    	HashSet<Character> newCharSet = new HashSet<Character>();
-    	for (Character c : charSet) {
-    		if (label.canAcceptCharacter(c))
-    			newCharSet.add(c);
-    	}
+        HashSet<Character> newCharSet = new HashSet<Character>();
+        for (Character c : charSet) {
+            if (label.canAcceptCharacter(c))
+                newCharSet.add(c);
+        }
         return newCharSet.isEmpty()
-        		? new EmptyTransitionLabel() : new CharSetTransitionLabel(newCharSet);
+                ? new EmptyTransitionLabel() : new CharSetTransitionLabel(newCharSet);
     }
 
     private HashSet<Character> charSet;
