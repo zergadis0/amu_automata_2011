@@ -14,7 +14,6 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
          * Konstruuje stan.
          */
         public NotNaiveState() {
-            outgoingTransitions = null;
         }
 
         public List<OutgoingTransition> returnOutgoingTrasitions() {
@@ -71,14 +70,9 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
     }
 
     public void addTransition(State from, State to, TransitionLabel transitionLabel) {
-        addToOutgoingList((NotNaiveState) from, (NotNaiveState) to, transitionLabel);
+        ((NotNaiveState)from).outgoingTransitions.add(new OutgoingTransition((CharTransitionLabel)transitionLabel, (State) to));
     }
-
-    public void addToOutgoingList(NotNaiveState from, NotNaiveState to,
-            TransitionLabel transitionLabel) {
-        from.outgoingTransitions.add(new OutgoingTransition(transitionLabel, (State) to));
-    }
-
+ 
     public void markAsInitial(State state) {
         initialState = (NotNaiveState) state;
     }
