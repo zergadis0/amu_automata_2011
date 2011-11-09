@@ -23,7 +23,11 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
         
         State r0 = spec.getInitialState();
         
-        assertTrue(spec.isFinal(r0));
+        assertFalse(spec.isFinal(r0));
+        
+        List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
+        
+        assertEquals(r0Outs.size(), 2);
         
         
        
