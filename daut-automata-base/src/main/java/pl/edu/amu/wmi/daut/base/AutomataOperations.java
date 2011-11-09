@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class AutomataOperations {
 
-    protected AutomataOperations() { 
+    protected AutomataOperations() {
         throw new UnsupportedOperationException();
     }
 
