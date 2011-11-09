@@ -42,7 +42,7 @@ class CharRangeTransitionLabel extends TransitionLabel {
 
     protected TransitionLabel intersectWith(TransitionLabel label, TransitionLabel label2) {
 
-        if (label instanceof CharRangeTransitionLabel 
+        if (label instanceof CharRangeTransitionLabel
                 && label2 instanceof CharRangeTransitionLabel) {
 
             List<Character> labelList = new ArrayList<Character>();
