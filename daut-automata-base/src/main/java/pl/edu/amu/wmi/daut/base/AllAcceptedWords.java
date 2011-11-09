@@ -43,7 +43,7 @@ public class AllAcceptedWords implements Iterator<String> {
 
   private void prepareNextWord(boolean forced) {
 
-    if (nextWord == null && forced == false)
+    if (nextWord == null && !forced)
       return;
 
     while (!stack.empty()) {
@@ -65,9 +65,9 @@ public class AllAcceptedWords implements Iterator<String> {
         if (tl instanceof EpsilonTransitionLabel)
           newWord += "";
         else if (tl instanceof ComplementCharClassTransitionLabel)
-newWord += "{cokolwiek poza " + ((ComplementCharClassTransitionLabel)tl).getSet().toString() + "}";
+            newWord += "{cokolwiek poza " + ((ComplementCharClassTransitionLabel)tl).getSet().toString() + "}";
         else if (tl instanceof CharTransitionLabel)
-          newWord += ((CharTransitionLabel)tl).toString();
+            newWord += ((CharTransitionLabel)tl).toString();
         else if (tl instanceof EmptyTransitionLabel)
               throw new UnsupportedOperationException("Not supported yet.");
 
