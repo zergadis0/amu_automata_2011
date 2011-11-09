@@ -8,6 +8,11 @@ import java.util.List;
  */
 public class TestNotNaiveAutomatonSpecification extends TestCase {
 
+    /**
+     * Tworzymy prosty 3 stanowy automat.
+     * Testujemy na nim wszystkie polecenia podobnie
+     * jak na NaiveAutomaton
+     */
     public final void testSimpleAutomaton() {
         NotNaiveAutomatonSpecification spec = new NotNaiveAutomatonSpecification();
 
@@ -35,14 +40,16 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
         if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
             r1 = r0Outs.get(0).getTargetState();
             r2 = r0Outs.get(1).getTargetState();
-            assertEquals(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).getChar(), 'b');
+            assertEquals(((CharTransitionLabel)
+                    r0Outs.get(1).getTransitionLabel()).getChar(), 'b');
             assertTrue(
-                    ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
+                    ((CharTransitionLabel)
+                    r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
             assertFalse(
-                    ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
+                    ((CharTransitionLabel)
+                    r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
             assertFalse(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
         } else {
-            // kolejność może być odwrócona
             r1 = r0Outs.get(1).getTargetState();
             r2 = r0Outs.get(0).getTargetState();
             assertEquals(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'b');
