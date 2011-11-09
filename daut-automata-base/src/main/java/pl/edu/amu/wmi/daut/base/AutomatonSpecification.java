@@ -537,5 +537,4 @@ abstract class AutomatonSpecification {
         mini.insert(q5, this);
         return mini;
     }
-    
 };
