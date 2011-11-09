@@ -13,7 +13,7 @@ import java.util.HashMap;
  * odpowiadających na pytanie, czy automat akceptuje napis, czy nie),
  * tylko "zawartość" automatu.
  */
-abstract class AutomatonSpecification {
+abstract class AutomatonSpecification implements Cloneable  {
 
     // metody "budujące" automat
     /**
