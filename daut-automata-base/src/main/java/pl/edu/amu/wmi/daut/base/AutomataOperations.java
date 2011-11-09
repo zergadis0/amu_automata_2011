@@ -67,7 +67,7 @@ public class AutomataOperations {
      * wraz z wpisaniem jej oraz jej kombinacji stanów do HashMap.
      * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
      */
-    private boolean makeTransition(CombinedState combinedC, List newStates,
+    private static boolean makeTransition(CombinedState combinedC, List newStates,
             TransitionLabel transition, List<HashMap> hashMaps, State stateC,
             AutomatonSpecification automatonC, boolean isFinal) {
         State stateCn;
@@ -91,7 +91,7 @@ public class AutomataOperations {
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
      * dwa podane automaty.
      */
-    public AutomatonSpecification intersection(
+    public static AutomatonSpecification intersection(
             AutomatonSpecification automatonA, AutomatonSpecification automatonB) {
 
         boolean empty, isFinal = false;
@@ -108,8 +108,8 @@ public class AutomataOperations {
         List<OutgoingTransition> lA;
         List<OutgoingTransition> lB;
         List<State> lC = new java.util.LinkedList<State>();
-        List<State> temporary = new java.util.LinkedList<State>();
-        temporary.add(qC);
+        List<State> newStates = new java.util.LinkedList<State>();
+        newStates.add(qC);
 
         /*
          * combinedStatesC - zawiera łańcuch kontrolny odpowiadający kombinacji stanów A i B
@@ -131,8 +131,8 @@ public class AutomataOperations {
         statesCHandle.put(combinedC.toString(), qC);
 
         do {
-            lC.addAll(temporary);
-            temporary.clear();
+            lC.addAll(newStates);
+            newStates.clear();
             empty = true;
 
             for (State stateC : lC) {
@@ -157,7 +157,7 @@ public class AutomataOperations {
                             else
                                 isFinal = false;
                             empty = makeTransition(combinedC,
-                                    temporary, tL, hashMaps, stateC,
+                                    newStates, tL, hashMaps, stateC,
                                     automatonC, isFinal);
 
                             break;
@@ -174,7 +174,7 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        empty = makeTransition(combinedC, temporary,
+                        empty = makeTransition(combinedC, newStates,
                                 new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
                                 isFinal);
 
@@ -190,7 +190,7 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        empty = makeTransition(combinedC, temporary,
+                        empty = makeTransition(combinedC, newStates,
                                 new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
                                 isFinal);
 
