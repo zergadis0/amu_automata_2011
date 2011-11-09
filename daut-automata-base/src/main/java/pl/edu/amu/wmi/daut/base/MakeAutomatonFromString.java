@@ -144,9 +144,9 @@ public class MakeAutomatonFromString {
         if (name.startsWith("-[") && name.endsWith("]->"))
             return new ComplementCharClassTransitionLabel(name
                     .substring(2, name.length() - 2));
-        if (name.equals("-ANY->"))
-            return new AnyTransitionLabel();
-        throw new StructureException();
+        //if (name.equals("-ANY->"))
+        return new AnyTransitionLabel();
+        //throw new StructureException();
     }
 
     private void constructGraph() throws StructureException {
