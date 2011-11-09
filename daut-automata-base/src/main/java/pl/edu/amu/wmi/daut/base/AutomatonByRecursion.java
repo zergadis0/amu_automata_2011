@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
-import java.io.IOException;
 /**
  * klasa która decyduje czy automat zaakceptuje dany napis.
  */
@@ -16,7 +15,7 @@ public final class AutomatonByRecursion implements Acceptor {
      * (tzn.characters.charAt(from)) z wprowadzonego napisu,
      * jeśli sie zgadzają, porównuje stan docelowy przejścia.
      */
-    private void check(String text, int from, int toEnd, State state) throws IOException {
+    private void check(String text, int from, int toEnd, State state) {
         if (from > toEnd) {
             if (automaton.isFinal(state)) {
                 accept =  true;
@@ -28,7 +27,7 @@ public final class AutomatonByRecursion implements Acceptor {
                       for (OutgoingTransition transition : allOutTransitions) {
                           currentLabel = transition.getTransitionLabel();
                                   if (currentLabel.canBeEpsilon()) {
-                                      throw new IOException();
+                                      throw new RuntimeException();
                                   }
                           if (currentLabel.canAcceptCharacter(text.charAt(from))) {
                               check(text, from + 1, toEnd, transition.getTargetState());
@@ -42,7 +41,7 @@ public final class AutomatonByRecursion implements Acceptor {
         accept = false;
         try {
             check(text, 0, text.length() - 1, automaton.getInitialState());
-        } catch (IOException e) {
+        } catch (RuntimeException e) {
             accept = false;
         }
         return accept;
