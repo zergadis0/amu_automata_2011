@@ -6,7 +6,6 @@ import java.util.Set;
 * związane z automatami deterministycznymi.
 */
 public class DeterministicUtilities {
-	
      /**
      * Tworzy automat deterministyczny, który akceptuje napisy ze zbioru `language`
      * i nie akceptuje żadnych innych napisów. Automat powstaje przez
@@ -18,18 +17,14 @@ Set<String> language) {
     for (String s : language) {
         symbolsCounter += s.length();
     }
-    
     State[] q;
     q = new State[symbolsCounter];
     automaton.markAsInitial(q[0]);
     int statesCounter = 0;
-    
     for (String s : language) {
         int activeState = 0;
-        
         for ( ; activeState < s.length(); activeState++) {
             boolean leave = false;
-            
             for (int search = 0; search <= statesCounter; search++) {
                 if (automaton.targetState(q[activeState], s.charAt(activeState)) != null) {
                     activeState = search;
@@ -37,7 +32,6 @@ Set<String> language) {
                     break;
                 }
             }
-            
             if (!leave) {
                 statesCounter++;
                 q[statesCounter] = automaton.addState();
@@ -45,7 +39,6 @@ Set<String> language) {
 new CharTransitionLabel(s.charAt(activeState)));
             }
         }
-        
         automaton.markAsFinal(q[statesCounter]);
     }
     }
