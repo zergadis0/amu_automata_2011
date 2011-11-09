@@ -26,12 +26,10 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
 
     /**
      * Pomocnicza klasa reprezentujaca przejscie.
-     */
+     
     private static class NotNaiveTransition {
 
-        /**
-         * Konstruuje przejscie.
-         */
+        
         public NotNaiveTransition(NotNaiveState aFrom, NotNaiveState aTo,
                 TransitionLabel aTransitionLabel) {
             from = aFrom;
@@ -39,19 +37,14 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
             transitionLabel = aTransitionLabel;
         }
 
-        /**
-         * Zwraca stan zrodlowy.
-         */
+        
         public NotNaiveState getSourceState() {
             return from;
         }
 
-        /**
-         * Zwraca stan docelowy.
-         */
         public NotNaiveState getTargetState() {
             return to;
-        }
+        }*/
 
         /**
          * Zwraca etykiete przejscia.
