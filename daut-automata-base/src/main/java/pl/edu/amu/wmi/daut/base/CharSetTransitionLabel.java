@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Implementacja TransitionLabel reprezentujaca przejscie po podanym znaku .
+ * Implementacja TransitionLabel reprezentujaca przejscie po dowolnym znaku danego zbioru .
  */
 class CharSetTransitionLabel extends TransitionLabel {
     /**
-    * Konstruuje etykietę oznaczoną znakiem 'c'.
+    * Konstruuje etykietę oznaczoną zbiorem znakow 'charSet'.
     */
     public CharSetTransitionLabel(Set<Character> charSet) {
         this.charSet = charSet;
@@ -35,9 +35,9 @@ class CharSetTransitionLabel extends TransitionLabel {
     	StringBuilder sb = new StringBuilder();
     	sb.append("{");
     	for (Character c : charSet) {
-    		sb.append(c+",");
+    		sb.append(c + ",");
     	}
-    	sb.deleteCharAt(sb.length()-1);
+    	sb.deleteCharAt(sb.length() - 1);
     	sb.append("}");
         return sb.toString();
     }
@@ -48,7 +48,8 @@ class CharSetTransitionLabel extends TransitionLabel {
     		if (label.canAcceptCharacter(c))
     			newCharSet.add(c);
     	}
-        return newCharSet.isEmpty() ? new EmptyTransitionLabel() : new CharSetTransitionLabel(newCharSet) ;
+        return newCharSet.isEmpty() ? 
+        		new EmptyTransitionLabel() : new CharSetTransitionLabel(newCharSet);
     }
 
     private Set<Character> charSet;
