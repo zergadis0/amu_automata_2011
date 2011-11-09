@@ -73,6 +73,11 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
     public void addTransition(State from, State to, TransitionLabel transitionLabel) {
         ((NotNaiveState)from).outgoingTransitions.add(new OutgoingTransition((CharTransitionLabel)transitionLabel, (State) to));
     }
+    
+    public void addNaiveTransition(State from, State to, TransitionLabel transitionLabel) {
+        naiveTransitions.add(new NotNaiveTransition((NotNaiveState) from, (NotNaiveState) to,
+                transitionLabel));
+    }
  
     public void markAsInitial(State state) {
         initialState = (NotNaiveState) state;
@@ -112,4 +117,5 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
     private LinkedList<State> allStates = new LinkedList<State>();
     private NotNaiveState initialState;
     private LinkedList<NotNaiveState> finalStates = new LinkedList<NotNaiveState>();
+    private LinkedList<NotNaiveTransition> naiveTransitions = new LinkedList<NotNaiveTransition>();
 }
