@@ -205,7 +205,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
      * Test metody tworzącej prosty automat.
      */
     public final void testmakeOneTransitionAutomaton(char c) {
-        NaiveAutomatonSpecification spec = new AutomatonSpecification();
+    	AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         spec = spec.makeOneTransitionAutomaton(c);
 
