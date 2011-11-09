@@ -9,29 +9,84 @@ import java.util.List;
 public class TestNotNaiveAutomatonSpecification extends TestCase {
 
     /**
-     * Prosta etykieta przejścia dla celów testowych.
+     * Test prostego automatu o trzech stanach.
      */
-    private static class TestTransition implements TransitionLabel {
-        /**
-         * Konstruuje etykietę oznaczoną znakiem 'c'.
-         */
-        public TestTransition(char c) {
-            ch_ = c;
+    public final void testSimpleAutomaton() {
+        NotNaiveAutomatonSpecification spec = new NotNaiveAutomatonSpecification();
+
+        // budowanie
+
+        State s0 = spec.addState();
+        State s1 = spec.addState();
+        spec.addTransition(s0, s1, new CharTransitionLabel('a'));
+        State s2 = spec.addState();
+        spec.addTransition(s0, s2, new CharTransitionLabel('b'));
+        spec.addTransition(s1, s2, new CharTransitionLabel('c'));
+
+        spec.markAsInitial(s0);
+        spec.markAsFinal(s2);
+
+        // testowanie
+
+        State r0 = spec.getInitialState();
+
+        List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
+
+        // w ten sposób w JUnicie wyrażamy oczekiwanie, że liczba
+        // przejść wychodzących z początkowego stanu powinna być równa 2
+        assertEquals(r0Outs.size(), 2);
+        assertFalse(spec.isFinal(r0));
+
+        State r1;
+        State r2;
+
+        if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
+            r1 = r0Outs.get(0).getTargetState();
+            r2 = r0Outs.get(1).getTargetState();
+            assertEquals(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).getChar(), 'b');
+            assertTrue(
+                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
+            assertFalse(
+                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
+            assertFalse(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
+        } else {
+            // kolejność może być odwrócona
+            r1 = r0Outs.get(1).getTargetState();
+            r2 = r0Outs.get(0).getTargetState();
+            assertEquals(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'b');
         }
 
-        public boolean canBeEpsilon() {
-            return false;
-        }
+        assertFalse(spec.isFinal(r1));
+        assertTrue(spec.isFinal(r2));
+        assertSame(r0, spec.getInitialState());
+        assertNotSame(r0, r1);
+        assertNotSame(r0, r2);
+        assertNotSame(r1, r2);
 
-        public boolean canAcceptCharacter(char c) {
-            return c == ch_;
-        }
+        List<State> states = spec.allStates();
 
-        public char getChar() {
-            return ch_;
-        }
-
-        private char ch_;
+        assertEquals(states.size(), 3);
     }
 
-    
+    /**
+     * Prosty test wyznaczania przecięcia.
+     */
+    public final void testIntersections() {
+        CharTransitionLabel tA1 = new CharTransitionLabel('a');
+        CharTransitionLabel tA2 = new CharTransitionLabel('a');
+        CharTransitionLabel tB = new CharTransitionLabel('b');
+        EmptyTransitionLabel emptyTransition = new EmptyTransitionLabel();
+
+        TransitionLabel intersectedA = tA1.intersect(tA2);
+        assertFalse(intersectedA.isEmpty());
+        assertTrue(intersectedA.canAcceptCharacter('a'));
+        assertFalse(intersectedA.canAcceptCharacter('b'));
+
+        assertTrue(tA1.intersect(tB).isEmpty());
+        assertTrue(tB.intersect(tA1).isEmpty());
+        assertTrue(emptyTransition.intersect(tA1).isEmpty());
+        assertTrue(tA1.intersect(emptyTransition).isEmpty());
+        assertTrue(emptyTransition.intersect(emptyTransition).isEmpty());
+    }
+
+}
