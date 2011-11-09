@@ -8,7 +8,7 @@ import java.util.LinkedList;
  */
 class NotNaiveAutomatonSpecification extends AutomatonSpecification {
 
-    static class NotNaiveState implements State {
+    class NotNaiveState implements State {
 
         /**
          * Konstruuje stan.
@@ -27,7 +27,8 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         /**
          * Konstruuje przejscie.
          */
-        public NotNaiveTransition(NotNaiveState aFrom, NotNaiveState aTo, TransitionLabel aTransitionLabel) {
+        public NotNaiveTransition(NotNaiveState aFrom, 
+                NotNaiveState aTo, TransitionLabel aTransitionLabel) {
             from = aFrom;
             to = aTo;
             transitionLabel = aTransitionLabel;
