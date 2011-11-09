@@ -9,6 +9,10 @@ import java.util.HashMap;
  */
 public class AutomataOperations {
 
+    protected AutomataOperations() { 
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
      * intersection.
