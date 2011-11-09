@@ -3,13 +3,13 @@ package pl.edu.amu.wmi.daut.base;
 import junit.framework.TestCase;
 
 /**
- * Testy różnych operacji na automatach.
- */
+* Testy różnych operacji na automatach.
+*/
 public class TestAutomataOperations extends TestCase {
 
     /**
-     * Test prostego automatu.
-     */
+* Test prostego automatu.
+*/
     public final void testSimpleAutomaton() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
@@ -45,5 +45,40 @@ public class TestAutomataOperations extends TestCase {
         // assertFalse(automaton.accepts("a"));
 
     }
+    /** Test sprawdza metode Sum w AutomataOperations. */
+    public final void testSum() {
+        /*Automat A */
+        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+            State q0 = automatonA.addState();
+            State q1 = automatonA.addState();
+            automatonA.addTransition(q0, q1, new CharTransitionLabel('a'));
+            automatonA.addLoop(q1, new CharTransitionLabel('a'));
+            automatonA.addLoop(q1, new CharTransitionLabel('b'));
+            automatonA.markAsInitial(q0);
+            automatonA.markAsFinal(q1);
+        /*Automat B*/
+        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
+            State q0B = automatonB.addState();
+            State q1B = automatonB.addState();
+            State q2B = automatonB.addState();
+            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('a'));
+            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('b'));
+            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('a'));
+            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('b'));
+            automatonB.markAsInitial(q0B);
+            automatonB.markAsFinal(q2B);
+        /* Test A z B ok */
+            AutomatonSpecification result = AutomataOperations.sum(automatonA, automatonB);
+            NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(result);
+            assertTrue(automaton.accepts("aa"));
+            assertTrue(automaton.accepts("ba"));
+            assertTrue(automaton.accepts("aaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaa"));
+            assertTrue(automaton.accepts("bb"));
+            assertTrue(automaton.accepts("abbbbabbbabbb"));
+            assertFalse(automaton.accepts("bbb"));
+            assertFalse(automaton.accepts("Tegomaniezakceptowac"));
+            assertFalse(automaton.accepts("baaaaaaaaaa"));
+            assertFalse(automaton.accepts("aaaaaaaaaaaaaaaxaaaaaa"));
+            assertFalse(automaton.accepts("bab"));
+    }
 }
-
