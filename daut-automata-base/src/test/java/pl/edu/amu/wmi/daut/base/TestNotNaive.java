@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * Przykładowe testy przykładowej klasy NaiveAutomatonSpecification.
  */
-public class TestNaiveAutomatonSpecification extends TestCase {
+public class TestNotNaiveAutomatonSpecification extends TestCase {
 
     /**
      * Test prostego automatu o trzech stanach.
      */
     public final void testSimpleAutomaton() {
-        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+        NotNaiveAutomatonSpecification spec = new NotNaiveAutomatonSpecification();
 
         // budowanie
 
