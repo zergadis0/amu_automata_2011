@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * Klasa zwierająca operacje na automatach.
  */
-public static class AutomataOperations {
+public class AutomataOperations {
 
     /**
      * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
