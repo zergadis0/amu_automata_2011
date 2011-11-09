@@ -69,7 +69,7 @@ public class TestAutomataOperations extends TestCase {
             automatonB.markAsFinal(q2B);
         /* Test A z B ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonA, automatonB);
-            AutomatonByStack automaton = new AutomatonByStack(result);
+            NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts("aa"));
             assertTrue(automaton.accepts("ba"));
             assertTrue(automaton.accepts("aaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaa"));
