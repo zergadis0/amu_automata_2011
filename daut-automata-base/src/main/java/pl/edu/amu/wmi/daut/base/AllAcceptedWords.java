@@ -16,7 +16,7 @@ import java.util.HashSet;
 public class AllAcceptedWords implements Iterator<String> {
   private AutomatonSpecification automat;
 
-  final private static class StateWord {
+  private static final class StateWord {
 
     private State state;
     private String word;
