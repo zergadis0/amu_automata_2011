@@ -60,14 +60,5 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
         assertEquals(states.size(), 3);
    
     }
-     public final void testSimpleNaiveCompatibleAutomaton() {
-        NotNaiveAutomatonSpecification spec2 = new NotNaiveAutomatonSpecification();
-    
-        State x0 = spec2.addState();
-        State x1 = spec2.addState();
-        spec2.addNaiveTransition(x0, x1, new CharTransitionLabel('x'));
-        
-        spec2.markAsInitial(x0);
-        spec2.markAsFinal(x1);
-     }
+     
 }
