@@ -56,8 +56,16 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
         assertNotSame(r1, r2);
 
         List<State> states = spec.allStates();
+        
 
         assertEquals(states.size(), 3);
+        
+        State x0 = spec.getInitialState();
+        
+        List<OutgoingTransition> x0Outs = spec.getOutReturnOutgoingTransitions(x0);
+                
+        assertEquals(x0Outs.size(), 2);
+        
         
         
        
