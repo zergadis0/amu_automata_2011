@@ -1,15 +1,11 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
 import java.util.LinkedList;
 import java.util.HashMap;
 
 /**
-<<<<<<< HEAD
 * Klasa zwierająca operacje na automatach.
 */
 public class AutomataOperations {
@@ -23,21 +19,6 @@ public class AutomataOperations {
         /**
 * Przypisuje stanowi C jego składowe stany A i B.
 */
-=======
- * Klasa zwierająca operacje na automatach.
- */
-public class AutomataOperations {
-
-    /**
-     * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
-     * intersection.
-     */
-    private static final class CombinedState {
-
-        /**
-         * Przypisuje stanowi C jego składowe stany A i B.
-         */
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
         public void set(State a, State b) {
             qA = a;
             qB = b;
@@ -57,7 +38,6 @@ public class AutomataOperations {
     }
 
     /**
-<<<<<<< HEAD
     *Metoda zwraca automat akceptujący odwrócenie języka,
     * akceptowanego przez dany automat "parent".
     */
@@ -120,15 +100,7 @@ public class AutomataOperations {
 * wraz z wpisaniem jej oraz jej kombinacji stanów do HashMap.
 * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
 */
-    private boolean makeTransition(CombinedState combinedC, List newStates,
-=======
-     * Metoda tworzy przejscie od stanu stateC do nowego stanu utworzonego przez pare A i B w
-     * combinedC po etykiecie transition. Dodanie nowo utworzonego stanu stateCn do listy newStates
-     * wraz z wpisaniem jej oraz jej kombinacji stanów do HashMap.
-     * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
-     */
     private static boolean makeTransition(CombinedState combinedC, List newStates,
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
             TransitionLabel transition, List<HashMap> hashMaps, State stateC,
             AutomatonSpecification automatonC, boolean isFinal) {
         State stateCn;
@@ -149,17 +121,10 @@ public class AutomataOperations {
         return empty;
     }
     /**
-<<<<<<< HEAD
 * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
 * dwa podane automaty.
 */
-    public AutomatonSpecification intersection(
-=======
-     * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
-     * dwa podane automaty.
-     */
     public static AutomatonSpecification intersection(
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
             AutomatonSpecification automatonA, AutomatonSpecification automatonB) {
 
         boolean empty, isFinal = false;
@@ -176,9 +141,8 @@ public class AutomataOperations {
         List<OutgoingTransition> lA;
         List<OutgoingTransition> lB;
         List<State> lC = new java.util.LinkedList<State>();
-<<<<<<< HEAD
-        List<State> temporary = new java.util.LinkedList<State>();
-        temporary.add(qC);
+        List<State> newStates = new java.util.LinkedList<State>();
+        newStates.add(qC);
 
         /*
 * combinedStatesC - zawiera łańcuch kontrolny odpowiadający kombinacji stanów A i B
@@ -186,17 +150,6 @@ public class AutomataOperations {
 * statesCHandle - zawiera uchwyt do stanu C poprzez łańcuch kontrolny jego kombinacji
 * stanów A i B
 */
-=======
-        List<State> newStates = new java.util.LinkedList<State>();
-        newStates.add(qC);
-
-        /*
-         * combinedStatesC - zawiera łańcuch kontrolny odpowiadający kombinacji stanów A i B
-         * statesC - zawiera stan C z łańcuchem kobminacji jego stanów A i B
-         * statesCHandle - zawiera uchwyt do stanu C poprzez łańcuch kontrolny jego kombinacji
-         * stanów A i B
-         */
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
         HashMap<String, CombinedState> combinedStatesC = new HashMap<String, CombinedState>();
         HashMap<State, String> statesC = new HashMap<State, String>();
         HashMap<String, State> statesCHandle = new HashMap<String, State>();
@@ -211,13 +164,8 @@ public class AutomataOperations {
         statesCHandle.put(combinedC.toString(), qC);
 
         do {
-<<<<<<< HEAD
-            lC.addAll(temporary);
-            temporary.clear();
-=======
             lC.addAll(newStates);
             newStates.clear();
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
             empty = true;
 
             for (State stateC : lC) {
@@ -242,11 +190,7 @@ public class AutomataOperations {
                             else
                                 isFinal = false;
                             empty = makeTransition(combinedC,
-<<<<<<< HEAD
-                                    temporary, tL, hashMaps, stateC,
-=======
                                     newStates, tL, hashMaps, stateC,
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
                                     automatonC, isFinal);
 
                             break;
@@ -263,11 +207,7 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-<<<<<<< HEAD
-                        empty = makeTransition(combinedC, temporary,
-=======
                         empty = makeTransition(combinedC, newStates,
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
                                 new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
                                 isFinal);
 
@@ -283,11 +223,7 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-<<<<<<< HEAD
-                        empty = makeTransition(combinedC, temporary,
-=======
                         empty = makeTransition(combinedC, newStates,
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
                                 new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
                                 isFinal);
 
@@ -301,15 +237,9 @@ public class AutomataOperations {
         return automatonC;
     }
     /**
-<<<<<<< HEAD
 * Zwraca automat akceptujący domknięcie Kleene'ego
 * języka akceptowanego przez dany automat.
 */
-=======
-     * Zwraca automat akceptujący domknięcie Kleene'ego
-     * języka akceptowanego przez dany automat.
-     */
->>>>>>> 6974a3016e109af59e9173dce8efde76f75475e4
     public AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
         AutomatonSpecification kleeneautomaton = new NaiveAutomatonSpecification();
         State state1 = kleeneautomaton.addState();
