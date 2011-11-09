@@ -50,7 +50,7 @@ public class AutomataOperations {
 
         List<State> pstates = new ArrayList<State>();
         List<State> sstates = new ArrayList<State>();
-        pstates = parent.allStates();
+        pstates.addAll(parent.allStates());
 
         List<OutgoingTransition> outtransitions =
                 new ArrayList<OutgoingTransition>();
@@ -69,7 +69,7 @@ public class AutomataOperations {
                         sstates.get(0), sstates.get(sstates.size() - 1), eps);
             }
 
-            outtransitions = parent.allOutgoingTransitions(state);
+            outtransitions.addAll(parent.allOutgoingTransitions(state));
 
             for (OutgoingTransition outtransition : outtransitions) {
 
