@@ -20,7 +20,7 @@ public class AllAcceptedWords implements Iterator<String> {
 
     private State state;
     private String word;
-    public StateWord(State s, String w) {
+    private StateWord(State s, String w) {
 
       state = s;
       word = w;
