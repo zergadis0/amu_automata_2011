@@ -32,8 +32,8 @@ class CharSetTransitionLabel extends TransitionLabel {
     @Override
     public String toString() {
     	StringBuilder sb = new StringBuilder();
-        sb.append("{");
-    	for (Character c : charSet) {
+    	sb.append("{");
+        for (Character c : charSet) {
     		sb.append(c + ",");
     	}
     	sb.deleteCharAt(sb.length() - 1);
