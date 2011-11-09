@@ -215,6 +215,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(spec.prefixChecker(q5));
     }
     /**
+<<<<<<< HEAD
      * Testuje działanie metody checkPrefix().
      * Bazuje bezpośrednio na teście metody prefixChecker()
      */
@@ -276,6 +277,21 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(spec.checkPrefix("abaabacac"));
         assertFalse(spec.checkPrefix("caccb"));
         assertFalse(spec.checkPrefix("bac"));
+    }
 
+    /**
+     *test automatu pustego.
+     */
+    public final void testIsEmpty() {
+        AutomatonSpecification automat = new NaiveAutomatonSpecification();
+        assertTrue(automat.isEmpty());
+    }
+    /**
+     *test automatu niepustego.
+     */
+    public final void testIsEmptyforNotEmpty() {
+        AutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s1 = automat.addState();
+        assertFalse(automat.isEmpty());
     }
 }
