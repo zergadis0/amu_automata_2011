@@ -111,10 +111,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertEquals(r0Outs.size(), 1);
         assertTrue(spec.isFinal(r0));
 
-        State r1;
-
         if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a') {
-            r1 = r0Outs.get(0).getTargetState();
             assertEquals(
                 ((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar(), 'a');
             assertTrue(
@@ -218,7 +215,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertEquals(r0Outs.size(), 1);
         assertFalse(spec.isFinal(r0));
 
-        State r1 = r0Outs.get(0).getTargetState();;
+        State r1 = r0Outs.get(0).getTargetState();
 
         if (((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'c') {
             assertEquals(
