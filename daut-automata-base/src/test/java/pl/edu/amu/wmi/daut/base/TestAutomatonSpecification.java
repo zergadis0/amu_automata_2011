@@ -163,6 +163,16 @@ public class TestAutomatonSpecification extends TestCase {
 
         str = new AutomatonString("", "", "", "");
         assertEquals(str.toString(), ta4.toString());
+
+        // Piąty testowy automat:
+        // Brak stanów początkowych i końcowych
+        NaiveAutomatonSpecification ta5 = new NaiveAutomatonSpecification();
+
+        State ta5s0 = ta5.addState();
+        ta5.addTransition(ta5s0, ta5s0, new CharTransitionLabel('a'));
+
+        str = new AutomatonString("q0", "q0 -a-> q0", "", "");
+        assertEquals(str.toString(), ta5.toString());
     }
     /**
      * Testuje działanie metody testPrefixChecker().
