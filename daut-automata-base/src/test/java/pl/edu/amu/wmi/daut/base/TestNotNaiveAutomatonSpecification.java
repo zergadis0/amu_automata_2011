@@ -17,18 +17,18 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
         State s2 = spec.addState();
         spec.addTransition(s0, s2, new CharTransitionLabel('b'));
         spec.addTransition(s1, s2, new CharTransitionLabel('c'));
-        
+
         spec.markAsInitial(s0);
         spec.markAsFinal(s2);
-        
+
         State r0 = spec.getInitialState();
-        
+
         assertFalse(spec.isFinal(r0));
-        
+
         List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
-        
+
         assertEquals(r0Outs.size(), 2);
-        
+
         State r1;
         State r2;
 
@@ -37,9 +37,9 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
             r2 = r0Outs.get(1).getTargetState();
             assertEquals(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).getChar(), 'b');
             assertTrue(
-                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
+                    ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('b'));
             assertFalse(
-                ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
+                    ((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canAcceptCharacter('c'));
             assertFalse(((CharTransitionLabel) r0Outs.get(1).getTransitionLabel()).canBeEpsilon());
         } else {
             // kolejność może być odwrócona
@@ -58,14 +58,13 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
         List<State> states = spec.allStates();
 
         assertEquals(states.size(), 3);
-        
+
         State x0 = spec.getInitialState();
-        
-        
+
+
         List<OutgoingTransition> x0Outs = spec.getOutReturnOutgoingTransitions(x0);
-        
+
         assertEquals(x0Outs.size(), 2);
-   
+
     }
-     
 }
