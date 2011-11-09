@@ -41,6 +41,7 @@ public class TestIsDeterministic extends TestCase {
 
         assertFalse(aut.isDeterministic());
     }
+
     /**
      * Metoda testujaca metodę isDeterministic.
      */
@@ -72,6 +73,9 @@ public class TestIsDeterministic extends TestCase {
         assertFalse(aut.isDeterministic());
     }
 
+    /**
+     * Metoda testujaca metodę isDeterministic.
+     */
     public final void testEmptyAutomaton() {
 
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
