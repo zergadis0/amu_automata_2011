@@ -52,32 +52,27 @@ public class TestAutomataOperations extends TestCase {
             State q0 = automatonA.addState();
             State q1 = automatonA.addState();
             automatonA.addTransition(q0, q1, new CharTransitionLabel('a'));
-            automatonA.addLoop(q1, new CharTransitionLabel('a'));
-            automatonA.addLoop(q1, new CharTransitionLabel('b'));
+            automatonA.addTransition(q0, q1, new CharTransitionLabel('b'));
             automatonA.markAsInitial(q0);
             automatonA.markAsFinal(q1);
             /*Automat B*/
             AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-            State q0B = automatonB.addState();
-            State q1B = automatonB.addState();
-            State q2B = automatonB.addState();
-            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('a'));
-            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('b'));
-            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('a'));
-            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('b'));
-            automatonB.markAsInitial(q0B);
-            automatonB.markAsFinal(q2B);
+            State q01 = automatonB.addState();
+            State q11 = automatonB.addState();
+            State q21 = automatonB.addState();
+            automatonB.addTransition(q01, q11, new CharTransitionLabel('a'));
+            automatonB.addTransition(q01, q11, new CharTransitionLabel('b'));
+            automatonB.addTransition(q11, q21, new CharTransitionLabel('a'));
+            automatonB.addTransition(q11, q21, new CharTransitionLabel('b'));
+            automatonB.markAsInitial(q01);
+            automatonB.markAsFinal(q21);
             
             AutomatonSpecification result = AutomataOperations.sum(automatonA, automatonB);
             NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(result);
-            assertTrue(automaton.accepts("aa"));
+            assertTrue(automaton.accepts("a"));
             assertTrue(automaton.accepts("ba"));
-            assertTrue(automaton.accepts("aaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaa"));
             assertTrue(automaton.accepts("bb"));
-            assertTrue(automaton.accepts("abbbbabbbabbb"));
             assertFalse(automaton.accepts("bbb"));
-            assertFalse(automaton.accepts("egomaniezakceptowac"));
-            assertFalse(automaton.accepts("baaaaaaaaaa"));
             assertFalse(automaton.accepts("aaaaaaaaaaaaaaaxaaaaaa"));
             assertFalse(automaton.accepts("bab"));
      }
