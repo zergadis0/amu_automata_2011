@@ -1,6 +1,9 @@
 package pl.edu.amu.wmi.daut.base;
 
+<<<<<<< HEAD
 import java.util.Set;
+=======
+>>>>>>> 62eab0f8d1629c03d65ba0907bed672165cc11cd
 import java.util.List;
 import java.util.LinkedList;
 import java.util.HashMap;
@@ -9,6 +12,7 @@ import java.util.HashMap;
  * Klasa zwierająca operacje na automatach.
  */
 public class AutomataOperations {
+<<<<<<< HEAD
 
     protected AutomataOperations() {
         throw new UnsupportedOperationException(); // prevents calls from subclass
@@ -27,6 +31,8 @@ public class AutomataOperations {
         //return returned;
         return automaton;
     }
+=======
+>>>>>>> 62eab0f8d1629c03d65ba0907bed672165cc11cd
 
     /**
      * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
