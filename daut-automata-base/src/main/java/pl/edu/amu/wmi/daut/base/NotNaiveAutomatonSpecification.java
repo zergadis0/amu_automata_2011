@@ -20,7 +20,8 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         public List<OutgoingTransition> returnOutgoingTrasitions() {
             return outgoingTransitions;
         }
-        private LinkedList<OutgoingTransition> outgoingTransitions = new LinkedList<OutgoingTransition>();
+        private LinkedList<OutgoingTransition> outgoingTransitions
+                = new LinkedList<OutgoingTransition>();
     }
 
     /**
