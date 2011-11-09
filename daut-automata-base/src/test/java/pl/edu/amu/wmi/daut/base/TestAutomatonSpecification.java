@@ -470,11 +470,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(angle.accepts("qqqqqq"));
         assertTrue(angle.accepts(""));
         assertFalse(angle.accepts("x"));
-        String str = new String("qwertyuiopasdfghjklzxcvbnm1234567890");
-        for (int i = 0; i < 1000; i++) {
-            str = str + str;
-        }
-        assertFalse(angle.accepts(str));
+        assertFalse(angle.accepts("qwertyuiopasdfghjklzxcvbnm1234567890"));
         assertFalse(angle.accepts(" "));
     }
 
