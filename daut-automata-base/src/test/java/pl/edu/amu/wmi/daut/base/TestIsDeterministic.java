@@ -17,7 +17,7 @@ public class TestIsDeterministic extends TestCase {
 
         assertTrue(automata.isDeterministic());
     }
-    
+
     /**
      * Metoda testujaca metodę isDeterministic.
      */
