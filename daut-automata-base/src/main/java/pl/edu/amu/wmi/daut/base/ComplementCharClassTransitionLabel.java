@@ -93,9 +93,12 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      * @return Zwraca wyrażenie regularne jako String
      */
     private String getString(ComplementCharClassTransitionLabel label) {
-        SortedSet set;
-        set = ((ComplementCharClassTransitionLabel) label).getSet();
+        SortedSet set = new TreeSet(), set1;
+        set1 = ((ComplementCharClassTransitionLabel) label).getSet();
         for (Object o : se) {
+            set.add(o);
+        }
+        for (Object o : set1) {
             set.add(o);
         }
         StringBuilder buf = new StringBuilder();
