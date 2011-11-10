@@ -4,8 +4,8 @@
  */
 package pl.edu.amu.wmi.daut.base;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  *
@@ -19,8 +19,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      */
     ComplementCharClassTransitionLabel(String s) {
         int l = s.length();
-        st = s;
-        se = new HashSet();
+        se = new TreeSet();
         for (int i = 0; i < l; i++) {
             if (s.charAt(i) == '-') {
                 if (i == 0 || i == l - 1) {
@@ -75,27 +74,9 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
         if (label instanceof ComplementCharClassTransitionLabel) {
-            Set set;
-            set = ((ComplementCharClassTransitionLabel) label).getSet();
-            for (Object o : se) {
-                set.add(o);
-            }
-            StringBuilder buf = new StringBuilder();
-            boolean f = false;
-            for (Object o : set) {
-                if (o.toString().equals("-")) {
-                    f = true;
-                    continue;
-                }
-                buf.append(o);
-            }
-            if (f) {
-                buf.append('-');
-            }
-            String str = buf.toString();
 
-
-            return new ComplementCharClassTransitionLabel(str);
+            return new ComplementCharClassTransitionLabel(
+                    getString((ComplementCharClassTransitionLabel) label));
         } else {
             throw new CannotDetermineIntersectionException();
         }
@@ -105,17 +86,80 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      * 
      * @return Zwraca set przechowujący spełniające podane wyrażenie regularne
      */
-    protected Set getSet() {
+    protected SortedSet getSet() {
         return se;
     }
 
     /**
      * 
-     * @return Zwraca podane wyrażenie regularne
+     * @return Zwraca wyrażenie regularne jako String
      */
-    public String getString() {
-        return st;
+    private String getString(ComplementCharClassTransitionLabel label) {
+        SortedSet set;
+        set = ((ComplementCharClassTransitionLabel) label).getSet();
+        for (Object o : se) {
+            set.add(o);
+        }
+        StringBuilder buf = new StringBuilder();
+        boolean f = false;
+        for (Object o : set) {
+            if (o.toString().equals("-")) {
+                f = true;
+                continue;
+            }
+            buf.append(o);
+        }
+        if (f) {
+            buf.append('-');
+        }
+        String str = buf.toString();
+        char p = 0, k = 0;
+        if (str.length() == 0) {
+            return "";
+        }
+        StringBuilder n = new StringBuilder();
+        p = str.charAt(1);
+        k = p;
+        for (int i = 0; i < str.length(); i++) {
+            if (k + 1 != str.charAt(i)) {
+                if (p != k) {
+                    n.append(p);
+                    n.append('-');
+                    n.append(k);
+
+                } else {
+                    n.append(p);
+                }
+                p = str.charAt(i);
+                k = p;
+            } else {
+                k++;
+            }
+        }
+        if (p != k) {
+            n.append(p);
+            n.append('-');
+            n.append(k);
+
+        } else {
+            n.append(p);
+        }
+
+        return n.toString();
     }
-    private String st;
-    private Set se;
+
+    /**
+     * 
+     * @return Zwraca wyrażenie regularne
+     */
+    @Override
+    public String toString() {
+        String q = "";
+        q += "[^";
+        q += getString(new ComplementCharClassTransitionLabel(""));
+        q += "]";
+        return q;
+
+    }
+    private SortedSet se;
 }
