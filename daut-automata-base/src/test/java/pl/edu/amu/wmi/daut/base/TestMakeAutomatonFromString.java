@@ -363,6 +363,7 @@ public class TestMakeAutomatonFromString extends TestCase {
 
         AutomatonByRecursion cccp = new AutomatonByRecursion(ccchar);
 
+        assertFalse(cccp.accepts("^"));
         assertFalse(cccp.accepts("a"));
         assertFalse(cccp.accepts("c"));
         assertFalse(cccp.accepts("d"));
