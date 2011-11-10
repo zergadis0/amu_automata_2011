@@ -40,13 +40,12 @@ public class AutomataOperations {
      * Metoda zwracajaca Automat akceptujacy jezyk bedacy dopelnieniem jezyka
      * akceptowanego przez Automat otrzymywany "na wejsciu".
      */
-    
     static AutomatonSpecification
             complementLanguageAutomaton(DeterministicAutomatonSpecification automaton,
             Set<Character> alfabet) {
         AutomatonSpecification returned = automaton.clone();
         returned.makeFull(alfabet.toString());
-        for(State obecny : returned.allStates()) {
+        for (State obecny : returned.allStates()) {
             if (returned.isFinal(obecny))
                 returned.unmarkAsFinal(obecny);
             else
