@@ -6,7 +6,11 @@ import junit.framework.TestCase;
  */
 public class TestAnyTransitionLabel extends TestCase {
     /**
+<<<<<<< HEAD
      * Metoda testujaca EpsilonTransitionLabel.
+=======
+     * Metoda testujaca AnyTransitionLabel.
+>>>>>>> d01440a49edfebcf4040d8401b939d08e91b73d8
      */
     public final void testAnyTransitionLabel() {
         AutomatonSpecification test = new NaiveAutomatonSpecification();
@@ -26,7 +30,10 @@ public class TestAnyTransitionLabel extends TestCase {
         TransitionLabel char1 = test.allOutgoingTransitions(drugi).get(0).getTransitionLabel();
         TransitionLabel any = test.allOutgoingTransitions(trzeci).get(0).getTransitionLabel();
         TransitionLabel empty = test.allOutgoingTransitions(czwarty).get(0).getTransitionLabel();
+<<<<<<< HEAD
         assertEquals("ANY", testowany.toString());
+=======
+>>>>>>> d01440a49edfebcf4040d8401b939d08e91b73d8
         assertFalse(testowany.canBeEpsilon());
         assertFalse(testowany.isEmpty());
         assertTrue(testowany.canAcceptCharacter(' '));
@@ -36,10 +43,15 @@ public class TestAnyTransitionLabel extends TestCase {
         assertFalse((testowany.intersect(char1)).isEmpty());
         assertTrue((testowany.intersect(empty)).isEmpty());
         assertFalse((testowany.intersect(any)).isEmpty());
+<<<<<<< HEAD
         assertEquals("ANY", (testowany.intersect(testowany)).toString());
         assertFalse((testowany.intersectWith(testowany)).canBeEpsilon());
         assertFalse((testowany.intersectWith(char1)).isEmpty());
         assertEquals("ANY", (testowany.intersectWith(testowany)).toString());
+=======
+        assertFalse((testowany.intersectWith(testowany)).canBeEpsilon());
+        assertFalse((testowany.intersectWith(char1)).isEmpty());
+>>>>>>> d01440a49edfebcf4040d8401b939d08e91b73d8
         assertTrue((testowany.intersectWith(empty)).isEmpty());
         assertFalse((testowany.intersectWith(any)).isEmpty());
     }
