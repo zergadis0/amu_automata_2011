@@ -6,11 +6,10 @@ import junit.framework.TestCase;
  * Test klasy AutomatonByRecursion.
  */
 public class TestAutomatonByRecursion extends TestCase {
-
     /**
      * Symulacja testu.
      */
-    public final void lessComplicatedTest() {
+    public final void testLessComplicated() {
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -31,11 +30,10 @@ public class TestAutomatonByRecursion extends TestCase {
         assertFalse(automaton.accepts("a a"));
         assertTrue(automaton.accepts("aa"));
     }
-
     /**
      * Trochę bardziej skomplikowany test.
      */
-    public final void complicatedTest() {
+    public final void testComplicated() {
 
         final AutomatonSpecification specA = new NaiveAutomatonSpecification();
 
@@ -57,11 +55,10 @@ public class TestAutomatonByRecursion extends TestCase {
         assertTrue(automatonA.accepts("ab"));
         assertFalse(automatonA.accepts("a b"));
     }
-
     /**
      * Najbardziej skomplikowany test.
      */
-    public final void veryComplicatedTest() {
+    public final void testVeryComplicated() {
 
         final AutomatonSpecification specB = new NaiveAutomatonSpecification();
 
@@ -106,4 +103,3 @@ public class TestAutomatonByRecursion extends TestCase {
         assertFalse(automatonB.accepts("abc defgh"));
     }
 }
-
