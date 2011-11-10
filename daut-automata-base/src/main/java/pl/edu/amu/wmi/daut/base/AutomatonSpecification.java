@@ -174,6 +174,54 @@ abstract class AutomatonSpecification implements Cloneable  {
         }
         return pilgrim.toString();
     };
+
+   /**
+     * Sprawdza, czy język akceptowany przez automat jest niepusty.
+     */
+    public boolean isNotEmpty() {
+        List<State> states = allStates();
+
+        if (states.isEmpty())
+            return false;
+        else {
+            int licznik = 0;
+            boolean test = false;
+            for (int i = 0; i < states.size(); i++ ) {
+                if ( this.isFinal(states.get(i)) )
+                    licznik++;
+                try {
+                    this.getInitialState();
+                } catch(Exception e) {
+                    test = true;
+                }
+            }
+            if ( licznik == 0 || test )
+                return false;
+            else {
+                Stack<Integer> stosstanow = new Stack<Integer>();
+                Stack<Integer> stosprzejsc = new Stack<Integer>();
+                Integer stan = states.indexOf(this.getInitialState());
+                Integer przejscie = 0;
+                stosstanow.push(stan);
+                stosprzejsc.push(przejscie);
+                do {
+                    stan = stosstanow.pop();
+                    przejscie = stosprzejsc.pop();
+                    if (this.isFinal(states.get(stan)))
+                        return true;
+                    if (przejscie < this.allOutgoingTransitions(states.get(stan)).size()) {
+                        stosstanow.push(stan);
+                        stosprzejsc.push(przejscie++);
+                        stosstanow.push(states.indexOf(this.allOutgoingTransitions(
+                                states.get(stan)).get(przejscie).getTargetState()));
+                        stosprzejsc.push(0);
+                    }
+                } while ( !stosstanow.empty() );
+            }
+        }
+        return true;
+    }
+
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
@@ -181,15 +229,6 @@ abstract class AutomatonSpecification implements Cloneable  {
      * oraz czy przejścia z danego stanu do innych stanów odbywają się po
      * różnych znakach).
      */
-    public boolean isNotEmpty() {
-        List<State> states = allStates();
-
-        if (states.isEmpty())
-            return false;
-        else
-            return true;
-    }
-
     public boolean isDeterministic() {
         List<State> states = allStates();
 
