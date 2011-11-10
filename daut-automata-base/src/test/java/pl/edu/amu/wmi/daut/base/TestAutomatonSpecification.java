@@ -1,7 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
-
 import java.util.List;
 import java.util.Arrays;
+
 import junit.framework.TestCase;
 
 /**
@@ -65,6 +65,21 @@ public class TestAutomatonSpecification extends TestCase {
         spec.addTransition(q2, q2, new CharTransitionLabel('d'));
 
         assertEquals(spec.countTransitions(), 5);
+    }
+
+    /**
+     * Test metody makeEmptyStringAutomaton.
+     */
+    public final void testmakeEmptyStringAutomaton() {
+        AutomatonSpecification automaton1 = new NaiveAutomatonSpecification();
+        automaton1.makeEmptyStringAutomaton();
+        AutomatonByRecursion angle = new AutomatonByRecursion(automaton1);
+
+        assertFalse(angle.accepts("qqqqqq"));
+        assertTrue(angle.accepts(""));
+        assertFalse(angle.accepts("x"));
+        assertFalse(angle.accepts("qwertyuiopasdfghjklzxcvbnm1234567890"));
+        assertFalse(angle.accepts(" "));
     }
 
     /**
