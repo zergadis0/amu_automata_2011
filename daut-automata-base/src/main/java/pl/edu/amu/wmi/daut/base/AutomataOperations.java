@@ -3,7 +3,6 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Klasa zwierająca operacje na automatach.
