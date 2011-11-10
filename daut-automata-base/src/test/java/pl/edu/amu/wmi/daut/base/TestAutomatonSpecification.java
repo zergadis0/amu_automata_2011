@@ -460,6 +460,21 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
+     * Test metody makeEmptyStringAutomaton.
+     */
+    public final void testmakeEmptyStringAutomaton() {
+        AutomatonSpecification automaton1 = new NaiveAutomatonSpecification();
+        automaton1.makeEmptyStringAutomaton();
+        AutomatonByRecursion angle = new AutomatonByRecursion(automaton1);
+
+        assertFalse(angle.accepts("qqqqqq"));
+        assertTrue(angle.accepts(""));
+        assertFalse(angle.accepts("x"));
+        assertFalse(angle.accepts("qwertyuiopasdfghjklzxcvbnm1234567890"));
+        assertFalse(angle.accepts(" "));
+    }
+
+    /**
      * Testy dla metody addTransitionSequence().
      */
     public final void testAddTransitionSequence() {
@@ -797,7 +812,6 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(spec.prefixChecker(q5));
     }
     /**
-<<<<<<< HEAD
      * Testuje działanie metody checkPrefix().
      * Bazuje bezpośrednio na teście metody prefixChecker()
      */
