@@ -32,7 +32,6 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
             } else {
                 se.add(s.charAt(i));
             }
-
         }
     }
 
@@ -74,7 +73,6 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
         if (label instanceof ComplementCharClassTransitionLabel) {
-
             return new ComplementCharClassTransitionLabel(
                     getString((ComplementCharClassTransitionLabel) label));
         } else {
@@ -118,9 +116,9 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
             return "";
         }
         StringBuilder n = new StringBuilder();
-        p = str.charAt(1);
+        p = str.charAt(0);
         k = p;
-        for (int i = 0; i < str.length(); i++) {
+        for (int i = 1; i < str.length(); i++) {
             if (k + 1 != str.charAt(i)) {
                 if (p != k) {
                     n.append(p);
