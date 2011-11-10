@@ -10,7 +10,7 @@ public class TestAutomatonByRecursion extends TestCase {
     /**
      * Symulacja testu.
      */
-    public final void testfirst() {
+    public final void lessComplicatedTest() {
 
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -28,13 +28,14 @@ public class TestAutomatonByRecursion extends TestCase {
 
         assertTrue(automaton.accepts("ab"));
         assertFalse(automaton.accepts("bb"));
+        assertFalse(automaton.accepts("a a"));
         assertTrue(automaton.accepts("aa"));
     }
 
     /**
      * Trochę bardziej skomplikowany test.
      */
-    public final void testSecond() {
+    public final void complicatedTest() {
 
         final AutomatonSpecification specA = new NaiveAutomatonSpecification();
 
@@ -52,14 +53,15 @@ public class TestAutomatonByRecursion extends TestCase {
         AutomatonByRecursion automatonA = new AutomatonByRecursion(specA);
 
         assertTrue(automatonA.accepts("ab"));
-        assertFalse(automatonA.accepts("bb"));
+        assertFalse(automatonA.accepts("ab "));
         assertTrue(automatonA.accepts("ab"));
+        assertFalse(automatonA.accepts("a b"));
     }
 
     /**
      * Najbardziej skomplikowany test.
      */
-    public final void testThird() {
+    public final void veryComplicatedTest() {
 
         final AutomatonSpecification specB = new NaiveAutomatonSpecification();
 
@@ -96,9 +98,12 @@ public class TestAutomatonByRecursion extends TestCase {
         AutomatonByRecursion automatonB = new AutomatonByRecursion(specB);
 
         assertTrue(automatonB.accepts("abcdefgh"));
+        assertTrue(automatonB.accepts("abcdefgggh"));
+        assertFalse(automatonB.accepts("abcdefgh "));
         assertTrue(automatonB.accepts("abcdefgh"));
-        assertFalse(automatonB.accepts("abcdefg"));
+        assertFalse(automatonB.accepts("abcde fgh"));
         assertTrue(automatonB.accepts("abcdefh"));
+        assertFalse(automatonB.accepts("abc defgh"));
     }
 }
 
