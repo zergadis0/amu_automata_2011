@@ -52,26 +52,34 @@ public class TestAutomataOperations extends TestCase {
 
     public final void testIntersection2() {
 
-        AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
+        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
-        State q20 = automatonC.addState();
-        State q21 = automatonC.addState();
-        State q22 = automatonC.addState();
-        automatonC.addTransition(q20, q21, new CharTransitionLabel('a'));
-        automatonC.addTransition(q20, q21, new CharTransitionLabel('b'));
-        automatonC.addTransition(q21, q22, new CharTransitionLabel('a'));
-        automatonC.addTransition(q21, q22, new CharTransitionLabel('b'));
-        automatonC.markAsInitial(q20);
-        automatonC.markAsFinal(q22);
+        State q0 = automatonA.addState();
+        State q1 = automatonA.addState();
+        
+        automatonA.addTransition(q0, q1, new CharTransitionLabel('a'));
+        automatonA.addTransition(q0, q1, new CharTransitionLabel('b'));
+        automatonA.markAsInitial(q0);
+        automatonA.markAsFinal(q1);
 
-        AutomatonSpecification result1 = AutomataOperations.intersection(automatonC, automatonC);
-        AutomatonByRecursion automaton1 = new AutomatonByRecursion(result1);
+        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
-        assertTrue(automaton1.accepts("abababa"));
-        assertTrue(automaton1.accepts("abbbbbbbbb"));
-        assertTrue(automaton1.accepts("aaaaaaaaaaaaa"));
-        assertFalse(automaton1.accepts(""));
-        assertFalse(automaton1.accepts("baba"));
-        assertFalse(automaton1.accepts("dziwne dlugie slowo"));
+        State q0 = automatonB.addState();
+        State q1 = automatonB.addState();
+        
+        automatonB.addTransition(q0, q1, new CharTransitionLabel('a'));
+        automatonB.addTransition(q0, q1, new CharTransitionLabel('b'));
+        automatonB.addLoop(q1, new CharTransitionLabel('b'));
+        automatonB.markAsInitial(q0);
+        automatonB.markAsFinal(q1);
+
+
+        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
+        AutomatonByRecursion automaton = new AutomatonByRecursion(result);
+
+        assertTrue(automaton.accepts("ab"));
+        assertFalse(automaton.accepts(""));
+        assertFalse(automaton.accepts("baba"));
+        assertFalse(automaton.accepts("dziwne dlugie slowo"));
     }
 }
