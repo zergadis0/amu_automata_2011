@@ -41,6 +41,20 @@ public class TestAutomataOperations extends TestCase {
         assertTrue(automaton.accepts("ab"));
         assertFalse(automaton.accepts(""));
         assertFalse(automaton.accepts("a"));
+         assertFalse(automaton.accepts("Blablablabla bla"));
+        assertFalse(automaton.accepts("abababab"));
+        assertFalse(automaton.accepts("aba"));
+        assertFalse(automaton.accepts("ba"));
+
+        result = AutomataOperations.intersection(automatonA, automatonA);
+        automaton = new AutomatonByRecursion(result);
+
+        assertTrue(automaton.accepts("abababa"));
+        assertTrue(automaton.accepts("abbbbbbbbb"));
+        assertTrue(automaton.accepts("aaaaaaaaaaaaa"));
+        assertFalse(automaton.accepts(""));
+        assertFalse(automaton.accepts("baba"));
+        assertFalse(automaton.accepts("dziwne dlugie slowo"));
 
     }
 }
