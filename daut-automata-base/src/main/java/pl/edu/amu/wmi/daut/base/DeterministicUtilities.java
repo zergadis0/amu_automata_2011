@@ -5,7 +5,7 @@ import java.util.Set;
 * Różne pomocnicze funkcje
 * związane z automatami deterministycznymi.
 */
-class DeterministicUtilities {
+public class DeterministicUtilities {
      /**
      * Tworzy automat deterministyczny, który akceptuje napisy ze zbioru `language`
      * i nie akceptuje żadnych innych napisów. Automat powstaje przez
@@ -41,5 +41,12 @@ new CharTransitionLabel(s.charAt(activeState)));
         }
         automaton.markAsFinal(q[statesCounter]);
     }
+    }
+
+/**
+* Pusty konstruktor klasy DeterministicUtilities
+* niebędący konstruktorem domyślnym.
+*/
+    private void  DeterministicUtilities() {
     }
 }
