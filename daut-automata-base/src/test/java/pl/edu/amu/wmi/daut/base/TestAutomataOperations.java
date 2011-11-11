@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 public class TestAutomataOperations extends TestCase {
 
     /**
-* Test prostego automatu.
+* Pierwszy test.
 */
     public final void testIntersection1() {
 
@@ -46,8 +46,12 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("aba"));
         assertFalse(automaton.accepts("ba"));
     }
+    /**
+    *drugi test
+    */
 
     public final void testIntersection2() {
+
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
 
         State q10 = automatonC.addState();
