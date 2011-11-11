@@ -47,6 +47,6 @@ new CharTransitionLabel(s.charAt(activeState)));
 * Pusty konstruktor klasy DeterministicUtilities
 * niebędący konstruktorem domyślnym.
 */
-    private void  DeterministicUtilities() {
+    private DeterministicUtilities() {
     }
 }
