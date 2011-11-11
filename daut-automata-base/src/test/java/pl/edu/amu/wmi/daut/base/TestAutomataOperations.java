@@ -46,7 +46,7 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("aba"));
         assertFalse(automaton.accepts("ba"));
     }
-    
+
     public final void testIntersection2() {
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
 
@@ -70,5 +70,4 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton1.accepts("baba"));
         assertFalse(automaton1.accepts("dziwne dlugie slowo"));
     }
-        
 }
