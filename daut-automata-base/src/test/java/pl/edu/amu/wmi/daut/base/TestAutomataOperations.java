@@ -80,4 +80,35 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("baba"));
         assertFalse(automaton.accepts("dziwne dlugie slowo"));
     }
+    /**
+     * trzeci test.
+     */
+    public final void testIntersection3() {
+        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+        
+        State q0 = automatonA.addState();
+        State q1 = automatonA.addState();
+        State q2 = automatonA.addState();
+        automatonA.addTransition(q0, q2, new CharTransitionLabel('b'));
+        automatonA.addTransition(q0, q1, new CharTransitionLabel('a'));
+        automatonA.addTransition(q1, q2, new CharTransitionLabel('a'));
+        automatonA.addLoop(q2, new CharTransitionLabel('b'));
+        automatonA.markAsInitial(q0);
+        automatonA.markAsFinal(q2);
+        
+        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonA);
+        AutomatonByRecursion automaton = new AutomatonByRecursion(result);
+        
+        assertTrue(automaton.accepts("aabb"));
+        assertTrue(automaton.accepts("bb"));
+        assertTrue(automaton.accepts("bbbbbbbbbbbbbbbbb"));
+        assertFalse(automaton.accepts("aaaaaaaaaaaaaaaa"));
+        assertTrue(automaton.accepts("xxxxaabbxxxxxx"));
+        assertTrue(automaton.accepts(""));
+        
+        
+            
+    }
+    
+    
 }
