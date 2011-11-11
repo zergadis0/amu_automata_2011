@@ -9,6 +9,9 @@ import java.util.HashMap;
 * Klasa zwierająca operacje na automatach.
 */
 public class AutomataOperations {
+    protected AutomataOperations() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
 * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
