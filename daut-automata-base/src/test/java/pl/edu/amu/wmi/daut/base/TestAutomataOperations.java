@@ -103,8 +103,8 @@ public class TestAutomataOperations extends TestCase {
         assertTrue(automaton.accepts("bb"));
         assertTrue(automaton.accepts("bbbbbbbbbbbbbbbbb"));
         assertFalse(automaton.accepts("aaaaaaaaaaaaaaaa"));
-        assertTrue(automaton.accepts("xxxxaabbxxxxxx"));
-        assertTrue(automaton.accepts(""));
+        assertFalse(automaton.accepts("xxxxaabbxxxxxx"));
+        assertFalse(automaton.accepts(""));
 
     }
 }
