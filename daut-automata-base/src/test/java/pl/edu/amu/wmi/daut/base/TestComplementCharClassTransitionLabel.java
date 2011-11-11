@@ -1,9 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
 import junit.framework.TestCase;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  *
  * @author s362606
@@ -12,182 +9,145 @@ import java.util.Set;
 public class TestComplementCharClassTransitionLabel extends TestCase {
 
     /**
-     * Test metody canAcceptCharacter.
+     * Testujemy metody canAcceptCharacter, isEmpty,toString i canBeEpsilon.
      */
     public final void testcanAcceptCharacter() {
 
-        //budowanie
+        //budujemy
+        TransitionLabel test1 = new ComplementCharClassTransitionLabel("");
 
-        ComplementCharClassTransitionLabel test =
-                new ComplementCharClassTransitionLabel("A-Ya-y0-8");
-        ComplementCharClassTransitionLabel test1 =
-                new ComplementCharClassTransitionLabel("A-Hakrwhelz46753");
-        ComplementCharClassTransitionLabel test2 =
-                new ComplementCharClassTransitionLabel("-");
+        //testujemy
+        assertTrue(test1.canAcceptCharacter('j'));
+        assertTrue(test1.canAcceptCharacter('8'));
+        assertTrue(test1.canAcceptCharacter('W'));
+        assertTrue(test1.canAcceptCharacter('*'));
+        assertEquals(test1.toString(), "[^]");
+        assertFalse(test1.canBeEpsilon());
+        assertFalse(test1.isEmpty());
 
-        //testowanie
+        //budujemy
+        TransitionLabel test2 = new ComplementCharClassTransitionLabel("a");
 
-        assertTrue(test.canAcceptCharacter('z'));
-        assertTrue(test.canAcceptCharacter('Z'));
-        assertFalse(test.canAcceptCharacter('a'));
-        assertFalse(test.canAcceptCharacter('G'));
-        assertTrue(test.canAcceptCharacter('9'));
-        assertFalse(test.canAcceptCharacter('1'));
-        assertTrue(test1.canAcceptCharacter('K'));
-        assertTrue(test1.canAcceptCharacter('o'));
-        assertTrue(test1.canAcceptCharacter('9'));
-        assertFalse(test1.canAcceptCharacter('B'));
-        assertFalse(test1.canAcceptCharacter('6'));
-        assertFalse(test1.canAcceptCharacter('r'));
-        assertTrue(test2.canAcceptCharacter('g'));
-        assertFalse(test2.canAcceptCharacter('-'));
-    }
+        //testujemy
+        assertTrue(test2.canAcceptCharacter('p'));
+        assertTrue(test2.canAcceptCharacter('U'));
+        assertTrue(test2.canAcceptCharacter('0'));
+        assertTrue(test2.canAcceptCharacter('/'));
+        assertFalse(test2.canAcceptCharacter('a'));
+        assertEquals(test2.toString(), "[^a]");
+        assertFalse(test2.canBeEpsilon());
+        assertFalse(test2.isEmpty());
 
-    /**
-     * Test metod canBeEpsilon i isEmpty.
-     */
-    public final void testSimple() {
+        //budujemy
+        TransitionLabel test3 = new ComplementCharClassTransitionLabel("a-jBDJS0-6A-G+*$k#/8P-Um-wd-");
 
-        //budowanie
-
-        ComplementCharClassTransitionLabel test =
-                new ComplementCharClassTransitionLabel("");
-
-        //testowanie
-
-        assertFalse(test.canBeEpsilon());
-        assertFalse(test.isEmpty());
-    }
-
-    /**
-     * Test metody getString.
-     */
-    public final void testgetString() {
-
-        //budowanie
-
-        ComplementCharClassTransitionLabel test1 =
-                new ComplementCharClassTransitionLabel("abc");
-        ComplementCharClassTransitionLabel test2 =
-                new ComplementCharClassTransitionLabel("abcFHG5678");
-        ComplementCharClassTransitionLabel test3 =
-                new ComplementCharClassTransitionLabel("a-dA-G0-5");
-
-        //testowanie
-
-        assertEquals(test1.getString(), "abc");
-        assertEquals(test2.getString(), "abcFHG5678");
-        assertEquals(test3.getString(), "a-dA-G0-5");
-        assertFalse(test1.canAcceptCharacter('b'));
-        assertTrue(test1.canAcceptCharacter('e'));
-        assertFalse(test2.canAcceptCharacter('F'));
-        assertFalse(test2.canAcceptCharacter('b'));
-        assertFalse(test2.canAcceptCharacter('8'));
-        assertTrue(test2.canAcceptCharacter('k'));
-        assertTrue(test2.canAcceptCharacter('9'));
-        assertFalse(test3.canAcceptCharacter('b'));
-        assertFalse(test3.canAcceptCharacter('B'));
+        //testujemy
+        assertTrue(test3.canAcceptCharacter('y'));
+        assertTrue(test3.canAcceptCharacter('O'));
+        assertTrue(test3.canAcceptCharacter('7'));
+        assertTrue(test3.canAcceptCharacter('='));
+        assertTrue(test3.canAcceptCharacter('W'));
+        assertFalse(test3.canAcceptCharacter('a'));
+        assertFalse(test3.canAcceptCharacter('g'));
+        assertFalse(test3.canAcceptCharacter('j'));
         assertFalse(test3.canAcceptCharacter('5'));
-        assertTrue(test3.canAcceptCharacter('q'));
-        assertTrue(test3.canAcceptCharacter('P'));
-        assertTrue(test3.canAcceptCharacter('8'));
+        assertFalse(test3.canAcceptCharacter('-'));
+        assertFalse(test3.canAcceptCharacter('0'));
+        assertFalse(test3.canAcceptCharacter('8'));
+        assertFalse(test3.canAcceptCharacter('n'));
+        assertFalse(test3.canAcceptCharacter('#'));
+        assertEquals(test3.toString(), "[^#-$*-+/-68A-GJP-Ua-km-w-]");
+        assertFalse(test3.canBeEpsilon());
+        assertFalse(test3.isEmpty());
+
+        //budujemy
+        TransitionLabel test4 = new ComplementCharClassTransitionLabel("-bbcbbabaaaccaaacccaaab");
+
+        //testujemy
+        assertTrue(test4.canAcceptCharacter('l'));
+        assertTrue(test4.canAcceptCharacter('R'));
+        assertTrue(test4.canAcceptCharacter('3'));
+        assertTrue(test4.canAcceptCharacter('+'));
+        assertFalse(test4.canAcceptCharacter('-'));
+        assertFalse(test4.canAcceptCharacter('a'));
+        assertFalse(test4.canAcceptCharacter('b'));
+        assertFalse(test4.canAcceptCharacter('c'));
+        assertEquals(test4.toString(), "[^a-c-]");
+        assertFalse(test4.canBeEpsilon());
+        assertFalse(test4.isEmpty());
+
     }
 
     /**
-     * Test metody getSet.
+     * Testujemy intersectWith.
      */
-    public final void testgetSet() {
+    public final void testintersect() {
 
-        //budowanie
+        //budujemy
+        TransitionLabel test1 = new ComplementCharClassTransitionLabel("");
+        TransitionLabel test2 = new ComplementCharClassTransitionLabel("a-c");
 
-        ComplementCharClassTransitionLabel test1 =
-                new ComplementCharClassTransitionLabel("abG8");
-        ComplementCharClassTransitionLabel test2 =
-                new ComplementCharClassTransitionLabel("a-d0-5A-G");
-        Set hashTest1 = new HashSet();
-        Set hashTest2 = new HashSet();
-        Set hashTest3 = new HashSet();
-        hashTest1.add('G');
-        hashTest1.add('a');
-        hashTest1.add('8');
-        hashTest1.add('b');
-        String s  = "abcdABCDEFG012345";
-        for (int i = 0; i < s.length(); i++) {
-            hashTest2.add(s.charAt(i));
-        }
-
-        //testowanie
-
-        assertTrue(hashTest1.equals(test1.getSet()));
-        hashTest1.add('h');
-        assertFalse(hashTest1.equals(test1.getSet()));
-        assertTrue(hashTest2.equals(test2.getSet()));
-        hashTest2.remove('d');
-        assertFalse(hashTest2.equals(test2.getSet()));
-    }
-
-    /**
-     * Test wyznaczania przecięcia.
-     */
-    public final void testintersectWith() {
-
-        //budowanie
-
-        ComplementCharClassTransitionLabel test =
-                new ComplementCharClassTransitionLabel("a");
-
-        ComplementCharClassTransitionLabel test1 =
-                new ComplementCharClassTransitionLabel("-A-G0-9-");
-
-        ComplementCharClassTransitionLabel test2 =
-                new ComplementCharClassTransitionLabel("abc");
-
-        EmptyTransitionLabel emptyTransition = new EmptyTransitionLabel();
-
-        TransitionLabel charTest = new CharTransitionLabel('n');
-
-        ComplementCharClassTransitionLabel inter =
-                new ComplementCharClassTransitionLabel("");
-
-        //testowanie
-
-        assertTrue(emptyTransition.intersectWith(test1).isEmpty());
-        //assertFalse(test1.intersectWith(emptyTransition).isEmpty()); wyjatek
-
-        inter = (ComplementCharClassTransitionLabel) test.intersectWith(test);
-        Set hashTest = new HashSet();
-        hashTest.add('a');
-
-        assertTrue(inter.canAcceptCharacter('e'));
-        assertFalse(inter.canAcceptCharacter('a'));
-        assertFalse(inter.canBeEpsilon());
-        assertEquals("a", inter.getString());
-        assertTrue(hashTest.equals(inter.getSet()));
-
-        inter = (ComplementCharClassTransitionLabel) test.intersectWith(test2);
-
-        assertTrue(inter.canAcceptCharacter('d'));
-        assertFalse(inter.canAcceptCharacter('a'));
-        assertEquals(inter.getSet(), test2.getSet());
-        assertEquals(inter.getString(), "bca");
-
-        inter = (ComplementCharClassTransitionLabel) test1.intersectWith(test2);
-
-        assertTrue(inter.canAcceptCharacter('k'));
+        //testujemy
+        TransitionLabel inter = test1.intersect(test2);
         assertTrue(inter.canAcceptCharacter('j'));
-        assertFalse(inter.canAcceptCharacter('0'));
-        assertFalse(inter.canAcceptCharacter('9'));
-        assertFalse(inter.canAcceptCharacter('5'));
-        assertFalse(inter.canAcceptCharacter('1'));
+        assertTrue(inter.canAcceptCharacter('-'));
         assertFalse(inter.canAcceptCharacter('a'));
         assertFalse(inter.canAcceptCharacter('b'));
         assertFalse(inter.canAcceptCharacter('c'));
-        assertTrue(inter.canAcceptCharacter('K'));
-        assertFalse(inter.canAcceptCharacter('A'));
-        assertFalse(inter.canAcceptCharacter('C'));
-        assertFalse(inter.canAcceptCharacter('G'));
-        assertFalse(inter.canAcceptCharacter('-'));
         assertFalse(inter.canBeEpsilon());
+        assertFalse(inter.isEmpty());
+        assertEquals(inter.toString(), test2.toString());
+        assertFalse(inter.canBeEpsilon());
+
+        //budujemy
+        TransitionLabel test3 = new ComplementCharClassTransitionLabel("a-jBDJSA-G+*$k#/8P-Um-wd-");
+        TransitionLabel test4 = new ComplementCharClassTransitionLabel("0-6");
+
+        //testujemy
+        inter = test3.intersect(test4);
+        assertTrue(inter.canAcceptCharacter('y'));
+        assertTrue(inter.canAcceptCharacter('O'));
+        assertTrue(inter.canAcceptCharacter('7'));
+        assertTrue(inter.canAcceptCharacter('='));
+        assertTrue(inter.canAcceptCharacter('W'));
+        assertFalse(inter.canAcceptCharacter('a'));
+        assertFalse(inter.canAcceptCharacter('g'));
+        assertFalse(inter.canAcceptCharacter('j'));
+        assertFalse(inter.canAcceptCharacter('5'));
+        assertFalse(inter.canAcceptCharacter('-'));
+        assertFalse(inter.canAcceptCharacter('0'));
+        assertFalse(inter.canAcceptCharacter('8'));
+        assertFalse(inter.canAcceptCharacter('n'));
+        assertFalse(inter.canAcceptCharacter('#'));
+        assertEquals(inter.toString(), "[^#-$*-+/-68A-GJP-Ua-km-w-]");
+        assertFalse(inter.canBeEpsilon());
+        assertFalse(inter.isEmpty());
+
+        //budujemy
+        TransitionLabel test5 = new ComplementCharClassTransitionLabel("a-j0-79");
+        TransitionLabel charTest = new CharTransitionLabel('9');
+        TransitionLabel empty = new  EmptyTransitionLabel();
+        TransitionLabel epsilon = new EpsilonTransitionLabel();
+
+        //testujemy
+        inter = test5.intersect(new CharTransitionLabel('v'));
+        assertEquals(inter.toString(), "v");
+        assertFalse(inter.canBeEpsilon());
+        assertFalse(inter.isEmpty());
+        assertTrue(inter.canAcceptCharacter('v'));
+        assertFalse(inter.canAcceptCharacter('7'));
+
+        inter = test5.intersect(charTest);
+        assertFalse(inter.canBeEpsilon());
+        assertTrue(inter.isEmpty());
+
+        inter = test5.intersect(empty);
+        assertFalse(inter.canBeEpsilon());
+        assertTrue(inter.isEmpty());
+
+        inter = test5.intersect(epsilon);
+        assertFalse(inter.canBeEpsilon());
+        assertTrue(inter.isEmpty());
 
     }
 }
