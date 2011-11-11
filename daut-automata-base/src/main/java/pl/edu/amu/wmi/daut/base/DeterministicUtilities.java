@@ -11,7 +11,7 @@ public class DeterministicUtilities {
      * i nie akceptuje żadnych innych napisów. Automat powstaje przez
      * rozbudowanie pustego automatu deterministycznego przekazanego jako argument `automaton`.
      */
-    public void createAutomatonForFiniteLanguage(DeterministicAutomatonSpecification automaton,
+    public static void createAutomatonForFiniteLanguage(DeterministicAutomatonSpecification automaton,
 Set<String> language) {
     int symbolsCounter = 0;
     for (String s : language) {
