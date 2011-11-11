@@ -47,34 +47,4 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("ba"));
     }
 
-
-    public final void testIntersection2() {
-
-        AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
-
-        State q10 = automatonC.addState();
-        State q11 = automatonC.addState();
-        State q12 = automatonC.addState();
-        automatonC.addTransition(q10, q11, new CharTransitionLabel('a'));
-        automatonC.addTransition(q10, q11, new CharTransitionLabel('b'));
-        automatonC.addTransition(q11, q12, new CharTransitionLabel('a'));
-        automatonC.addTransition(q11, q12, new CharTransitionLabel('b'));
-        automatonC.markAsInitial(q10);
-        automatonC.markAsFinal(q12);
-
-        AutomatonSpecification result = AutomataOperations.intersection(automatonC, automatonC);
-        AutomatonByRecursion automaton = new AutomatonByRecursion(result);
-
-        assertTrue(automaton.accepts("abababa"));
-        assertTrue(automaton.accepts("abbbbbbbbb"));
-        assertTrue(automaton.accepts("aaaaaaaaaaaaa"));
-        assertFalse(automaton.accepts(""));
-        assertFalse(automaton.accepts("baba"));
-        assertFalse(automaton.accepts("dziwne dlugie slowo"));
-
-
-        
-
-
-    }
 }
