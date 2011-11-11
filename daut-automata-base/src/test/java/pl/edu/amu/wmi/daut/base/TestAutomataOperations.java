@@ -95,20 +95,17 @@ public class TestAutomataOperations extends TestCase {
         automatonA.addLoop(q2, new CharTransitionLabel('b'));
         automatonA.markAsInitial(q0);
         automatonA.markAsFinal(q2);
-        
+
         AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonA);
         AutomatonByRecursion automaton = new AutomatonByRecursion(result);
-        
+
         assertTrue(automaton.accepts("aabb"));
         assertTrue(automaton.accepts("bb"));
         assertTrue(automaton.accepts("bbbbbbbbbbbbbbbbb"));
         assertFalse(automaton.accepts("aaaaaaaaaaaaaaaa"));
         assertTrue(automaton.accepts("xxxxaabbxxxxxx"));
         assertTrue(automaton.accepts(""));
-        
-        
-            
+
     }
-    
-    
+   
 }
