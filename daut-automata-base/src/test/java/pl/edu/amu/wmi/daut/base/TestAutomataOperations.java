@@ -54,18 +54,18 @@ public class TestAutomataOperations extends TestCase {
 
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
 
-        State q10 = automatonC.addState();
-        State q11 = automatonC.addState();
-        State q12 = automatonC.addState();
-        automatonC.addTransition(q10, q11, new CharTransitionLabel('a'));
-        automatonC.addTransition(q10, q11, new CharTransitionLabel('b'));
-        automatonC.addTransition(q11, q12, new CharTransitionLabel('a'));
-        automatonC.addTransition(q11, q12, new CharTransitionLabel('b'));
-        automatonC.markAsInitial(q10);
-        automatonC.markAsFinal(q12);
+        State q20 = automatonC.addState();
+        State q21 = automatonC.addState();
+        State q22 = automatonC.addState();
+        automatonC.addTransition(q20, q21, new CharTransitionLabel('a'));
+        automatonC.addTransition(q20, q21, new CharTransitionLabel('b'));
+        automatonC.addTransition(q21, q22, new CharTransitionLabel('a'));
+        automatonC.addTransition(q21, q22, new CharTransitionLabel('b'));
+        automatonC.markAsInitial(q20);
+        automatonC.markAsFinal(q22);
 
-        AutomatonSpecification result = AutomataOperations.intersection(automatonC, automatonC);
-        AutomatonByRecursion automaton1 = new AutomatonByRecursion(result);
+        AutomatonSpecification result1 = AutomataOperations.intersection(automatonC, automatonC);
+        AutomatonByRecursion automaton1 = new AutomatonByRecursion(result1);
 
         assertTrue(automaton1.accepts("abababa"));
         assertTrue(automaton1.accepts("abbbbbbbbb"));
