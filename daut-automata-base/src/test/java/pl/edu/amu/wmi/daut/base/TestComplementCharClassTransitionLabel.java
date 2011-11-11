@@ -39,7 +39,7 @@ public class TestComplementCharClassTransitionLabel extends TestCase {
         assertFalse(test2.isEmpty());
 
         //budujemy
-        TransitionLabel test3 = 
+        TransitionLabel test3 =
                         new ComplementCharClassTransitionLabel("a-jBDJS0-6A-G+*$k#/8P-Um-wd-");
 
         //testujemy
