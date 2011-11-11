@@ -1,8 +1,5 @@
 package pl.edu.amu.wmi.daut.base;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Klasa reprezentująca przejście po dowolnym znaku z podanego zakresu UTF-8.
  */
@@ -40,36 +37,39 @@ class CharRangeTransitionLabel extends TransitionLabel {
         return secondChar;
     }
 
-    protected TransitionLabel intersectWith(TransitionLabel label, TransitionLabel label2) {
-
-        if (label instanceof CharRangeTransitionLabel
-                && label2 instanceof CharRangeTransitionLabel) {
-
-            List<Character> labelList = new ArrayList<Character>();
-            List<Character> label2List = new ArrayList<Character>();
-
-            for (char i = ((CharRangeTransitionLabel) label).getFirstChar();
-                    i == ((CharRangeTransitionLabel) label).getSecondChar(); i++) {
-                labelList.add(i);
-            }
-
-            for (char i = ((CharRangeTransitionLabel) label2).getFirstChar();
-                    i == ((CharRangeTransitionLabel) label2).getSecondChar(); i++) {
-                label2List.add(i);
-            }
-
-            labelList.retainAll(label2List);
-
-            return new CharRangeTransitionLabel(labelList.get(0),
-                    labelList.get(labelList.size() - 1));
-
-        } else { throw new CannotDetermineIntersectionException(); }
-
-    }
-
     @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
-        // TODO Auto-generated method stub
-        return null;
+
+        if (label instanceof CharRangeTransitionLabel) {
+
+            char A1 = this.getFirstChar();
+            char A2 = this.getSecondChar();
+
+            char B1 = ((CharRangeTransitionLabel) label).getFirstChar();
+            char B2 = ((CharRangeTransitionLabel) label).getSecondChar();
+
+            //3
+            if (A1 < B1 && A2 < B2) {
+                return new CharRangeTransitionLabel(B1, A2);
+                }
+
+            //4
+            else if (A1 > B1 && A2 > B2) {
+                return new CharRangeTransitionLabel(A1, B2);
+                }
+
+            //5
+            else if (A1 < B1 && A2 > B2) {
+                return new CharRangeTransitionLabel(B1, B2);
+                }
+
+            //6
+            else if(A1 > B1 && A2 < B2) {
+                return new CharRangeTransitionLabel(A1, A2);
+                
+                } else { return null; }
+
+            } else { throw new CannotDetermineIntersectionException(); }
+
     }
 };
