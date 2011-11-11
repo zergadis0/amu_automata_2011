@@ -75,7 +75,7 @@ public class TestAutomataOperations extends TestCase {
         AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
         AutomatonByRecursion automaton = new AutomatonByRecursion(result);
 
-        assertTrue(automaton.accepts("ab"));
+        assertTrue(automaton.accepts("a"));
         assertFalse(automaton.accepts(""));
         assertFalse(automaton.accepts("baba"));
         assertFalse(automaton.accepts("dziwne dlugie slowo"));
