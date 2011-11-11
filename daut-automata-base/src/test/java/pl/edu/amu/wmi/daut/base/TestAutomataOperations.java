@@ -47,7 +47,7 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("ba"));
     }
     /**
-    *drugi test
+    *drugi test.
     */
 
     public final void testIntersection2() {
