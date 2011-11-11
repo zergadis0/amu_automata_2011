@@ -49,17 +49,24 @@ class CharRangeTransitionLabel extends TransitionLabel {
             char b2 = ((CharRangeTransitionLabel) label).getSecondChar();
 
             //3
-            if (a1 < b1 && a2 < b2) { return new CharRangeTransitionLabel(b1, a2); }
+            if (a1 < b1 && a2 < b2) {
+                return new CharRangeTransitionLabel(b1, a2);
+            }
 
             //4
-            else if (a1 > b1 && a2 > b2) { return new CharRangeTransitionLabel(a1, b2); }
+            else if (a1 > b1 && a2 > b2) {
+                return new CharRangeTransitionLabel(a1, b2);
+                }
 
             //5
-            else if (a1 < b1 && a2 > b2) { return new CharRangeTransitionLabel(b1, b2); }
+            else if (a1 < b1 && a2 > b2) {
+                return new CharRangeTransitionLabel(b1, b2);
+                }
 
             //6
             else if (a1 > b1 && a2 < b2) {
-                return new CharRangeTransitionLabel(a1, a2); } else { return null; }
+                return new CharRangeTransitionLabel(a1, a2);
+                } else { return null; }
 
         } else { throw new CannotDetermineIntersectionException(); }
 
