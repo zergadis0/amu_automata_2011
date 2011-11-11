@@ -42,34 +42,34 @@ class CharRangeTransitionLabel extends TransitionLabel {
 
         if (label instanceof CharRangeTransitionLabel) {
 
-            char A1 = this.getFirstChar();
-            char A2 = this.getSecondChar();
+            char a1 = this.getFirstChar();
+            char a2 = this.getSecondChar();
 
-            char B1 = ((CharRangeTransitionLabel) label).getFirstChar();
-            char B2 = ((CharRangeTransitionLabel) label).getSecondChar();
+            char b1 = ((CharRangeTransitionLabel) label).getFirstChar();
+            char b2 = ((CharRangeTransitionLabel) label).getSecondChar();
 
             //3
-            if (A1 < B1 && A2 < B2) {
-                return new CharRangeTransitionLabel(B1, A2);
-                }
+            if (a1 < b1 && a2 < b2) {
+                return new CharRangeTransitionLabel(b1, a2);
+            }
 
             //4
-            else if (A1 > B1 && A2 > B2) {
-                return new CharRangeTransitionLabel(A1, B2);
-                }
+            else if (a1 > b1 && a2 > b2) {
+                return new CharRangeTransitionLabel(a1, b2);
+            }
 
             //5
-            else if (A1 < B1 && A2 > B2) {
-                return new CharRangeTransitionLabel(B1, B2);
-                }
+            else if (a1 < b1 && a2 > b2) {
+                return new CharRangeTransitionLabel(b1, b2);
+            }
 
             //6
-            else if(A1 > B1 && A2 < B2) {
-                return new CharRangeTransitionLabel(A1, A2);
-                
-                } else { return null; }
+            else if (a1 > b1 && a2 < b2) {
+                return new CharRangeTransitionLabel(a1, a2);
 
-            } else { throw new CannotDetermineIntersectionException(); }
+            } else { return null; }
+
+        } else { throw new CannotDetermineIntersectionException(); }
 
     }
 };
