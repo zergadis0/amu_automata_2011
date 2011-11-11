@@ -56,7 +56,6 @@ public class TestAutomataOperations extends TestCase {
 
         State q0 = automatonA.addState();
         State q1 = automatonA.addState();
-        
         automatonA.addTransition(q0, q1, new CharTransitionLabel('a'));
         automatonA.addTransition(q0, q1, new CharTransitionLabel('b'));
         automatonA.markAsInitial(q0);
@@ -66,7 +65,6 @@ public class TestAutomataOperations extends TestCase {
 
         State q10 = automatonB.addState();
         State q11 = automatonB.addState();
-        
         automatonB.addTransition(q10, q11, new CharTransitionLabel('a'));
         automatonB.addTransition(q10, q11, new CharTransitionLabel('b'));
         automatonB.addLoop(q11, new CharTransitionLabel('b'));
