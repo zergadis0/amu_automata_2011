@@ -45,7 +45,7 @@ public class TestAutomataOperations extends TestCase {
         // assertFalse(automaton.accepts("a"));
 
     }
-    /** Test sprawdza metode Sum w AutomataOperations. */
+    /** Test sprawdza metode Sum w AutomataOperations A i B. */
     public final void testSumAB() {
         /*Automat A */
             AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
@@ -66,10 +66,11 @@ public class TestAutomataOperations extends TestCase {
             automatonB.addTransition(q1B, q2B, new CharTransitionLabel('a'));
             automatonB.addTransition(q1B, q2B, new CharTransitionLabel('b'));
             automatonB.markAsInitial(q0B);
-            automatonB.markAsFinal(q2B);            
-                    /* Test A z B ok */
+            automatonB.markAsFinal(q2B);
+            /* Test A z B ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonA, automatonB);
-            NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(result);
+            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts("aa"));
             assertTrue(automaton.accepts("ba"));
             assertTrue(automaton.accepts("aaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaa"));
@@ -81,6 +82,7 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("aaaaaaaaaaaaaaaxaaaaaa"));
             assertFalse(automaton.accepts("bab"));
     }    
+            /** Test sprawdza metode Sum w AutomataOperations B i D */
             public final void testSumBD() {
                 /*Automat B*/
             AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -112,7 +114,8 @@ public class TestAutomataOperations extends TestCase {
             automatonD.markAsFinal(q3D);            
                     /*Test D z B ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonD);
-            NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(result);
+            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts("ab"));
             assertTrue(automaton.accepts("abbabba"));
             assertTrue(automaton.accepts("bbbcaacba"));
@@ -123,6 +126,7 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("aac"));
     }     
+            /** Test sprawdza metode Sum w AutomataOperations B i C. */
             public final void testSumBC() {
            /* Automat B*/
             AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -146,7 +150,8 @@ public class TestAutomataOperations extends TestCase {
             automatonC.markAsFinal(q0C);            
                     /*Test B z C ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonC);
-            NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(result);
+            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts("babbaccddcaaccb"));
             assertTrue(automaton.accepts("bbaccddbaba"));
             assertTrue(automaton.accepts("bbbcaacba"));
@@ -156,6 +161,7 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("CzyTwojProgramMackuToZaakceptuje"));
             assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
        }
+            /** Test sprawdza metode Sum w AutomataOperations B i E. */
                 public final void testSumBE() {                    
                                /* Automat B*/
             AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -176,7 +182,8 @@ public class TestAutomataOperations extends TestCase {
             automatonE.markAsFinal(q0E);
             /*Test B z E */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonE);
-            NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(result);
+            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts(""));
             assertTrue(automaton.accepts("aa"));
             assertFalse(automaton.accepts("bbaccddxbaba"));
