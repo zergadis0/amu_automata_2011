@@ -64,14 +64,14 @@ public class TestAutomataOperations extends TestCase {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
-        State q0 = automatonB.addState();
-        State q1 = automatonB.addState();
+        State q10 = automatonB.addState();
+        State q11 = automatonB.addState();
         
-        automatonB.addTransition(q0, q1, new CharTransitionLabel('a'));
-        automatonB.addTransition(q0, q1, new CharTransitionLabel('b'));
-        automatonB.addLoop(q1, new CharTransitionLabel('b'));
-        automatonB.markAsInitial(q0);
-        automatonB.markAsFinal(q1);
+        automatonB.addTransition(q10, q11, new CharTransitionLabel('a'));
+        automatonB.addTransition(q10, q11, new CharTransitionLabel('b'));
+        automatonB.addLoop(q11, new CharTransitionLabel('b'));
+        automatonB.markAsInitial(q10);
+        automatonB.markAsFinal(q11);
 
 
         AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
