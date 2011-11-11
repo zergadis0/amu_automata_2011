@@ -85,7 +85,7 @@ public class TestAutomataOperations extends TestCase {
      */
     public final void testIntersection3() {
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
-        
+
         State q0 = automatonA.addState();
         State q1 = automatonA.addState();
         State q2 = automatonA.addState();
@@ -107,5 +107,4 @@ public class TestAutomataOperations extends TestCase {
         assertTrue(automaton.accepts(""));
 
     }
-   
 }
