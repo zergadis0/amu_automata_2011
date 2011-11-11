@@ -106,7 +106,7 @@ public class AutomataOperations {
         State stateCn;
         boolean empty = true;
         if (hashMaps.get(0).containsValue(combinedC.toString()))
-            stateCn = (State) hashMaps.get(1).get(hashMaps.get(2).toString());
+            stateCn = (State) hashMaps.get(1).get(hashMaps.get(2).get(combinedC.toString()).toString());
         else {
             stateCn = automatonC.addState();
             hashMaps.get(2).put(combinedC.toString(), combinedC);
