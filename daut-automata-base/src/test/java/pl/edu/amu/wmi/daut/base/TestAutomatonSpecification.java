@@ -53,12 +53,13 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertFalse(testSpec2.acceptEmptyWord());
 
-        //Test 3 - automat jak w poprzednim przypadku, ale zawiera epsilon-przejscia do stanu koncowego
+        //Test 3 - automat jak w poprzednim przypadku
+        //ale zawiera epsilon-przejscia do stanu koncowego
         State q3 = testSpec2.addState();
-        
+
         testSpec2.addTransition(q0, q3, new EpsilonTransitionLabel());
         testSpec2.addTransition(q3, q2, new EpsilonTransitionLabel());
-        
+
         assertTrue(testSpec2.acceptEmptyWord());
     }
     /**
