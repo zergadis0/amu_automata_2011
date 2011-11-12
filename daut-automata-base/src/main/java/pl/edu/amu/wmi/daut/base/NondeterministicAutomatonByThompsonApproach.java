@@ -44,8 +44,8 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
 
             for (State someState : currentStates) {
-                List<OutgoingTransition> someStateTransitions =
-                        new LinkedList<OutgoingTransition>(automaton.allOutgoingTransitions(someState));
+                List<OutgoingTransition> someStateTransitions = new LinkedList<OutgoingTransition>(
+                        automaton.allOutgoingTransitions(someState));
 
                 for (OutgoingTransition transition : someStateTransitions) {
                     if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))
@@ -81,8 +81,8 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
             added = false;
 
             for (State someState : epsilonStates) {
-                List<OutgoingTransition> someStateTransitions =
-                        new LinkedList<OutgoingTransition>(automaton.allOutgoingTransitions(someState));
+                List<OutgoingTransition> someStateTransitions = new LinkedList<OutgoingTransition>(
+                        automaton.allOutgoingTransitions(someState));
 
                 for (OutgoingTransition transition : someStateTransitions) {
                     if (transition.getTransitionLabel().canBeEpsilon()
