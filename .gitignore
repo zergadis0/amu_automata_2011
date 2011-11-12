@@ -1,3 +1,10 @@
 *~
 target
 .metadata
+daut-automata-base/.classpath
+daut-automata-base/.project
+daut-automata-base/.settings/
+daut-automata-base/src/main/java/pl/edu/amu/wmi/daut/base/testGraphViz.java
+daut-automata-base/src/test/java/pl/edu/amu/wmi/daut/base/tmpTest.java
+daut-build-tools/.classpath
+daut-build-tools/.project
