@@ -33,6 +33,7 @@ public class TestAutomatonSpecification extends TestCase {
     public final void testAcceptEmptyWord() {
 
         //Test 1 - stan poczatkowy jest stanem koncowym
+
         NaiveAutomatonSpecification testSpec1 = new NaiveAutomatonSpecification();
         NaiveState state = testSpec1.addState();
         testSpec1.markAsInitial(state);
@@ -40,6 +41,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertTrue(testSpec1.acceptEmptyWord());
 
         //Test 2 - automat ma wiecej stanow, bez epsilon-przejsc do stanu koncowego
+
         NaiveAutomatonSpecification testSpec2 = new NaiveAutomatonSpecification();
         State q0 = testSpec2.addState();
         State q1 = testSpec2.addState();
@@ -55,6 +57,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         //Test 3 - automat jak w poprzednim przypadku
         //ale zawiera epsilon-przejscia do stanu koncowego
+
         State q3 = testSpec2.addState();
 
         testSpec2.addTransition(q0, q3, new EpsilonTransitionLabel());
