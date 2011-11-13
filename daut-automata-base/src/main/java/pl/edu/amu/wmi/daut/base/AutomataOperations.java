@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -9,6 +10,29 @@ import java.util.HashMap;
  * Klasa zwierająca operacje na automatach.
  */
 public class AutomataOperations {
+
+    protected AutomataOperations() {
+        throw new UnsupportedOperationException(); // prevents calls from subclass
+    }
+
+    /**
+     * Metoda zwracajaca Automat akceptujacy jezyk bedacy dopelnieniem jezyka
+     * akceptowanego przez Automat otrzymywany "na wejsciu".
+     * @return AutomatonSpecification
+     */
+    static AutomatonSpecification
+            complementLanguageAutomaton(DeterministicAutomatonSpecification automaton,
+            Set<Character> alfabet) {
+        NaiveDeterministicAutomatonSpecification returned = automaton.clone();
+        returned.makeFull(alfabet.toString());
+        for(State obecny : returned.allStates()) {
+            if (returned.isFinal(obecny))
+                returned.unmarkAsFinal(obecny);
+            else
+                returned.markAsFinal(obecny);
+        }
+        return returned;
+    }
 
     /**
      * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
