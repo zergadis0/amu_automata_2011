@@ -96,6 +96,13 @@ abstract class AutomatonSpecification implements Cloneable  {
      */
     public abstract void markAsFinal(State state);
 
+    /**
+     * Odznacza stan jako końcowy (nieakceptujący).
+     */
+    public void unmarkAsFinal(State state) {
+        //tu Warkocz wstawi kod!
+    };
+
     // metody zwracające informacje o automacie
     /**
      * Zwraca listę wszystkich stanów.

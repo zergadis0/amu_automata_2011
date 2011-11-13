@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Klasa zwierająca operacje na automatach.
@@ -59,6 +60,23 @@ public class AutomataOperations {
         }
         private State qA;
         private State qB;
+    }
+    /**
+     * Metoda zwracajaca Automat akceptujacy jezyk bedacy dopelnieniem jezyka
+     * akceptowanego przez Automat otrzymywany "na wejsciu".
+     */
+    static AutomatonSpecification
+            complementLanguageAutomaton(DeterministicAutomatonSpecification automaton,
+            Set<Character> alfabet) {
+        AutomatonSpecification returned = automaton.clone();
+        returned.makeFull(alfabet.toString());
+        for (State obecny : returned.allStates()) {
+            if (returned.isFinal(obecny))
+                returned.unmarkAsFinal(obecny);
+            else
+                returned.markAsFinal(obecny);
+        }
+        return returned;
     }
 
     /**
