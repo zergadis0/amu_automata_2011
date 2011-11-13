@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.HashMap;
 
@@ -37,12 +38,69 @@ public class AutomataOperations {
     }
 
     /**
+     *Metoda zwraca automat akceptujący odwrócenie języka,
+     * akceptowanego przez dany automat "parent".
+     */
+    public AutomatonSpecification reverseLanguageAutomat(
+            NaiveAutomatonSpecification parent) {
+
+        NaiveAutomatonSpecification son = new NaiveAutomatonSpecification();
+
+        if (parent.isEmpty()) { return son; }
+
+        List<State> pstates = new ArrayList<State>();
+        List<State> sstates = new ArrayList<State>();
+        pstates.addAll(parent.allStates());
+
+        List<OutgoingTransition> outtransitions =
+                new ArrayList<OutgoingTransition>();
+
+        sstates.add(son.addState());
+        son.markAsInitial(sstates.get(0));
+
+        for (State state : pstates) {
+            sstates.add(son.addState());
+            if (state == parent.getInitialState())
+                son.markAsFinal(sstates.get(sstates.size() - 1));
+            else if (parent.isFinal(state)) {
+                EpsilonTransitionLabel eps = new EpsilonTransitionLabel();
+                son.addTransition(
+                        sstates.get(0), sstates.get(sstates.size() - 1), eps);
+            }
+
+            outtransitions.addAll(parent.allOutgoingTransitions(state));
+
+            for (OutgoingTransition outtransition : outtransitions) {
+
+                State targetstate = outtransition.getTargetState();
+                State currentstate = null;
+                boolean exist = false;
+                for (State tmpstate : son.allStates()) {
+                    if (tmpstate == targetstate) {
+                        exist = true; currentstate = tmpstate; break;
+                    }
+                }
+                if (exist)
+                    son.addTransition(
+                            targetstate, currentstate, outtransition.getTransitionLabel());
+                else {
+                    sstates.add(son.addState());
+                    son.addTransition(targetstate, sstates.get(sstates.size() - 1),
+                            outtransition.getTransitionLabel());
+                }
+            }
+        }
+
+        return son;
+    }
+
+    /**
      * Metoda tworzy przejscie od stanu stateC do nowego stanu utworzonego przez pare A i B w
      * combinedC po etykiecie transition. Dodanie nowo utworzonego stanu stateCn do listy newStates
      * wraz z wpisaniem jej oraz jej kombinacji stanów do HashMap.
      * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
      */
-    private boolean makeTransition(CombinedState combinedC, List newStates,
+    private static boolean makeTransition(CombinedState combinedC, List newStates,
             TransitionLabel transition, List<HashMap> hashMaps, State stateC,
             AutomatonSpecification automatonC, boolean isFinal) {
         State stateCn;
@@ -66,7 +124,7 @@ public class AutomataOperations {
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
      * dwa podane automaty.
      */
-    public AutomatonSpecification intersection(
+    public static AutomatonSpecification intersection(
             AutomatonSpecification automatonA, AutomatonSpecification automatonB) {
 
         boolean empty, isFinal = false;
@@ -83,8 +141,8 @@ public class AutomataOperations {
         List<OutgoingTransition> lA;
         List<OutgoingTransition> lB;
         List<State> lC = new java.util.LinkedList<State>();
-        List<State> temporary = new java.util.LinkedList<State>();
-        temporary.add(qC);
+        List<State> newStates = new java.util.LinkedList<State>();
+        newStates.add(qC);
 
         /*
          * combinedStatesC - zawiera łańcuch kontrolny odpowiadający kombinacji stanów A i B
@@ -106,8 +164,8 @@ public class AutomataOperations {
         statesCHandle.put(combinedC.toString(), qC);
 
         do {
-            lC.addAll(temporary);
-            temporary.clear();
+            lC.addAll(newStates);
+            newStates.clear();
             empty = true;
 
             for (State stateC : lC) {
@@ -132,7 +190,7 @@ public class AutomataOperations {
                             else
                                 isFinal = false;
                             empty = makeTransition(combinedC,
-                                    temporary, tL, hashMaps, stateC,
+                                    newStates, tL, hashMaps, stateC,
                                     automatonC, isFinal);
 
                             break;
@@ -149,7 +207,7 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        empty = makeTransition(combinedC, temporary,
+                        empty = makeTransition(combinedC, newStates,
                                 new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
                                 isFinal);
 
@@ -165,7 +223,7 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        empty = makeTransition(combinedC, temporary,
+                        empty = makeTransition(combinedC, newStates,
                                 new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
                                 isFinal);
 
@@ -206,11 +264,9 @@ public class AutomataOperations {
         AutomatonSpecification automatonA, AutomatonSpecification automatonB) {
         AutomatonSpecification automaton = new NaiveAutomatonSpecification();
         State q0 = automaton.addState();
-        State qk = automaton.addState();
         State q1 = automaton.addState();
         State q2 = automaton.addState();
         automaton.markAsInitial(q0);
-        automaton.markAsFinal(qk);
         automaton.insert(q1, automatonA);
         automaton.insert(q2, automatonB);
         automaton.addTransition(q0, q1, new EpsilonTransitionLabel());
