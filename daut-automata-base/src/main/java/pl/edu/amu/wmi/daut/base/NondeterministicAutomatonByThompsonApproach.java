@@ -12,6 +12,7 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
     @Override
     public boolean accepts(final String text) {
         accept = false;
+        int i = 0;
         int limit = text.length();
         boolean added;
         currentStates = new LinkedList<State>();
@@ -20,7 +21,7 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
         currentStates.add(automaton.getInitialState());
 
-        for (int i = 0; i < limit; i++) {
+        do {
 
             do {
                 added = false;
@@ -57,8 +58,9 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
             currentStates.clear();
             currentStates.addAll(temporaryStates);
             temporaryStates.clear();
+            i++;
 
-        }
+        } while (i < limit);
 
         for (State someState : currentStates) {
             if (automaton.isFinal(someState)) {
