@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Klasa zwracająca akceptowane słowa.
@@ -47,5 +48,34 @@ public class Generator {
                         acceptedWords.remove(word);
                     }
             }
+    }
+    
+    /**
+     * Metoda zwracająca losowy napis akceptowany przez automat 
+     * @param AutomatonSpecification automaton - automat
+     * @param String alphabet - alfabet akceptowalny przez automat 
+     * @param State state - stany automatu
+     * @return String
+     */
+    String randomWord(AutomatonSpecification automaton, String alphabet, State state) {
+        String word = new String();
+        Random rand = new Random();
+        List<OutgoingTransition> allOutTransitions;
+        allOutTransitions = automaton.allOutgoingTransitions(state);
+            if (!allOutTransitions.isEmpty()) {
+                while (!automaton.isFinal(state)) {
+                    int r = rand.nextInt(allOutTransitions.size()) + 1;
+                    currentLabel = allOutTransitions.get(r).getTransitionLabel();
+                    for (int i = 0; i < alphabet.length(); i++) {
+                        if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
+                            state = allOutTransitions.get(r).getTargetState();
+                            allOutTransitions = automaton.allOutgoingTransitions(state);
+                            word.concat(alphabet.substring(i, i+1));
+                            break;
+                        }
+                    }
+                }
+            }
+        return word;
     }
 }
