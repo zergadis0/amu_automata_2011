@@ -158,7 +158,7 @@ public class TestAutomataOperations extends TestCase {
             assertTrue(automaton.accepts("aaaaaaaaaaaaaaaa"));
             assertTrue(automaton.accepts(""));
             assertFalse(automaton.accepts("bbaccddxbaba"));
-            assertFalse(automaton.accepts("CzyTwojProgramMackuToZaakceptuje"));
+            assertFalse(automaton.accepts("czytwojprogrammackutozaakceptuje"));
             assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
        }
 }
