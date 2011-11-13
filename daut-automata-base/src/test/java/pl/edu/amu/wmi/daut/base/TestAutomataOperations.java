@@ -125,6 +125,6 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("b"));
             assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("aac"));
-    }     
+    }   
 }
 
