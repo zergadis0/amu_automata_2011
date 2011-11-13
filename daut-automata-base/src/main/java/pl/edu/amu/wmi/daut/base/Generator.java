@@ -48,4 +48,9 @@ public class Generator {
                     }
             }
     }
+
+    public List<String> returnAcceptedWords ()
+    {
+        return acceptedWords;
+    }
 }
