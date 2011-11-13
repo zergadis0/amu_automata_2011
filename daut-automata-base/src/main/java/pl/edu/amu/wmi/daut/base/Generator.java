@@ -48,9 +48,11 @@ public class Generator {
                     }
             }
     }
-
-    public List<String> returnAcceptedWords ()
-    {
+    /**
+     * Metoda zwracająca listę acceptedWords.
+     *
+     */
+    public List<String> returnAcceptedWords() {
         return acceptedWords;
     }
 }
