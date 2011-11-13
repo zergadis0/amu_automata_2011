@@ -761,6 +761,34 @@ public class TestAutomatonSpecification extends TestCase {
         str = new AutomatonString("q0", "q0 -a-> q0", "", "");
         assertEquals(str.toString(), ta5.toString());
     }
+
+    /**
+     * Metoda pomocnicza do testów GetDotGraph().
+     */
+    public boolean isThisGraphGood(String graphDef) {
+        String[] table = graphDef.split("\n");
+        if ((!"digraph finite_state_machine {".equals(table[0])) |
+                (!"    rankdir=LR;".equals(table[1])))
+            return false;
+        if ((!"    node [style=filled fillcolor=\"#00ff005f\" shape = circle".equals(table[2])) ||
+      (!"    node [style=filled fillcolor=\"#00ff005f\" shape = doublecircle".equals(table[2])))
+            return false;
+        return true;
+    }
+
+    /**
+     * Test metody getDotGraph().
+     */
+    public final void testGetDotGraph() {
+        AutomatonSpecification automat = new NotNaiveAutomatonSpecification();
+        State qInit = automat.addState();
+        State qEnd = automat.addTransitionSequence(qInit, "one");
+        
+        String dotGraph = automat.getDotGraph();
+        
+        assertTrue(isThisGraphGood(dotGraph));
+    }
+
     /**
      * Testuje działanie metody testPrefixChecker().
      */
