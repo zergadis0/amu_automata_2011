@@ -126,40 +126,5 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("aac"));
     }     
-            /** Test sprawdza metode Sum w AutomataOperations B i C. */
-            public final void testSumBC() {
-           /* Automat B*/
-            AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-            State q0B = automatonB.addState();
-            State q1B = automatonB.addState();
-            State q2B = automatonB.addState();
-            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('a'));
-            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('b'));
-            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('a'));
-            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('b'));
-            automatonB.markAsInitial(q0B);
-            automatonB.markAsFinal(q2B);
-        /*Automat C */
-            AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
-            State q0C = automatonC.addState();
-            automatonC.addLoop(q0C, new CharTransitionLabel('a'));
-            automatonC.addLoop(q0C, new CharTransitionLabel('b'));
-            automatonC.addLoop(q0C, new CharTransitionLabel('c'));
-            automatonC.addLoop(q0C, new CharTransitionLabel('d'));
-            automatonC.markAsInitial(q0C);
-            automatonC.markAsFinal(q0C);            
-                    /*Test B z C ok */
-            AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonC);
-            NondeterministicAutomatonByThompsonApproach automaton = new 
-            NondeterministicAutomatonByThompsonApproach(result);
-            assertTrue(automaton.accepts("babbaccddcaaccb"));
-            assertTrue(automaton.accepts("bbaccddbaba"));
-            assertTrue(automaton.accepts("bbbcaacba"));
-            assertTrue(automaton.accepts("aaaaaaaaaaaaaaaa"));
-            assertTrue(automaton.accepts(""));
-            assertFalse(automaton.accepts("bbaccddxbaba"));
-            assertFalse(automaton.accepts("czytwojprogrammackutozaakceptuje"));
-            assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
-       }
 }
 
