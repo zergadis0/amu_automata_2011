@@ -215,16 +215,6 @@ public class AutomataOperations {
         automaton.insert(q2, automatonB);
         automaton.addTransition(q0, q1, new EpsilonTransitionLabel());
         automaton.addTransition(q0, q2, new EpsilonTransitionLabel());
-        for (State s : automatonA.allStates()) {
-            if (automatonA.isFinal(s)) {
-                       automaton.addTransition(s , qk, new EpsilonTransitionLabel());
-                    }
-                }
-        for (State s : automatonB.allStates()) {
-            if (automatonB.isFinal(s)) {
-                        automaton.addTransition(s , qk, new EpsilonTransitionLabel());
-                    }
-                }
         return automaton;
     }
 }
