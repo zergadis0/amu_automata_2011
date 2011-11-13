@@ -55,4 +55,9 @@ public class Generator {
     public List<String> returnAcceptedWords() {
         return acceptedWords;
     }
+    public List<String> startAcceptedWords(AutomatonSpecification automaton, String alphabet) {
+        String word = new String();
+        acceptWords(automaton, alphabet, word, automaton.getInitialState());
+        return acceptedWords;
+    }
 }
