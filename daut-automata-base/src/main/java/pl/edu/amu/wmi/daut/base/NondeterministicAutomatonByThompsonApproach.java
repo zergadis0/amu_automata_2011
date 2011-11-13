@@ -54,8 +54,8 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
                     }
                 }
             }
-
-            currentStates = temporaryStates;
+            currentStates.clear();
+            currentStates.addAll(temporaryStates);
             temporaryStates.clear();
 
         }
