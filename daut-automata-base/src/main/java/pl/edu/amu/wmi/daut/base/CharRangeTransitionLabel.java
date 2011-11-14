@@ -48,9 +48,10 @@ class CharRangeTransitionLabel extends TransitionLabel {
             char b1 = ((CharRangeTransitionLabel) label).getFirstChar();
             char b2 = ((CharRangeTransitionLabel) label).getSecondChar();
 
-            if (a1 < b1 && a2 < b2) {
+            if ((a1 <= b1 && a2 <= b2 && b1 < a2) || (a1 == a2 && b1 == b2)) {
                 return new CharRangeTransitionLabel(b1, a2);
-            } else if (a1 > b1 && a2 > b2) {
+
+            } else if (a1 >= b1 && a2 >= b2 && a1 < b2) {
                 return new CharRangeTransitionLabel(a1, b2);
 
             } else if (a1 < b1 && a2 > b2) {
