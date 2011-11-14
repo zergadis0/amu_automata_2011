@@ -52,9 +52,8 @@ public class Generator {
      * Metoda zwracająca listę acceptedWords.
      *
      */
-    public List<String> getAllAcceptedWordsForAutomatonWithoutCycles
-            (AutomatonSpecification automaton, String alphabet) {
-        String word = new String();
+    public List wordsForAutomatonWithoutCycles(AutomatonSpecification automaton, String alphabet) {
+        String word = "";
         acceptWords(automaton, alphabet, word, automaton.getInitialState());
         return acceptedWords;
     }
