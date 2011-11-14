@@ -12,80 +12,80 @@ public class TestDeterministicAutomaton extends TestCase {
      * 
      */
     public final void testSimpleDeterministicAutomaton() {
-        DeterministicAutomatonSpecification simpleTest = new NaiveDeterministicAutomatonSpecification();
-        State q1 = simpleTest.addState();
-        State q2 = simpleTest.addState();
-        simpleTest.addTransition(q1, q2, new CharTransitionLabel('a'));
-        simpleTest.addLoop(q2, new CharTransitionLabel('a'));
-        simpleTest.addLoop(q1, new CharTransitionLabel('b'));
-        simpleTest.markAsInitial(q1);
-        simpleTest.markAsFinal(q2);
-        DeterministicAutomaton simpleAutomatonTest = new DeterministicAutomaton(simpleTest);
-        assertTrue(simpleAutomatonTest.accepts("a"));
-        assertFalse(simpleAutomatonTest.accepts("b"));
-        assertFalse(simpleAutomatonTest.accepts(""));
-        assertFalse(simpleAutomatonTest.accepts("abx"));
-        assertTrue(simpleAutomatonTest.accepts("aaaa"));
-        assertTrue(simpleAutomatonTest.accepts("baaaa"));
+        DeterministicAutomatonSpecification stest = new NaiveDeterministicAutomatonSpecification();
+        State q1 = stest.addState();
+        State q2 = stest.addState();
+        stest.addTransition(q1, q2, new CharTransitionLabel('a'));
+        stest.addLoop(q2, new CharTransitionLabel('a'));
+        stest.addLoop(q1, new CharTransitionLabel('b'));
+        stest.markAsInitial(q1);
+        stest.markAsFinal(q2);
+        DeterministicAutomaton satest = new DeterministicAutomaton(stest);
+        assertTrue(satest.accepts("a"));
+        assertFalse(satest.accepts("b"));
+        assertFalse(satest.accepts(""));
+        assertFalse(satest.accepts("abx"));
+        assertTrue(satest.accepts("aaaa"));
+        assertTrue(satest.accepts("baaaa"));
         String s = new String();
         for (int i = 1; i < 1000; i++) {
             s = s + 'a';
         }
-        assertTrue(simpleAutomatonTest.accepts(s));
+        assertTrue(satest.accepts(s));
         String a = new String();
         for (int i = 1; i < 1000; i++) {
             s = s + "ab";
         }
-        assertFalse(simpleAutomatonTest.accepts(a));
+        assertFalse(satest.accepts(a));
     }
 
     /** OneInitialFinalStateTest, ze stanem, ktory jest poczatkowym i akceptujacym.
      * 
      */
     public final void testOneInitialFinalState() {
-        DeterministicAutomatonSpecification OneFinalInitialState = new NaiveDeterministicAutomatonSpecification();
-        State q1 = OneFinalInitialState.addState();
-        State q2 = OneFinalInitialState.addState();
-        OneFinalInitialState.addTransition(q1, q2, new CharTransitionLabel('a'));
-        OneFinalInitialState.addTransition(q1, q2, new CharTransitionLabel('b'));
-        OneFinalInitialState.addTransition(q2, q1, new CharTransitionLabel('a'));
-        OneFinalInitialState.addLoop(q2, new CharTransitionLabel('b'));
-        OneFinalInitialState.markAsInitial(q1);
-        OneFinalInitialState.markAsFinal(q1);
-        DeterministicAutomaton OneFinalInitialStateTest = new DeterministicAutomaton(OneFinalInitialState);
-        assertTrue(OneFinalInitialStateTest.accepts("aa"));
-        assertFalse(OneFinalInitialStateTest.accepts("aaa"));
-        assertFalse(OneFinalInitialStateTest.accepts("a"));
-        assertFalse(OneFinalInitialStateTest.accepts("baa"));
+        DeterministicAutomatonSpecification onestate = new NaiveDeterministicAutomatonSpecification();
+        State q1 = onestate.addState();
+        State q2 = onestate.addState();
+        onestate.addTransition(q1, q2, new CharTransitionLabel('a'));
+        onestate.addTransition(q1, q2, new CharTransitionLabel('b'));
+        onestate.addTransition(q2, q1, new CharTransitionLabel('a'));
+        onestate.addLoop(q2, new CharTransitionLabel('b'));
+        onestate.markAsInitial(q1);
+        onestate.markAsFinal(q1);
+        DeterministicAutomaton ostest = new DeterministicAutomaton(onestate);
+        assertTrue(ostest.accepts("aa"));
+        assertFalse(ostest.accepts("aaa"));
+        assertFalse(ostest.accepts("a"));
+        assertFalse(ostest.accepts("baa"));
     }
 
     /** testDeterministicAutomatonParityCheck, automat z wykladu, a i b sa parzyste.
      * 
      */
     public final void testDeterministicAutomatonParityCheck() {
-        DeterministicAutomatonSpecification DeterministicAutomatonParityCheck = new NaiveDeterministicAutomatonSpecification();
-        State qpp = DeterministicAutomatonParityCheck.addState();
-        State qnp = DeterministicAutomatonParityCheck.addState();
-        State qnn = DeterministicAutomatonParityCheck.addState();
-        State qpn = DeterministicAutomatonParityCheck.addState();
-        DeterministicAutomatonParityCheck.addTransition(qpp, qnp, new CharTransitionLabel('a'));
-        DeterministicAutomatonParityCheck.addTransition(qnp, qpp, new CharTransitionLabel('a'));
-        DeterministicAutomatonParityCheck.addTransition(qnp, qnn, new CharTransitionLabel('b'));
-        DeterministicAutomatonParityCheck.addTransition(qnn, qnp, new CharTransitionLabel('b'));
-        DeterministicAutomatonParityCheck.addTransition(qnn, qpn, new CharTransitionLabel('a'));
-        DeterministicAutomatonParityCheck.addTransition(qpn, qnn, new CharTransitionLabel('a'));
-        DeterministicAutomatonParityCheck.addTransition(qpp, qpn, new CharTransitionLabel('b'));
-        DeterministicAutomatonParityCheck.addTransition(qpn, qpp, new CharTransitionLabel('b'));
-        DeterministicAutomatonParityCheck.markAsInitial(qpp);
-        DeterministicAutomatonParityCheck.markAsFinal(qpp);
-        DeterministicAutomaton DeterministicAutomatonParityCheckTest = new DeterministicAutomaton(DeterministicAutomatonParityCheck);
-        assertTrue(DeterministicAutomatonParityCheckTest.accepts("aabb"));
-        assertFalse(DeterministicAutomatonParityCheckTest.accepts("aab"));
-        assertTrue(DeterministicAutomatonParityCheckTest.accepts("aa"));
-        assertTrue(DeterministicAutomatonParityCheckTest.accepts("bb"));
-        assertFalse(DeterministicAutomatonParityCheckTest.accepts("abb"));
-        assertFalse(DeterministicAutomatonParityCheckTest.accepts("vabb"));
-        assertFalse(DeterministicAutomatonParityCheckTest.accepts("aabbh"));
+        DeterministicAutomatonSpecification pcheck = new NaiveDeterministicAutomatonSpecification();
+        State qpp = pcheck.addState();
+        State qnp = pcheck.addState();
+        State qnn = pcheck.addState();
+        State qpn = pcheck.addState();
+        pcheck.addTransition(qpp, qnp, new CharTransitionLabel('a'));
+        pcheck.addTransition(qnp, qpp, new CharTransitionLabel('a'));
+        pcheck.addTransition(qnp, qnn, new CharTransitionLabel('b'));
+        pcheck.addTransition(qnn, qnp, new CharTransitionLabel('b'));
+        pcheck.addTransition(qnn, qpn, new CharTransitionLabel('a'));
+        pcheck.addTransition(qpn, qnn, new CharTransitionLabel('a'));
+        pcheck.addTransition(qpp, qpn, new CharTransitionLabel('b'));
+        pcheck.addTransition(qpn, qpp, new CharTransitionLabel('b'));
+        pcheck.markAsInitial(qpp);
+        pcheck.markAsFinal(qpp);
+        DeterministicAutomaton pctest = new DeterministicAutomaton(pcheck);
+        assertTrue(pctest.accepts("aabb"));
+        assertFalse(pctest.accepts("aab"));
+        assertTrue(pctest.accepts("aa"));
+        assertTrue(pctest.accepts("bb"));
+        assertFalse(pctest.accepts("abb"));
+        assertFalse(pctest.accepts("vabb"));
+        assertFalse(pctest.accepts("aabbh"));
     }
 }
 
