@@ -221,7 +221,6 @@ public class TestAutomataOperations extends TestCase {
             automatonF.markAsFinal(q1F);
             automatonF.markAsFinal(q7F);
             automatonF.markAsFinal(q6F);
-            
             /*Test Automatu B i F */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonF);
             NondeterministicAutomatonByThompsonApproach automaton = new
