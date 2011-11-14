@@ -13,7 +13,7 @@ import java.util.HashMap;
  * odpowiadających na pytanie, czy automat akceptuje napis, czy nie),
  * tylko "zawartość" automatu.
  */
-abstract class AutomatonSpecification {
+abstract class AutomatonSpecification implements Cloneable  {
 
     // metody "budujące" automat
     /**
@@ -37,6 +37,23 @@ abstract class AutomatonSpecification {
         addTransition(from, to, transitionLabel);
 
         return to;
+    }
+
+    /**
+     * Dla zadanego słowa dodaje stany i przejścia.
+     *
+     * Zwraca stan końcowy.
+     */
+    public State addTransitionSequence(State from, String text) {
+        State prev = from;
+        State next = prev;
+
+        for (int i = 1; i <= text.length(); i++) {
+            prev = addTransition(next,
+                    new CharTransitionLabel(text.charAt(i - 1)));
+            next = prev;
+        }
+       return prev;
     }
 
     /**
@@ -157,11 +174,6 @@ abstract class AutomatonSpecification {
         }
         return pilgrim.toString();
     };
-    /**
-     * Funkcja tworzaca zawartość automatu ze Stringa.
-     */
-    public void fromString(String automatonDescription) throws Exception {
-    }
    /**
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
@@ -319,29 +331,31 @@ abstract class AutomatonSpecification {
      * początkowym automatu automaton.
      */
     void insert(State state, AutomatonSpecification automaton) {
-      List<State> loadedStates = automaton.allStates();
-      HashMap<State, State> connectedStates = new HashMap<State, State>();
-      State automatonInitialState = automaton.getInitialState();
-      for (State currentState : loadedStates) {
-        if (currentState == automatonInitialState)
-          connectedStates.put(currentState, state);
-        else
-          connectedStates.put(currentState, this.addState());
-      }
-      for (State currentState : loadedStates) {
-          if (automaton.isFinal(currentState))
-              markAsFinal(connectedStates.get(currentState));
-        List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
-        for (OutgoingTransition transition : list) {
-          this.addTransition(connectedStates.get(currentState),
-          connectedStates.get(transition.getTargetState()), transition.getTransitionLabel());
+        List<State> loadedStates = automaton.allStates();
+        HashMap<State, State> connectedStates = new HashMap<State, State>();
+        State automatonInitialState = automaton.getInitialState();
+        for (State currentState : loadedStates) {
+            if (currentState == automatonInitialState)
+                connectedStates.put(currentState, state);
+            else
+                connectedStates.put(currentState, this.addState());
         }
-      }
+        for (State currentState : loadedStates) {
+            if (automaton.isFinal(currentState))
+                markAsFinal(connectedStates.get(currentState));
+            List<OutgoingTransition> list = automaton
+                    .allOutgoingTransitions(currentState);
+            for (OutgoingTransition transition : list) {
+                this.addTransition(connectedStates.get(currentState),
+                        connectedStates.get(transition.getTargetState()),
+                        transition.getTransitionLabel());
+            }
+        }
     }
 
     /**
-     * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie
-     * napis pusty.
+     * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie napis
+     * pusty.
      */
     public void makeEmptyStringAutomaton() {
         State emptyState = this.addState();
@@ -379,17 +393,19 @@ abstract class AutomatonSpecification {
             for (int i = 0; i < alphabet.length(); i++) {
                 indeks = 0;
                 if (allOutgoingTransitions(state).isEmpty())
-                    addTransition(state, trash,
-                            new CharTransitionLabel(alphabet.charAt(i)));
+                    addTransition(state, trash, new CharTransitionLabel(
+                            alphabet.charAt(i)));
                 for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                    if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
+                    if (transition1.getTransitionLabel().canAcceptCharacter(
+                            alphabet.charAt(i)))
                         break;
                     else if ((indeks == allOutgoingTransitions(state).size() - 1)
                             && !transition1.getTransitionLabel()
-                            .canAcceptCharacter(alphabet.charAt(i)))
-                        addTransition(state, trash,
-                                new CharTransitionLabel(alphabet.charAt(i)));
-                    else indeks++;
+                                    .canAcceptCharacter(alphabet.charAt(i)))
+                        addTransition(state, trash, new CharTransitionLabel(
+                                alphabet.charAt(i)));
+                    else
+                        indeks++;
                 }
             }
         }
@@ -427,6 +443,15 @@ abstract class AutomatonSpecification {
             }
         }
         return false;
+    }
+
+    /**
+     * Funkcja tworzaca zawartość automatu ze Stringa.
+     */
+
+    void fromString(String automatonDescription) throws StructureException {
+        MakeAutomatonFromString graph = new MakeAutomatonFromString(this, automatonDescription);
+        graph.make();
     }
 
     /**
@@ -524,10 +549,70 @@ abstract class AutomatonSpecification {
         State s1 = addState();
         markAsInitial(s0);
         markAsFinal(s1);
-        addLoop(s0, new EpsilonTransitionLabel());
-        s1 = addTransition(s0, new CharTransitionLabel(alphabet.charAt(0)));
-        for (int i = 1; i < alphabet.length(); i++)
+        for (int i = 0; i < alphabet.length(); i++) {
+            addTransition(s0, s1, new CharTransitionLabel(alphabet.charAt(i)));
             addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
+        }
+    }
+
+    public boolean checkPrefix(String word) {
+
+        List<State> finalStates = new ArrayList<State>();
+        List<State> nowChecking = new ArrayList<State>();
+        List<OutgoingTransition> outgoing = new ArrayList<OutgoingTransition>();
+        TransitionLabel label;
+        State state;
+
+        finalStates.add(getInitialState());
+
+        for (int i = 0; i < word.length(); i++) {
+            nowChecking.clear();
+            nowChecking.addAll(finalStates);
+            finalStates.clear();
+            int size = nowChecking.size();
+
+            for (int j = 0; j < size; j++) {
+                outgoing.clear();
+                outgoing = allOutgoingTransitions(nowChecking.get(j));
+                for (int k = 0; k < outgoing.size(); k++) {
+                    label = outgoing.get(k).getTransitionLabel();
+                    state = outgoing.get(k).getTargetState();
+
+                    if (label.canBeEpsilon() && !nowChecking.contains(state)) {
+                        nowChecking.add(state);
+                        size++;
+                    }
+                    boolean term = label.canAcceptCharacter(word.charAt(i));
+                    if (term && !finalStates.contains(state)) {
+                        finalStates.add(state);
+                    }
+                }
+            }
+        }
+
+        int size = finalStates.size();
+
+        for (int j = 0; j < size; j++) {
+            outgoing.clear();
+            outgoing = allOutgoingTransitions(finalStates.get(j));
+            for (int k = 0; k < outgoing.size(); k++) {
+                label = outgoing.get(k).getTransitionLabel();
+                state = outgoing.get(k).getTargetState();
+
+                if (label.canBeEpsilon() && !finalStates.contains(state)) {
+                    finalStates.add(state);
+                    size++;
+                }
+            }
+        }
+
+        for (int i = 0; i < finalStates.size(); i++) {
+            boolean istrue = prefixChecker(finalStates.get(i));
+
+            if (istrue)
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -537,4 +622,67 @@ abstract class AutomatonSpecification {
         mini.insert(q5, this);
         return mini;
     }
+    public void makeOneLoopAutomaton(char c) {
+        State q0 = addState();
+        addLoop(q0, new CharTransitionLabel(c));
+        markAsInitial(q0);
+        markAsFinal(q0);
+    }
+
+    /**
+     * Metoda zwracającą wszystkie napisy akceptowane przez automat.
+     */
+    public AllAcceptedWords returnAllAcceptedWords() {
+        AllAcceptedWords words = new AllAcceptedWords(this);
+        return words;
+    }
+
+    /**
+* Sprawdza, czy akceptowany język jest nieskończony.
+*/
+    public boolean isInfinite() {
+            return findFinals(getInitialState(), new ArrayList<State>());
+    }
+
+    private boolean findFinals(State state, List<State> history) {
+    boolean result = false;
+
+    if (isFinal(state))
+        return checkForLoop(state, new ArrayList<State>());
+
+    if (allOutgoingTransitions(state).size() == 0)
+                return false;
+
+    for (State his : history)
+            if (his == state)
+                return false;
+       history.add(state);
+
+    for (OutgoingTransition child : allOutgoingTransitions(state)) {
+                result = result || findFinals(child.getTargetState(), history);
+                if (result)
+                break;
+        }
+            return result;
+    }
+
+    private boolean checkForLoop(State state, List<State> history) {
+    for (State his : history)
+        if (his == state)
+            return isFinal(state);
+
+    if (allOutgoingTransitions(state).size() == 0)
+            return false;
+        history.add(state);
+        boolean result = false;
+        for (OutgoingTransition child : allOutgoingTransitions(state)) {
+              result = result || checkForLoop(child.getTargetState(), history);
+              if (result)
+             break;
+        }
+        return result;
+    }
 };
+
+class StructureException extends Exception {
+}
