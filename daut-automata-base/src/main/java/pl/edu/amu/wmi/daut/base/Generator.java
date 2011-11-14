@@ -60,10 +60,9 @@ public class Generator {
     String randomWord(AutomatonSpecification automaton, String alphabet, State state) {
         String word = new String();
         Random rand = new Random();
-        List<OutgoingTransition> allOutTransitions;
-        allOutTransitions = automaton.allOutgoingTransitions(state);
+        List<OutgoingTransition> allOutTransitions = automaton.allOutgoingTransitions(state);
             if (!allOutTransitions.isEmpty()) {
-                while (!automaton.isFinal(state)) {
+                while (!automaton.isFinal(state) && allOutTransitions.isEmpty()) {
                     int r = rand.nextInt(allOutTransitions.size()) + 1;
                     currentLabel = allOutTransitions.get(r).getTransitionLabel();
                     for (int i = 0; i < alphabet.length(); i++) {
@@ -71,6 +70,13 @@ public class Generator {
                             state = allOutTransitions.get(r).getTargetState();
                             allOutTransitions = automaton.allOutgoingTransitions(state);
                             word.concat(alphabet.substring(i, i+1));
+                            break;
+                        }
+                    }
+                    if (automaton.isFinal(state) && !allOutTransitions.isEmpty())
+                    {
+                        if(rand.nextBoolean())
+                        {
                             break;
                         }
                     }
