@@ -12,80 +12,98 @@ public class TestDeterministicAutomaton extends TestCase {
      * 
      */
     public final void testSimpleDeterministicAutomaton() {
-        DeterministicAutomatonSpecification stest = new NaiveDeterministicAutomatonSpecification();
-        State q1 = stest.addState();
-        State q2 = stest.addState();
-        stest.addTransition(q1, q2, new CharTransitionLabel('a'));
-        stest.addLoop(q2, new CharTransitionLabel('a'));
-        stest.addLoop(q1, new CharTransitionLabel('b'));
-        stest.markAsInitial(q1);
-        stest.markAsFinal(q2);
-        DeterministicAutomaton satest = new DeterministicAutomaton(stest);
-        assertTrue(satest.accepts("a"));
-        assertFalse(satest.accepts("b"));
-        assertFalse(satest.accepts(""));
-        assertFalse(satest.accepts("abx"));
-        assertTrue(satest.accepts("aaaa"));
-        assertTrue(satest.accepts("baaaa"));
+        /**st-> simple test.
+         * 
+         */
+        DeterministicAutomatonSpecification st = new NaiveDeterministicAutomatonSpecification();
+        State q1 = st.addState();
+        State q2 = st.addState();
+        st.addTransition(q1, q2, new CharTransitionLabel('a'));
+        st.addLoop(q2, new CharTransitionLabel('a'));
+        st.addLoop(q1, new CharTransitionLabel('b'));
+        st.markAsInitial(q1);
+        st.markAsFinal(q2);
+        /**sat -> simple automaton test.
+         * 
+         */
+        DeterministicAutomaton sat = new DeterministicAutomaton(st);
+        assertTrue(sat.accepts("a"));
+        assertFalse(sat.accepts("b"));
+        assertFalse(sat.accepts(""));
+        assertFalse(sat.accepts("abx"));
+        assertTrue(sat.accepts("aaaa"));
+        assertTrue(sat.accepts("baaaa"));
         String s = new String();
         for (int i = 1; i < 1000; i++) {
             s = s + 'a';
         }
-        assertTrue(satest.accepts(s));
+        assertTrue(sat.accepts(s));
         String a = new String();
         for (int i = 1; i < 1000; i++) {
             s = s + "ab";
         }
-        assertFalse(satest.accepts(a));
+        assertFalse(sat.accepts(a));
     }
 
     /** OneInitialFinalStateTest, ze stanem, ktory jest poczatkowym i akceptujacym.
      * 
      */
     public final void testOneInitialFinalState() {
-        DeterministicAutomatonSpecification onestate = new NaiveDeterministicAutomatonSpecification();
-        State q1 = onestate.addState();
-        State q2 = onestate.addState();
-        onestate.addTransition(q1, q2, new CharTransitionLabel('a'));
-        onestate.addTransition(q1, q2, new CharTransitionLabel('b'));
-        onestate.addTransition(q2, q1, new CharTransitionLabel('a'));
-        onestate.addLoop(q2, new CharTransitionLabel('b'));
-        onestate.markAsInitial(q1);
-        onestate.markAsFinal(q1);
-        DeterministicAutomaton ostest = new DeterministicAutomaton(onestate);
-        assertTrue(ostest.accepts("aa"));
-        assertFalse(ostest.accepts("aaa"));
-        assertFalse(ostest.accepts("a"));
-        assertFalse(ostest.accepts("baa"));
+        /**os-> one state.
+         * 
+         */
+        DeterministicAutomatonSpecification os = new NaiveDeterministicAutomatonSpecification();
+        State q1 = os.addState();
+        State q2 = os.addState();
+        os.addTransition(q1, q2, new CharTransitionLabel('a'));
+        os.addTransition(q1, q2, new CharTransitionLabel('b'));
+        os.addTransition(q2, q1, new CharTransitionLabel('a'));
+        os.addLoop(q2, new CharTransitionLabel('b'));
+        os.markAsInitial(q1);
+        os.markAsFinal(q1);
+        /**ost -> one state test.
+         * 
+         */
+        DeterministicAutomaton ost = new DeterministicAutomaton(os);
+        assertTrue(ost.accepts("aa"));
+        assertFalse(ost.accepts("aaa"));
+        assertFalse(ost.accepts("a"));
+        assertFalse(ost.accepts("baa"));
     }
 
     /** testDeterministicAutomatonParityCheck, automat z wykladu, a i b sa parzyste.
      * 
      */
     public final void testDeterministicAutomatonParityCheck() {
-        DeterministicAutomatonSpecification pcheck = new NaiveDeterministicAutomatonSpecification();
-        State qpp = pcheck.addState();
-        State qnp = pcheck.addState();
-        State qnn = pcheck.addState();
-        State qpn = pcheck.addState();
-        pcheck.addTransition(qpp, qnp, new CharTransitionLabel('a'));
-        pcheck.addTransition(qnp, qpp, new CharTransitionLabel('a'));
-        pcheck.addTransition(qnp, qnn, new CharTransitionLabel('b'));
-        pcheck.addTransition(qnn, qnp, new CharTransitionLabel('b'));
-        pcheck.addTransition(qnn, qpn, new CharTransitionLabel('a'));
-        pcheck.addTransition(qpn, qnn, new CharTransitionLabel('a'));
-        pcheck.addTransition(qpp, qpn, new CharTransitionLabel('b'));
-        pcheck.addTransition(qpn, qpp, new CharTransitionLabel('b'));
-        pcheck.markAsInitial(qpp);
-        pcheck.markAsFinal(qpp);
-        DeterministicAutomaton pctest = new DeterministicAutomaton(pcheck);
-        assertTrue(pctest.accepts("aabb"));
-        assertFalse(pctest.accepts("aab"));
-        assertTrue(pctest.accepts("aa"));
-        assertTrue(pctest.accepts("bb"));
-        assertFalse(pctest.accepts("abb"));
-        assertFalse(pctest.accepts("vabb"));
-        assertFalse(pctest.accepts("aabbh"));
+        /**pch-> parity check.
+         * 
+         */
+        DeterministicAutomatonSpecification pch = new NaiveDeterministicAutomatonSpecification();
+        State qpp = pch.addState();
+        State qnp = pch.addState();
+        State qnn = pch.addState();
+        State qpn = pch.addState();
+        pch.addTransition(qpp, qnp, new CharTransitionLabel('a'));
+        pch.addTransition(qnp, qpp, new CharTransitionLabel('a'));
+        pch.addTransition(qnp, qnn, new CharTransitionLabel('b'));
+        pch.addTransition(qnn, qnp, new CharTransitionLabel('b'));
+        pch.addTransition(qnn, qpn, new CharTransitionLabel('a'));
+        pch.addTransition(qpn, qnn, new CharTransitionLabel('a'));
+        pch.addTransition(qpp, qpn, new CharTransitionLabel('b'));
+        pch.addTransition(qpn, qpp, new CharTransitionLabel('b'));
+        pch.markAsInitial(qpp);
+        pch.markAsFinal(qpp);
+        /**pct-> parity check test.
+         * 
+         */
+        DeterministicAutomaton pct = new DeterministicAutomaton(pch);
+        assertTrue(pct.accepts("aabb"));
+        assertFalse(pct.accepts("aab"));
+        assertTrue(pct.accepts("aa"));
+        assertTrue(pct.accepts("bb"));
+        assertFalse(pct.accepts("abb"));
+        assertFalse(pct.accepts("vabb"));
+        assertFalse(pct.accepts("aabbh"));
     }
 }
 
