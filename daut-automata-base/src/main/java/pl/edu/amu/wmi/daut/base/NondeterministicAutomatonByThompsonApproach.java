@@ -43,21 +43,25 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
             } while (added);
 
 
+            if (limit != 0) {
+                for (State someState : currentStates) {
+                    List<OutgoingTransition> someStateTransitions = new
+                            LinkedList<OutgoingTransition>(
+                            automaton.allOutgoingTransitions(someState));
 
-            for (State someState : currentStates) {
-                List<OutgoingTransition> someStateTransitions = new LinkedList<OutgoingTransition>(
-                        automaton.allOutgoingTransitions(someState));
-
-                for (OutgoingTransition transition : someStateTransitions) {
-                    if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))
-                            && !temporaryStates.contains(transition.getTargetState())) {
-                        temporaryStates.add(transition.getTargetState());
+                    for (OutgoingTransition transition : someStateTransitions) {
+                        if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))
+                                && !temporaryStates.contains(transition.getTargetState())) {
+                            temporaryStates.add(transition.getTargetState());
+                        }
                     }
                 }
+
+                currentStates.clear();
+                currentStates.addAll(temporaryStates);
+                temporaryStates.clear();
             }
-            currentStates.clear();
-            currentStates.addAll(temporaryStates);
-            temporaryStates.clear();
+
             i++;
 
         } while (i < limit);
@@ -83,7 +87,8 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
             added = false;
 
             for (State someState : epsilonStates) {
-                List<OutgoingTransition> someStateTransitions = new LinkedList<OutgoingTransition>(
+                List<OutgoingTransition> someStateTransitions = new
+                        LinkedList<OutgoingTransition>(
                         automaton.allOutgoingTransitions(someState));
 
                 for (OutgoingTransition transition : someStateTransitions) {
