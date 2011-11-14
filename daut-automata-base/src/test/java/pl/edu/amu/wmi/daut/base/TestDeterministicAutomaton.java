@@ -8,12 +8,12 @@ import junit.framework.TestCase;
  */
 public class TestDeterministicAutomaton extends TestCase {
 
-    /**SimpleDeterministicAutomatonTest, prosty test.
-     * 
+    /**
+     * prosty test automatu deterministycznego.
      */
     public final void testSimpleDeterministicAutomaton() {
-        /**st-> simple test.
-         * 
+        /**
+         * st-> simple test.
          */
         DeterministicAutomatonSpecification st = new NaiveDeterministicAutomatonSpecification();
         State q1 = st.addState();
@@ -23,8 +23,8 @@ public class TestDeterministicAutomaton extends TestCase {
         st.addLoop(q1, new CharTransitionLabel('b'));
         st.markAsInitial(q1);
         st.markAsFinal(q2);
-        /**sat -> simple automaton test.
-         * 
+        /**
+         * sat -> simple automaton test.
          */
         DeterministicAutomaton sat = new DeterministicAutomaton(st);
         assertTrue(sat.accepts("a"));
@@ -45,12 +45,12 @@ public class TestDeterministicAutomaton extends TestCase {
         assertFalse(sat.accepts(a));
     }
 
-    /** OneInitialFinalStateTest, ze stanem, ktory jest poczatkowym i akceptujacym.
-     * 
+    /** 
+     * automat posiada stan, ktory jest zarowno poczatkowym i akceptujacym.
      */
     public final void testOneInitialFinalState() {
-        /**os-> one state.
-         * 
+        /**
+         * os-> one state.
          */
         DeterministicAutomatonSpecification os = new NaiveDeterministicAutomatonSpecification();
         State q1 = os.addState();
@@ -61,8 +61,8 @@ public class TestDeterministicAutomaton extends TestCase {
         os.addLoop(q2, new CharTransitionLabel('b'));
         os.markAsInitial(q1);
         os.markAsFinal(q1);
-        /**ost -> one state test.
-         * 
+        /**
+         * ost -> one state test.
          */
         DeterministicAutomaton ost = new DeterministicAutomaton(os);
         assertTrue(ost.accepts("aa"));
@@ -71,12 +71,12 @@ public class TestDeterministicAutomaton extends TestCase {
         assertFalse(ost.accepts("baa"));
     }
 
-    /** testDeterministicAutomatonParityCheck, automat z wykladu, a i b sa parzyste.
-     * 
+    /** 
+     * automat z wykladu, sprawdza czy a i b sa parzyste.
      */
     public final void testDeterministicAutomatonParityCheck() {
-        /**pch-> parity check.
-         * 
+        /**
+         * pch-> parity check.
          */
         DeterministicAutomatonSpecification pch = new NaiveDeterministicAutomatonSpecification();
         State qpp = pch.addState();
@@ -93,8 +93,8 @@ public class TestDeterministicAutomaton extends TestCase {
         pch.addTransition(qpn, qpp, new CharTransitionLabel('b'));
         pch.markAsInitial(qpp);
         pch.markAsFinal(qpp);
-        /**pct-> parity check test.
-         * 
+        /**
+         * pct-> parity check test.
          */
         DeterministicAutomaton pct = new DeterministicAutomaton(pch);
         assertTrue(pct.accepts("aabb"));
