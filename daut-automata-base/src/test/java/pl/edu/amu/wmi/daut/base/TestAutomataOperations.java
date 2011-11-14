@@ -217,10 +217,10 @@ public class TestAutomataOperations extends TestCase {
             automatonF.addTransition(q3F, q7F, new CharTransitionLabel('a'));
             automatonF.addTransition(q2F, q5F, new EpsilonTransitionLabel());
             automatonF.addTransition(q5F, q6F, new CharTransitionLabel('b'));
-            automatonB.markAsInitial(q0F);
-            automatonB.markAsFinal(q1F);
-            automatonB.markAsFinal(q7F);
-            automatonB.markAsFinal(q6F);
+            automatonF.markAsInitial(q0F);
+            automatonF.markAsFinal(q1F);
+            automatonF.markAsFinal(q7F);
+            automatonF.markAsFinal(q6F);
             
             /*Test Automatu B i F */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonF);
