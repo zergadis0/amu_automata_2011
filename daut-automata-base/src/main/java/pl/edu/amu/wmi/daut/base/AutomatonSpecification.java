@@ -188,7 +188,7 @@ abstract class AutomatonSpecification implements Cloneable  {
             int licznik = 0;
             boolean test = false;
             for (int i = 0; i < states.size(); i++) {
-                if( this.isFinal(states.get(i)))
+                if (this.isFinal(states.get(i)))
                     licznik++;
                 try {
                     this.getInitialState();
@@ -196,7 +196,7 @@ abstract class AutomatonSpecification implements Cloneable  {
                     test = true;
                 }
             }
-            if( licznik == 0 || test)
+            if (licznik == 0 || test)
                 return false;
             else {
                 Stack<Integer> stosstanow = new Stack<Integer>();
@@ -217,7 +217,7 @@ abstract class AutomatonSpecification implements Cloneable  {
                                 states.get(stan)).get(przejscie).getTargetState()));
                         stosprzejsc.push(0);
                     }
-                } while( !stosstanow.empty());
+                } while (!stosstanow.empty());
             }
         }
         return true;
