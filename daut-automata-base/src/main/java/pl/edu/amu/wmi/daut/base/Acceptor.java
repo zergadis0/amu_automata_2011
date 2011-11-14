@@ -11,4 +11,4 @@ public interface Acceptor {
      * Zwraca true, jeśli akceptuje napis text, false - w przeciwnym razie.
      */
     boolean accepts(String text);
-}           
+}
