@@ -187,16 +187,16 @@ abstract class AutomatonSpecification implements Cloneable  {
         else {
             int licznik = 0;
             boolean test = false;
-            for (int i = 0; i < states.size(); i++ ) {
-                if ( this.isFinal(states.get(i)) )
+            for (int i = 0; i < states.size(); i++) {
+                if( this.isFinal(states.get(i)))
                     licznik++;
                 try {
                     this.getInitialState();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     test = true;
                 }
             }
-            if ( licznik == 0 || test )
+            if( licznik == 0 || test)
                 return false;
             else {
                 Stack<Integer> stosstanow = new Stack<Integer>();
@@ -217,7 +217,7 @@ abstract class AutomatonSpecification implements Cloneable  {
                                 states.get(stan)).get(przejscie).getTargetState()));
                         stosprzejsc.push(0);
                     }
-                } while ( !stosstanow.empty() );
+                } while( !stosstanow.empty());
             }
         }
         return true;
