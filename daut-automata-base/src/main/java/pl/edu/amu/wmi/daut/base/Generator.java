@@ -49,10 +49,10 @@ public class Generator {
             }
     }
     /**
-     * Metoda zwracająca listę acceptedWords.
+     * Metoda zwracająca listę słów akceptowanych przez automat bez cykli.
      *
      */
-    public List wordsForAutomatonWithoutCycles(AutomatonSpecification automaton, String alphabet) {
+    public List wordsFromAutomatonWithoutCycles(AutomatonSpecification automaton, String alphabet) {
         String word = "";
         acceptWords(automaton, alphabet, word, automaton.getInitialState());
         return acceptedWords;
