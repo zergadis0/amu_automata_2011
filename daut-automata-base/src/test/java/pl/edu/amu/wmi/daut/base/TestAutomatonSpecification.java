@@ -763,30 +763,47 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Metoda pomocnicza do testów GetDotGraph().
-     */
-    public boolean isThisGraphGood(String graphDef) {
-        String[] table = graphDef.split("\n");
-        if ((!"digraph finite_state_machine {".equals(table[0])) |
-                (!"    rankdir=LR;".equals(table[1])))
-            return false;
-        if ((!"    node [style=filled fillcolor=\"#00ff005f\" shape = circle".equals(table[2])) ||
-      (!"    node [style=filled fillcolor=\"#00ff005f\" shape = doublecircle".equals(table[2])))
-            return false;
-        return true;
-    }
-
-    /**
      * Test metody getDotGraph().
      */
     public final void testGetDotGraph() {
+        /**
+         * Przyznaję, że pomysł zaczerpnąłem z powyższego testu.
+         */
+        class AutomatonDotGraph {
+            private String stany, przejscia, poczatek, koniec;
+            
+            public AutomatonDotGraph(String states, String transitions,
+                    String begin, String end) {
+                stany = states;
+                przejscia = transitions;
+                poczatek = begin;
+                koniec = end;
+            }
+
+            /**
+             * Zwraca żądany przez testera graf w postaci String'a.
+             */
+            @Override
+            public String toString() {
+                StringBuffer pilgrim = new StringBuffer();
+                pilgrim.append(
+                        "digraph finite_state_machine {\n"
+                         + "    rankdir=LR;\n"
+                         + "    size=\"8,5\"\n"
+                         + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
+                return pilgrim.toString();
+            }
+        }
+        
+        //TestPierwszy
         AutomatonSpecification automat = new NotNaiveAutomatonSpecification();
         State qInit = automat.addState();
         State qEnd = automat.addTransitionSequence(qInit, "one");
         
+        AutomatonDotGraph tester = new AutomatonDotGraph("q0 q1 q2 q3", "q0-o-q1 q1-n-q2 q2-e-q3",
+                "q0", "q3");
         String dotGraph = automat.getDotGraph();
-        
-        assertTrue(isThisGraphGood(dotGraph));
+        assertEquals(dotGraph, tester.toString());
     }
 
     /**
