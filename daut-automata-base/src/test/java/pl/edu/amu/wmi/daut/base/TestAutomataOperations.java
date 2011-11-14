@@ -69,7 +69,7 @@ public class TestAutomataOperations extends TestCase {
             automatonB.markAsFinal(q2B);
             /* Test A z B ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonA, automatonB);
-            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach automaton = new
             NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts("aa"));
             assertTrue(automaton.accepts("ba"));
@@ -81,8 +81,8 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("baaaaaaaaaa"));
             assertFalse(automaton.accepts("aaaaaaaaaaaaaaaxaaaaaa"));
             assertFalse(automaton.accepts("bab"));
-    }    
-    /** Test sprawdza metode Sum w AutomataOperations B i D */
+    }
+    /** Test sprawdza metode Sum w AutomataOperations B i D. */
             public final void testSumBD() {
                 /*Automat B*/
             AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -94,7 +94,7 @@ public class TestAutomataOperations extends TestCase {
             automatonB.addTransition(q1B, q2B, new CharTransitionLabel('a'));
             automatonB.addTransition(q1B, q2B, new CharTransitionLabel('b'));
             automatonB.markAsInitial(q0B);
-            automatonB.markAsFinal(q2B);            
+            automatonB.markAsFinal(q2B);
                     /* Automat D */
             AutomatonSpecification automatonD = new NaiveAutomatonSpecification();
             State q0D = automatonD.addState();
@@ -111,10 +111,10 @@ public class TestAutomataOperations extends TestCase {
             automatonD.addTransition(q3D, q2D, new CharTransitionLabel('c'));
             automatonD.addTransition(q3D, q0D, new CharTransitionLabel('b'));
             automatonD.markAsInitial(q0D);
-            automatonD.markAsFinal(q3D);            
+            automatonD.markAsFinal(q3D);          
                     /*Test D z B ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonD);
-            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach automaton = new
             NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts("ab"));
             assertTrue(automaton.accepts("abbabba"));
@@ -125,7 +125,7 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("b"));
             assertFalse(automaton.accepts(""));
             assertFalse(automaton.accepts("aac"));
-    }   
+    }
             /** Test sprawdza metode Sum w AutomataOperations B i C. */
             public final void testSumBC() {
            /* Automat B*/
@@ -147,10 +147,10 @@ public class TestAutomataOperations extends TestCase {
             automatonC.addLoop(q0C, new CharTransitionLabel('c'));
             automatonC.addLoop(q0C, new CharTransitionLabel('d'));
             automatonC.markAsInitial(q0C);
-            automatonC.markAsFinal(q0C);            
+            automatonC.markAsFinal(q0C);           
                     /*Test B z C ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonC);
-            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach automaton = new
             NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts("babbaccddcaaccb"));
             assertTrue(automaton.accepts("bbaccddbaba"));
@@ -162,8 +162,8 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
        }
             /** Test sprawdza metode Sum w AutomataOperations B i E. */
-                public final void testSumBE() {                    
-                               /* Automat B*/
+                public final void testSumBE() {
+            /* Automat B*/
             AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
             State q0B = automatonB.addState();
             State q1B = automatonB.addState();
@@ -182,14 +182,14 @@ public class TestAutomataOperations extends TestCase {
             automatonE.markAsFinal(q0E);
             /*Test B z E */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonE);
-            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach automaton = new
             NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts(""));
             assertTrue(automaton.accepts("aa"));
             assertFalse(automaton.accepts("bbaccddxbaba"));
             assertFalse(automaton.accepts("aabbbaaaa"));
         }
-                /** Test sprawdza metode Sum w AutomataOperations B i F */
+                /** Test sprawdza metode Sum w AutomataOperations B i F. */
             public final void testSumBF() {
                 /*Automat B*/
             AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -219,13 +219,13 @@ public class TestAutomataOperations extends TestCase {
             automatonF.addTransition(q5F, q6F, new CharTransitionLabel('b'));
             /*Test Automatu B i F */           
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonF);
-            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach automaton = new
             NondeterministicAutomatonByThompsonApproach(result);
             assertTrue(automaton.accepts("aa"));
             assertTrue(automaton.accepts("b"));
             assertTrue(automaton.accepts("a"));
             assertFalse(automaton.accepts("aaabbbb"));
-            assertTrue(automaton.accepts(""));
+            assertFalse(automaton.accepts(""));
             }
 }
 
