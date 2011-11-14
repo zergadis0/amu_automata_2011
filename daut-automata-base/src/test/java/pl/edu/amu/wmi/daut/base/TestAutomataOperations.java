@@ -189,5 +189,43 @@ public class TestAutomataOperations extends TestCase {
             assertFalse(automaton.accepts("bbaccddxbaba"));
             assertFalse(automaton.accepts("aabbbaaaa"));
         }
+                /** Test sprawdza metode Sum w AutomataOperations B i F */
+            public final void testSumBF() {
+                /*Automat B*/
+            AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
+            State q0B = automatonB.addState();
+            State q1B = automatonB.addState();
+            State q2B = automatonB.addState();
+            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('a'));
+            automatonB.addTransition(q0B, q1B, new CharTransitionLabel('b'));
+            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('a'));
+            automatonB.addTransition(q1B, q2B, new CharTransitionLabel('b'));
+            automatonB.markAsInitial(q0B);
+            automatonB.markAsFinal(q2B);
+            /*Automat F */
+            AutomatonSpecification automatonF = new NaiveAutomatonSpecification();
+            State q0F = automatonF.addState();
+            State q1F = automatonF.addState();
+            State q2F = automatonF.addState();
+            State q3F = automatonF.addState();
+            State q7F = automatonF.addState();
+            State q5F = automatonF.addState();
+            State q6F = automatonF.addState();
+            automatonF.addTransition(q0F, q1F, new CharTransitionLabel('a'));
+            automatonF.addTransition(q0F, q3F, new EpsilonTransitionLabel());
+            automatonF.addTransition(q0F, q2F, new EpsilonTransitionLabel());
+            automatonF.addTransition(q3F, q7F, new CharTransitionLabel('a'));
+            automatonF.addTransition(q2F, q5F, new EpsilonTransitionLabel());
+            automatonF.addTransition(q5F, q6F, new CharTransitionLabel('b'));
+            /*Test Automatu B i F */           
+            AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonF);
+            NondeterministicAutomatonByThompsonApproach automaton = new 
+            NondeterministicAutomatonByThompsonApproach(result);
+            assertTrue(automaton.accepts("aa"));
+            assertTrue(automaton.accepts("b"));
+            assertTrue(automaton.accepts("a"));
+            assertFalse(automaton.accepts("aaabbbb"));
+            assertFalse(automaton.accepts(""));
+            }
 }
 
