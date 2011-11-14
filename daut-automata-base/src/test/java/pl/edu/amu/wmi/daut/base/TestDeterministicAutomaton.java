@@ -45,7 +45,7 @@ public class TestDeterministicAutomaton extends TestCase {
         assertFalse(sat.accepts(a));
     }
 
-    /** 
+    /**
      * automat posiada stan, ktory jest zarowno poczatkowym i akceptujacym.
      */
     public final void testOneInitialFinalState() {
@@ -71,7 +71,7 @@ public class TestDeterministicAutomaton extends TestCase {
         assertFalse(ost.accepts("baa"));
     }
 
-    /** 
+    /**
      * automat z wykladu, sprawdza czy a i b sa parzyste.
      */
     public final void testDeterministicAutomatonParityCheck() {
