@@ -111,7 +111,7 @@ public class TestAutomataOperations extends TestCase {
             automatonD.addTransition(q3D, q2D, new CharTransitionLabel('c'));
             automatonD.addTransition(q3D, q0D, new CharTransitionLabel('b'));
             automatonD.markAsInitial(q0D);
-            automatonD.markAsFinal(q3D);          
+            automatonD.markAsFinal(q3D);
                     /*Test D z B ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonD);
             NondeterministicAutomatonByThompsonApproach automaton = new
@@ -147,7 +147,7 @@ public class TestAutomataOperations extends TestCase {
             automatonC.addLoop(q0C, new CharTransitionLabel('c'));
             automatonC.addLoop(q0C, new CharTransitionLabel('d'));
             automatonC.markAsInitial(q0C);
-            automatonC.markAsFinal(q0C);           
+            automatonC.markAsFinal(q0C);
                     /*Test B z C ok */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonC);
             NondeterministicAutomatonByThompsonApproach automaton = new
@@ -217,7 +217,7 @@ public class TestAutomataOperations extends TestCase {
             automatonF.addTransition(q3F, q7F, new CharTransitionLabel('a'));
             automatonF.addTransition(q2F, q5F, new EpsilonTransitionLabel());
             automatonF.addTransition(q5F, q6F, new CharTransitionLabel('b'));
-            /*Test Automatu B i F */           
+            /*Test Automatu B i F */
             AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonF);
             NondeterministicAutomatonByThompsonApproach automaton = new
             NondeterministicAutomatonByThompsonApproach(result);
