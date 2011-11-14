@@ -40,7 +40,7 @@ public class TestDeterministicAutomaton extends TestCase {
         assertTrue(sat.accepts(s));
         String a = new String();
         for (int i = 1; i < 1000; i++) {
-            s = s + "ab";
+            a = a + "ab";
         }
         assertFalse(sat.accepts(a));
     }
