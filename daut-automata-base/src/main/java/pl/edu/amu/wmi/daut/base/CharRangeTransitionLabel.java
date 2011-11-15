@@ -63,7 +63,7 @@ class CharRangeTransitionLabel extends TransitionLabel {
             } else { return new EmptyTransitionLabel(); }
 
         } else {
-            throw new CannotDetermineIntersectionException(); 
+            throw new CannotDetermineIntersectionException();
           }
     }
 };
