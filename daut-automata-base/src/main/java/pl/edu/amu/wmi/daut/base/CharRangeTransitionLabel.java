@@ -60,7 +60,7 @@ class CharRangeTransitionLabel extends TransitionLabel {
                 return new CharRangeTransitionLabel(a1, a2);
 
             } else {
-                return new EmptyTransitionLabel(); 
+                return new EmptyTransitionLabel();
             }
 
         } else {
