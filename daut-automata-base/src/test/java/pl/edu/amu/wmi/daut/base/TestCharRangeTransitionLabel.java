@@ -37,7 +37,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
          assertFalse(trans.canBeEpsilon());
     }
 
-	/**
+    /**
      * Metoda testująca CharRangeTransitionLabel.
      * Niepuste przecięcie.
      */
@@ -71,7 +71,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('d'));
     }
 
-	/**
+    /**
      * Metoda testująca CharRangeTransitionLabel.
      * Puste przecięcie.
      */
@@ -90,7 +90,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
          aut.addTransition(s2, s3, trans2.intersectWith(trans));
     }
 
-	/**
+    /**
      * Metoda testująca CharRangeTransitionLabel.
      * Przedziały zawierające się.
      */
@@ -126,7 +126,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertFalse(trans2.intersectWith(trans).canAcceptCharacter('g'));
         assertFalse(trans2.intersectWith(trans).canAcceptCharacter('h'));
     }
-	/**
+    /**
      * Metoda testująca CharRangeTransitionLabel.
      * Przedziały równe.
      */
@@ -154,7 +154,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertFalse(trans2.intersectWith(trans).canAcceptCharacter('d'));
     }
 
-	/**
+    /**
      * Metoda testująca CharRangeTransitionLabel.
      * Końce przedziałów równe.
      */
@@ -181,7 +181,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertTrue(trans2.intersectWith(trans).canAcceptCharacter('c'));
         assertFalse(trans2.intersectWith(trans).canAcceptCharacter('d'));
     }
-	/**
+    /**
      * Metoda testująca CharRangeTransitionLabel.
      * Przedziały zawierające się, jednoznakowe.
      */
