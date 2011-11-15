@@ -185,42 +185,47 @@ abstract class AutomatonSpecification implements Cloneable  {
         if (states.isEmpty())
             return false;
         else {
-            int licznik = 0;
-            boolean test = false;
-            for (int i = 0; i < states.size(); i++) {
-                if (this.isFinal(states.get(i)))
-                    licznik++;
-                try {
+            int counter = 0;
+            boolean isThereNoInitialState = false;
+            try {
+                for (State s : allStates()) {
+                    if (this.isFinal(s))
+                        counter++;
                     this.getInitialState();
-                } catch (Exception e) {
-                    test = true;
                 }
+            } catch (Exception e) {
+                isThereNoInitialState = true;
             }
-            if (licznik == 0 || test)
+            if (counter == 0 || isThereNoInitialState)
                 return false;
             else {
-                Stack<Integer> stosstanow = new Stack<Integer>();
-                Stack<Integer> stosprzejsc = new Stack<Integer>();
-                Integer stan = states.indexOf(this.getInitialState());
-                Integer przejscie = 0;
-                stosstanow.push(stan);
-                stosprzejsc.push(przejscie);
+                Stack<Integer> stateStack = new Stack<Integer>();
+                Stack<Integer> transitionStack = new Stack<Integer>();
+                Stack<Integer> branchStack = new Stack<Integer>();
+                Integer state = states.indexOf(this.getInitialState());
+                Integer transition = 0;
+                Integer branches = this.allOutgoingTransitions(states.get(state)).size();
+                stateStack.push(state);
+                transitionStack.push(transition);
                 do {
-                    stan = stosstanow.pop();
-                    przejscie = stosprzejsc.pop();
-                    if (this.isFinal(states.get(stan)))
+                    state = stateStack.pop();
+                    transition = transitionStack.pop();
+                    if (this.isFinal(states.get(state)))
                         return true;
-                    if (przejscie < this.allOutgoingTransitions(states.get(stan)).size()) {
-                        stosstanow.push(stan);
-                        stosprzejsc.push(przejscie++);
-                        stosstanow.push(states.indexOf(this.allOutgoingTransitions(
-                                states.get(stan)).get(przejscie).getTargetState()));
-                        stosprzejsc.push(0);
+                    if (transition < branches) {
+                        stateStack.push(state);
+                        transitionStack.push(transition++);
+                        branchStack.push(branches);
+                        State stateForWhile = this.allOutgoingTransitions(states.get(state))
+                                .get(transition).getTargetState();
+                        branchStack.push(this.allOutgoingTransitions(stateForWhile).size());
+                        stateStack.push(states.indexOf(stateForWhile));
+                        transitionStack.push(0);
                     }
-                } while (!stosstanow.empty());
+                } while (!stateStack.empty());
             }
         }
-        return true;
+        return false;
     }
 
    /**
