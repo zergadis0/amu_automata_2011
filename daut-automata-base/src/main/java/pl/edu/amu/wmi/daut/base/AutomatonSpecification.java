@@ -699,7 +699,7 @@ abstract class AutomatonSpecification implements Cloneable  {
             }
             return min;
         } else
-            return "error";
+            throw new RuntimeException("error");
     }
 };
 
