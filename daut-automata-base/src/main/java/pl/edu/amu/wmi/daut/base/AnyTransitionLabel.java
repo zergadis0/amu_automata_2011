@@ -34,4 +34,3 @@ class AnyTransitionLabel extends TransitionLabel {
          return label.isEmpty() ? new EmptyTransitionLabel() : this;
     }
 }
-
