@@ -19,13 +19,14 @@ public class TestAnyTransitionLabel extends TestCase {
         test.markAsFinal(drugi);
         test.addTransition(pierwszy, koniec, new AnyTransitionLabel());
         test.addTransition(drugi, koniec, new CharTransitionLabel('a'));
-        test.addTransition(czwarty, koniec, new EmptyTransitionLabel());
         test.addTransition(trzeci, koniec, new AnyTransitionLabel());
+        test.addTransition(czwarty, koniec, new EmptyTransitionLabel());
         TransitionLabel testowany
         = test.allOutgoingTransitions(pierwszy).get(0).getTransitionLabel();
         TransitionLabel char1 = test.allOutgoingTransitions(drugi).get(0).getTransitionLabel();
         TransitionLabel any = test.allOutgoingTransitions(trzeci).get(0).getTransitionLabel();
         TransitionLabel empty = test.allOutgoingTransitions(czwarty).get(0).getTransitionLabel();
+        assertEquals("ANY", testowany.toString());
         assertFalse(testowany.canBeEpsilon());
         assertFalse(testowany.isEmpty());
         assertTrue(testowany.canAcceptCharacter(' '));
@@ -35,6 +36,10 @@ public class TestAnyTransitionLabel extends TestCase {
         assertFalse((testowany.intersect(char1)).isEmpty());
         assertTrue((testowany.intersect(empty)).isEmpty());
         assertFalse((testowany.intersect(any)).isEmpty());
+        assertEquals("ANY", (testowany.intersect(testowany)).toString());
+        assertFalse((testowany.intersectWith(testowany)).canBeEpsilon());
+        assertFalse((testowany.intersectWith(char1)).isEmpty());
+        assertEquals("ANY", (testowany.intersectWith(testowany)).toString());
         assertFalse((testowany.intersectWith(testowany)).canBeEpsilon());
         assertFalse((testowany.intersectWith(char1)).isEmpty());
         assertTrue((testowany.intersectWith(empty)).isEmpty());
