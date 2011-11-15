@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class EpsilonUtilities {
     /**
-     * Metoda sprawdzajaca, czy dany automat 
+     * Metoda sprawdzajaca, czy dany automat
      * ma jakies epsilon-przejscie.
      */
     public boolean isEpsilonTransition(AutomatonSpecification automat) {
