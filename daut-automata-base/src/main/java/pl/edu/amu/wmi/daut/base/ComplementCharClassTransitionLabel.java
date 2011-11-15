@@ -19,7 +19,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      */
     ComplementCharClassTransitionLabel(String s) {
         int l = s.length();
-        se = new TreeSet();
+        se = new TreeSet<Character>();
         for (int i = 0; i < l; i++) {
             if (s.charAt(i) == '-') {
                 if (i == 0 || i == l - 1) {
@@ -74,7 +74,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     protected TransitionLabel intersectWith(TransitionLabel label) {
         if (label instanceof ComplementCharClassTransitionLabel) {
             return new ComplementCharClassTransitionLabel(
-                    getString((ComplementCharClassTransitionLabel) label));
+                    getIntersectionString((ComplementCharClassTransitionLabel) label));
         } else {
             throw new CannotDetermineIntersectionException();
         }
@@ -84,27 +84,28 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
      * 
      * @return Zwraca set przechowujący spełniające podane wyrażenie regularne
      */
-    protected SortedSet getSet() {
+    protected SortedSet<Character> getSet() {
         return se;
     }
 
     /**
      * 
-     * @return Zwraca wyrażenie regularne jako String
+     * @return Zwraca String będący przecięciem dwóch obiektów 
+     * ComplementCharclassTransitionLabel
      */
-    private String getString(ComplementCharClassTransitionLabel label) {
-        SortedSet set = new TreeSet(), set1;
+    private String getIntersectionString(ComplementCharClassTransitionLabel label) {
+        SortedSet<Character> set = new TreeSet<Character>(), set1;
         set1 = ((ComplementCharClassTransitionLabel) label).getSet();
-        for (Object o : se) {
+        for (Character o : se) {
             set.add(o);
         }
-        for (Object o : set1) {
+        for (Character o : set1) {
             set.add(o);
         }
         StringBuilder buf = new StringBuilder();
         boolean f = false;
-        for (Object o : set) {
-            if (o.toString().equals("-")) {
+        for (Character o : set) {
+            if (o.equals('-')) {
                 f = true;
                 continue;
             }
@@ -157,10 +158,10 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
     public String toString() {
         String q = "";
         q += "[^";
-        q += getString(new ComplementCharClassTransitionLabel(""));
+        q += getIntersectionString(new ComplementCharClassTransitionLabel(""));
         q += "]";
         return q;
 
     }
-    private SortedSet se;
+    private SortedSet<Character> se;
 }
