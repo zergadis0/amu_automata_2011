@@ -789,7 +789,7 @@ public class TestAutomatonSpecification extends TestCase {
             public String toString() {
                 //Poczatek
                 StringBuffer dotGraphString = new StringBuffer();
-                dotGraphString.append( "digraph finite_state_machine {\n    rankdir=LR;\n"
+                dotGraphString.append("digraph finite_state_machine {\n    rankdir=LR;\n"
                         + "    size=\"8,5\"\n    node [style=filled fillcolor=\"#00ff005f\""
                         + " shape = ");
                 if (isBeginTheEnd)
