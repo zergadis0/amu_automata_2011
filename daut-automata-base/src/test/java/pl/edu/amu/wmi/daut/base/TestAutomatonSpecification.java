@@ -770,16 +770,16 @@ public class TestAutomatonSpecification extends TestCase {
          * Przyznaję, że pomysł zaczerpnąłem z powyższego testu.
          */
         class AutomatonDotGraph {
-            private String stany, przejscia, poczatek, koniec;
-            private boolean czyPoczatekToKoniec;
+            private String states, transitions, begin, ends;
+            private boolean isBeginTheEnd;
 
             public AutomatonDotGraph(String states, String transitions,
-                    String begin, String end, boolean isBeginEnd) {
-                stany = states;
-                przejscia = transitions;
-                poczatek = begin;
-                koniec = end;
-                czyPoczatekToKoniec = isBeginEnd;
+                    String begin, String ends, boolean isBeginTheEnd) {
+                this.states = states;
+                this.transitions = transitions;
+                this.begin = begin;
+                this.ends = ends;
+                this.isBeginTheEnd = isBeginTheEnd;
             }
 
             /**
@@ -788,87 +788,85 @@ public class TestAutomatonSpecification extends TestCase {
             @Override
             public String toString() {
                 //Poczatek
-                StringBuffer pilgrim = new StringBuffer();
-                pilgrim.append(
-                        "digraph finite_state_machine {\n"
-                         + "    rankdir=LR;\n"
-                         + "    size=\"8,5\"\n"
-                         + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
-                if (czyPoczatekToKoniec)
-                    pilgrim.append("double");
-                pilgrim.append("circle];\n"
-                               + "    \"State #" + poczatek + "\";\n"
+                StringBuffer dotGraphString = new StringBuffer();
+                dotGraphString.append( "digraph finite_state_machine {\n    rankdir=LR;\n"
+                        + "    size=\"8,5\"\n    node [style=filled fillcolor=\"#00ff005f\""
+                        + " shape = ");
+                if (isBeginTheEnd)
+                    dotGraphString.append("double");
+                dotGraphString.append("circle];\n    \"State #" + begin + "\";\n"
                                + "    node [shape = doublecircle style=filled "
                                + "fillcolor=\"#00000000\"];\n    ");
 
                 //Stany końcowe
-                String[] endStates = koniec.split(" ");
-                for (String s : endStates) {
-                    pilgrim.append("\"State #" + s + "\" ");
+                String[] endStates = ends.split(" ");
+                for (String state : endStates) {
+                    dotGraphString.append("\"State #" + state + "\" ");
                 }
 
-                pilgrim.append(";\n" + "    node [shape = circle];\n" + "");
+                dotGraphString.append(";\n    node [shape = circle];\n");
 
                 //Przejścia
-                String[] transitions = przejscia.split(" ");
-                for (String s : przejscia.split(" ")) {
-                    String[] wewnatrz = s.split("-");
-                    pilgrim.append("    \"State #");
-                    pilgrim.append(wewnatrz[0] + "\"");
-                    pilgrim.append(" -> ");
-                    pilgrim.append("\"State #");
-                    pilgrim.append(wewnatrz[2] + "\"");
-                    if (wewnatrz[1].length() > 2) {
-                        if (wewnatrz[1].contains(",") && (!(wewnatrz[1].matches("[*,*]")))) {
-                            String[] macierz = wewnatrz[1].split(",");
-                            pilgrim.append(" [ label = \"" + macierz[0]);
-                            for (int i = 1; i < macierz.length; i++) {
-                                pilgrim.append(", " + macierz[i]);
+                for (String transition : transitions.split(" ")) {
+                    String[] splitedTransition = transition.split("-");
+                    dotGraphString.append("    \"State #" + splitedTransition[0] + "\"");
+                    dotGraphString.append(" -> \"State #" + splitedTransition[2] + "\"");
+                    if (splitedTransition[1].length() > 2) {
+                        if (splitedTransition[1].contains(",")
+                                && (!(splitedTransition[1].matches("[*,*]")))) {
+                            String[] transitionLabel = splitedTransition[1].split(",");
+                            dotGraphString.append(" [ label = \"" + transitionLabel[0]);
+                            for (int i = 1; i < transitionLabel.length; i++) {
+                                dotGraphString.append(", " + transitionLabel[i]);
                             }
-                            pilgrim.append("\" ]");
+                            dotGraphString.append("\" ]");
                         }
                     } else {
-                        pilgrim.append(" [ label = \"" + wewnatrz[1]
-                                + "\" ]");
+                        dotGraphString.append(" [ label = \"" + splitedTransition[1] + "\" ]");
                     }
-                    pilgrim.append(";\n");
+                    dotGraphString.append(";\n");
                 }
 
                 //Koniec
-                pilgrim.append("\n}\n");
-                return pilgrim.toString();
+                dotGraphString.append("\n}\n");
+                return dotGraphString.toString();
             }
         }
 
-        //Test Pierwszy
-        AutomatonSpecification automat = new NotNaiveAutomatonSpecification();
-        State qInit = automat.addState();
-        State qEnd = automat.addTransitionSequence(qInit, "one");
-        State qSpaw = automat.addTransition(qEnd, new CharTransitionLabel('1'));
-        automat.addTransition(qEnd, qSpaw, new CharTransitionLabel('2'));
-        automat.markAsInitial(qInit);
-        automat.markAsFinal(qInit);
-        automat.markAsFinal(qEnd);
+        //Test
+        AutomatonSpecification testAutomaton = new NotNaiveAutomatonSpecification();
+        State qBegin = testAutomaton.addState();
+        State qEnd = testAutomaton.addTransitionSequence(qBegin, "one");
+        State qMore = testAutomaton.addTransition(qEnd, new CharTransitionLabel('1'));
+        testAutomaton.addTransition(qEnd, qMore, new CharTransitionLabel('2'));
+        testAutomaton.markAsInitial(qBegin);
+        testAutomaton.markAsFinal(qBegin);
+        testAutomaton.markAsFinal(qEnd);
 
-        AutomatonDotGraph tester = new AutomatonDotGraph("0 1 2 3 4", "0-o-1 1-n-2 "
-                + "2-e-3 3-1,2-4", "0", "0 3", true);
-        String dotGraph = automat.getDotGraph();
-        String porownawczy = tester.toString();
-        assertEquals(dotGraph.length(), porownawczy.length());
+        //Tworzenie obu Stringów: przez toDotGraph() i "kłamliwą" funkcję
+        String dotGraph = testAutomaton.getDotGraph();
+        String exampleOfDotGraph = new AutomatonDotGraph("0 1 2 3 4", "0-o-1 1-n-2 "
+                + "2-e-3 3-1,2-4", "0", "0 3", true).toString();
+        //Pierwszy krok testu - porównanie ich długości
+        assertEquals(dotGraph.length(), exampleOfDotGraph.length());
+        //Podział obu stringów na linie
         String[] dotGraphTab = dotGraph.split("\n");
-        String[] testerTab = tester.toString().split("\n");
-        assertEquals(dotGraphTab.length, testerTab.length);
+        String[] exampleOfDotGraphTab = exampleOfDotGraph.split("\n");
+        //Porównanie ilości linii w obu Stringach
+        assertEquals(dotGraphTab.length, exampleOfDotGraphTab.length);
+        //Porównanie 1: dokładnie ten sam porządek linii
         for (int i = 0; i < 5; i++)
-            assertEquals(dotGraphTab[i], testerTab[i]);
+            assertEquals(dotGraphTab[i], exampleOfDotGraphTab[i]);
+        //Porównanie 2: linie mogą różnić się kolejnością
         for (int i = 0; i < 4; i++) {
-            boolean test = false;
+            boolean doThisLineExist = false;
             for (int j = 0; j < 4; j++) {
-                if (testerTab[i].equals(dotGraphTab[j])) {
-                    test = true;
+                if (exampleOfDotGraphTab[i].equals(dotGraphTab[j])) {
+                    doThisLineExist = true;
                     break;
                 }
             }
-            if (!test)
+            if (!doThisLineExist)
                 fail();
         }
     }
