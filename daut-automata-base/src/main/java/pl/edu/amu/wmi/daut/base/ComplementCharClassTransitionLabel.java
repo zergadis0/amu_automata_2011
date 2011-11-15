@@ -90,7 +90,7 @@ public class ComplementCharClassTransitionLabel extends TransitionLabel {
 
     /**
      * 
-     * @return Zwraca String będący przecięciem dwóch obiektów 
+     * @return Zwraca String będący przecięciem dwóch obiektów
      * ComplementCharclassTransitionLabel
      */
     private String getIntersectionString(ComplementCharClassTransitionLabel label) {
