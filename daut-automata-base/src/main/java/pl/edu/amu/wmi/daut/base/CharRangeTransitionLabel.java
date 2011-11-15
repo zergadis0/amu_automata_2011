@@ -20,7 +20,6 @@ class CharRangeTransitionLabel extends TransitionLabel {
 
     @Override
     public boolean canAcceptCharacter(char c) {
-
         return (c >= firstChar & c <= secondChar);
     }
 
@@ -60,10 +59,12 @@ class CharRangeTransitionLabel extends TransitionLabel {
             } else if (a1 > b1 && a2 < b2) {
                 return new CharRangeTransitionLabel(a1, a2);
 
-            } else { return new EmptyTransitionLabel(); }
+            } else {
+                return new EmptyTransitionLabel(); 
+            }
 
         } else {
             throw new CannotDetermineIntersectionException();
-          }
+        }
     }
 };
