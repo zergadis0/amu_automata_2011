@@ -35,10 +35,6 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertFalse(trans.canAcceptCharacter('h'));
 
          assertFalse(trans.canBeEpsilon());
-
-         assertSame(trans.intersectWith(trans2), trans2.intersectWith(trans));
-
-         assertNull(trans.intersectWith(trans2));
     }
 
 	/**
@@ -92,7 +88,6 @@ public class TestCharRangeTransitionLabel extends TestCase {
          aut.addTransition(s0, s1, trans);
          aut.addTransition(s1, s2, trans2);
          aut.addTransition(s2, s3, trans2.intersectWith(trans));
-         assertSame(trans.intersectWith(trans2), trans2.intersectWith(trans));
     }
 
 	/**
