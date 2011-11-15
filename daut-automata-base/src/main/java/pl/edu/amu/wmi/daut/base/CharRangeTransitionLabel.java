@@ -60,9 +60,10 @@ class CharRangeTransitionLabel extends TransitionLabel {
             } else if (a1 > b1 && a2 < b2) {
                 return new CharRangeTransitionLabel(a1, a2);
 
-            } else { return null; }
+            } else { return new EmptyTransitionLabel(); }
 
-        } else { throw new CannotDetermineIntersectionException(); }
+        } else {
+            throw new CannotDetermineIntersectionException(); }
 
     }
 };
