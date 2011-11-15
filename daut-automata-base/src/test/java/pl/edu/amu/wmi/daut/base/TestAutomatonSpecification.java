@@ -570,24 +570,24 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody addBranch().
+     * Test metody addBranch(). Automat o 4 stanach.
      */
-    public final void testaddBranch() {
+    public final void testAddBranchWithFourStates() {
 
-       // Budowanie automatu o 4 stanach.
-       AutomatonSpecification spec = new NaiveAutomatonSpecification();
-       State s0 = spec.addState();
-       spec.markAsInitial(s0);
-       List<TransitionLabel> transitions =
-               Arrays.<TransitionLabel>asList(
+        // Budowanie automatu o 4 stanach.
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        State s0 = spec.addState();
+        spec.markAsInitial(s0);
+        List<TransitionLabel> transitions =
+                Arrays.<TransitionLabel>asList(
             new CharTransitionLabel('a'),
             new CharTransitionLabel('b'),
             new CharTransitionLabel('c')
             );
-       State s3 = spec.addBranch(s0, transitions);
-       spec.markAsFinal(s3);
+        State s3 = spec.addBranch(s0, transitions);
+        spec.markAsFinal(s3);
 
-       //testowanie
+        //testowanie
 
         State r0 = spec.getInitialState();
 
@@ -626,16 +626,21 @@ public class TestAutomatonSpecification extends TestCase {
         List<State> states = spec.allStates();
 
         assertEquals(states.size(), 4);
+    }
+    /**
+     * Test metody addBranch(). Automat o 1 stanie.
+     */
+    public final void testAddBranchWithOneStates() {
 
         // Budowanie automatu o 1 stanie.
         AutomatonSpecification spec2 = new NaiveAutomatonSpecification();
         State st0 = spec2.addState();
-        spec.markAsInitial(st0);
+        spec2.markAsInitial(st0);
         List<TransitionLabel> transitions2 =
                 Arrays.<TransitionLabel>asList(
             );
         State st1 = spec2.addBranch(st0, transitions2);
-        spec.markAsFinal(st0);
+        spec2.markAsFinal(st0);
 
         //testowanie
         State rr0 = spec2.getInitialState();
@@ -643,8 +648,8 @@ public class TestAutomatonSpecification extends TestCase {
         List<OutgoingTransition> r0Outs2 = spec2.allOutgoingTransitions(rr0);
         assertEquals(r0Outs2.size(), 0);
 
-        assertTrue(spec.isFinal(st1));
-        assertSame(st1, spec.getInitialState());
+        assertTrue(spec2.isFinal(st1));
+        assertSame(st1, spec2.getInitialState());
 
     }
 
