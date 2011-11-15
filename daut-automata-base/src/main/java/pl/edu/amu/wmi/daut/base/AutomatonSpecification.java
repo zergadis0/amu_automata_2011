@@ -682,6 +682,25 @@ abstract class AutomatonSpecification implements Cloneable  {
         }
         return result;
     }
+
+    /**
+     * Metoda zwracająca pierwszy według kolejności alfabetycznej napis,
+     * akceptowany przez automat.
+     */
+    public String firstAcceptedWord() {
+        AllAcceptedWords words = new AllAcceptedWords(this);
+        String tmp;
+        if (words.hasNext()) {
+            String min = words.next();
+            while (words.hasNext()) {
+                tmp = words.next();
+                if (tmp.compareTo(min) > 0)
+                    min = tmp;
+            }
+            return min;
+        } else
+            throw new RuntimeException("error");
+    }
 };
 
 class StructureException extends Exception {
