@@ -772,7 +772,7 @@ public class TestAutomatonSpecification extends TestCase {
         class AutomatonDotGraph {
             private String stany, przejscia, poczatek, koniec;
             private boolean czyPoczatekToKoniec;
-            
+
             public AutomatonDotGraph(String states, String transitions,
                     String begin, String end, boolean isBeginEnd) {
                 stany = states;
@@ -818,11 +818,11 @@ public class TestAutomatonSpecification extends TestCase {
                     pilgrim.append(" -> ");
                     pilgrim.append("\"State #");
                     pilgrim.append(wewnatrz[2] + "\"");
-                    if((wewnatrz[1].length()>2)){
-                        if ((wewnatrz[1].contains(",") && (!(wewnatrz[1].matches("[*,*]"))))) {
+                    if (wewnatrz[1].length() > 2) {
+                        if (wewnatrz[1].contains(",") && (!(wewnatrz[1].matches("[*,*]")))) {
                             String[] macierz = wewnatrz[1].split(",");
                             pilgrim.append(" [ label = \"" + macierz[0]);
-                            for (int i=1;i<macierz.length;i++) {
+                            for (int i = 1; i < macierz.length; i++) {
                                 pilgrim.append(", " + macierz[i]);
                             }
                             pilgrim.append("\" ]");
@@ -839,7 +839,7 @@ public class TestAutomatonSpecification extends TestCase {
                 return pilgrim.toString();
             }
         }
-        
+
         //Test Pierwszy
         AutomatonSpecification automat = new NotNaiveAutomatonSpecification();
         State qInit = automat.addState();
@@ -847,21 +847,22 @@ public class TestAutomatonSpecification extends TestCase {
         State qSpaw = automat.addTransition(qEnd, new CharTransitionLabel('1'));
         automat.addTransition(qEnd, qSpaw, new CharTransitionLabel('2'));
         automat.markAsInitial(qInit);
+        automat.markAsFinal(qInit);
         automat.markAsFinal(qEnd);
-        
+
         AutomatonDotGraph tester = new AutomatonDotGraph("0 1 2 3 4", "0-o-1 1-n-2 "
-                +"2-e-3 3-1,2-4", "0", "3", false);
+                + "2-e-3 3-1,2-4", "0", "0 3", true);
         String dotGraph = automat.getDotGraph();
         String porownawczy = tester.toString();
         assertEquals(dotGraph.length(), porownawczy.length());
         String[] dotGraphTab = dotGraph.split("\n");
         String[] testerTab = tester.toString().split("\n");
         assertEquals(dotGraphTab.length, testerTab.length);
-        for (int i=0;i<5;i++)
+        for (int i = 0; i < 5; i++)
             assertEquals(dotGraphTab[i], testerTab[i]);
-        for (int i=0;i<4;i++) {
+        for (int i = 0; i < 4; i++) {
             boolean test = false;
-            for (int j=0;j<4;j++) {
+            for (int j = 0; j < 4; j++) {
                 if (testerTab[i].equals(dotGraphTab[j])) {
                     test = true;
                     break;
