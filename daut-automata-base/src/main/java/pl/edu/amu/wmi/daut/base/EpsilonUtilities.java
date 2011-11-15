@@ -6,12 +6,12 @@ import java.util.List;
  * do obslugi epsilonow.
  */
 public class EpsilonUtilities {
+
+	protected EpsilonUtilities() throws UnsupportedOperationException { }
     /**
      * Metoda sprawdzajaca, czy dany automat
      * ma jakies epsilon-przejscie.
      */
-    protected EpsilonUtilities() throws UnsupportedOperationException {}
-
     public static boolean isEpsilonTransition(AutomatonSpecification automat) {
         List<State> states = automat.allStates();
 
