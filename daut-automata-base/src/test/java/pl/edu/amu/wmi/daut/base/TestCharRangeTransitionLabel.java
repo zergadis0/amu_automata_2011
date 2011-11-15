@@ -7,7 +7,7 @@ import junit.framework.TestCase;
  */
 public class TestCharRangeTransitionLabel extends TestCase {
 
-	/**
+    /**
      * Metoda testująca CharRangeTransitionLabel.
      * Puste przecięcie.
      */
