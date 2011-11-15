@@ -374,30 +374,28 @@ public class TestMakeAutomatonFromString extends TestCase {
     }
 
     /**
-     * Test metody fromString() tworzący automat z przejściem po znaku z sumy przedziałów.
+     * Test metody fromString() tworzący automat z przejściem po znaku ze zbioru.
      */
-//    public final void testFromString8AutomatonWithCharClassTransition() {
-//        AutomatonSpecification cchar = new NaiveAutomatonSpecification();
+//    public final void testFromString8AutomatonWithCharSetTransition() {
+//        AutomatonSpecification charSet = new NaiveAutomatonSpecification();
 //
 //        String slowo = "Automaton:\n-States: q0 q1\n-Transitions:\n"
-//                + "q0 -[ac-e]-> q1\n-Initial state: q0\n-Final states: q1";
+//                + "q0 -{a,g,e}-> q1\n-Initial state: q0\n-Final states: q1";
 //
 //        try {
-//            cchar.fromString(slowo);
+//            charSet.fromString(slowo);
 //        } catch (Exception e) {
-//            fail("fromString() zwrocil wyjatek dla automatu z odwrotnością przejścia"
-//                    + "z sumy przedziałów!");
+//            fail("fromString() zwrocil wyjatek dla automatu z przejściem po znaku ze zbioru!");
 //        }
 //
-//        AutomatonByRecursion ccp = new AutomatonByRecursion(cchar);
+//        AutomatonByRecursion csp = new AutomatonByRecursion(charSet);
 //
-//        assertTrue(ccp.accepts("a"));
-//        assertTrue(ccp.accepts("c"));
-//        assertTrue(ccp.accepts("d"));
-//        assertTrue(ccp.accepts("e"));
-//        assertFalse(ccp.accepts(""));
-//        assertFalse(ccp.accepts("b"));
-//        assertFalse(ccp.accepts("f"));
+//        assertTrue(csp.accepts("a"));
+//        assertTrue(csp.accepts("g"));
+//        assertTrue(csp.accepts("e"));
+//        assertFalse(csp.accepts(""));
+//        assertFalse(csp.accepts("b"));
+//        assertFalse(csp.accepts("f"));
+//        assertFalse(csp.accepts("A"));
 //    }
-
 }
