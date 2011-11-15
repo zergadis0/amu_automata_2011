@@ -638,8 +638,8 @@ abstract class AutomatonSpecification implements Cloneable  {
     }
 
     /**
-* Sprawdza, czy akceptowany język jest nieskończony.
-*/
+     * Sprawdza, czy akceptowany język jest nieskończony.
+     */
     public boolean isInfinite() {
         return findFinals(getInitialState(), new ArrayList<State>());
     }
