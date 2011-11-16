@@ -261,16 +261,14 @@ public class AutomataOperations {
 
 
 
-    /*
+    /**
      *  dla automatu z epsilon-przejsciami tworzy rownowazny automat bez epsilon-przejsc
-     */ 	
+     */
     public void getRidOfEpsilonTransitions(AutomatonSpecification epsilonAutomaton, AutomatonSpecification resultAutomaton){
-	List<State> loadedStates = epsilonAutomaton.allStates();
+        List<State> loadedStates = epsilonAutomaton.allStates();
         HashMap<State, State> connectedStates = new HashMap<State, State>();
-    
         for (State currentState : loadedStates)
             connectedStates.put(currentState, resultAutomaton.addState());
-    
         for (State currentState : loadedStates) {
             if (epsilonAutomaton.isFinal(currentState))
                 resultAutomaton.markAsFinal(connectedStates.get(currentState));
@@ -281,15 +279,15 @@ public class AutomataOperations {
 
         for (OutgoingTransition transition : list) {
             if (!(transition.canBeEpsilon())) {
-            	this.addTransition(connectedStates.get(currentState),
-                connectedStates.get(transition.getTargetState()),
-                transition.getTransitionLabel());
-                Set<State> epsilonClosure = epsilonAutomaton.getEpsilonClosure(transition.getTargetState());
-                for (State state : epsilonClosure)
-                    resultAutomaton.addTransition(connectedStates.get(currentState), connectedStates.get(state), transition.getTransitionLabel());
-			}
+              this.addTransition(connectedStates.get(currentState);
+              connectedStates.get(transition.getTargetState());
+              transition.getTransitionLabel());
+              Set<State> epsilonClosure = epsilonAutomaton.getEpsilonClosure(transition.getTargetState());
+            for (State state : epsilonClosure)
+              resultAutomaton.addTransition(connectedStates.get(currentState),connectedStates.get(state),transition.getTransitionLabel());
+                    }
                 }
-        
-    }  
+
+    }
 
 }
