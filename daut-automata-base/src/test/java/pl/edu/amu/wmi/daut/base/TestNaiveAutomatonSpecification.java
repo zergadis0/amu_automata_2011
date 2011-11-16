@@ -443,22 +443,22 @@ public class TestNaiveAutomatonSpecification extends TestCase {
      * automatu, w którym jeden ze stanów końcowych jest zawarty przed pętlą.
      */
     public final void testInfiniteForFinalUntilLoop() {
-    NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
 
-    State s0 = automat.addState();
-    State s1 = automat.addState();
-    State s2 = automat.addState();
-    State s3 = automat.addState();
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+        State s2 = automat.addState();
+        State s3 = automat.addState();
 
-    automat.addTransition(s0, s1, new CharTransitionLabel('a'));
-    automat.addTransition(s1, s2, new CharTransitionLabel('b'));
-    automat.addTransition(s2, s3, new CharTransitionLabel('b'));
-    automat.addTransition(s3, s2, new CharTransitionLabel('c'));
+        automat.addTransition(s0, s1, new CharTransitionLabel('a'));
+        automat.addTransition(s1, s2, new CharTransitionLabel('b'));
+        automat.addTransition(s2, s3, new CharTransitionLabel('b'));
+        automat.addTransition(s3, s2, new CharTransitionLabel('c'));
 
-    automat.markAsFinal(s1);
-    automat.markAsFinal(s3);
-    automat.markAsInitial(s0);
+        automat.markAsFinal(s1);
+        automat.markAsFinal(s3);
+        automat.markAsInitial(s0);
 
-    assertTrue(automat.isInfinite());
+        assertTrue(automat.isInfinite());
     }
 }
