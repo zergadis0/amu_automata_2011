@@ -890,13 +890,17 @@ public class TestAutomatonSpecification extends TestCase {
         State s1 = automat.addState();
         assertFalse(automat.isEmpty());
     }
-    
+
+    /**
+     * test metody insert.
+     */
     public final void testInsert() {
         AutomatonSpecification firstAutomaton = new NaiveAutomatonSpecification();
         State firstState = firstAutomaton.addState();
         firstAutomaton.markAsInitial(firstState);
         AutomatonSpecification second = new NaiveAutomatonSpecification();
-        String fromString = "Automaton:\n-States: q0 q1 q2 q3 q4 \n-Transitions:\n  q0 -a-> q1\n  q1 -a-> q0\n  q2 -epsilon-> q4" +
+        String fromString = "Automaton:\n-States: q0 q1 q2 q3 q4 \n-Transitions:\n  q0 -a-> " +
+            "q1\n  q1 -a-> q0\n  q2 -epsilon-> q4" +
 "\n  q3 -ANY-> q4\n-Initial state: q0\n-Final states: q1 ";
         try {
             second.fromString(fromString);
