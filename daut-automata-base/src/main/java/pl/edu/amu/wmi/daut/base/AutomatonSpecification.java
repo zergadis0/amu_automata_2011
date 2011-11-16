@@ -747,7 +747,7 @@ abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-     * Metoda zwraca długość najdłuższego słowa akceptowanego.
+     *Metoda zwraca długość najdłuższego słowa akceptowanego.
      */
     public int maxWordLength() {
         AllAcceptedWords words = new AllAcceptedWords(this);
