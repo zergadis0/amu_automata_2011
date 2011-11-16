@@ -48,4 +48,13 @@ public class Generator {
                     }
             }
     }
+    /**
+     * Metoda zwracająca listę słów akceptowanych przez automat bez cykli.
+     *
+     */
+    public List wordsFromAutomatonWithoutCycles(AutomatonSpecification automaton, String alphabet) {
+        String word = "";
+        acceptWords(automaton, alphabet, word, automaton.getInitialState());
+        return acceptedWords;
+    }
 }
