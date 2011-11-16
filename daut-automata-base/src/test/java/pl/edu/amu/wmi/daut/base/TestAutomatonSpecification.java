@@ -460,24 +460,134 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody addBranch().
+     * Test metody makeEmptyStringAutomaton.
      */
-    public final void testaddBranch() {
+    public final void testmakeEmptyStringAutomaton() {
+        AutomatonSpecification automaton1 = new NaiveAutomatonSpecification();
+        automaton1.makeEmptyStringAutomaton();
+        AutomatonByRecursion angle = new AutomatonByRecursion(automaton1);
 
-       // Budowanie automatu o 4 stanach.
-       AutomatonSpecification spec = new NaiveAutomatonSpecification();
-       State s0 = spec.addState();
-       spec.markAsInitial(s0);
-       List<TransitionLabel> transitions =
-               Arrays.<TransitionLabel>asList(
+        assertFalse(angle.accepts("qqqqqq"));
+        assertTrue(angle.accepts(""));
+        assertFalse(angle.accepts("x"));
+        assertFalse(angle.accepts("qwertyuiopasdfghjklzxcvbnm1234567890"));
+        assertFalse(angle.accepts(" "));
+    }
+
+    /**
+     * Testy dla metody addTransitionSequence().
+     */
+    public final void testAddTransitionSequence() {
+        // Tworzymy automat do testów
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+
+        // Proste testy ilości stanów i przejść
+        // Pusty ciąg przejść
+        State s0 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.addTransitionSequence(s0, "");
+        assertEquals(0, spec.countTransitions());
+        assertEquals(1, spec.countStates());
+
+        // Ciąg przejść składający się z jednego znaku
+        spec = new NaiveAutomatonSpecification();
+        s0 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.addTransitionSequence(s0, "a");
+        assertEquals(1, spec.countTransitions());
+        assertEquals(2, spec.countStates());
+
+        // Ciąg przejść składający się z jednego znaku
+        // i dodanie stanu na podstawie tego co zwróciła
+        // metoda addTransitionSequence()
+        spec = new NaiveAutomatonSpecification();
+        s0 = spec.addState();
+        spec.markAsInitial(s0);
+        State s1 = spec.addTransitionSequence(s0, "a");
+        spec.addTransition(s1, new CharTransitionLabel('b'));
+        assertEquals(2, spec.countTransitions());
+        assertEquals(3, spec.countStates());
+
+        // Ciąg przejść składający się z takich samych znaków
+        spec = new NaiveAutomatonSpecification();
+        s0 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.addTransitionSequence(s0, "aa");
+        assertEquals(2, spec.countTransitions());
+        assertEquals(3, spec.countStates());
+
+        // Ciąg przejść składający się z różnych znaków
+        spec = new NaiveAutomatonSpecification();
+        s0 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.addTransitionSequence(s0, "abc");
+        assertEquals(3, spec.countTransitions());
+        assertEquals(4, spec.countStates());
+
+        // Sprawdzamy czy przejścia mają odpowiednie oznaczenia oraz
+        // akceptują odpowiednie znaki, dla ciągu "abc"
+        State s;
+        List<OutgoingTransition> sOuts;
+
+        // Dla jasności pobieramy stan początkowy automatu
+        s = spec.getInitialState();
+
+        // Sprawdzamy możliwe przejścia ze stanu początkowego,
+        // sprawdzamy ich ilość, oznaczenia oraz jakie znaki akceptują
+        // (oczekujemy a)
+        sOuts = spec.allOutgoingTransitions(s);
+        assertEquals(1, sOuts.size());
+        assertEquals('a', ((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).getChar());
+        assertTrue(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+
+        // Kolejne przejście (oczekujemy b)
+        s = sOuts.get(0).getTargetState();
+        sOuts = spec.allOutgoingTransitions(s);
+        assertEquals(1, sOuts.size());
+        assertEquals('b', ((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).getChar());
+        assertTrue(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('b'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+
+        // Kolejne przejście (oczekujemy c)
+        s = sOuts.get(0).getTargetState();
+        sOuts = spec.allOutgoingTransitions(s);
+        assertEquals(1, sOuts.size());
+        assertEquals('c', ((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).getChar());
+        assertTrue(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+    }
+
+    /**
+     * Test metody addBranch(). Automat o 4 stanach.
+     */
+    public final void testAddBranchWithFourStates() {
+
+        // Budowanie automatu o 4 stanach.
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        State s0 = spec.addState();
+        spec.markAsInitial(s0);
+        List<TransitionLabel> transitions =
+                Arrays.<TransitionLabel>asList(
             new CharTransitionLabel('a'),
             new CharTransitionLabel('b'),
             new CharTransitionLabel('c')
             );
-       State s3 = spec.addBranch(s0, transitions);
-       spec.markAsFinal(s3);
+        State s3 = spec.addBranch(s0, transitions);
+        spec.markAsFinal(s3);
 
-       //testowanie
+        //testowanie
 
         State r0 = spec.getInitialState();
 
@@ -516,16 +626,21 @@ public class TestAutomatonSpecification extends TestCase {
         List<State> states = spec.allStates();
 
         assertEquals(states.size(), 4);
+    }
+    /**
+     * Test metody addBranch(). Automat o 1 stanie.
+     */
+    public final void testAddBranchWithOneStates() {
 
         // Budowanie automatu o 1 stanie.
         AutomatonSpecification spec2 = new NaiveAutomatonSpecification();
         State st0 = spec2.addState();
-        spec.markAsInitial(st0);
+        spec2.markAsInitial(st0);
         List<TransitionLabel> transitions2 =
                 Arrays.<TransitionLabel>asList(
             );
         State st1 = spec2.addBranch(st0, transitions2);
-        spec.markAsFinal(st0);
+        spec2.markAsFinal(st0);
 
         //testowanie
         State rr0 = spec2.getInitialState();
@@ -533,8 +648,8 @@ public class TestAutomatonSpecification extends TestCase {
         List<OutgoingTransition> r0Outs2 = spec2.allOutgoingTransitions(rr0);
         assertEquals(r0Outs2.size(), 0);
 
-        assertTrue(spec.isFinal(st1));
-        assertSame(st1, spec.getInitialState());
+        assertTrue(spec2.isFinal(st1));
+        assertSame(st1, spec2.getInitialState());
 
     }
 
@@ -551,8 +666,11 @@ public class TestAutomatonSpecification extends TestCase {
         class AutomatonString {
             private String states, transitions, istates, fstates;
 
-            public AutomatonString(String states, String transitions, String istates,
-                    String fstates) {
+            /**
+             * Ustala stany, przejścia, stan początkowy oraz stany końcowe
+             */
+            public AutomatonString(String states, String transitions,
+                    String istates, String fstates) {
                 this.states = states;
                 this.transitions = transitions;
                 this.istates = istates;
@@ -699,7 +817,6 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(spec.prefixChecker(q5));
     }
     /**
-<<<<<<< HEAD
      * Testuje działanie metody checkPrefix().
      * Bazuje bezpośrednio na teście metody prefixChecker()
      */
