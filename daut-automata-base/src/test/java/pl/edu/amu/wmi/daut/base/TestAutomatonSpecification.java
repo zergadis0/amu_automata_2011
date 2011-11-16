@@ -904,11 +904,10 @@ public class TestAutomatonSpecification extends TestCase {
             + "\n  q3 -ANY-> q4\n-Initial state: q0\n-Final states: q1 ";
         try {
             second.fromString(fromString);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("Nie udało się stworzyć automatu.");
         }
-        
+
         firstAutomaton.insert(firstState, second);
         assertTrue(fromString.equals(firstAutomaton.toString()));
     }
