@@ -197,7 +197,7 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
 
         spec.markAsInitial(q0a);
         spec.markAsFinal(q0a);
-  
+
         assertTrue(automaton.accepts(""));
         assertFalse(automaton.accepts("cccccccccabbbbbbc"));
         assertFalse(automaton.accepts("aaaaaaaaaaa"));
