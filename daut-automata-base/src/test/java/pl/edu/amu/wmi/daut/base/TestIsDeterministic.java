@@ -71,7 +71,7 @@ public class TestIsDeterministic extends TestCase {
         aut.addTransition(s4, new CharTransitionLabel('b'));
         aut.addTransition(s4, s5, new CharTransitionLabel('b'));
         aut.addTransition(s5, new CharTransitionLabel('a'));
-        aut.addTransition(s4, s5, new ComplementCharClassTransitionLabel('ab-gh'));
+        aut.addTransition(s4, s5, new ComplementCharClassTransitionLabel("ab-gh"));
 
         assertFalse(aut.isDeterministic());
     }
