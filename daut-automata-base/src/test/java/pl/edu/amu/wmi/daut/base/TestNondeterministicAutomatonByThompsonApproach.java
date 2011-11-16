@@ -184,7 +184,9 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
         assertTrue(automaton.accepts("b"));
         assertFalse(automaton.accepts("uam"));
     }
-    
+    /**
+     * Szósty test (tylko jeden stan, brak przejść).
+     */
     public final void testOneState() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
@@ -202,21 +204,25 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
         assertFalse(automaton.accepts("bcccccc"));
         assertFalse(automaton.accepts("z"));
     }
-    
+
+    /**
+     * Siódmy test (dwa stany, epsilon-przejście pomiędzy nimi).
+     */
+
     public final void testTwoStatesOneEpsilonTrasitionLabel() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState(); 
         State q1a = spec.addState();
-        
+
         spec.addTransition(q0a, q1a, new EpsilonTransitionLabel());
-        
+
         final NondeterministicAutomatonByThompsonApproach automaton =
                 new NondeterministicAutomatonByThompsonApproach(spec);
 
         spec.markAsInitial(q0a);
         spec.markAsFinal(q1a);
-        
+
         assertTrue(automaton.accepts(""));
         assertFalse(automaton.accepts("cccccccccabbbbbbc"));
         assertFalse(automaton.accepts("aaaaaaaaaaa"));
