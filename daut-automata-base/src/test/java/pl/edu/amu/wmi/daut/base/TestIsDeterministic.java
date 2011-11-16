@@ -8,18 +8,18 @@ import junit.framework.TestCase;
 public class TestIsDeterministic extends TestCase {
 
     /**
-    * Metoda testujaca metodę isDeterministic.
+    * Test metody isDeterministic na automacie z jednym przejściem.
     */
     public final void testOneTransition() {
 
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
-        AutomatonSpecification automata = aut.makeOneTransitionAutomaton('a');
+        AutomatonSpecification automata = aut.makeOneTransitionAutomaton('g');
 
         assertTrue(automata.isDeterministic());
     }
 
     /**
-     * Metoda testujaca metodę isDeterministic.
+     * Test metody isDeterministic na automacie z czterema przejściami.
      */
     public final void testFourTransitions() {
 
@@ -36,14 +36,16 @@ public class TestIsDeterministic extends TestCase {
         aut.markAsFinal(s3);
 
         aut.addTransition(s0, s1, new CharTransitionLabel('a'));
-        aut.addTransition(s0, s2, new CharTransitionLabel('a'));
-        aut.addTransition(s0, s3, new CharTransitionLabel('a'));
+        aut.addTransition(s0, s2, new CharTransitionLabel('b'));
+        aut.addTransition(s0, s3, new CharTransitionLabel('b'));
+        aut.addTransition(s1, s3, new CharTransitionLabel('d'));
+
 
         assertFalse(aut.isDeterministic());
     }
 
     /**
-     * Metoda testujaca metodę isDeterministic.
+     * Test metody isDeterministic na automacie sześcioma przejściami.
      */
     public final void testSixTransitions() {
 
@@ -65,16 +67,17 @@ public class TestIsDeterministic extends TestCase {
         aut.addTransition(s1, s2, new CharTransitionLabel('a'));
         aut.addTransition(s2, s3, new CharTransitionLabel('a'));
         aut.addTransition(s3, new CharTransitionLabel('a'));
-        aut.addTransition(s2, s4, new CharTransitionLabel('a'));
-        aut.addTransition(s4, new CharTransitionLabel('a'));
-        aut.addTransition(s2, s5, new CharTransitionLabel('a'));
+        aut.addTransition(s2, s4, new CharRangeTransitionLabel('a', 'c'));
+        aut.addTransition(s4, new CharTransitionLabel('b'));
+        aut.addTransition(s4, s5, new CharTransitionLabel('b'));
         aut.addTransition(s5, new CharTransitionLabel('a'));
+        aut.addTransition(s4, s5, new ComplimentCharClassTransitionLabel('ab-gh'));
 
         assertFalse(aut.isDeterministic());
     }
 
     /**
-     * Metoda testujaca metodę isDeterministic.
+     * Test metody isDeterministic na pustym automacie.
      */
     public final void testEmptyAutomaton() {
 
