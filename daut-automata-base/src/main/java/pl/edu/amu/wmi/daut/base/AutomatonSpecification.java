@@ -306,10 +306,13 @@ abstract class AutomatonSpecification implements Cloneable {
                     final List<OutgoingTransition> edges = allOutgoingTransitions(it);
 
                     for (OutgoingTransition edgeIt : edges) {
-                        if (labelList[states.indexOf(edgeIt.getTargetState())].length() == 0) {
-                            labelList[states.indexOf(edgeIt.getTargetState())].append(edgeIt.getTransitionLabel());
+                        if (labelList[states.indexOf(edgeIt.getTargetState())]
+                                .length() == 0) {
+                            labelList[states.indexOf(edgeIt.getTargetState())]
+                                    .append(edgeIt.getTransitionLabel());
                         } else {
-                            labelList[states.indexOf(edgeIt.getTargetState())].append(", " + edgeIt.getTransitionLabel());
+                            labelList[states.indexOf(edgeIt.getTargetState())]
+                                    .append(", " + edgeIt.getTransitionLabel());
                         }
                     }
 
@@ -396,10 +399,12 @@ abstract class AutomatonSpecification implements Cloneable {
             for (int i = 0; i < alphabet.length(); i++) {
                 index = 0;
                 for (OutgoingTransition transition : allOutgoingTransitions(state)) {
-                    if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i))) {
+                    if (transition.getTransitionLabel()
+                            .canAcceptCharacter(alphabet.charAt(i))) {
                         break;
                     } else if ((index == allOutgoingTransitions(state).size() - 1)
-                            && !transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i))) {
+                            && !transition.getTransitionLabel()
+                            .canAcceptCharacter(alphabet.charAt(i))) {
                         return false;
                     } else {
                         index++;
@@ -425,7 +430,8 @@ abstract class AutomatonSpecification implements Cloneable {
                             alphabet.charAt(i))) {
                         break;
                     } else if ((indeks == allOutgoingTransitions(state).size() - 1)
-                            && !transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i))) {
+                            && !transition1.getTransitionLabel()
+                            .canAcceptCharacter(alphabet.charAt(i))) {
                         addTransition(state, trash, new CharTransitionLabel(
                                 alphabet.charAt(i)));
                     } else {
