@@ -376,77 +376,125 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody getDotGraph().
+     * Klasa pomocnicza do testów funkcji getDotGraph().
      */
-    public final void testGetDotGraph() {
-        /**
-         * Przyznaję, że pomysł zaczerpnąłem z powyższego testu.
-         */
-        class AutomatonDotGraph {
-            private String states, transitions, begin, ends;
-            private boolean isBeginTheEnd;
+    class FakeDotGraphGenerator {
+        private String states, transitions, begin, ends;
+        private boolean isBeginTheEnd;
 
-            public AutomatonDotGraph(String states, String transitions,
-                    String begin, String ends, boolean isBeginTheEnd) {
-                this.states = states;
-                this.transitions = transitions;
-                this.begin = begin;
-                this.ends = ends;
-                this.isBeginTheEnd = isBeginTheEnd;
-            }
-
-            /**
-             * Zwraca żądany przez testera graf w postaci String'a.
-             */
-            @Override
-            public String toString() {
-                //Poczatek
-                StringBuffer dotGraphString = new StringBuffer();
-                dotGraphString.append("digraph finite_state_machine {\n    rankdir=LR;\n"
-                        + "    size=\"8,5\"\n    node [style=filled fillcolor=\"#00ff005f\""
-                        + " shape = ");
-                if (isBeginTheEnd)
-                    dotGraphString.append("double");
-                dotGraphString.append("circle];\n    \"State #" + begin + "\";\n"
-                               + "    node [shape = doublecircle style=filled "
-                               + "fillcolor=\"#00000000\"];\n    ");
-
-                //Stany końcowe
-                String[] endStates = ends.split(" ");
-                for (String state : endStates) {
-                    dotGraphString.append("\"State #" + state + "\" ");
-                }
-
-                dotGraphString.append(";\n    node [shape = circle];\n");
-
-                //Przejścia
-                for (String transition : transitions.split(" ")) {
-                    String[] splitedTransition = transition.split("-");
-                    dotGraphString.append("    \"State #" + splitedTransition[0] + "\"");
-                    dotGraphString.append(" -> \"State #" + splitedTransition[2] + "\"");
-                    if (splitedTransition[1].length() > 2) {
-                        if (splitedTransition[1].contains(",")
-                                && (!(splitedTransition[1].matches("[*,*]")))) {
-                            String[] transitionLabel = splitedTransition[1].split(",");
-                            dotGraphString.append(" [ label = \"" + transitionLabel[0]);
-                            for (int i = 1; i < transitionLabel.length; i++) {
-                                dotGraphString.append(", " + transitionLabel[i]);
-                            }
-                            dotGraphString.append("\" ]");
-                        }
-                    } else {
-                        dotGraphString.append(" [ label = \"" + splitedTransition[1] + "\" ]");
-                    }
-                    dotGraphString.append(";\n");
-                }
-
-                //Koniec
-                dotGraphString.append("\n}\n");
-                return dotGraphString.toString();
-            }
+        public FakeDotGraphGenerator(String states, String transitions,
+                String begin, String ends, boolean isBeginTheEnd) {
+            this.states = states;
+            this.transitions = transitions;
+            this.begin = begin;
+            this.ends = ends;
+            this.isBeginTheEnd = isBeginTheEnd;
         }
 
-        //Test
+        /**
+         * Zwraca żądany przez testera graf w postaci String'a.
+         */
+        @Override
+        public String toString() {
+            //Poczatek
+            StringBuffer dotGraphString = new StringBuffer();
+            dotGraphString.append("digraph finite_state_machine {\n    rankdir=LR;\n"
+                    + "    size=\"8,5\"\n    node [style=filled fillcolor=\"#00ff005f\""
+                    + " shape = ");
+            if (isBeginTheEnd)
+                dotGraphString.append("double");
+            dotGraphString.append("circle];\n    \"State #" + begin + "\";\n"
+                           + "    node [shape = doublecircle style=filled "
+                           + "fillcolor=\"#00000000\"];\n    ");
+
+            //Stany końcowe
+            String[] endStates = ends.split(" ");
+            for (String state : endStates) {
+                dotGraphString.append("\"State #" + state + "\" ");
+            }
+
+            dotGraphString.append(";\n    node [shape = circle];\n");
+
+            //Przejścia
+            for (String transition : transitions.split(" ")) {
+                String[] splitedTransition = transition.split("-");
+                dotGraphString.append("    \"State #" + splitedTransition[0] + "\"");
+                dotGraphString.append(" -> \"State #" + splitedTransition[2] + "\"");
+                if ((splitedTransition[1].length() > 2) && (splitedTransition[1].contains(",")
+                            && (!(splitedTransition[1].matches("[*,*]"))))) {
+                    String[] transitionLabel = splitedTransition[1].split(",");
+                    dotGraphString.append(" [ label = \"" + transitionLabel[0]);
+                    for (int i = 1; i < transitionLabel.length; i++) {
+                        dotGraphString.append(", " + transitionLabel[i]);
+                    }
+                    dotGraphString.append("\" ]");
+                } else {
+                    dotGraphString.append(" [ label = \"" + splitedTransition[1] + "\" ]");
+                }
+                dotGraphString.append(";\n");
+            }
+
+            //Koniec
+            dotGraphString.append("\n}\n");
+            return dotGraphString.toString();
+        }
+
+        boolean isItProper(String dotGraphFromAutomaton) {
+            String fakeDotGraph = this.toString();
+            
+            //Pierwszy krok testu - porównanie ich długości
+            if (dotGraphFromAutomaton.length() != fakeDotGraph.length())
+                return false;
+
+            //Podział obu stringów na linie
+            String[] dotGraphTab = dotGraphFromAutomaton.split("\n");
+            String[] exampleOfDotGraphTab = fakeDotGraph.split("\n");
+
+            //Porównanie ilości linii w obu Stringach
+            if (dotGraphTab.length != exampleOfDotGraphTab.length)
+                return false;
+
+            //Porównanie 1: dokładnie ten sam porządek linii
+            for (int i = 0; i < 6; i++)
+                if (!dotGraphTab[i].equals(exampleOfDotGraphTab[i]))
+                    return false;
+
+            //Porównanie 2: stany końcowe
+            int numberOfEndStates = ends.split(" ").length;
+            for (int i = 6; i < 6 + numberOfEndStates; i++) {
+                boolean doThisLineExist = false;
+                for (int j = 6; j < 6 + numberOfEndStates; j++) {
+                    if (exampleOfDotGraphTab[i].equals(dotGraphTab[j])) {
+                        doThisLineExist = true;
+                        break;
+                    }
+                }
+                if (!doThisLineExist)
+                    return false;
+            }
+
+            //Porównanie 3: linie mogą różnić się kolejnością
+            for (int i = 6 + numberOfEndStates; i < exampleOfDotGraphTab.length; i++) {
+                boolean doThisLineExist = false;
+                for (int j = 6 + numberOfEndStates; j < exampleOfDotGraphTab.length; j++) {
+                    if (exampleOfDotGraphTab[i].equals(dotGraphTab[j])) {
+                        doThisLineExist = true;
+                        break;
+                    }
+                }
+                if (!doThisLineExist)
+                    return false;
+            }
+            
+            return true;
+        }
+    }
+
+    /**
+     * Pierwszy test metody getDotGraph(). Prosty automat. Akceptuje tylko słowo puste
+     * oraz słowo "one".
+     */
+    public final void testGetDotGraph0EasyAutomaton() {
         AutomatonSpecification testAutomaton = new NotNaiveAutomatonSpecification();
         State qBegin = testAutomaton.addState();
         State qEnd = testAutomaton.addTransitionSequence(qBegin, "one");
@@ -458,30 +506,84 @@ public class TestAutomatonSpecification extends TestCase {
 
         //Tworzenie obu Stringów: przez toDotGraph() i "kłamliwą" funkcję
         String dotGraph = testAutomaton.getDotGraph();
-        String exampleOfDotGraph = new AutomatonDotGraph("0 1 2 3 4", "0-o-1 1-n-2 "
-                + "2-e-3 3-1,2-4", "0", "0 3", true).toString();
-        //Pierwszy krok testu - porównanie ich długości
-        assertEquals(dotGraph.length(), exampleOfDotGraph.length());
-        //Podział obu stringów na linie
-        String[] dotGraphTab = dotGraph.split("\n");
-        String[] exampleOfDotGraphTab = exampleOfDotGraph.split("\n");
-        //Porównanie ilości linii w obu Stringach
-        assertEquals(dotGraphTab.length, exampleOfDotGraphTab.length);
-        //Porównanie 1: dokładnie ten sam porządek linii
-        for (int i = 0; i < 5; i++)
-            assertEquals(dotGraphTab[i], exampleOfDotGraphTab[i]);
-        //Porównanie 2: linie mogą różnić się kolejnością
-        for (int i = 0; i < 4; i++) {
-            boolean doThisLineExist = false;
-            for (int j = 0; j < 4; j++) {
-                if (exampleOfDotGraphTab[i].equals(dotGraphTab[j])) {
-                    doThisLineExist = true;
-                    break;
-                }
-            }
-            if (!doThisLineExist)
-                fail();
-        }
+        FakeDotGraphGenerator exampleOfDotGraph = new FakeDotGraphGenerator("0 1 2 3 4", "0-o-1 1-n-2 "
+                + "2-e-3 3-1,2-4", "0", "0 3", true);
+        assertTrue(exampleOfDotGraph.isItProper(dotGraph));
+    }
+
+    /**
+     * Drugi test metody getDotGraph(). Ze wszystkich słów nad alfabetem {a,b,c} zawierających
+     * parzystą liczbę wystąpień podciągu "ab" i w których liczba wystąpień litery c jest
+     * podzielna przez trzy.
+     */
+    public final void testGetDotGraph1BigAutomaton() {
+        AutomatonSpecification testAutomaton = new NotNaiveAutomatonSpecification();
+        State qBegin = testAutomaton.addState();
+        State qCMod3Is1 = testAutomaton.addTransition(qBegin, new CharTransitionLabel('c'));
+        State qCMod3Is2 = testAutomaton.addTransition(qCMod3Is1, new CharTransitionLabel('c'));
+        State qAC0 = testAutomaton.addTransition(qBegin, new CharTransitionLabel('a'));
+        State qACMod3Is1 = testAutomaton.addTransition(qCMod3Is1, new CharTransitionLabel('a'));
+        State qACMod3Is2 = testAutomaton.addTransition(qCMod3Is2, new CharTransitionLabel('a'));
+        State qNpC0 = testAutomaton.addTransition(qAC0, new CharTransitionLabel('b'));
+        State qNpCMod3Is1 = testAutomaton.addTransition(qNpC0, new CharTransitionLabel('c'));
+        State qNpCMod3Is2 = testAutomaton.addTransition(qNpCMod3Is1, new CharTransitionLabel('c'));
+        State qNpAC0 = testAutomaton.addTransition(qNpC0, new CharTransitionLabel('a'));
+        State qNpACMod3Is1 = testAutomaton.addTransition(qNpCMod3Is1, new CharTransitionLabel('a'));
+        State qNpACMod3Is2 = testAutomaton.addTransition(qNpCMod3Is2, new CharTransitionLabel('a'));
+        testAutomaton.addLoop(qAC0, new CharTransitionLabel('a'));
+        testAutomaton.addLoop(qACMod3Is1, new CharTransitionLabel('a'));
+        testAutomaton.addLoop(qACMod3Is2, new CharTransitionLabel('a'));
+        testAutomaton.addLoop(qNpAC0, new CharTransitionLabel('a'));
+        testAutomaton.addLoop(qNpACMod3Is1, new CharTransitionLabel('a'));
+        testAutomaton.addLoop(qNpACMod3Is2, new CharTransitionLabel('a'));
+        testAutomaton.addLoop(qBegin, new CharTransitionLabel('b'));
+        testAutomaton.addLoop(qCMod3Is1, new CharTransitionLabel('b'));
+        testAutomaton.addLoop(qCMod3Is2, new CharTransitionLabel('b'));
+        testAutomaton.addLoop(qNpC0, new CharTransitionLabel('b'));
+        testAutomaton.addLoop(qNpCMod3Is1, new CharTransitionLabel('b'));
+        testAutomaton.addLoop(qNpCMod3Is2, new CharTransitionLabel('b'));
+        testAutomaton.addTransition(qACMod3Is1, qNpCMod3Is1, new CharTransitionLabel('b'));
+        testAutomaton.addTransition(qACMod3Is2, qNpCMod3Is2, new CharTransitionLabel('b'));
+        testAutomaton.addTransition(qNpAC0, qBegin, new CharTransitionLabel('b'));
+        testAutomaton.addTransition(qNpACMod3Is1, qCMod3Is1, new CharTransitionLabel('b'));
+        testAutomaton.addTransition(qNpACMod3Is2, qCMod3Is2, new CharTransitionLabel('b'));
+        testAutomaton.addTransition(qCMod3Is2, qBegin, new CharTransitionLabel('c'));
+        testAutomaton.addTransition(qAC0, qCMod3Is1, new CharTransitionLabel('c'));
+        testAutomaton.addTransition(qACMod3Is1, qCMod3Is2, new CharTransitionLabel('c'));
+        testAutomaton.addTransition(qACMod3Is2, qBegin, new CharTransitionLabel('c'));
+        testAutomaton.addTransition(qNpCMod3Is2, qNpC0, new CharTransitionLabel('c'));
+        testAutomaton.addTransition(qNpAC0, qNpCMod3Is1, new CharTransitionLabel('c'));
+        testAutomaton.addTransition(qNpACMod3Is1, qNpCMod3Is2, new CharTransitionLabel('c'));
+        testAutomaton.addTransition(qNpACMod3Is2, qNpC0, new CharTransitionLabel('c'));
+        testAutomaton.markAsInitial(qBegin);
+        testAutomaton.markAsFinal(qBegin);
+
+        //Tworzenie obu Stringów: przez toDotGraph() i "kłamliwą" funkcję
+        String dotGraph = testAutomaton.getDotGraph();
+        FakeDotGraphGenerator exampleOfDotGraph = new FakeDotGraphGenerator("0 1 2 3 4 5 6 7 8 9"
+                + " 10 11", "0-a-3 0-b-0 0-c-1 1-a-4 1-b-1 1-c-2 2-a-5 2-b-2 2-c-0 3-a-3 3-b-6"
+                + " 3-c-1 4-a-4 4-b-7 4-c-2 5-a-5 5-b-8 5-c-0 6-a-9 6-b-6 6-c-7 7-a-10 7-b-7"
+                + " 7-c-8 8-a-11 8-b-8 8-c-6 9-a-9 9-b-0 9-c-7 10-a-10 10-b-1 10-c-8 11-a-11"
+                + " 11-b-2 11-c-6", "0", "0", true);
+        assertTrue(exampleOfDotGraph.isItProper(dotGraph));
+    }
+
+    /**
+     * Pierwszy test metody getDotGraph(). Automat sprawdzający poprawność działania funkcji
+     * dla automatów zawierających przejścia po dowolnym znaku.
+     */
+    public final void testGetDotGraph2AutomatonWithAnyTransitionLabel() {
+        AutomatonSpecification testAutomaton = new NaiveAutomatonSpecification();
+        State qBegin = testAutomaton.addState();
+        State qEnd = testAutomaton.addTransition(qBegin, new AnyTransitionLabel());
+        testAutomaton.markAsInitial(qBegin);
+        testAutomaton.markAsFinal(qEnd);
+
+        //Tworzenie obu Stringów: przez toDotGraph() i "kłamliwą" funkcję
+        String dotGraph = testAutomaton.getDotGraph();
+        FakeDotGraphGenerator exampleOfDotGraph = new FakeDotGraphGenerator("0 1", "0-ANY-1", "0",
+                "1", false);
+        assertTrue(exampleOfDotGraph.isItProper(dotGraph));
     }
 
     /**
