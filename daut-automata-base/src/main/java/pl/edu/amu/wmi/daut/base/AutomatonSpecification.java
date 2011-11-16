@@ -753,10 +753,10 @@ abstract class AutomatonSpecification implements Cloneable {
         AllAcceptedWords words = new AllAcceptedWords(this);
         String word;
         int tmp;
-        int inf = -2;
+        final int jest_infinite = -2;
         int max = 0;
         if (isInfinite()) {
-            return inf;
+            return jest_infinite;
         }
         if (words.hasNext()) {
             do {
