@@ -1,8 +1,11 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.Stack;
 
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -713,6 +716,36 @@ abstract class AutomatonSpecification implements Cloneable  {
             return min;
         } else
             throw new RuntimeException("error");
+    }
+
+    /**
+     * Tworzy epsilon domknięcie.
+     */
+    public Set<State> getEpsilonClosure(State initial) {
+    
+        Set<State> epsilonClosure = new HashSet<State>();
+        Set<State> visited = new HashSet<State>();
+        Stack<State> stack = new Stack<State>();
+        stack.push(initial);
+        epsilonClosure.add(initial);
+        
+        while (!stack.empty()) {
+            State from = stack.pop();
+            if (visited.contains(from)) {
+                continue;
+            }
+            visited.add(from);
+            for (OutgoingTransition trans : allOutgoingTransitions(from)) {
+                TransitionLabel label = trans.getTransitionLabel();
+                State to = trans.getTargetState();
+                if (label.canBeEpsilon()) {
+                    epsilonClosure.add(to);
+                    stack.push(to);
+                }
+            }
+        }
+        
+        return epsilonClosure;
     }
 };
 

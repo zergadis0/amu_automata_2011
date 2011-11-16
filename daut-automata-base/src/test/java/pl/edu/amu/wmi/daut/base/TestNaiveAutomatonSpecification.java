@@ -272,8 +272,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
 * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
+=======
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+>>>>>>> 4559b160491a2297db890d80e2137d9ed0516ca3
     public final void testInfinite1() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -298,8 +303,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
 * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
+=======
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+>>>>>>> 4559b160491a2297db890d80e2137d9ed0516ca3
     public final void testInfinite2() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -317,8 +327,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
 * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
+=======
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+>>>>>>> 4559b160491a2297db890d80e2137d9ed0516ca3
     public final void testInfinite3() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -339,8 +354,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
 * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
+=======
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+>>>>>>> 4559b160491a2297db890d80e2137d9ed0516ca3
     public final void testInfinite4() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -363,8 +383,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
 * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
+=======
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+>>>>>>> 4559b160491a2297db890d80e2137d9ed0516ca3
     public final void testInfinite5() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -383,8 +408,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
 * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
+=======
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+>>>>>>> 4559b160491a2297db890d80e2137d9ed0516ca3
     public final void testInfinite6() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -402,8 +432,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
 * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
+=======
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+>>>>>>> 4559b160491a2297db890d80e2137d9ed0516ca3
     public final void testInfinite7() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -420,8 +455,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
 * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
+=======
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+>>>>>>> 4559b160491a2297db890d80e2137d9ed0516ca3
     public final void testInfinite8() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
@@ -432,8 +472,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
 * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
 */
+=======
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     */
+>>>>>>> 4559b160491a2297db890d80e2137d9ed0516ca3
     public final void testInfinite9() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0 = automat.addState();
