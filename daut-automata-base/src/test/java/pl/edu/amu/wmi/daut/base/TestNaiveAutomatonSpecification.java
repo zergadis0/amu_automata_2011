@@ -272,9 +272,10 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony przy
+     * automacie z pętlą rozpoczynającą się zaraz po przejściu ze stanu początkowego.
      */
-    public final void testInfinite2() {
+    public final void testInfinite1() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
 
         State s0 = automat.addState();
@@ -294,9 +295,11 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony dla
+     * automatu, w którym z pętli zawierającej stan końcowy da się wyjść do
+     * innego stanu końcowego.
      */
-    public final void testInfinite3() {
+    public final void testInfinite2() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
 
         State s0 = automat.addState();
@@ -320,9 +323,11 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony dla
+     * automatu, w którym z pętli zawierającej stan końcowy da sie wyjść do innej
+     * pętli.
      */
-    public final void testInfinite4() {
+    public final void testInfinite3() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
 
         State s0 = automat.addState();
@@ -348,9 +353,10 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony dla
+     * automatu, w którym stan końcowy jest zawarty po pętli.
      */
-    public final void testInfinite5() {
+    public final void testInfinite4() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
 
         State s0 = automat.addState();
@@ -372,9 +378,11 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony dla
+     * automatu, w którym mamy zwykłą ścieżkę ze stanu s0 do stanu s4 bez żadnych
+     * pętli.
      */
-    public final void testInfinite6() {
+    public final void testInfinite5() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
 
         State s0 = automat.addState();
@@ -397,29 +405,12 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     /**
      * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
      */
-    public final void testInfinite7() {
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
-
-        State s0 = automat.addState();
-        State s1 = automat.addState();
-        State s2 = automat.addState();
-        State s3 = automat.addState();
-
-        automat.addTransition(s0, s1, new CharTransitionLabel('a'));
-        automat.addTransition(s1, s2, new CharTransitionLabel('a'));
-        automat.addTransition(s2, s3, new CharTransitionLabel('a'));
-        automat.addTransition(s3, s1, new CharTransitionLabel('a'));
-
-        automat.markAsInitial(s0);
-        automat.markAsFinal(s3);
-
-        assertTrue(automat.isInfinite());
-    }
 
     /**
-     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony dla
+     * automatu zawierającego jeden stan zawierający pętlę do samego siebie.
      */
-    public final void testInfinite8() {
+    public final void testInfinite6() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
 
         State s0 = automat.addState();
@@ -433,9 +424,10 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody sprawdzającej, czy akceptowany język jest nieskończony.
+     * Test metody sprawdzającej, czy akceptowany język jest nieskończony z pętlą
+     * złożoną z 2 stanów dla sytuacji, kiedy stanem końcowym jest stan początkowy.
      */
-    public final void testInfinite9() {
+    public final void testInfinite7() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
 
         State s0 = automat.addState();
