@@ -648,7 +648,7 @@ abstract class AutomatonSpecification implements Cloneable  {
         boolean result = false;
 
         if (isFinal(state))
-            return checkForLoop(state, new ArrayList<State>());
+            result = result || checkForLoop(state, new ArrayList<State>());
 
         if (allOutgoingTransitions(state).size() == 0)
             return false;
@@ -656,13 +656,17 @@ abstract class AutomatonSpecification implements Cloneable  {
         for (State his : history)
             if (his == state)
                 return false;
+
         history.add(state);
 
         for (OutgoingTransition child : allOutgoingTransitions(state)) {
-            result = result || findFinals(child.getTargetState(), history);
+            List<State> newHistory = new ArrayList<State>();
+            for(State s : history)
+                newHistory.add(s);
+            result = result || findFinals(child.getTargetState(), newHistory);
             if (result)
                 break;
-            }
+        }   
         return result;
     }
 
@@ -673,10 +677,14 @@ abstract class AutomatonSpecification implements Cloneable  {
 
         if (allOutgoingTransitions(state).size() == 0)
             return false;
+
         history.add(state);
         boolean result = false;
         for (OutgoingTransition child : allOutgoingTransitions(state)) {
-            result = result || checkForLoop(child.getTargetState(), history);
+            List<State> newHistory = new ArrayList<State>();
+            for(State s : history)
+                newHistory.add(s);
+            result = result || checkForLoop(child.getTargetState(), newHistory);
             if (result)
                 break;
         }
