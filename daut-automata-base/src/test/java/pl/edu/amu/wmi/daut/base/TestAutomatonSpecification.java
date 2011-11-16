@@ -908,8 +908,8 @@ public class TestAutomatonSpecification extends TestCase {
         catch (Exception e) {
             fail("Nie udało się stworzyć automatu.");
         }
+        
         firstAutomaton.insert(firstState, second);
-        //System.out.println(firstAutomaton + "\n" + fromString );
         assertTrue(fromString.equals(firstAutomaton.toString()));
     }
 }
