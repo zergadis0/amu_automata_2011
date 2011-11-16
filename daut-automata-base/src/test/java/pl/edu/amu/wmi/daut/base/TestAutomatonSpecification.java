@@ -1,5 +1,4 @@
 package pl.edu.amu.wmi.daut.base;
-
 import java.util.List;
 import java.util.Arrays;
 
@@ -25,8 +24,7 @@ public class TestAutomatonSpecification extends TestCase {
             fail("fromString() zwrocil wyjatek dla poprawnego Stringa!");
         }
 
-        AutomatonByRecursion pusteDziecko = new AutomatonByRecursion(
-                pustyOjciec);
+        AutomatonByRecursion pusteDziecko = new AutomatonByRecursion(pustyOjciec);
 
         assertFalse(pusteDziecko.accepts("aaa"));
         assertFalse(pusteDziecko.accepts("baba"));
@@ -56,8 +54,8 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody fromString() tworzący automat akceptujacy nieparzyste potegi
-     * 'a'.
+     * Test metody fromString() tworzący automat akceptujacy nieparzyste
+     * potegi 'a'.
      */
     public final void testFromString2OddPowersOfA() {
         AutomatonSpecification masakra = new NaiveAutomatonSpecification();
@@ -96,8 +94,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         boolean potworek = false;
         for (int i = 0; i < 3; i++) {
-            if (!epsilon.allOutgoingTransitions(epsilon.allStates().get(i))
-                    .isEmpty()) {
+            if (!epsilon.allOutgoingTransitions(epsilon.allStates().get(i)).isEmpty()) {
                 if (epsilon.allOutgoingTransitions(epsilon.allStates().get(i))
                         .get(0).getTransitionLabel().canBeEpsilon()) {
                     potworek = true;
@@ -106,18 +103,17 @@ public class TestAutomatonSpecification extends TestCase {
             }
         }
         assertTrue(potworek);
-        // Wykomentowane do czasu obsługiwania przez jakikolwiek automat przejść
-        // epsilonowych.
-        // AutomatonByRecursion ep = new AutomatonByRecursion(epsilon);
-        //
-        // assertTrue(ep.accepts("a"));
-        // assertTrue(ep.accepts("b"));
-        // assertFalse(ep.accepts(""));
-        // assertFalse(ep.accepts("ε"));
-        // assertFalse(ep.accepts("aa"));
-        // assertFalse(ep.accepts("ab"));
-        // assertFalse(ep.accepts("ba"));
-        // assertFalse(ep.accepts("bb"));
+//  Wykomentowane do czasu obsługiwania przez jakikolwiek automat przejść epsilonowych.
+//        AutomatonByRecursion ep = new AutomatonByRecursion(epsilon);
+//
+//        assertTrue(ep.accepts("a"));
+//        assertTrue(ep.accepts("b"));
+//        assertFalse(ep.accepts(""));
+//        assertFalse(ep.accepts("ε"));
+//        assertFalse(ep.accepts("aa"));
+//        assertFalse(ep.accepts("ab"));
+//        assertFalse(ep.accepts("ba"));
+//        assertFalse(ep.accepts("bb"));
     }
 
     /**
@@ -155,7 +151,8 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody fromString() z błędnymi opisami automatu. Błędy nazw stanów.
+     * Test metody fromString() z błędnymi opisami automatu.
+     * Błędy nazw stanów.
      */
     public final void testFromString5WrongAutomatonStrings0States() {
         AutomatonSpecification bledny = new NaiveAutomatonSpecification();
@@ -198,7 +195,8 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody fromString() z błędnymi opisami automatu. Błędy nazw przejść.
+     * Test metody fromString() z błędnymi opisami automatu.
+     * Błędy nazw przejść.
      */
     public final void testFromString5WrongAutomatonStrings1Transitions() {
         AutomatonSpecification bledny = new NaiveAutomatonSpecification();
@@ -265,8 +263,8 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody fromString() z błędnymi opisami automatu. Błędy nazw stanów
-     * specjalnych.
+     * Test metody fromString() z błędnymi opisami automatu.
+     * Błędy nazw stanów specjalnych.
      */
     public final void testFromString5WrongAutomatonStrings2SpecialStates() {
         AutomatonSpecification bledny = new NaiveAutomatonSpecification();
@@ -349,8 +347,8 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody fromString() tworzący automat z przejściem po znaku z
-     * dopełnienia sumy przedziałów.
+     * Test metody fromString() tworzący automat z przejściem po znaku z dopełnienia
+     * sumy przedziałów.
      */
     public final void testFromString7AutomatonWithCCharClassTransition() {
         AutomatonSpecification ccchar = new NaiveAutomatonSpecification();
@@ -377,32 +375,31 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody fromString() tworzący automat z przejściem po znaku z sumy
-     * przedziałów.
+     * Test metody fromString() tworzący automat z przejściem po znaku z sumy przedziałów.
      */
-    // public final void testFromString8AutomatonWithCharClassTransition() {
-    // AutomatonSpecification cchar = new NaiveAutomatonSpecification();
-    //
-    // String slowo = "Automaton:\n-States: q0 q1\n-Transitions:\n"
-    // + "q0 -[ac-e]-> q1\n-Initial state: q0\n-Final states: q1";
-    //
-    // try {
-    // cchar.fromString(slowo);
-    // } catch (Exception e) {
-    // fail("fromString() zwrocil wyjatek dla automatu z odwrotnością przejścia"
-    // + "z sumy przedziałów!");
-    // }
-    //
-    // AutomatonByRecursion ccp = new AutomatonByRecursion(cchar);
-    //
-    // assertTrue(ccp.accepts("a"));
-    // assertTrue(ccp.accepts("c"));
-    // assertTrue(ccp.accepts("d"));
-    // assertTrue(ccp.accepts("e"));
-    // assertFalse(ccp.accepts(""));
-    // assertFalse(ccp.accepts("b"));
-    // assertFalse(ccp.accepts("f"));
-    // }
+//    public final void testFromString8AutomatonWithCharClassTransition() {
+//        AutomatonSpecification cchar = new NaiveAutomatonSpecification();
+//
+//        String slowo = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+//                + "q0 -[ac-e]-> q1\n-Initial state: q0\n-Final states: q1";
+//
+//        try {
+//            cchar.fromString(slowo);
+//        } catch (Exception e) {
+//            fail("fromString() zwrocil wyjatek dla automatu z odwrotnością przejścia"
+//                    + "z sumy przedziałów!");
+//        }
+//
+//        AutomatonByRecursion ccp = new AutomatonByRecursion(cchar);
+//
+//        assertTrue(ccp.accepts("a"));
+//        assertTrue(ccp.accepts("c"));
+//        assertTrue(ccp.accepts("d"));
+//        assertTrue(ccp.accepts("e"));
+//        assertFalse(ccp.accepts(""));
+//        assertFalse(ccp.accepts("b"));
+//        assertFalse(ccp.accepts("f"));
+//    }
 
     /**
      * Test metody countStates.
@@ -410,14 +407,14 @@ public class TestAutomatonSpecification extends TestCase {
     public final void testCountStates() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
-        // Test 1
+        //Test 1
         assertEquals(spec.countStates(), 0);
 
-        // Test 2
+        //Test 2
         State q0 = spec.addState();
         assertEquals(spec.countStates(), 1);
 
-        // Test 3
+        //Test 3
         for (int i = 1; i <= 123456; i++) {
             State q = spec.addState();
         }
@@ -430,10 +427,10 @@ public class TestAutomatonSpecification extends TestCase {
     public final void testCountTransitions() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
-        // Test 1
+        //Test 1
         assertEquals(spec.countTransitions(), 0);
 
-        // Test 2
+        //Test 2
         State q0 = spec.addState();
         State q1 = spec.addState();
         State q2 = spec.addState();
@@ -446,17 +443,17 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertEquals(spec.countTransitions(), 2);
 
-        // Test 3
+        //Test 3
         spec.addTransition(q2, q0, new CharTransitionLabel('c'));
 
         assertEquals(spec.countTransitions(), 3);
 
-        // Test 4
+        //Test 4
         spec.addTransition(q0, q2, new CharTransitionLabel('d'));
 
         assertEquals(spec.countTransitions(), 4);
 
-        // Test 5
+        //Test 5
         spec.addTransition(q2, q2, new CharTransitionLabel('d'));
 
         assertEquals(spec.countTransitions(), 5);
@@ -540,36 +537,36 @@ public class TestAutomatonSpecification extends TestCase {
         // (oczekujemy a)
         sOuts = spec.allOutgoingTransitions(s);
         assertEquals(1, sOuts.size());
-        assertEquals('a', ((CharTransitionLabel) sOuts.get(0)
-                .getTransitionLabel()).getChar());
-        assertTrue(((CharTransitionLabel) sOuts.get(0).getTransitionLabel())
-                .canAcceptCharacter('a'));
-        assertFalse(((CharTransitionLabel) sOuts.get(0).getTransitionLabel())
-                .canAcceptCharacter('c'));
+        assertEquals('a', ((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).getChar());
+        assertTrue(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
 
         // Kolejne przejście (oczekujemy b)
         s = sOuts.get(0).getTargetState();
         sOuts = spec.allOutgoingTransitions(s);
         assertEquals(1, sOuts.size());
-        assertEquals('b', ((CharTransitionLabel) sOuts.get(0)
-                .getTransitionLabel()).getChar());
-        assertTrue(((CharTransitionLabel) sOuts.get(0).getTransitionLabel())
-                .canAcceptCharacter('b'));
-        assertFalse(((CharTransitionLabel) sOuts.get(0).getTransitionLabel())
-                .canAcceptCharacter('a'));
-        assertFalse(((CharTransitionLabel) sOuts.get(0).getTransitionLabel())
-                .canAcceptCharacter('c'));
+        assertEquals('b', ((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).getChar());
+        assertTrue(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('b'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
 
         // Kolejne przejście (oczekujemy c)
         s = sOuts.get(0).getTargetState();
         sOuts = spec.allOutgoingTransitions(s);
         assertEquals(1, sOuts.size());
-        assertEquals('c', ((CharTransitionLabel) sOuts.get(0)
-                .getTransitionLabel()).getChar());
-        assertTrue(((CharTransitionLabel) sOuts.get(0).getTransitionLabel())
-                .canAcceptCharacter('c'));
-        assertFalse(((CharTransitionLabel) sOuts.get(0).getTransitionLabel())
-                .canAcceptCharacter('a'));
+        assertEquals('c', ((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).getChar());
+        assertTrue(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('c'));
+        assertFalse(((CharTransitionLabel)
+                sOuts.get(0).getTransitionLabel()).canAcceptCharacter('a'));
     }
 
     /**
@@ -577,57 +574,45 @@ public class TestAutomatonSpecification extends TestCase {
      */
     public final void testaddBranch() {
 
-        // Budowanie automatu o 4 stanach.
-        AutomatonSpecification spec = new NaiveAutomatonSpecification();
-        State s0 = spec.addState();
-        spec.markAsInitial(s0);
-        List<TransitionLabel> transitions = Arrays.<TransitionLabel> asList(
-                new CharTransitionLabel('a'), new CharTransitionLabel('b'),
-                new CharTransitionLabel('c'));
-        State s3 = spec.addBranch(s0, transitions);
-        spec.markAsFinal(s3);
+       // Budowanie automatu o 4 stanach.
+       AutomatonSpecification spec = new NaiveAutomatonSpecification();
+       State s0 = spec.addState();
+       spec.markAsInitial(s0);
+       List<TransitionLabel> transitions =
+               Arrays.<TransitionLabel>asList(
+            new CharTransitionLabel('a'),
+            new CharTransitionLabel('b'),
+            new CharTransitionLabel('c')
+            );
+       State s3 = spec.addBranch(s0, transitions);
+       spec.markAsFinal(s3);
 
-        // testowanie
+       //testowanie
 
         State r0 = spec.getInitialState();
 
         List<OutgoingTransition> r0Outs = spec.allOutgoingTransitions(r0);
-        assertEquals(r0Outs.size(), 1); // sprawdza ze jest tylko jedno
-                                        // przejscie
-        assertTrue(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel())
-                .getChar() == 'a');
-        assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel())
-                .getChar() == 'b');
-        assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel())
-                .getChar() == 'c');
-        assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel())
-                .canBeEpsilon());
+        assertEquals(r0Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
+        assertTrue(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'a');
+        assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'b');
+        assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).getChar() == 'c');
+        assertFalse(((CharTransitionLabel) r0Outs.get(0).getTransitionLabel()).canBeEpsilon());
 
         State r1 = r0Outs.get(0).getTargetState();
         List<OutgoingTransition> r1Outs = spec.allOutgoingTransitions(r1);
-        assertEquals(r1Outs.size(), 1); // sprawdza ze jest tylko jedno
-                                        // przejscie
-        assertTrue(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel())
-                .getChar() == 'b');
-        assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel())
-                .getChar() == 'a');
-        assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel())
-                .getChar() == 'c');
-        assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel())
-                .canBeEpsilon());
+        assertEquals(r1Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
+        assertTrue(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'b');
+        assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'a');
+        assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).getChar() == 'c');
+        assertFalse(((CharTransitionLabel) r1Outs.get(0).getTransitionLabel()).canBeEpsilon());
 
         State r2 = r1Outs.get(0).getTargetState();
         List<OutgoingTransition> r2Outs = spec.allOutgoingTransitions(r2);
-        assertEquals(r2Outs.size(), 1); // sprawdza ze jest tylko jedno
-                                        // przejscie
-        assertTrue(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel())
-                .getChar() == 'c');
-        assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel())
-                .getChar() == 'a');
-        assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel())
-                .getChar() == 'b');
-        assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel())
-                .canBeEpsilon());
+        assertEquals(r2Outs.size(), 1);   //sprawdza ze jest tylko jedno przejscie
+        assertTrue(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'c');
+        assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'a');
+        assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).getChar() == 'b');
+        assertFalse(((CharTransitionLabel) r2Outs.get(0).getTransitionLabel()).canBeEpsilon());
 
         State r3 = r2Outs.get(0).getTargetState();
 
@@ -646,11 +631,13 @@ public class TestAutomatonSpecification extends TestCase {
         AutomatonSpecification spec2 = new NaiveAutomatonSpecification();
         State st0 = spec2.addState();
         spec.markAsInitial(st0);
-        List<TransitionLabel> transitions2 = Arrays.<TransitionLabel> asList();
+        List<TransitionLabel> transitions2 =
+                Arrays.<TransitionLabel>asList(
+            );
         State st1 = spec2.addBranch(st0, transitions2);
         spec.markAsFinal(st0);
 
-        // testowanie
+        //testowanie
         State rr0 = spec2.getInitialState();
 
         List<OutgoingTransition> r0Outs2 = spec2.allOutgoingTransitions(rr0);
@@ -661,14 +648,15 @@ public class TestAutomatonSpecification extends TestCase {
 
     }
 
+
     /**
      * Testuje działanie metody toString().
      */
     public final void testToString() {
         /**
-         * Pozwala na wygenerowanie tekstu "oszukanego" automatu na podstawie
-         * stanów i krawędzi wprowadzonych jako tekst. Imitacja działania metody
-         * toString() dla automatu.
+         * Pozwala na wygenerowanie tekstu "oszukanego" automatu
+         * na podstawie stanów i krawędzi wprowadzonych jako tekst.
+         * Imitacja działania metody toString() dla automatu.
          */
         class AutomatonString {
             private String states, transitions, istates, fstates;
@@ -773,7 +761,6 @@ public class TestAutomatonSpecification extends TestCase {
         str = new AutomatonString("q0", "q0 -a-> q0", "", "");
         assertEquals(str.toString(), ta5.toString());
     }
-
     /**
      * Testuje działanie metody testPrefixChecker().
      */
@@ -824,10 +811,9 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(spec.prefixChecker(q4));
         assertFalse(spec.prefixChecker(q5));
     }
-
     /**
-     * Testuje działanie metody checkPrefix(). Bazuje bezpośrednio na teście
-     * metody prefixChecker()
+     * Testuje działanie metody checkPrefix().
+     * Bazuje bezpośrednio na teście metody prefixChecker()
      */
     public final void testCheckPrefix() {
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
@@ -896,7 +882,6 @@ public class TestAutomatonSpecification extends TestCase {
         AutomatonSpecification automat = new NaiveAutomatonSpecification();
         assertTrue(automat.isEmpty());
     }
-
     /**
      *test automatu niepustego.
      */
@@ -915,15 +900,16 @@ public class TestAutomatonSpecification extends TestCase {
         firstAutomaton.markAsInitial(firstState);
         AutomatonSpecification second = new NaiveAutomatonSpecification();
         String fromString = "Automaton:\n-States: q0 q1 q2 q3 q4 \n-Transitions:\n  q0 -a-> "
-                + "q1\n  q1 -a-> q0\n  q2 -epsilon-> q4"
-                + "\n  q3 -ANY-> q4\n-Initial state: q0\n-Final states: q1 ";
+            + "q1\n  q1 -a-> q0\n  q2 -epsilon-> q4"
+            + "\n  q3 -ANY-> q4\n-Initial state: q0\n-Final states: q1 ";
         try {
             second.fromString(fromString);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             fail("Nie udało się stworzyć automatu.");
         }
         firstAutomaton.insert(firstState, second);
-        // System.out.println(firstAutomaton + "\n" + fromString );
+        //System.out.println(firstAutomaton + "\n" + fromString );
         assertTrue(fromString.equals(firstAutomaton.toString()));
     }
 }
