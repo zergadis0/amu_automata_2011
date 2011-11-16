@@ -191,13 +191,13 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState();
-        
+
         final NondeterministicAutomatonByThompsonApproach automaton =
                 new NondeterministicAutomatonByThompsonApproach(spec);
 
         spec.markAsInitial(q0a);
         spec.markAsFinal(q0a);
-        
+  
         assertTrue(automaton.accepts(""));
         assertFalse(automaton.accepts("cccccccccabbbbbbc"));
         assertFalse(automaton.accepts("aaaaaaaaaaa"));
@@ -212,7 +212,7 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
     public final void testTwoStatesOneEpsilonTrasitionLabel() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
-        State q0a = spec.addState(); 
+        State q0a = spec.addState();
         State q1a = spec.addState();
 
         spec.addTransition(q0a, q1a, new EpsilonTransitionLabel());
