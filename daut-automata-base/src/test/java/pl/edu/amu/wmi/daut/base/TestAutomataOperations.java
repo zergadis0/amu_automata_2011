@@ -45,14 +45,14 @@ public class TestAutomataOperations extends TestCase {
         // assertFalse(automaton.accepts("a"));
 
     }
-  
-  /** 
+
+  /**
    * Test sprawdza metode Sum w AutomataOperations A.
    */
     public final void testSumA() {
-    
+
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
-       
+
         State q0 = automatonA.addState();
         State q1 = automatonA.addState();
         automatonA.addTransition(q0, q1, new CharTransitionLabel('a'));
@@ -60,9 +60,9 @@ public class TestAutomataOperations extends TestCase {
         automatonA.addLoop(q1, new CharTransitionLabel('b'));
         automatonA.markAsInitial(q0);
         automatonA.markAsFinal(q1);
-        
+
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-     
+
         State q0B = automatonB.addState();
         State q1B = automatonB.addState();
         State q2B = automatonB.addState();
@@ -72,12 +72,12 @@ public class TestAutomataOperations extends TestCase {
         automatonB.addTransition(q1B, q2B, new CharTransitionLabel('b'));
         automatonB.markAsInitial(q0B);
         automatonB.markAsFinal(q2B);
-        
+
         AutomatonSpecification result = AutomataOperations.sum(automatonA, automatonB);
-       
+
         NondeterministicAutomatonByThompsonApproach automaton = new
         NondeterministicAutomatonByThompsonApproach(result);
-       
+
         assertTrue(automaton.accepts("aa"));
         assertTrue(automaton.accepts("ba"));
         assertTrue(automaton.accepts("aaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaa"));
@@ -89,14 +89,14 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("aaaaaaaaaaaaaaaxaaaaaa"));
         assertFalse(automaton.accepts("bab"));
     }
-    
-  /** 
+
+  /**
    * Test sprawdza metode Sum w AutomataOperations B.
    */
         public final void testSumB() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-       
+
         State q0B = automatonB.addState();
         State q1B = automatonB.addState();
         State q2B = automatonB.addState();
@@ -108,7 +108,7 @@ public class TestAutomataOperations extends TestCase {
         automatonB.markAsFinal(q2B);
 
         AutomatonSpecification automatonD = new NaiveAutomatonSpecification();
-      
+
         State q0D = automatonD.addState();
         State q1D = automatonD.addState();
         State q2D = automatonD.addState();
@@ -126,10 +126,10 @@ public class TestAutomataOperations extends TestCase {
         automatonD.markAsFinal(q3D);
 
         AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonD);
-       
+
         NondeterministicAutomatonByThompsonApproach automaton = new
         NondeterministicAutomatonByThompsonApproach(result);
-      
+
         assertTrue(automaton.accepts("ab"));
         assertTrue(automaton.accepts("abbabba"));
         assertTrue(automaton.accepts("bbbcaacba"));
@@ -140,14 +140,14 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts(""));
         assertFalse(automaton.accepts("aac"));
     }
- 
-  /** 
+
+  /**
    * Test sprawdza metode Sum w AutomataOperations C.
    */
         public final void testSumC() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-       
+
         State q0B = automatonB.addState();
         State q1B = automatonB.addState();
         State q2B = automatonB.addState();
@@ -159,7 +159,7 @@ public class TestAutomataOperations extends TestCase {
         automatonB.markAsFinal(q2B);
 
         AutomatonSpecification automatonC = new NaiveAutomatonSpecification();
-      
+
         State q0C = automatonC.addState();
         automatonC.addLoop(q0C, new CharTransitionLabel('a'));
         automatonC.addLoop(q0C, new CharTransitionLabel('b'));
@@ -169,10 +169,10 @@ public class TestAutomataOperations extends TestCase {
         automatonC.markAsFinal(q0C);
 
         AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonC);
-      
+
         NondeterministicAutomatonByThompsonApproach automaton = new
         NondeterministicAutomatonByThompsonApproach(result);
-      
+
         assertTrue(automaton.accepts("babbaccddcaaccb"));
         assertTrue(automaton.accepts("bbaccddbaba"));
         assertTrue(automaton.accepts("bbbcaacba"));
@@ -182,14 +182,14 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("czytwojprogrammackutozaakceptuje"));
         assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
     }
-            
+
   /**
    * Test sprawdza metode Sum w AutomataOperations D.
-   */                
+   */
         public final void testSumD() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-        
+
         State q0B = automatonB.addState();
         State q1B = automatonB.addState();
         State q2B = automatonB.addState();
@@ -201,30 +201,30 @@ public class TestAutomataOperations extends TestCase {
         automatonB.markAsFinal(q2B);
 
         AutomatonSpecification automatonE = new NaiveAutomatonSpecification();
-      
+
         State q0E = automatonE.addState();
         automatonE.addTransition(q0E, q0E, new EpsilonTransitionLabel());
         automatonE.markAsInitial(q0E);
         automatonE.markAsFinal(q0E);
 
         AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonE);
-       
+
         NondeterministicAutomatonByThompsonApproach automaton = new
         NondeterministicAutomatonByThompsonApproach(result);
-      
+
         assertTrue(automaton.accepts(""));
         assertTrue(automaton.accepts("aa"));
         assertFalse(automaton.accepts("bbaccddxbaba"));
         assertFalse(automaton.accepts("aabbbaaaa"));
     }
-                
-  /** 
+
+  /**
    * Test sprawdza metode Sum w AutomataOperations E.
    */
         public final void testSumE() {
-            
+
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-      
+
         State q0B = automatonB.addState();
         State q1B = automatonB.addState();
         State q2B = automatonB.addState();
@@ -236,7 +236,7 @@ public class TestAutomataOperations extends TestCase {
         automatonB.markAsFinal(q2B);
 
         AutomatonSpecification automatonF = new NaiveAutomatonSpecification();
-       
+
         State q0F = automatonF.addState();
         State q1F = automatonF.addState();
         State q2F = automatonF.addState();
@@ -256,10 +256,10 @@ public class TestAutomataOperations extends TestCase {
         automatonF.markAsFinal(q6F);
 
         AutomatonSpecification result = AutomataOperations.sum(automatonB, automatonF);
-       
+
         NondeterministicAutomatonByThompsonApproach automaton = new
         NondeterministicAutomatonByThompsonApproach(result);
-       
+
         assertTrue(automaton.accepts("aa"));
         assertTrue(automaton.accepts("b"));
         assertTrue(automaton.accepts("a"));
