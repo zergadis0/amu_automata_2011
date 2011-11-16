@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.ArrayBlockingQueue;
         
 
 public class Determinizer {
@@ -15,22 +14,18 @@ public class Determinizer {
      * Klasa reprezentujaca zbior stanow wykorzystywana przy metodzie determinizacji.
      */
     public class StateSet {
-        
-        public AutomatonSpecification spec;
-        
+                
         public Set<State> stateSet;
         
-        public StateSet (AutomatonSpecification speci) {
+        public StateSet () {
             
             stateSet = new HashSet<State>();
-            spec = speci;
         }
         
-        public StateSet (State s, AutomatonSpecification speci) {
+        public StateSet (State s) {
         
             stateSet = new HashSet<State>();
             stateSet.add(s);
-            spec = speci;
         }
         
         public void add(State s) {
@@ -47,7 +42,7 @@ public class Determinizer {
             
             return stateSet.equals(sS.stateSet);
         }
-        
+        /*
         public String myAlphabet() {
             
             if (stateSet.isEmpty())
@@ -60,7 +55,7 @@ public class Determinizer {
                 }
             }
             return alpha;
-        }
+        }*/
     }
     
     /**
@@ -87,14 +82,19 @@ public class Determinizer {
     */
     public void determinize(AutomatonSpecification nfa, DeterministicAutomatonSpecification emptyDfa) {
         
-        Queue<StateSet> queueOfNewSets = new LinkedList<StateSet>();
-        StateSet initialSS = new StateSet(nfa.getInitialState());
-        listOfSets.add(initialSS );
-        queueOfNewSets.offer(initialSS);
+        if (nfa.isDeterministic()) {
+            emptyDfa = (DeterministicAutomatonSpecification) nfa.clone();
+        }
         
-        while (!queueOfNewSets.isEmpty()) {
-            StateSet tmp = queueOfNewSets.poll();
-            for () {
+        Queue<StateSet> queueOfNewSets = new LinkedList<StateSet>();
+        StateSet initialStSet = new StateSet(nfa.getInitialState());
+        listOfSets.add(initialStSet );
+        queueOfNewSets.offer(initialStSet );
+        
+        StateSet tmp;
+        while ((tmp = queueOfNewSets.poll())!=null) {
+            List<TransitionLabel> usedTrans = new LinkedList<TransitionLabel>();
+            for (State stTmp : tmp.stateSet) {
                 
             }
         }
