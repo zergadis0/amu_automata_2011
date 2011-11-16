@@ -10,7 +10,7 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
     /**
      * Pierwszy test (przykładowy prosty automat).
      */
-    public final void test1() {
+    public final void testSimpleAutomaton() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState();
@@ -56,7 +56,7 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
     /**
      * Drugi test (tylko epsilon-przejścia).
      */
-    public final void test2() {
+    public final void testOnlyEpsilonTransitionLabel() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState();
@@ -82,7 +82,7 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
     /**
      * Trzeci test (pusty automat).
      */
-    public final void test3() {
+    public final void testEmptyAutomaton() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         final NondeterministicAutomatonByThompsonApproach automaton =
@@ -99,7 +99,7 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
      * trzech różnych stanów. Dopiero od owych trzech stanów występują
      * "normalne" przejścia - tj. po znaku).
      */
-    public final void test4() {
+    public final void testOnlyEpsilonTransitionLabelFromInitialState() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState();
@@ -151,7 +151,7 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
      * Piąty test (Do stanu końcowego prowadzą tylko epsilon przejścia.
      * Występują pętle epsilon).
      */
-    public final void test5() {
+    public final void testOnlyEpsilonTransitionLabelToFinalState() {
         final AutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0a = spec.addState();
