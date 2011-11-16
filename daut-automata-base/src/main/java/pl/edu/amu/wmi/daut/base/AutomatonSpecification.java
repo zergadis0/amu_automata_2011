@@ -722,13 +722,13 @@ abstract class AutomatonSpecification implements Cloneable  {
      * Tworzy epsilon domknięcie zadanego stanu.
      */
     public Set<State> getEpsilonClosure(State initial) {
-    
+
         Set<State> epsilonClosure = new HashSet<State>();
         Set<State> visited = new HashSet<State>();
         Stack<State> stack = new Stack<State>();
         stack.push(initial);
         epsilonClosure.add(initial);
-        
+
         while (!stack.empty()) {
             State from = stack.pop();
             if (visited.contains(from)) {
@@ -744,7 +744,7 @@ abstract class AutomatonSpecification implements Cloneable  {
                 }
             }
         }
-        
+
         return epsilonClosure;
     }
 };
