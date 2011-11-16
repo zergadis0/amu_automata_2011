@@ -741,18 +741,16 @@ abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-     * Metoda zwracająca długość najdłuższego słowa, 
-     * akceptowanego przez automat. 
-     * Wypisuje -1 gdy nie akceptuje żadnego napisu
-     * Wypisuje -2 dla słowa nieskończonego
+     * Metoda zwraca długość najdłuższego słowa akceptowanego.
      */
     public int maxWordLength() {
         AllAcceptedWords words = new AllAcceptedWords(this);
         String word;
         int tmp;
+        int inf = -2;
         int max = 0;
         if (isInfinite()) {
-            return -2;
+            return inf;
         }
         if (words.hasNext()) {
             do {
