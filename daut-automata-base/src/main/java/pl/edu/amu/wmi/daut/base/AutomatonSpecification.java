@@ -719,7 +719,7 @@ abstract class AutomatonSpecification implements Cloneable  {
     }
 
     /**
-     * Tworzy epsilon domknięcie.
+     * Tworzy epsilon domknięcie zadanego stanu.
      */
     public Set<State> getEpsilonClosure(State initial) {
     
