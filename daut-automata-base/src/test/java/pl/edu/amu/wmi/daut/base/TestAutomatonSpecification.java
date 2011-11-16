@@ -441,7 +441,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         boolean isItProper(String dotGraphFromAutomaton) {
             String fakeDotGraph = this.toString();
-            
+
             //Pierwszy krok testu - porównanie ich długości
             if (dotGraphFromAutomaton.length() != fakeDotGraph.length())
                 return false;
@@ -485,7 +485,7 @@ public class TestAutomatonSpecification extends TestCase {
                 if (!doThisLineExist)
                     return false;
             }
-            
+
             return true;
         }
     }
@@ -506,8 +506,8 @@ public class TestAutomatonSpecification extends TestCase {
 
         //Tworzenie obu Stringów: przez toDotGraph() i "kłamliwą" funkcję
         String dotGraph = testAutomaton.getDotGraph();
-        FakeDotGraphGenerator exampleOfDotGraph = new FakeDotGraphGenerator("0 1 2 3 4", "0-o-1 1-n-2 "
-                + "2-e-3 3-1,2-4", "0", "0 3", true);
+        FakeDotGraphGenerator exampleOfDotGraph = new FakeDotGraphGenerator("0 1 2 3 4", "0-o-1"
+                + " 1-n-2 2-e-3 3-1,2-4", "0", "0 3", true);
         assertTrue(exampleOfDotGraph.isItProper(dotGraph));
     }
 
