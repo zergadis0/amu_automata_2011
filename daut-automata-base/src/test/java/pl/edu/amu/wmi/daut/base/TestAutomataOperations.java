@@ -93,7 +93,8 @@ public class TestAutomataOperations extends TestCase {
   /**
    * Test sprawdza metode Sum w AutomataOperations B.
    */
-        public final void testSumB() {
+
+    public final void testSumB() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
@@ -144,7 +145,8 @@ public class TestAutomataOperations extends TestCase {
   /**
    * Test sprawdza metode Sum w AutomataOperations C.
    */
-        public final void testSumC() {
+
+    public final void testSumC() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
@@ -186,7 +188,8 @@ public class TestAutomataOperations extends TestCase {
   /**
    * Test sprawdza metode Sum w AutomataOperations D.
    */
-        public final void testSumD() {
+
+    public final void testSumD() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
@@ -221,7 +224,8 @@ public class TestAutomataOperations extends TestCase {
   /**
    * Test sprawdza metode Sum w AutomataOperations E.
    */
-        public final void testSumE() {
+
+    public final void testSumE() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
