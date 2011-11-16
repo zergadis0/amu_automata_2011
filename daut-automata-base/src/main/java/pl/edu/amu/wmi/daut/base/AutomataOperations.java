@@ -1,4 +1,4 @@
-package pl.edu.amu.wmi.daut.base;
+﻿package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -258,4 +258,38 @@ public class AutomataOperations {
         }
         return kleeneautomaton;
     }
+
+
+
+    /*
+     *  dla automatu z epsilon-przejsciami tworzy rownowazny automat bez epsilon-przejsc
+     */ 	
+    public void getRidOfEpsilonTransitions(AutomatonSpecification epsilonAutomaton, AutomatonSpecification resultAutomaton){
+	List<State> loadedStates = epsilonAutomaton.allStates();
+        HashMap<State, State> connectedStates = new HashMap<State, State>();
+    
+        for (State currentState : loadedStates)
+            connectedStates.put(currentState, resultAutomaton.addState());
+    
+        for (State currentState : loadedStates) {
+            if (epsilonAutomaton.isFinal(currentState))
+                resultAutomaton.markAsFinal(connectedStates.get(currentState));
+            if (epsilonAutomaton.isInitial(currentState))
+                resultAutomaton.markAsInitial(connectedStates.get(currentState));
+        }
+        List<OutgoingTransition> list = epsilonAutomaton.allOutgoingTransitions(currentState);
+
+        for (OutgoingTransition transition : list) {
+            if (!(transition.canBeEpsilon())) {
+            	this.addTransition(connectedStates.get(currentState),
+                connectedStates.get(transition.getTargetState()),
+                transition.getTransitionLabel());
+                Set<State> epsilonClosure = epsilonAutomaton.getEpsilonClosure(transition.getTargetState());
+                for (State state : epsilonClosure)
+                    resultAutomaton.addTransition(connectedStates.get(currentState), connectedStates.get(state), transition.getTransitionLabel());
+			}
+                }
+        
+    }  
+
 }
