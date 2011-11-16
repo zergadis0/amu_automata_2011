@@ -7,7 +7,9 @@ import java.util.List;
  */
 public class EpsilonUtilities {
 
-    protected EpsilonUtilities() throws UnsupportedOperationException { }
+    protected EpsilonUtilities() {
+        throw new UnsupportedOperationException();
+    }
     /**
      * Metoda sprawdzajaca, czy dany automat
      * ma jakies epsilon-przejscie.
