@@ -398,4 +398,32 @@ public class TestMakeAutomatonFromString extends TestCase {
 //        assertFalse(csp.accepts("f"));
 //        assertFalse(csp.accepts("A"));
 //    }
+
+    /**
+     * Test metody fromString() tworzący automat z przejściem po znaku z zakresu.
+     */
+//    public final void testFromString8AutomatonWithCharSetTransition() {
+//        AutomatonSpecification charSet = new NaiveAutomatonSpecification();
+//
+//        String slowo = "Automaton:\n-States: q0 q1\n-Transitions:\n"
+//                + "q0 -(a,m)-> q1\n-Initial state: q0\n-Final states: q1";
+//
+//        try {
+//            charSet.fromString(slowo);
+//        } catch (Exception e) {
+//            fail("fromString() zwrocil wyjatek dla automatu z przejściem po znaku ze zbioru!");
+//        }
+//
+//        AutomatonByRecursion csp = new AutomatonByRecursion(charSet);
+//
+//        assertTrue(csp.accepts("a"));
+//        assertTrue(csp.accepts("g"));
+//        assertTrue(csp.accepts("m"));
+//        assertFalse(csp.accepts(""));
+//        assertFalse(csp.accepts("n"));
+//        assertFalse(csp.accepts("p"));
+//        assertFalse(csp.accepts("A"));
+//        assertFalse(csp.accepts("."));
+//        assertFalse(csp.accepts(","));
+//    }
 }
