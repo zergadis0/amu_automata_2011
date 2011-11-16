@@ -16,17 +16,21 @@ public class Determinizer {
      */
     public class StateSet {
         
+        public AutomatonSpecification spec;
+        
         public Set<State> stateSet;
         
-        public StateSet () {
+        public StateSet (AutomatonSpecification speci) {
             
             stateSet = new HashSet<State>();
+            spec = speci;
         }
         
-        public StateSet (State s) {
-            
+        public StateSet (State s, AutomatonSpecification speci) {
+        
             stateSet = new HashSet<State>();
             stateSet.add(s);
+            spec = speci;
         }
         
         public void add(State s) {
@@ -44,6 +48,19 @@ public class Determinizer {
             return stateSet.equals(sS.stateSet);
         }
         
+        public String myAlphabet() {
+            
+            if (stateSet.isEmpty())
+                return null;
+            String alpha = new String();
+            for (State s: stateSet) {
+                for (OutgoingTransition tl: spec.allOutgoingTransitions(s)) {
+                    char a = tl.getTransitionLabel().canAcceptCharacter(c);
+                    if (alpha.contains(a));
+                }
+            }
+            return alpha;
+        }
     }
     
     /**
@@ -75,7 +92,12 @@ public class Determinizer {
         listOfSets.add(initialSS );
         queueOfNewSets.offer(initialSS);
         
-        
+        while (!queueOfNewSets.isEmpty()) {
+            StateSet tmp = queueOfNewSets.poll();
+            for () {
+                
+            }
+        }
     }
     
 }
