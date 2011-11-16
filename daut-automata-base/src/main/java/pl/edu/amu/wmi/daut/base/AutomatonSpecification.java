@@ -753,11 +753,11 @@ abstract class AutomatonSpecification implements Cloneable {
         AllAcceptedWords words = new AllAcceptedWords(this);
         String word;
         int tmp;
-        final int INFINITELANGUAGERETURNCODE  = -2;
-        final int EMPTYLANGUAGERETURNCODE = -1;
+        final int infinitereturncode = -2;
+        final int emptyreturncode = -1;
         int max = 0;
         if (isInfinite()) {
-            return INFINITELANGUAGERETURNCODE;
+            return infinitereturncode;
         }
         if (words.hasNext()) {
             do {
@@ -769,7 +769,7 @@ abstract class AutomatonSpecification implements Cloneable {
             } while (words.hasNext());
             return max;
         } else {
-            return EMPTYLANGUAGERETURNCODE;
+            return emptyreturncode;
         }
     }
 };
