@@ -69,10 +69,10 @@ abstract class AutomatonSpecification implements Cloneable  {
         State prev = from;
         State next = prev;
 
-         for (TransitionLabel transition : oTransition) {
-             prev = addTransition(next, transition);
-             next = prev;
-         }
+        for (TransitionLabel transition : oTransition) {
+            prev = addTransition(next, transition);
+            next = prev;
+        }
         return prev;
     }
 
