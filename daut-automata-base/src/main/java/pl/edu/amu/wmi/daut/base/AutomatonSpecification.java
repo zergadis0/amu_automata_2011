@@ -209,22 +209,28 @@ abstract class AutomatonSpecification implements Cloneable  {
             } catch (Exception e) {
                 isThereNoInitialState = true;
             }
+
             if (counter == 0 || isThereNoInitialState)
                 return false;
             else {
                 Stack<Integer> stateStack = new Stack<Integer>();
                 Stack<Integer> transitionStack = new Stack<Integer>();
                 Stack<Integer> branchStack = new Stack<Integer>();
+
                 Integer state = states.indexOf(this.getInitialState());
                 Integer transition = 0;
                 Integer branches = this.allOutgoingTransitions(states.get(state)).size();
+
                 stateStack.push(state);
                 transitionStack.push(transition);
+
                 do {
                     state = stateStack.pop();
                     transition = transitionStack.pop();
+
                     if (this.isFinal(states.get(state)))
                         return true;
+
                     if (transition < branches) {
                         stateStack.push(state);
                         transitionStack.push(transition++);
