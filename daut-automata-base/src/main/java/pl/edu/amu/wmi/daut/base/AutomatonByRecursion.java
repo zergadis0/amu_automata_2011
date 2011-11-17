@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
+
 /**
  * klasa która decyduje czy automat zaakceptuje dany napis.
  */
@@ -8,6 +9,7 @@ public final class AutomatonByRecursion implements Acceptor {
     AutomatonByRecursion(final AutomatonSpecification specification) {
         automaton = specification;
     }
+
     /**
      * Metoda, która będzie wywoływana rekurencyjnie dla aktualnych stanów,
      * pobiera wszystkie przejscia z bieżącego stanu,
@@ -18,24 +20,26 @@ public final class AutomatonByRecursion implements Acceptor {
     private void check(String text, int from, int toEnd, State state) {
         if (from > toEnd) {
             if (automaton.isFinal(state)) {
-                accept =  true;
+                accept = true;
             }
         } else {
-              List<OutgoingTransition> allOutTransitions;
-              allOutTransitions = automaton.allOutgoingTransitions(state);
-                  if (!allOutTransitions.isEmpty()) {
-                      for (OutgoingTransition transition : allOutTransitions) {
-                          currentLabel = transition.getTransitionLabel();
-                                  if (currentLabel.canBeEpsilon()) {
-                                      throw new RuntimeException();
-                                  }
-                          if (currentLabel.canAcceptCharacter(text.charAt(from))) {
-                              check(text, from + 1, toEnd, transition.getTargetState());
-                          }
-                      }
-                  }
-          }
+            List<OutgoingTransition> allOutTransitions;
+            allOutTransitions = automaton.allOutgoingTransitions(state);
+            if (!allOutTransitions.isEmpty()) {
+                for (OutgoingTransition transition : allOutTransitions) {
+                    TransitionLabel currentLabel;
+                    currentLabel = transition.getTransitionLabel();
+                    if (currentLabel.canBeEpsilon()) {
+                        throw new RuntimeException();
+                    }
+                    if (currentLabel.canAcceptCharacter(text.charAt(from))) {
+                        check(text, from + 1, toEnd, transition.getTargetState());
+                    }
+                }
+            }
+        }
     }
+
     @Override
     public boolean accepts(final String text) {
         accept = false;
@@ -46,7 +50,7 @@ public final class AutomatonByRecursion implements Acceptor {
         }
         return accept;
     }
-    private TransitionLabel currentLabel;
+    
     private final AutomatonSpecification automaton;
     private boolean accept;
 }
