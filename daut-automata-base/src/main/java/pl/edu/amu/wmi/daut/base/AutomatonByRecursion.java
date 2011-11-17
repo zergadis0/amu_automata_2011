@@ -50,7 +50,7 @@ public final class AutomatonByRecursion implements Acceptor {
         }
         return accept;
     }
-    
+
     private final AutomatonSpecification automaton;
     private boolean accept;
 }
