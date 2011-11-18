@@ -516,4 +516,43 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         assertTrue(automat.isInfinite());
     }
+
+    /**
+     * Test ze "ślepą uliczką".
+     */
+    public final void testInfiniteDeadEnd() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+
+        State s0 = automat.addState();
+        State sA1 = automat.addState();
+        State sA2 = automat.addState();
+        State sA3 = automat.addState();
+        State sB1 = automat.addState();
+        State sB2 = automat.addState();
+        State sB3 = automat.addState();
+
+        automat.addTransition(s0, sA1, new CharTransitionLabel('a'));
+        automat.addTransition(s0, sB1, new CharTransitionLabel('b'));
+
+        automat.markAsInitial(s0);
+        automat.markAsFinal(sA1);
+        automat.markAsFinal(sB1);
+
+        assertFalse(automat.isInfinite());
+
+        automat.addTransition(sA1, sA2, new AnyTransitionLabel());
+        automat.addTransition(sA2, sA3, new CharTransitionLabel('a'));
+        automat.addTransition(sA3, sA2, new CharTransitionLabel('b'));
+
+        automat.addTransition(sB1, sB2, new AnyTransitionLabel());
+        automat.addTransition(sB2, sB3, new CharTransitionLabel('a'));
+        automat.addTransition(sB3, sB2, new CharTransitionLabel('x'));
+
+        assertFalse(automat.isInfinite());
+
+        automat.markAsFinal(sB2);
+        assertTrue(automat.isInfinite());
+    }
+
+
 }
