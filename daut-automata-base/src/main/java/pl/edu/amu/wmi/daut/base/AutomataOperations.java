@@ -258,4 +258,20 @@ public class AutomataOperations {
         }
         return kleeneautomaton;
     }
+     /**
+     * Metoda tworzaca automat akceptujacy sume 2 jezykow.
+     */
+    public static AutomatonSpecification sum(
+        AutomatonSpecification automatonA, AutomatonSpecification automatonB) {
+        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
+        State q0 = automaton.addState();
+        State q1 = automaton.addState();
+        State q2 = automaton.addState();
+        automaton.markAsInitial(q0);
+        automaton.insert(q1, automatonA);
+        automaton.insert(q2, automatonB);
+        automaton.addTransition(q0, q1, new EpsilonTransitionLabel());
+        automaton.addTransition(q0, q2, new EpsilonTransitionLabel());
+        return automaton;
+    }
 }
