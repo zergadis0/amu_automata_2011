@@ -16,6 +16,10 @@ public class CharClassTransitionLabel extends TransitionLabel {
     private SortedSet<Character> ssc = new TreeSet<Character>();
     private String charClass;
     
+    /**
+     * poniższy konstruktor przekształca dany łańcuch na zbiór charów
+     * @param s jest zbiorem klas wyrażeń regularnych do których należy dany char
+     */
     public CharClassTransitionLabel(String s) {
         charClass = new String(s);
         for(int i = 0; i < s.length(); ++i) {
@@ -27,14 +31,18 @@ public class CharClassTransitionLabel extends TransitionLabel {
                 addChar(s.charAt(i), s.charAt(i+2));
                 i+=2;
             }
-            else addChar(s.charAt(i));
+            else {
+                addChar(s.charAt(i));
+            }
         }
     }
     
-    private void addChar(Character c1, Character c2) {
-        for(Character d = c1 ; d <= c2 ; ++d) ssc.add(d);
+    final private void addChar(Character c1, Character c2) {
+        for(Character d = c1 ; d <= c2 ; ++d) {
+            ssc.add(d);
+        }
     }
-    public void addChar(Character c) {
+    final private void addChar(Character c) {
         ssc.add(c);
     }
 
@@ -44,7 +52,7 @@ public class CharClassTransitionLabel extends TransitionLabel {
     }
 
     @Override
-    public boolean canAcceptCharacter(char c) {
+    public boolean canAcceptCharacter(final char c) {
         return ssc.contains( (Character)c );
         
     }
