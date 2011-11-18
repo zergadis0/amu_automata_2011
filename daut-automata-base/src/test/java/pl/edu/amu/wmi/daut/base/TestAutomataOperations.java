@@ -5,12 +5,12 @@ import junit.framework.TestCase;
  /**
   * Testy różnych operacji na automatach.
   */
-   public class TestAutomataOperations extends TestCase {
+ public class TestAutomataOperations extends TestCase {
 
- /**
-  * Test prostego automatu.
-  */
-   public final void testSimpleAutomaton() {
+    /**
+     * Test prostego automatu.
+     */
+    public final void testSimpleAutomaton() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
@@ -49,7 +49,7 @@ import junit.framework.TestCase;
   /**
    * Test sprawdza metode Sum w AutomataOperations A.
    */
-    public final void testSumA() {
+  public final void testSumA() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
@@ -93,7 +93,7 @@ import junit.framework.TestCase;
   /**
    * Test sprawdza metode Sum w AutomataOperations B.
    */
-    public final void testSumB() {
+  public final void testSumB() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
@@ -144,7 +144,7 @@ import junit.framework.TestCase;
   /**
    * Test sprawdza metode Sum w AutomataOperations C.
    */
-    public final void testSumC() {
+  public final void testSumC() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
@@ -186,7 +186,7 @@ import junit.framework.TestCase;
   /**
    * Test sprawdza metode Sum w AutomataOperations D.
    */
-    public final void testSumD() {
+  public final void testSumD() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
@@ -221,7 +221,7 @@ import junit.framework.TestCase;
   /**
    * Test sprawdza metode Sum w AutomataOperations E.
    */
-    public final void testSumE() {
+  public final void testSumE() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
