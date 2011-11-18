@@ -21,7 +21,7 @@ public class CharClassTransitionLabel extends TransitionLabel {
      * @param s jest zbiorem klas wyrażeń regularnych do których należy dany char
      */
     public CharClassTransitionLabel(String s) {
-        charClass = new String(s);
+        charClass = s;
         for (int i = 0; i < s.length(); ++i) {
             if (s.charAt(i) == '-') {
                 addChar(s.charAt(i - 1), s.charAt(i + 1));
