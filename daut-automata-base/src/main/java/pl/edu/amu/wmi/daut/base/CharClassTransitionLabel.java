@@ -26,12 +26,10 @@ public class CharClassTransitionLabel extends TransitionLabel {
             if (s.charAt(i) == '-') {
                 addChar(s.charAt(i - 1), s.charAt(i + 1));
                 i++;
-                }
-            else if (i + 1 < s.length() && s.charAt(i + 1)=='-') {
+            } else if (i + 1 < s.length() && s.charAt(i + 1) == '-') {
                 addChar(s.charAt(i), s.charAt(i + 2));
                 i += 2;
-                }
-            else {
+            } else {
                 addChar(s.charAt(i));
             }
         }
