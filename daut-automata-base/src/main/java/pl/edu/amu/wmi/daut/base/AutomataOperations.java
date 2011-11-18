@@ -279,12 +279,12 @@ public class AutomataOperations {
 
         for (OutgoingTransition transition : list) {
             if (!(transition.canBeEpsilon())) {
-              this.addTransition(connectedStates.get(currentState);
-              connectedStates.get(transition.getTargetState());
-              transition.getTransitionLabel());
-              Set<State> epsilonClosure = epsilonAutomaton.getEpsilonClosure(transition.getTargetState());
+                this.addTransition(connectedStates.get(currentState);
+                connectedStates.get(transition.getTargetState());
+                transition.getTransitionLabel());
+                Set<State> epsilonClosure = epsilonAutomaton.getEpsilonClosure(transition.getTargetState());
             for (State state : epsilonClosure)
-              resultAutomaton.addTransition(connectedStates.get(currentState),connectedStates.get(state),transition.getTransitionLabel());
+                resultAutomaton.addTransition(connectedStates.get(currentState),connectedStates.get(state),transition.getTransitionLabel());
                     }
                 }
 
