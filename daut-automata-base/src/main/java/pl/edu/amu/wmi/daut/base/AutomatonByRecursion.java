@@ -27,8 +27,7 @@ public final class AutomatonByRecursion implements Acceptor {
             allOutTransitions = automaton.allOutgoingTransitions(state);
             if (!allOutTransitions.isEmpty()) {
                 for (OutgoingTransition transition : allOutTransitions) {
-                    TransitionLabel currentLabel;
-                    currentLabel = transition.getTransitionLabel();
+                    TransitionLabel currentLabel = transition.getTransitionLabel();
                     if (currentLabel.canBeEpsilon()) {
                         throw new RuntimeException();
                     }
