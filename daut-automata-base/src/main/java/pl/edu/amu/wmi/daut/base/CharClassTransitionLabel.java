@@ -24,25 +24,25 @@ public class CharClassTransitionLabel extends TransitionLabel {
         charClass = new String(s);
         for (int i = 0; i < s.length(); ++i) {
             if (s.charAt(i) == '-') {
-                addChar(s.charAt(i-1), s.charAt(i+1));
+                addChar(s.charAt(i - 1), s.charAt(i + 1));
                 i++;
-            }
-            else if (i+1 < s.length() && s.charAt(i+1) == '-') {
-                addChar(s.charAt(i), s.charAt(i+2));
+                }
+            else if (i + 1 < s.length() && s.charAt(i + 1)=='-') {
+                addChar(s.charAt(i), s.charAt(i + 2));
                 i += 2;
-            }
+                }
             else {
                 addChar(s.charAt(i));
             }
         }
     }
 
-    private final void addChar(Character c1, Character c2) {
+    private void addChar(Character c1, Character c2) {
         for (Character d = c1; d <= c2; ++d) {
             ssc.add(d);
         }
     }
-    private final void addChar(Character c) {
+    private void addChar(Character c) {
         ssc.add(c);
     }
 
