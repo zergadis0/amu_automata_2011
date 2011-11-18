@@ -722,7 +722,6 @@ abstract class AutomatonSpecification implements Cloneable  {
         } else
             throw new RuntimeException("error");
     }
-    
     /**
      *Metoda zwraca długość najdłuższego słowa akceptowanego.
      */
