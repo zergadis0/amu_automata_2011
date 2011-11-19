@@ -178,13 +178,48 @@ public class TestAutomataOperations extends TestCase {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
-        State q10 = automatonA.addState();
-        State q11 = automatonA.addState();
+        State q10 = automatonB.addState();
+        State q11 = automatonB.addState();
         automatonB.addTransition(q10, q11, new CharTransitionLabel('b'));
         automatonB.addTransition(q10, q11, new EpsilonTransitionLabel());
         automatonB.markAsInitial(q10);
         automatonB.markAsFinal(q10);
         automatonB.markAsFinal(q11);
+
+        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
+
+        NondeterministicAutomatonByThompsonApproach automaton = new
+        NondeterministicAutomatonByThompsonApproach(result);
+
+        assertTrue(automaton.accepts("b"));
+        assertTrue(automaton.accepts(""));
+        assertFalse(automaton.accepts("a"));
+        assertFalse(automaton.accepts("bbbbbbbbbbbbbb"));
+        assertFalse(automaton.accepts("bardzodlugieslowowbardzodlugieslowo"));
+
+    }
+    /**
+     * test szosty.
+     */
+    public final void testIntersection6() {
+
+
+        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+
+        State q10 = automatonA.addState();
+        State q11 = automatonA.addState();
+        automatonA.addTransition(q10, q11, new CharTransitionLabel('b'));
+        automatonA.addTransition(q10, q11, new EpsilonTransitionLabel());
+        automatonA.markAsInitial(q10);
+        automatonA.markAsFinal(q10);
+        automatonA.markAsFinal(q11);
+
+        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
+
+        State q0 = automatonB.addState();
+        automatonB.addLoop(q0, new CharTransitionLabel('b'));
+        automatonB.markAsInitial(q0);
+        automatonB.markAsFinal(q0);
 
         AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
 
