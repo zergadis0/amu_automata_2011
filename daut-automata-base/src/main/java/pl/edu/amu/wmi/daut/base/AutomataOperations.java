@@ -182,7 +182,7 @@ public class AutomataOperations {
                         TransitionLabel tL = qAn.getTransitionLabel().intersect(
                                 qBn.getTransitionLabel());
 
-                        if (!tL.isEmpty()) {
+                        if (!tL.isEmpty() && !tL.canBeEpsilon()) {
                             combinedC = new CombinedState();
                             combinedC.set(qAn.getTargetState(), qBn.getTargetState());
                             if (automatonA.isFinal(qAn.getTargetState())
@@ -190,11 +190,9 @@ public class AutomataOperations {
                                 isFinal = true;
                             else
                                 isFinal = false;
-                            empty = makeTransition(combinedC,
-                                    newStates, tL, hashMaps, stateC,
-                                    automatonC, isFinal);
-
-                            break;
+                            if(!makeTransition(combinedC, newStates, tL, hashMaps, stateC,
+                                    automatonC, isFinal))
+                                empty = false;
                         }
                     }
                 }
@@ -208,11 +206,9 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        empty = makeTransition(combinedC, newStates,
-                                new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
-                                isFinal);
-
-                        break;
+                        if(!makeTransition(combinedC, newStates, new EpsilonTransitionLabel(),
+                                hashMaps, stateC, automatonC, isFinal))
+                            empty = false;
                     }
                 }
                 for (OutgoingTransition transitionToBn : lB) {
@@ -224,11 +220,9 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        empty = makeTransition(combinedC, newStates,
-                                new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
-                                isFinal);
-
-                        break;
+                        if(!makeTransition(combinedC, newStates, new EpsilonTransitionLabel(),
+                                hashMaps, stateC, automatonC, isFinal))
+                                empty = false;
                     }
                 }
             }
