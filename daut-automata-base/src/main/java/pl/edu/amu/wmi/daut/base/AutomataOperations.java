@@ -190,7 +190,7 @@ public class AutomataOperations {
                                 isFinal = true;
                             else
                                 isFinal = false;
-                            if(!makeTransition(combinedC, newStates, tL, hashMaps, stateC,
+                            if (!makeTransition(combinedC, newStates, tL, hashMaps, stateC,
                                     automatonC, isFinal))
                                 empty = false;
                         }
@@ -206,7 +206,7 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        if(!makeTransition(combinedC, newStates, new EpsilonTransitionLabel(),
+                        if (!makeTransition(combinedC, newStates, new EpsilonTransitionLabel(),
                                 hashMaps, stateC, automatonC, isFinal))
                             empty = false;
                     }
@@ -220,7 +220,7 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        if(!makeTransition(combinedC, newStates, new EpsilonTransitionLabel(),
+                        if (!makeTransition(combinedC, newStates, new EpsilonTransitionLabel(),
                                 hashMaps, stateC, automatonC, isFinal))
                                 empty = false;
                     }
