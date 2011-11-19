@@ -182,7 +182,7 @@ public class TestAutomataOperations extends TestCase {
         automatonB.addTransition(q10, q11, new CharTransitionLabel('b'));
         automatonB.addTransition(q10, q11, new EpsilonTransitionLabel());
         automatonB.markAsInitial(q10);
-        automatonB.markAsFinal(q11);
+        automatonB.markAsFinal(q10);
         automatonB.markAsFinal(q11);
 
         AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
