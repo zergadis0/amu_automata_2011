@@ -122,6 +122,7 @@ public class TestAutomataOperations extends TestCase {
         automatonA.addLoop(q1, new CharTransitionLabel('a'));
         automatonA.addLoop(q2, new CharTransitionLabel('b'));
         automatonA.markAsInitial(q0);
+        automatonA.markAsFinal(q0);
         automatonA.markAsFinal(q1);
         automatonA.markAsFinal(q2);
 
@@ -197,6 +198,7 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("bardzodlugieslowowbardzodlugieslowo"));
 
     }
+
 
 
 
