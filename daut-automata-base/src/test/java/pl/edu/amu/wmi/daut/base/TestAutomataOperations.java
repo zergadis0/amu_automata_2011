@@ -107,4 +107,60 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts(""));
 
     }
+     /**
+     * czwarty test.
+     */
+    public final void testIntersection4() {
+        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+
+        State q0 = automatonA.addState();
+        State q1 = automatonA.addState();
+        State q2 = automatonA.addState();
+
+        automatonA.addTransition(q0, q1, new EpsilonTransitionLabel());
+        automatonA.addTransition(q0, q2, new EpsilonTransitionLabel());
+        automatonA.addLoop(q1, new CharTransitionLabel('a'));
+        automatonA.addLoop(q2, new CharTransitionLabel('b'));
+        automatonA.markAsInitial(q0);
+        automatonA.markAsFinal(q1);
+        automatonA.markAsFinal(q2);
+
+        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
+
+        State q10 = automatonB.addState();
+        State q11 = automatonB.addState();
+        State q12 = automatonB.addState();
+        State q13 = automatonB.addState();
+        State q14 = automatonB.addState();
+        State q15 = automatonB.addState();
+        State q16 = automatonB.addState();
+
+        automatonB.addTransition(q10, q11, new EpsilonTransitionLabel());
+        automatonB.addTransition(q10, q14, new EpsilonTransitionLabel());
+        automatonB.addTransition(q11, q12, new CharTransitionLabel('a'));
+        automatonB.addTransition(q12, q13, new CharTransitionLabel('b'));
+        automatonB.addLoop(q13, new CharTransitionLabel('b'));
+        automatonB.addTransition(q14, q15, new CharTransitionLabel('b'));
+        automatonB.addTransition(q15, q16, new CharTransitionLabel('b'));
+        automatonB.addLoop(q16, new CharTransitionLabel('b'));
+        automatonB.markAsInitial(q10);
+        automatonB.markAsFinal(q12);
+        automatonB.markAsFinal(q13);
+        automatonB.markAsFinal(q15);
+
+        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
+        AutomatonByRecursion automaton = new AutomatonByRecursion(result);
+
+        assertTrue(automaton.accepts("b"));
+        assertTrue(automaton.accepts("a"));
+        assertFalse(automaton.accepts("aaaaaaaaaaaaaaaa"));
+        assertFalse(automaton.accepts("bbbbbbbbbbbbbbbbbb"));
+        assertFalse(automaton.accepts(""));
+        assertFalse(automaton.accepts("abbb"));
+        assertFalse(automaton.accepts("nieakceptowanedlugieslowo"));
+
+
+
+    }
+
 }
