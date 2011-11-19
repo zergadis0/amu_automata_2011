@@ -164,5 +164,40 @@ public class TestAutomataOperations extends TestCase {
 
 
     }
+    /**
+     * test piaty.
+     */
+    public final void testIntersection5() {
+        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+
+        State q0 = automatonA.addState();
+        automatonA.addLoop(q0, new CharTransitionLabel('b'));
+        automatonA.markAsInitial(q0);
+        automatonA.markAsFinal(q0);
+
+        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
+
+        State q10 = automatonA.addState();
+        State q11 = automatonA.addState();
+        automatonB.addTransition(q10, q11, new CharTransitionLabel('b'));
+        automatonB.addTransition(q10, q11, new EpsilonTransitionLabel());
+        automatonA.markAsInitial(q10);
+        automatonA.markAsFinal(q11);
+        automatonA.markAsFinal(q11);
+
+        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
+
+        NondeterministicAutomatonByThompsonApproach automaton = new
+        NondeterministicAutomatonByThompsonApproach(result);
+
+        assertTrue(automaton.accepts("b"));
+        assertTrue(automaton.accepts(""));
+        assertFalse(automaton.accepts("a"));
+        assertFalse(automaton.accepts("bbbbbbbbbbbbbb"));
+        assertFalse(automaton.accepts("bardzodlugieslowowbardzodlugieslowo"));
+
+    }
+
+
 
 }
