@@ -149,7 +149,8 @@ public class TestAutomataOperations extends TestCase {
         automatonB.markAsFinal(q15);
 
         AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
-        AutomatonByRecursion automaton = new AutomatonByRecursion(result);
+
+        NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(result);
 
         assertTrue(automaton.accepts("b"));
         assertTrue(automaton.accepts("a"));
