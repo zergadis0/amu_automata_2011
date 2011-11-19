@@ -150,7 +150,8 @@ public class TestAutomataOperations extends TestCase {
 
         AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
 
-        NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(result);
+        NondeterministicAutomatonByThompsonApproach automaton = new
+        NondeterministicAutomatonByThompsonApproach(result);
 
         assertTrue(automaton.accepts("b"));
         assertTrue(automaton.accepts("a"));
