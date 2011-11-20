@@ -21,6 +21,17 @@ public class Generator {
                 String word2 = "";
                 for (OutgoingTransition transition : allOutTransitions) {
                     currentLabel = transition.getTransitionLabel();
+                    if (currentLabel instanceof EmptyTransitionLabel
+                        || currentLabel instanceof EpsilonTransitionLabel) {
+                         if (!automaton.isFinal(state)) {
+                                 acceptedWords.remove(word);
+                            }
+                        buf.append("");
+                        word2 = buf.toString();
+                        acceptedWords.add(word2);
+                        acceptWords(automaton, alphabet, word, transition.getTargetState());
+                        break;
+                 }
                     for (int i = 0; i < alphabet.length(); i++) {
                         if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
                             if (!automaton.isFinal(state)) {
