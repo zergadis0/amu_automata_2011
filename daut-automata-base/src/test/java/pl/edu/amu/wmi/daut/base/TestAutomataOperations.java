@@ -2,10 +2,10 @@ package pl.edu.amu.wmi.daut.base;
 
 import junit.framework.TestCase;
 
- /**
-  * Testy różnych operacji na automatach.
-  */
- public class TestAutomataOperations extends TestCase {
+/**
+ * Testy różnych operacji na automatach.
+ */
+public class TestAutomataOperations extends TestCase {
 
     /**
      * Test prostego automatu.
@@ -46,10 +46,10 @@ import junit.framework.TestCase;
 
     }
 
-  /**
-   * Test sprawdza metode Sum w AutomataOperations A.
-   */
-  public final void testSumA() {
+    /**
+     * Test sprawdza metode Sum w AutomataOperations A.
+     */
+    public final void testSumA() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
@@ -90,10 +90,10 @@ import junit.framework.TestCase;
         assertFalse(automaton.accepts("bab"));
     }
 
-  /**
-   * Test sprawdza metode Sum w AutomataOperations B.
-   */
-  public final void testSumB() {
+    /**
+     * Test sprawdza metode Sum w AutomataOperations B.
+     */
+    public final void testSumB() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
@@ -141,10 +141,10 @@ import junit.framework.TestCase;
         assertFalse(automaton.accepts("aac"));
     }
 
-  /**
-   * Test sprawdza metode Sum w AutomataOperations C.
-   */
-  public final void testSumC() {
+    /**
+     * Test sprawdza metode Sum w AutomataOperations C.
+     */
+    public final void testSumC() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
@@ -183,10 +183,10 @@ import junit.framework.TestCase;
         assertFalse(automaton.accepts("zielonosmutnaniebieskowesolapomaranczowa"));
     }
 
-  /**
-   * Test sprawdza metode Sum w AutomataOperations D.
-   */
-  public final void testSumD() {
+    /**
+     * Test sprawdza metode Sum w AutomataOperations D.
+     */
+    public final void testSumD() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
@@ -218,10 +218,10 @@ import junit.framework.TestCase;
         assertFalse(automaton.accepts("aabbbaaaa"));
     }
 
-  /**
-   * Test sprawdza metode Sum w AutomataOperations E.
-   */
-  public final void testSumE() {
+    /**
+     * Test sprawdza metode Sum w AutomataOperations E.
+     */
+    public final void testSumE() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
 
