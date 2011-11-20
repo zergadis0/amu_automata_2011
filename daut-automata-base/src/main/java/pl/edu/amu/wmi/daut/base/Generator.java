@@ -1,7 +1,10 @@
 package pl.edu.amu.wmi.daut.base;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ *
+ * klasa zawierająca metodę zwracającą listę wszystkich słów z automatu bez cykli.
+ */
 public class Generator {
 
     private List<String> acceptedWords = new ArrayList<String>();
@@ -15,10 +18,10 @@ public class Generator {
         List<OutgoingTransition> allOutTransitions;
         allOutTransitions = automaton.allOutgoingTransitions(state);
             if (!allOutTransitions.isEmpty()) {
-                String word2= "";
+                String word2 = "";
                 for (OutgoingTransition transition : allOutTransitions) {
                     currentLabel = transition.getTransitionLabel();
-                    for (int i=0; i<alphabet.length(); i++) {
+                    for (int i = 0; i < alphabet.length(); i++) {
                         if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
                             if (!automaton.isFinal(state)) {
                                  acceptedWords.remove(word);
