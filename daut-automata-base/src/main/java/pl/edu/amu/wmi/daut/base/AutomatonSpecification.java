@@ -722,6 +722,32 @@ abstract class AutomatonSpecification implements Cloneable  {
         } else
             throw new RuntimeException("error");
     }
+    /**
+     *Metoda zwraca długość najdłuższego słowa akceptowanego.
+     */
+    public int maxWordLength() {
+        AllAcceptedWords words = new AllAcceptedWords(this);
+        String word;
+        int tmp;
+        final int infinitereturncode = -2;
+        final int emptyreturncode = -1;
+        int max = 0;
+        if (isInfinite()) {
+            return infinitereturncode;
+        }
+        if (words.hasNext()) {
+            do {
+                word = words.next();
+                tmp = word.length();
+                if (max < tmp) {
+                    max = tmp;
+                }
+            } while (words.hasNext());
+            return max;
+        } else {
+            return emptyreturncode;
+        }
+    }
 };
 
 class StructureException extends Exception {
