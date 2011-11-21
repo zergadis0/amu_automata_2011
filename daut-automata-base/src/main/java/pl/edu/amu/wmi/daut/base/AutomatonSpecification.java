@@ -160,9 +160,7 @@ abstract class AutomatonSpecification {
             }
         }
         return pilgrim.toString();
-    }
-
-    ;
+    };
     /**
      * Funkcja tworzaca zawartość automatu ze Stringa.
      */
@@ -289,7 +287,8 @@ abstract class AutomatonSpecification {
                         if (labelList[states.indexOf(edgeIt.getTargetState())].length() == 0) {
                             labelList[states.indexOf(edgeIt.getTargetState())].append(edgeIt.getTransitionLabel());
                         } else {
-                            labelList[states.indexOf(edgeIt.getTargetState())].append(", " + edgeIt.getTransitionLabel());
+                            labelList[states.indexOf(edgeIt.getTargetState())]
+                                    .append(", " + edgeIt.getTransitionLabel());
                         }
                     }
 
@@ -345,7 +344,8 @@ abstract class AutomatonSpecification {
             List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
             for (OutgoingTransition transition : list) {
                 this.addTransition(connectedStates.get(currentState),
-                        connectedStates.get(transition.getTargetState()), transition.getTransitionLabel());
+                        connectedStates.get(transition.getTargetState()),
+                        transition.getTransitionLabel());
             }
         }
     }
@@ -365,7 +365,8 @@ abstract class AutomatonSpecification {
                     if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i))) {
                         break;
                     } else if ((index == allOutgoingTransitions(state).size() - 1)
-                            && !transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i))) {
+                            && !transition.getTransitionLabel()
+                            .canAcceptCharacter(alphabet.charAt(i))) {
                         return false;
                     } else {
                         index++;
@@ -388,10 +389,12 @@ abstract class AutomatonSpecification {
                                 new CharTransitionLabel(alphabet.charAt(i)));
                     }
                     for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                        if (transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i))) {
+                        if (transition1.getTransitionLabel()
+                                .canAcceptCharacter(alphabet.charAt(i))) {
                             break;
                         } else if ((indeks == allOutgoingTransitions(state).size() - 1)
-                                && !transition1.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i))) {
+                                && !transition1.getTransitionLabel()
+                                .canAcceptCharacter(alphabet.charAt(i))) {
                             addTransition(state, trash,
                                     new CharTransitionLabel(alphabet.charAt(i)));
                         } else {
