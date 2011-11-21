@@ -161,7 +161,7 @@ public class TestGeneratorRandomWord extends TestCase {
      * @param numberOfTests int
      * @param allPossibilities int
      */
-    private void checkAllPossibilities(AutomatonSpecification automaton, String alphabet, int numberOfTests, int allPossibilities) {
+    private boolean checkAllPossibilities(AutomatonSpecification automaton, String alphabet, int numberOfTests, int allPossibilities) {
         List<String> words = new ArrayList<String>();
         Generator generator = new Generator();
         for (int i = 0; i < numberOfTests; i++) {
@@ -172,10 +172,10 @@ public class TestGeneratorRandomWord extends TestCase {
             }
         }
         if (words.size() == allPossibilities) {
-            assertTrue(true);
+            return true;
         }
         else {
-            assertTrue(false);
+            return false;
         }
     }
     
@@ -188,6 +188,6 @@ public class TestGeneratorRandomWord extends TestCase {
         check(getAutomatonB(), "ab", 100);
         check(getAutomatonC(), "ab", 100);
         
-        checkAllPossibilities(getAutomatonD(), "abc", 1000, 3);
+        assertTrue(checkAllPossibilities(getAutomatonD(), "abc", 1000, 3));
     }
 }
