@@ -56,25 +56,25 @@ public class Generator {
         String word = new String();
         Random rand = new Random();
         List<OutgoingTransition> allOutTransitions = automaton.allOutgoingTransitions(state);
-            if (!allOutTransitions.isEmpty()) {
-                while (!automaton.isFinal(state) && allOutTransitions.isEmpty()) {
-                    int r = rand.nextInt(allOutTransitions.size()) + 1;
-                    currentLabel = allOutTransitions.get(r).getTransitionLabel();
-                    for (int i = 0; i < alphabet.length(); i++) {
-                        if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
-                            state = allOutTransitions.get(r).getTargetState();
-                            allOutTransitions = automaton.allOutgoingTransitions(state);
-                            word.concat(alphabet.substring(i, i++));
-                            break;
-                        }
+        if (!allOutTransitions.isEmpty()) {
+            while (!automaton.isFinal(state) && allOutTransitions.isEmpty()) {
+                int r = rand.nextInt(allOutTransitions.size()) + 1;
+                currentLabel = allOutTransitions.get(r).getTransitionLabel();
+                for (int i = 0; i < alphabet.length(); i++) {
+                    if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
+                        state = allOutTransitions.get(r).getTargetState();
+                        allOutTransitions = automaton.allOutgoingTransitions(state);
+                        word.concat(alphabet.substring(i, i++));
+                        break;
                     }
-                    if (automaton.isFinal(state) && !allOutTransitions.isEmpty()) {
-                        if (rand.nextBoolean()) {
-                            break;
-                        }
+                }
+                if (automaton.isFinal(state) && !allOutTransitions.isEmpty()) {
+                    if (rand.nextBoolean()) {
+                        break;
                     }
                 }
             }
+        }
         return word;
     }
 }
