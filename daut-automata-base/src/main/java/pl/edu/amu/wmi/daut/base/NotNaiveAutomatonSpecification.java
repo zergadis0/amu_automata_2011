@@ -31,7 +31,7 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
 
     public void addTransition(State from, State to, TransitionLabel transitionLabel) {
         ((NotNaiveState) from).outgoingTransitions.add(new
-                OutgoingTransition((CharTransitionLabel) transitionLabel, (State) to));
+                OutgoingTransition(transitionLabel, (State) to));
     }
 
     public void markAsInitial(State state) {

@@ -106,7 +106,8 @@ public class AutomataOperations {
         State stateCn;
         boolean empty = true;
         if (hashMaps.get(0).containsValue(combinedC.toString()))
-            stateCn = (State) hashMaps.get(1).get(hashMaps.get(2).toString());
+            stateCn = (State) hashMaps.get(1).get(
+                    hashMaps.get(2).get(combinedC.toString()).toString());
         else {
             stateCn = automatonC.addState();
             hashMaps.get(2).put(combinedC.toString(), combinedC);
@@ -181,7 +182,7 @@ public class AutomataOperations {
                         TransitionLabel tL = qAn.getTransitionLabel().intersect(
                                 qBn.getTransitionLabel());
 
-                        if (!tL.isEmpty()) {
+                        if (!tL.isEmpty() && !tL.canBeEpsilon()) {
                             combinedC = new CombinedState();
                             combinedC.set(qAn.getTargetState(), qBn.getTargetState());
                             if (automatonA.isFinal(qAn.getTargetState())
@@ -189,11 +190,9 @@ public class AutomataOperations {
                                 isFinal = true;
                             else
                                 isFinal = false;
-                            empty = makeTransition(combinedC,
-                                    newStates, tL, hashMaps, stateC,
-                                    automatonC, isFinal);
-
-                            break;
+                            if (!makeTransition(combinedC, newStates, tL, hashMaps, stateC,
+                                    automatonC, isFinal))
+                                empty = false;
                         }
                     }
                 }
@@ -207,11 +206,9 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        empty = makeTransition(combinedC, newStates,
-                                new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
-                                isFinal);
-
-                        break;
+                        if (!makeTransition(combinedC, newStates, new EpsilonTransitionLabel(),
+                                hashMaps, stateC, automatonC, isFinal))
+                            empty = false;
                     }
                 }
                 for (OutgoingTransition transitionToBn : lB) {
@@ -223,11 +220,9 @@ public class AutomataOperations {
                             isFinal = true;
                         else
                             isFinal = false;
-                        empty = makeTransition(combinedC, newStates,
-                                new EpsilonTransitionLabel(), hashMaps, stateC, automatonC,
-                                isFinal);
-
-                        break;
+                        if (!makeTransition(combinedC, newStates, new EpsilonTransitionLabel(),
+                                hashMaps, stateC, automatonC, isFinal))
+                                empty = false;
                     }
                 }
             }
@@ -256,5 +251,21 @@ public class AutomataOperations {
             }
         }
         return kleeneautomaton;
+    }
+     /**
+     * Metoda tworzaca automat akceptujacy sume 2 jezykow.
+     */
+    public static AutomatonSpecification sum(
+        AutomatonSpecification automatonA, AutomatonSpecification automatonB) {
+        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
+        State q0 = automaton.addState();
+        State q1 = automaton.addState();
+        State q2 = automaton.addState();
+        automaton.markAsInitial(q0);
+        automaton.insert(q1, automatonA);
+        automaton.insert(q2, automatonB);
+        automaton.addTransition(q0, q1, new EpsilonTransitionLabel());
+        automaton.addTransition(q0, q2, new EpsilonTransitionLabel());
+        return automaton;
     }
 }
