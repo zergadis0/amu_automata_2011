@@ -66,7 +66,7 @@ public class TestDeterministicUtilities extends TestCase {
     /*
     * Test przykładowy ze słowem pustym.
     */
-    public final void test4() {
+    /*public final void test4() {
 
         Set<String> language4 = new HashSet<String>();
         language4.add("");
