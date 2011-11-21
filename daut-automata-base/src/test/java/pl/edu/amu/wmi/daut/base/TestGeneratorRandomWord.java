@@ -162,7 +162,6 @@ public class TestGeneratorRandomWord extends TestCase {
      * @param allPossibilities int
      */
     private void checkAllPossibilities(AutomatonSpecification automaton, String alphabet, int numberOfTests, int allPossibilities) {
-        AutomatonByRecursion automatonCheck = new AutomatonByRecursion(automaton);
         List<String> words = new ArrayList<String>();
         Generator generator = new Generator();
         for (int i = 0; i < numberOfTests; i++) {
@@ -184,7 +183,7 @@ public class TestGeneratorRandomWord extends TestCase {
      * Główna metoda wywołująca metody testujące metodę randomWord z klasy
      * Generator.
      */
-    public final void start() {
+    public final void testGeneratorRandomWord() {
         check(getAutomatonA(), "ab", 100);
         check(getAutomatonB(), "ab", 100);
         check(getAutomatonC(), "ab", 100);
