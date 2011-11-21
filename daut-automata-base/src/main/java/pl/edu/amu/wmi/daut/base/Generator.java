@@ -53,7 +53,7 @@ public class Generator {
      * Metoda zwracająca losowy napis akceptowany przez automat
      */
     String randomWord(AutomatonSpecification automaton, String alphabet, State state) {
-        String word = new String();
+        String word = "";
         Random rand = new Random();
         List<OutgoingTransition> allOutTransitions = automaton.allOutgoingTransitions(state);
         if (!allOutTransitions.isEmpty()) {
@@ -64,7 +64,7 @@ public class Generator {
                     if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
                         state = allOutTransitions.get(r).getTargetState();
                         allOutTransitions = automaton.allOutgoingTransitions(state);
-                        word.concat(alphabet.substring(i, i++));
+                        word = word.concat(alphabet.substring(i, i++));
                         break;
                     }
                 }
