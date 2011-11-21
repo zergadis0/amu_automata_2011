@@ -68,7 +68,8 @@ public class Generator {
                         break;
                     }
                 }
-                if (automaton.isFinal(state) && !allOutTransitions.isEmpty() && rand.nextBoolean()) {
+                boolean finish = rand.nextBoolean();
+                if (automaton.isFinal(state) && !allOutTransitions.isEmpty() && finish) {
                     break;
                 }
             }
