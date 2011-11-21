@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 public class NaiveDeterministicAutomatonSpecification
-           extends DeterministicAutomatonSpecification {
+        extends DeterministicAutomatonSpecification {
 
     private NaiveAutomatonSpecification automatonSpec = new NaiveAutomatonSpecification();
 
@@ -30,7 +30,7 @@ public class NaiveDeterministicAutomatonSpecification
 
     @Override
     public State targetState(State from, char c) {
-           for (OutgoingTransition outgoingTransition : allOutgoingTransitions(from)) {
+        for (OutgoingTransition outgoingTransition : allOutgoingTransitions(from)) {
             if (outgoingTransition.getTransitionLabel().canAcceptCharacter(c)) {
                 return outgoingTransition.getTargetState();
             }
@@ -57,7 +57,7 @@ public class NaiveDeterministicAutomatonSpecification
     public void markAsFinal(State state) {
         this.automatonSpec.markAsFinal(state);
     }
-    
+
     @Override
     public void unmarkAsFinalState(State state) {
         this.automatonSpec.unmarkAsFinalState(state);
