@@ -51,10 +51,6 @@ public class Generator {
     }
     /**
      * Metoda zwracająca losowy napis akceptowany przez automat 
-     * @param AutomatonSpecification automaton - automat
-     * @param String alphabet - alfabet akceptowalny przez automat 
-     * @param State state - stany automatu
-     * @return String
      */
     String randomWord(AutomatonSpecification automaton, String alphabet, State state) {
         String word = new String();
@@ -72,10 +68,8 @@ public class Generator {
                             break;
                         }
                     }
-                    if (automaton.isFinal(state) && !allOutTransitions.isEmpty())
-                    {
-                        if(rand.nextBoolean())
-                        {
+                    if (automaton.isFinal(state) && !allOutTransitions.isEmpty()) {
+                        if(rand.nextBoolean()) {
                             break;
                         }
                     }
