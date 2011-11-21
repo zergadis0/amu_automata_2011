@@ -50,7 +50,7 @@ public class Generator {
             }
     }
     /**
-     * Metoda zwracająca losowy napis akceptowany przez automat 
+     * Metoda zwracająca losowy napis akceptowany przez automat
      */
     String randomWord(AutomatonSpecification automaton, String alphabet, State state) {
         String word = new String();
@@ -64,12 +64,12 @@ public class Generator {
                         if (currentLabel.canAcceptCharacter(alphabet.charAt(i))) {
                             state = allOutTransitions.get(r).getTargetState();
                             allOutTransitions = automaton.allOutgoingTransitions(state);
-                            word.concat(alphabet.substring(i, i+1));
+                            word.concat(alphabet.substring(i, i++));
                             break;
                         }
                     }
                     if (automaton.isFinal(state) && !allOutTransitions.isEmpty()) {
-                        if(rand.nextBoolean()) {
+                        if (rand.nextBoolean()) {
                             break;
                         }
                     }
