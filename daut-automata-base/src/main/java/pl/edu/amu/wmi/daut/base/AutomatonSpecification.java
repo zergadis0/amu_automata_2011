@@ -285,7 +285,8 @@ abstract class AutomatonSpecification {
 
                     for (OutgoingTransition edgeIt : edges) {
                         if (labelList[states.indexOf(edgeIt.getTargetState())].length() == 0) {
-                            labelList[states.indexOf(edgeIt.getTargetState())].append(edgeIt.getTransitionLabel());
+                            labelList[states.indexOf(edgeIt.getTargetState())]
+                                    .append(edgeIt.getTransitionLabel());
                         } else {
                             labelList[states.indexOf(edgeIt.getTargetState())]
                                     .append(", " + edgeIt.getTransitionLabel());
