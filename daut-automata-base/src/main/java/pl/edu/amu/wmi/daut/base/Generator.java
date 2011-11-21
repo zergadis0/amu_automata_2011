@@ -49,7 +49,6 @@ public class Generator {
                     }
             }
     }
-    
     /**
      * Metoda zwracająca losowy napis akceptowany przez automat 
      * @param AutomatonSpecification automaton - automat
