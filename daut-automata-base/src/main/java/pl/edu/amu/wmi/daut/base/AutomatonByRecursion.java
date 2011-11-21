@@ -1,4 +1,4 @@
-package pl.edu.amu.wmi.daut.base;
+package javaapplication6;
 
 import java.util.List;
 
@@ -33,6 +33,9 @@ public final class AutomatonByRecursion implements Acceptor {
                     }
                     if (currentLabel.canAcceptCharacter(text.charAt(from))) {
                         check(text, from + 1, toEnd, transition.getTargetState());
+                    }
+                    if (accept) {
+                        return;
                     }
                 }
             }
