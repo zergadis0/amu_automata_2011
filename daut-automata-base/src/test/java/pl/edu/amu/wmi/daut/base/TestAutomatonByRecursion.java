@@ -18,8 +18,8 @@ public class TestAutomatonByRecursion extends TestCase {
         State q2a = spec.addState();
 
         spec.addTransition(q0a, q1a, new CharTransitionLabel('a'));
-        spec.addTransition(q1a, q2a, new EpsilonTransitionLabel());
         spec.addTransition(q1a, q2a, new CharTransitionLabel('b'));
+        spec.addTransition(q1a, q2a, new EpsilonTransitionLabel());
         spec.addTransition(q0a, q2a, new CharTransitionLabel('c'));
 
         spec.markAsInitial(q0a);
@@ -28,9 +28,10 @@ public class TestAutomatonByRecursion extends TestCase {
         final AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
 
         assertFalse(automaton.accepts("a"));
-        assertFalse(automaton.accepts("ab"));
+        assertTrue(automaton.accepts("ab"));
         assertTrue(automaton.accepts("c"));
-        assertFalse(automaton.accepts("ab"));
+        assertTrue(automaton.accepts("ab"));
+        assertFalse(automaton.accepts("a"));
     }
     /**
      * Trochę bardziej skomplikowany test.
@@ -55,7 +56,7 @@ public class TestAutomatonByRecursion extends TestCase {
 
         AutomatonByRecursion automatonA = new AutomatonByRecursion(specA);
 
-        assertFalse(automatonA.accepts("ab"));
+        assertTrue(automatonA.accepts("ab"));
         assertFalse(automatonA.accepts("a"));
         assertTrue(automatonA.accepts("b"));
         assertFalse(automatonA.accepts("a"));
