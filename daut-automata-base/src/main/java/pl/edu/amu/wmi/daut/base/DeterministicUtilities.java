@@ -23,8 +23,9 @@ automaton, Set<String> language) {
     automaton.markAsInitial(q[0]);
     int statesCounter = 0;
     for (String s : language) {
-        if (s.length() = 0) {
+        if (s.length() == 0) {
             automaton.markAsFinal(q[0]);
+        }
         else {
             int activeState = 0;
             for ( ; activeState < s.length(); activeState++) {
