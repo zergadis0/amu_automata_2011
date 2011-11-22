@@ -105,5 +105,37 @@ public class TestDeterministicAutomaton extends TestCase {
         assertFalse(pct.accepts("vabb"));
         assertFalse(pct.accepts("aabbh"));
     }
+    public void testMakeMinimal() {
+        DeterministicAutomatonSpecification automaton = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton2 = new NaiveDeterministicAutomatonSpecification();
+        
+        State state1 = automaton.addState();
+        State state2 = automaton.addState();
+        State state3 = automaton.addState();
+        State state4 = automaton.addState();
+        State state5 = automaton.addState();
+        
+        automaton.markAsInitial(state1);
+        automaton.markAsFinal(state5);
+        automaton.markAsFinal(state4);
+        
+        automaton.addTransition(state1, state2, new CharTransitionLabel('a'));
+        automaton.addTransition(state1, state3, new CharTransitionLabel('b'));
+        automaton.addTransition(state2, state4, new CharTransitionLabel('a'));
+        automaton.addTransition(state3, state5, new CharTransitionLabel('a'));
+        
+        automaton2 = automaton.makeMinimal(automaton);
+        
+        int states = automaton2.countStates();
+        
+        assertEquals(4, states);
+        
+        AutomatonByRecursion automaton3 = new AutomatonByRecursion(automaton2);
+        
+        assertTrue(automaton3.accepts("aa"));
+        assertTrue(automaton3.accepts("ba"));
+        
+        
+    }
 }
 
