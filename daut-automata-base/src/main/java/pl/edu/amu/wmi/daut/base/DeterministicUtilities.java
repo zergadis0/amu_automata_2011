@@ -22,15 +22,16 @@ automaton, Set<String> language) {
     q[0] = automaton.addState();
     automaton.markAsInitial(q[0]);
     int statesCounter = 0;
-    for (String s : language) { if ((s.charAt(0) == 'k')&&(s.charAt(1) == 'o')){
-        int activeState = 0;
+    for (String s : language) {
         if (s == "") {
             automaton.markAsFinal(q[0]);
         } else {
-            for ( ; activeState < s.length(); activeState++) {
+        	int activeState = 0;
+        	int letter = 0;
+            for ( ; letter < s.length(); letter++) {
                 boolean leave = false;
                 for (int search = 0; search <= statesCounter; search++) {
-                    if (automaton.targetState(q[activeState], s.charAt(activeState)) != null) {
+                    if (automaton.targetState(q[activeState], s.charAt(letter)) != null) {
                         activeState = search;
                         leave = true;
                         break;
@@ -40,12 +41,13 @@ automaton, Set<String> language) {
                     statesCounter++;
                     q[statesCounter] = automaton.addState();
                     automaton.addTransition(q[activeState], q[statesCounter],
-new CharTransitionLabel(s.charAt(activeState)));
+new CharTransitionLabel(s.charAt(letter)));
+                    activeState = statesCounter; 
                 }
             }
             automaton.markAsFinal(q[statesCounter]);
         }
-    }}
+    }
     }
 
 /**
