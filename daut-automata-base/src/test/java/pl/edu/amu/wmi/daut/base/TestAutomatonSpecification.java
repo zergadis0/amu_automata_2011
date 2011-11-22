@@ -1,6 +1,5 @@
 package pl.edu.amu.wmi.daut.base;
 
-import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification.NaiveState;
 import junit.framework.TestCase;
 
 /**
@@ -30,18 +29,18 @@ public class TestAutomatonSpecification extends TestCase {
     /**
      * Test metody acceptEmptyWord.
      */
-    public final void testAcceptEmptyWord() {
+    public final void testAcceptEmptyWordFinalTheSameAsInitial() {
 
         //Test 1 - stan poczatkowy jest stanem koncowym
-
         NaiveAutomatonSpecification testSpec1 = new NaiveAutomatonSpecification();
-        NaiveState state = testSpec1.addState();
+        State state = testSpec1.addState();
         testSpec1.markAsInitial(state);
         testSpec1.markAsFinal(state);
         assertTrue(testSpec1.acceptEmptyWord());
+    }
+    public final void testAcceptEmptyWordNoEpsilonTransitions() {
 
         //Test 2 - automat ma wiecej stanow, bez epsilon-przejsc do stanu koncowego
-
         NaiveAutomatonSpecification testSpec2 = new NaiveAutomatonSpecification();
         State q0 = testSpec2.addState();
         State q1 = testSpec2.addState();
@@ -54,11 +53,19 @@ public class TestAutomatonSpecification extends TestCase {
         testSpec2.markAsFinal(q2);
 
         assertFalse(testSpec2.acceptEmptyWord());
+    }
+    public final void testAcceptEmptyWordWithEpsilonTransitions() {
 
         //Test 3 - automat jak w poprzednim przypadku
         //ale zawiera epsilon-przejscia do stanu koncowego
-
+        NaiveAutomatonSpecification testSpec2 = new NaiveAutomatonSpecification();
+        State q0 = testSpec2.addState();
+        State q1 = testSpec2.addState();
+        State q2 = testSpec2.addState();
         State q3 = testSpec2.addState();
+        
+        testSpec2.addTransition(q0, q1, new CharTransitionLabel('a'));
+        testSpec2.addTransition(q1, q2, new CharTransitionLabel('b'));
 
         testSpec2.addTransition(q0, q3, new EpsilonTransitionLabel());
         testSpec2.addTransition(q3, q2, new EpsilonTransitionLabel());
