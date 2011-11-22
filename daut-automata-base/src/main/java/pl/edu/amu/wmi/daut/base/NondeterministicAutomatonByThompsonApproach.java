@@ -43,7 +43,7 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
             } while (added);
 
 
-            if (limit != 0) {
+            if (limit != 0 && i != limit) {
                 for (State someState : currentStates) {
                     List<OutgoingTransition> someStateTransitions = new
                             LinkedList<OutgoingTransition>(
@@ -64,7 +64,7 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
             i++;
 
-        } while (i < limit);
+        } while (i <= limit);
 
         for (State someState : currentStates) {
             if (automaton.isFinal(someState)) {
