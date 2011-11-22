@@ -8,12 +8,12 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
  * tj. generująca ustalony automat.
  */
 abstract class NullaryRegexpOperator extends RegexpOperator {
-    
+
     public int arity() {
         return 0;
     }
 
-    final protected AutomatonSpecification doCreateAutomaton(
+    protected final AutomatonSpecification doCreateAutomaton(
         List<AutomatonSpecification> subautomata) {
  
         return createFixedAutomaton();

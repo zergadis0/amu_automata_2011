@@ -6,16 +6,16 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 /**
  * Klasa abstrakcyjna reprezentująca operator unarny (jednoargumentowy).
  */
-abstract class UnaryRegexpOperator extends RegexpOperator {  
-    
+abstract class UnaryRegexpOperator extends RegexpOperator {
+
     public int arity() {
         return 1;
     }
 
     @Override
-    final protected AutomatonSpecification doCreateAutomaton(
+    protected final AutomatonSpecification doCreateAutomaton(
         List<AutomatonSpecification> subautomata) {
- 
+
         return createAutomatonFromOneAutomaton(subautomata.get(0));
     }
 

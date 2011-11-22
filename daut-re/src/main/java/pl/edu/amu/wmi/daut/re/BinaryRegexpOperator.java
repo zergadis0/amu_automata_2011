@@ -7,14 +7,14 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
  * Klasa abstrakcyjna reprezentująca operator binarny (dwuargumentowy).
  */
 abstract class BinaryRegexpOperator extends RegexpOperator {
-    
+
     public int arity() {
         return 2;
     }
 
-    final protected AutomatonSpecification doCreateAutomaton(
+    protected final AutomatonSpecification doCreateAutomaton(
         List<AutomatonSpecification> subautomata) {
- 
+
         return createAutomatonFromTwoAutomata(
             subautomata.get(0), subautomata.get(1));
     }

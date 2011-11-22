@@ -7,12 +7,12 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
  * Klasa abstrakcyjna reprezentujący operator wyrażenia regularnego, np.
  * '*', '?', '|'.
  */
-abstract class RegexpOperator {  
-    
+abstract class RegexpOperator {
+
     /**
      * Zwraca arność operatora (oczekiwaną liczbę argumentów).
      */
-    abstract public int arity();
+    public abstract int arity();
 
     /**
      * Określa procedurę budowania automatu na podstawie
@@ -24,7 +24,7 @@ abstract class RegexpOperator {
      */
     final AutomatonSpecification createAutomaton(
         List<AutomatonSpecification> subautomata) {
-        
+
         if (subautomata.size() != arity())
             throw new IllegalArgumentException(
                 "expected " + arity() + "-element list");
@@ -39,7 +39,7 @@ abstract class RegexpOperator {
      * To właśnie ta metoda będzie zdefiniowana w klasach
      * dziedziczących.
      */
-    abstract protected AutomatonSpecification doCreateAutomaton(
+    protected abstract AutomatonSpecification doCreateAutomaton(
         List<AutomatonSpecification> subautomata);
-                                           
+
 };
