@@ -780,12 +780,12 @@ public class TestAutomatonSpecification extends TestCase {
         base.insert(s2, empty);
         assertEquals(automatonString, base.toString());
     }
-    
+
     /**
      * testuje metodę insert, ale dodaje automat bez jakichkolwiek przejść.
      */
     public final void testInsertNoTransitions() {
-        final int AUTOMATON_SIZE = 300;
+        final int automatonSize= 300;
         AutomatonSpecification base = new NaiveAutomatonSpecification();
         for (int iter = 0; iter < 99; ++iter) {
             base.addState();
@@ -798,6 +798,6 @@ public class TestAutomatonSpecification extends TestCase {
         }
         base.insert(initial, secondAutomaton);
         assertEquals(base.countTransitions(), 0);
-        assertEquals(base.countStates(), AUTOMATON_SIZE);
+        assertEquals(base.countStates(), automatonSize);
     }
 }
