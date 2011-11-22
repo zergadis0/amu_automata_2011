@@ -715,4 +715,28 @@ public class TestAutomatonSpecification extends TestCase {
         State s1 = automat.addState();
         assertFalse(automat.isEmpty());
     }
+
+    /**
+     * Test wariacji metody addTransition, w której tworzyony jest nowy stan.
+     */
+    public final void testAddTransitionWithAddingState() {
+        AutomatonSpecification automat = new NaiveAutomatonSpecification();
+        State s0 = automat.addState();
+
+        //Sprawdzam ilość stanów oraz przejść w automacie przed zastosowaniem metody.
+        int numberOfStates1 = automat.countStates();
+        int numberOfTransitions1 = automat.countTransitions();
+
+        //Dodaję nowy stan i przejście używając metody addTransition i sprawdzam
+        //ponownie ilość stanów oraz przejść.
+        State s1 = automat.addTransition(s0, new CharTransitionLabel('a'));
+        int numberOfStates2 = automat.countStates();
+        int numberOfTransitions2 = automat.countTransitions();
+
+        //Sprawdzam, czy ilości stanów oraz przejsć nie są równe oraz czy ze stanu
+        //s0 da sie przejść do stanu s1.
+        assertFalse(numberOfStates1 == numberOfStates2);
+        assertFalse(numberOfTransitions1 == numberOfTransitions2);
+        assertTrue(automat.allOutgoingTransitions(s0).get(0).getTargetState() == s1);
+    }
 }
