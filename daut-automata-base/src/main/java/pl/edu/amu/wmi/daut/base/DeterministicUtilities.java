@@ -23,30 +23,28 @@ automaton, Set<String> language) {
     automaton.markAsInitial(q[0]);
     int statesCounter = 0;
     for (String s : language) {
+        int activeState = 0;
         if (s == "") {
             automaton.markAsFinal(q[1]);
         }
         else {
-            for (String s : language) {
-                int activeState = 0;
-                for ( ; activeState < s.length(); activeState++) {
-                    boolean leave = false;
-                    for (int search = 0; search <= statesCounter; search++) {
-                        if (automaton.targetState(q[activeState], s.charAt(activeState)) != null) {
-                            activeState = search;
-                            leave = true;
-                            break;
-                        }
-                    }
-                    if (!leave) {
-                        statesCounter++;
-                        q[statesCounter] = automaton.addState();
-                        automaton.addTransition(q[activeState], q[statesCounter],
-new CharTransitionLabel(s.charAt(activeState)));
+            for ( ; activeState < s.length(); activeState++) {
+                boolean leave = false;
+                for (int search = 0; search <= statesCounter; search++) {
+                    if (automaton.targetState(q[activeState], s.charAt(activeState)) != null) {
+                        activeState = search;
+                        leave = true;
+                        break;
                     }
                 }
-                automaton.markAsFinal(q[statesCounter]);
+                if (!leave) {
+                    statesCounter++;
+                    q[statesCounter] = automaton.addState();
+                    automaton.addTransition(q[activeState], q[statesCounter],
+new CharTransitionLabel(s.charAt(activeState)));
+                }
             }
+            automaton.markAsFinal(q[statesCounter]);
         }
     }
     }
