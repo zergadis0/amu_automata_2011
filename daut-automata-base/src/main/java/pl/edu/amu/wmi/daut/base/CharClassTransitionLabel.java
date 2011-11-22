@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Klsa służy obsłudze prostych klas wyrażeń regularnych,
+ * pozwala na sprawdzenie czy dany znak je spełnia.
  */
 package pl.edu.amu.wmi.daut.base;
 
@@ -65,11 +65,6 @@ public class CharClassTransitionLabel extends TransitionLabel {
         return "[" + charClass + "]";
     }
 
-    /**
-     *
-     * @param label
-     * @return
-     */
     @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
         SortedSet<Character> tmp = new TreeSet<Character>();
