@@ -85,4 +85,65 @@ public class TestIsDeterministic extends TestCase {
 
         assertFalse(aut.isDeterministic());
     }
+
+    /**
+     * Test metody isDeterministic na automacie z jednym epsilon przejściem.
+     */
+    public final void testDeterministicEpsilonTransition() {
+
+        AutomatonSpecification aut = new NaiveAutomatonSpecification();
+
+        State s0 = aut.addState();
+        State s1 = aut.addState();
+
+        aut.markAsInitial(s0);
+        aut.markAsFinal(s1);
+
+        aut.addTransition(s0, s1, new EpsilonTransitionLabel());
+        aut.addTransition(s1, s0, new CharTransitionLabel('a'));
+
+        assertTrue(aut.isDeterministic());
+    }
+
+    /**
+     * Test metody isDeterministic z dwoma epsilon przejściami.
+     */
+    public final void testIndeterministicEpsilonTransition() {
+
+        AutomatonSpecification aut = new NaiveAutomatonSpecification();
+
+        State s0 = aut.addState();
+        State s1 = aut.addState();
+        State s2 = aut.addState();
+
+        aut.markAsInitial(s0);
+        aut.markAsFinal(s1);
+
+        aut.addTransition(s0, s1, new EpsilonTransitionLabel());
+        aut.addTransition(s0, s2, new EpsilonTransitionLabel());
+        aut.addTransition(s1, s0, new CharTransitionLabel('a'));
+
+        assertFalse(aut.isDeterministic());
+    }
+
+    /**
+     * Test metody isDeterministic na automacie z mieszanymi przejściami.
+     */
+    public final void testIndeterministicEpsilonInepsilonTransition() {
+
+        AutomatonSpecification aut = new NaiveAutomatonSpecification();
+
+        State s0 = aut.addState();
+        State s1 = aut.addState();
+        State s2 = aut.addState();
+
+        aut.markAsInitial(s0);
+        aut.markAsFinal(s1);
+
+        aut.addTransition(s0, s1, new EpsilonTransitionLabel());
+        aut.addTransition(s0, s2, new CharTransitionLabel('b'));
+        aut.addTransition(s1, s0, new CharTransitionLabel('a'));
+
+        assertFalse(aut.isDeterministic());
+    }
 };
