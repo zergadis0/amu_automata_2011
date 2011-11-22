@@ -19,6 +19,7 @@ automaton, Set<String> language) {
     }
     State[] q;
     q = new State[symbolsCounter];
+    q[0] = automaton.addState();
     automaton.markAsInitial(q[0]);
     int statesCounter = 0;
     for (String s : language) {
