@@ -26,7 +26,7 @@ automaton, Set<String> language) {
         if (s == "") {
             automaton.markAsFinal(q[0]);
         } else {
-        	int activeState = 0;
+            int activeState = 0;
         	int letter = 0;
             for ( ; letter < s.length(); letter++) {
                 boolean leave = false;
@@ -42,7 +42,7 @@ automaton, Set<String> language) {
                     q[statesCounter] = automaton.addState();
                     automaton.addTransition(q[activeState], q[statesCounter],
 new CharTransitionLabel(s.charAt(letter)));
-                    activeState = statesCounter; 
+                    activeState = statesCounter;
                 }
             }
             automaton.markAsFinal(q[statesCounter]);
