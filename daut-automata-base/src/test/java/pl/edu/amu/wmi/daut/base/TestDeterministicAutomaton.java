@@ -106,12 +106,12 @@ public class TestDeterministicAutomaton extends TestCase {
         assertFalse(pct.accepts("aabbh"));
     }
     /**
-     * test metody minimalizujacej automat
+     * test metody minimalizujacej automat.
      */
     public final void testMakeMinimal() {
-        DeterministicAutomatonSpecification automaton = 
+        DeterministicAutomatonSpecification automaton =
                 new NaiveDeterministicAutomatonSpecification();
-        DeterministicAutomatonSpecification automaton2 = 
+        DeterministicAutomatonSpecification automaton2 =
                 new NaiveDeterministicAutomatonSpecification();
         State state1 = automaton.addState();
         State state2 = automaton.addState();
