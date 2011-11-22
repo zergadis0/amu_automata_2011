@@ -19,18 +19,19 @@ automaton, Set<String> language) {
     }
     State[] q;
     q = new State[symbolsCounter];
-    q[1] = automaton.addState();
-    automaton.markAsInitial(q[1]);
-    int statesCounter = 1;
+    q[0] = automaton.addState();
+    automaton.markAsInitial(q[0]);
+    int statesCounter = 0;
     for (String s : language) {
         if (s == "") {
             automaton.markAsFinal(q[1]);
         }
         else {
-            int activeState = 1;
+        for (String s : language) {
+            int activeState = 0;
             for ( ; activeState < s.length(); activeState++) {
                 boolean leave = false;
-                for (int search = 2; search <= statesCounter; search++) {
+                for (int search = 0; search <= statesCounter; search++) {
                     if (automaton.targetState(q[activeState], s.charAt(activeState)) != null) {
                         activeState = search;
                         leave = true;
@@ -46,7 +47,7 @@ new CharTransitionLabel(s.charAt(activeState)));
             }
             automaton.markAsFinal(q[statesCounter]);
         }
-    }
+        }
     }
 
 /**
