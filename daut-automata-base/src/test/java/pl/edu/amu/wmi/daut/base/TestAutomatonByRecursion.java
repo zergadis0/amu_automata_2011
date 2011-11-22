@@ -1,4 +1,4 @@
-package pl.edu.amu.wmi.daut.base;
+﻿package pl.edu.amu.wmi.daut.base;
 
 import junit.framework.TestCase;
 
@@ -19,7 +19,6 @@ public class TestAutomatonByRecursion extends TestCase {
 
         spec.addTransition(q0a, q1a, new CharTransitionLabel('a'));
         spec.addTransition(q1a, q2a, new CharTransitionLabel('b'));
-        spec.addTransition(q1a, q2a, new EpsilonTransitionLabel());
         spec.addTransition(q0a, q2a, new CharTransitionLabel('c'));
 
         spec.markAsInitial(q0a);
@@ -30,7 +29,6 @@ public class TestAutomatonByRecursion extends TestCase {
         assertFalse(automaton.accepts("a"));
         assertTrue(automaton.accepts("ab"));
         assertTrue(automaton.accepts("c"));
-        assertTrue(automaton.accepts("ab"));
         assertFalse(automaton.accepts("a"));
     }
     /**
@@ -47,8 +45,7 @@ public class TestAutomatonByRecursion extends TestCase {
 
         specA.addTransition(q0A, q1A, new CharTransitionLabel('a'));
         specA.addTransition(q1A, q3A, new CharTransitionLabel('b'));
-        specA.addTransition(q1A, q2A, new EpsilonTransitionLabel());
-        specA.addTransition(q2A, q3A, new EpsilonTransitionLabel());
+        specA.addTransition(q1A, q2A, new CharTransitionLabel('b'));
         specA.addTransition(q0A, q3A, new CharTransitionLabel('b'));
 
         specA.markAsInitial(q0A);
@@ -114,6 +111,6 @@ public class TestAutomatonByRecursion extends TestCase {
         assertTrue(automatonB.accepts("abcd"));
         assertFalse(automatonB.accepts("abcdz"));
         assertTrue(automatonB.accepts("abcd"));
-        assertFalse(automatonB.accepts("abcdg"));
+        assertFalse(automatonB.accepts("abcdggfh"));
     }
 }
