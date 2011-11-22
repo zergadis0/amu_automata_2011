@@ -64,7 +64,7 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         DeterministicAutomatonSpecification returnAutomaton;
         deleteUselessStates(automaton);
         //Szukamy stanow rownowaznych
-        int size = automaton.allStates().size() - 1 ;
+        int size = automaton.allStates().size() - 1;
         boolean[][] mark = new boolean[size][size];
         for (int i = 0; i < size; i++) {
             for (int a = 0; a < size; a++)
