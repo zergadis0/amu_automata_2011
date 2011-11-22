@@ -58,7 +58,6 @@ public class Generator {
         List<OutgoingTransition> allOutTransitions = automaton.allOutgoingTransitions(state);
         while (!(automaton.isFinal(state) && allOutTransitions.isEmpty())) {
             int r = rand.nextInt(allOutTransitions.size());
-            OutgoingTransition currentTransition = allOutTransitions.get(r);    
             currentLabel = allOutTransitions.get(r).getTransitionLabel();
             for (int i = 0; i < alphabet.length(); i++) {
                 char addChar = alphabet.charAt(i);
