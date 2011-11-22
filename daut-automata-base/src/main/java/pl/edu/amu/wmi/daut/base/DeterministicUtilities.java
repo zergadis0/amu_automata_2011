@@ -25,8 +25,7 @@ automaton, Set<String> language) {
     for (String s : language) {
         int activeState = 0;
         if (s == "") {
-            automaton.markAsFinal(q[1]);
-            }
+            automaton.markAsFinal(q[1]); }
         else {
             for ( ; activeState < s.length(); activeState++) {
                 boolean leave = false;
