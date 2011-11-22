@@ -785,7 +785,7 @@ public class TestAutomatonSpecification extends TestCase {
      * testuje metodę insert, ale dodaje automat bez jakichkolwiek przejść.
      */
     public final void testInsertNoTransitions() {
-        final int automatonSize= 300;
+        final int automatonSize = 300;
         AutomatonSpecification base = new NaiveAutomatonSpecification();
         for (int iter = 0; iter < 99; ++iter) {
             base.addState();
