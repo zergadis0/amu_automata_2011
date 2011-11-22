@@ -13,7 +13,7 @@ public final class DeterministicUtilities {
      */
     public static void createAutomatonForFiniteLanguage(DeterministicAutomatonSpecification
 automaton, Set<String> language) {
-    int symbolsCounter = 0;
+    int symbolsCounter = 1;
     for (String s : language) {
         symbolsCounter += s.length();
     }
