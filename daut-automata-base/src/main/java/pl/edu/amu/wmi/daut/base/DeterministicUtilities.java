@@ -30,7 +30,7 @@ automaton, Set<String> language) {
             int activeState = 1;
             for ( ; activeState < s.length(); activeState++) {
                 boolean leave = false;
-                for (int search = 1; search < statesCounter; search++) {
+                for (int search = 1; search <= statesCounter; search++) {
                     if (automaton.targetState(q[activeState], s.charAt(activeState)) != null) {
                         activeState = search;
                         leave = true;
