@@ -22,7 +22,7 @@ automaton, Set<String> language) {
     q[0] = automaton.addState();
     automaton.markAsInitial(q[0]);
     int statesCounter = 0;
-    for (String s : language) { if (s.charAt(0) != 'k'){
+    for (String s : language) { if ((s.charAt(0) == 'k')&&(s.charAt(1) == 'o')){
         int activeState = 0;
         if (s == "") {
             automaton.markAsFinal(q[0]);
