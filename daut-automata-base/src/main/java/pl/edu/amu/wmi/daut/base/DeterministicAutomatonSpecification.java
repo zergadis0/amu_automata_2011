@@ -10,7 +10,8 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
      * ze stanu from przez znak c.
      */
     public abstract State targetState(State from, char c);
-    public List<State> findPreviousState(DeterministicAutomatonSpecification automaton, State nextState) {
+    public List<State> findPreviousState(DeterministicAutomatonSpecification automaton, 
+            State nextState) {
         List<State> previousStates = new ArrayList<State>();
         for(State state : automaton.allStates()) {
             for(OutgoingTransition transition : automaton.allOutgoingTransitions(state)){
@@ -21,7 +22,9 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         }
         return previousStates;
     }
-    public List<OutgoingTransition> findPreviousStateTransitions(DeterministicAutomatonSpecification automaton, State previousState, State nextState) {
+    public List<OutgoingTransition> findPreviousStateTransitions
+            (DeterministicAutomatonSpecification automaton, 
+            State previousState, State nextState) {
         List<OutgoingTransition> needTransitions = new ArrayList<OutgoingTransition>();
         for(OutgoingTransition transition : automaton.allOutgoingTransitions(previousState)) {
             if(transition.getTargetState() == nextState)
@@ -33,16 +36,16 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
     public void deleteUselessStates(DeterministicAutomatonSpecification automaton) {
         /*Sprawdzamy czy automat nie posiada zbednych stanow, to jest takich
                 do ktorych nie mozna dojsc ze stanu poczatkowego, jesli tak usuwamy je*/
-        State startState = automaton.getInitialState(); //stan startowy
+        State startState = automaton.getInitialState(); 
         List<State> startStates = new ArrayList<State>();
-        List<State> uselessStates = new ArrayList<State>(); //stany zbedne
+        List<State> uselessStates = new ArrayList<State>();
         uselessStates.addAll(automaton.allStates());
         uselessStates.remove(automaton.getInitialState());
         for (OutgoingTransition transition : automaton.allOutgoingTransitions(startState)) {
             startStates.add(transition.getTargetState());
             uselessStates.remove(transition.getTargetState());
         }
-        while(!startStates.isEmpty()) { //przechodzimy po koleji od stanu poczatkowego po przejsciach, dochodzad w ten sposob do wszystkich stanow dostepnych z stanu poczatkowego
+        while(!startStates.isEmpty()) {
             for(int i = 0; i<startStates.size(); i++) { 
                 for (OutgoingTransition transition : automaton.allOutgoingTransitions(startStates.get(i))) {
                     if(!startStates.contains(transition.getTargetState())){ 
@@ -54,37 +57,37 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
             }
         }
         if(!uselessStates.isEmpty())
-            automaton.allStates().removeAll(uselessStates); //jesli sa jakies stany do ktorych nie doszlismy ze stanu poczatkowego, usuwamy je z automatu
+            automaton.allStates().removeAll(uselessStates);
     }
     
     public DeterministicAutomatonSpecification makeMinimal(DeterministicAutomatonSpecification automaton) {
         
-        DeterministicAutomatonSpecification returnAutomaton = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification returnAutomaton;
         
         deleteUselessStates(automaton);
         
         //Szukamy stanow rownowaznych
         int size = automaton.allStates().size() - 1 ; 
-        boolean mark[][] = new boolean[size][size]; //tworzymy tablice w ktorej bedziemy oznaczac stany rownowazne
+        boolean mark[][] = new boolean[size][size];
         for(int i = 0; i<size; i++) {
             for(int a = 0; a<size; a++)
-            mark[i][a] = true; // na poczatek oznaczamy ze kazdy z nich jest rownowazny
+            mark[i][a] = true;
         }
         
         for(int i = 0; i<size; i++) {
             if( i + 1 < size)
             {
                 for(int a = (i+1); a<size; a++) {
-                    if(automaton.allStates().get(i) == automaton.allStates().get(a)) { // jesli sa to te same stany, nie bierzemy ich pod uwage
+                    if(automaton.allStates().get(i) == automaton.allStates().get(a)) {
                         break;
                     }
                     if(automaton.isFinal(automaton.allStates().get(i)) &&
-                            !automaton.isFinal(automaton.allStates().get(a))) { //jesli jeden ze stanow jest akceptujacy a drugi nie, nie sa to stany rownowazne
+                            !automaton.isFinal(automaton.allStates().get(a))) {
                         mark[i][a] = false;
                         break;
                     }
                     if(!automaton.isFinal(automaton.allStates().get(i)) &&
-                            automaton.isFinal(automaton.allStates().get(a))) { //analogicznie do poprzedniej sytuacji
+                            automaton.isFinal(automaton.allStates().get(a))) {
                         mark[i][a] = false;
                         break;
                     }
@@ -101,7 +104,7 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
                             State state2 = atransition.getTargetState();
                             if(state1 == state2)
                                 break;
-                            if(!mark[automaton.allStates().indexOf(state1) - 1][automaton.allStates().indexOf(state2) - 1]) //teraz jesli jakas para jest oznaczona jako nierownowazna i osiagamy ja jako target state z innej pary, to ta inna para takze jest nierownowazna
+                            if(!mark[automaton.allStates().indexOf(state1) - 1][automaton.allStates().indexOf(state2) - 1])
                                 mark[i][a] = false;
                         }
                     }
@@ -110,7 +113,7 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         }
         for(int i = 0; i<size; i++)
             mark[i][i] = false;
-        //Scalanie stanów równoważnych
+        
         returnAutomaton = automaton;
         for(int i = 0; i<size; i++)
         {
@@ -119,8 +122,8 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
                 for(int a = (i+1); a<size; a++)
                 {
                     if(mark[i][a] == true) {
-                        List<State> prevStates = new ArrayList<State>();
-                        List<OutgoingTransition> prevTransitions = new ArrayList<OutgoingTransition>();
+                        List<State> prevStates;
+                        List<OutgoingTransition> prevTransitions;
                         prevStates = findPreviousState(returnAutomaton, returnAutomaton.allStates().get(a));
                         for(State state : prevStates) {
                             prevTransitions = findPreviousStateTransitions(returnAutomaton, state, returnAutomaton.allStates().get(a));
