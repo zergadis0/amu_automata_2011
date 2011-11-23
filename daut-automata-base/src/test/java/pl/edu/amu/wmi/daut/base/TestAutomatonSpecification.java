@@ -27,7 +27,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertEquals(spec.countStates(), 123456 + 1);
     }
     /**
-     * Test metody acceptEmptyWord dla automatu z tym samym stanem poczatkowym i koncowym
+     * Test metody acceptEmptyWord dla automatu z tym samym stanem poczatkowym i koncowym.
      */
     public final void testAcceptEmptyWordFinalTheSameAsInitial() {
 
@@ -48,9 +48,6 @@ public class TestAutomatonSpecification extends TestCase {
         State q0 = testSpec2.addState();
         State q1 = testSpec2.addState();
         State q2 = testSpec2.addState();
-
-        testSpec2.markAsInitial(q0);
-        testSpec2.markAsFinal(q2);
 
         testSpec2.addTransition(q0, q1, new CharTransitionLabel('a'));
         testSpec2.addTransition(q1, q2, new CharTransitionLabel('b'));
@@ -73,6 +70,9 @@ public class TestAutomatonSpecification extends TestCase {
         State q1 = testSpec2.addState();
         State q2 = testSpec2.addState();
         State q3 = testSpec2.addState();
+
+        testSpec2.markAsInitial(q0);
+        testSpec2.markAsFinal(q2);
 
         testSpec2.addTransition(q0, q1, new CharTransitionLabel('a'));
         testSpec2.addTransition(q1, q2, new CharTransitionLabel('b'));
