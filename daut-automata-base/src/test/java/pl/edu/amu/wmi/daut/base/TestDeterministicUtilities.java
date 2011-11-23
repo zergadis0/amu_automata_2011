@@ -51,10 +51,12 @@ assertTrue(compare(language2, Accepted2));
 
         Set<String> language3 = new HashSet<String>();
        // language3.add("");
-          language3.add("pies");
+          language3.add("kot");
         //language3.add("pies");
-       /* language3.add("koty");
+        language3.add("koty");
         language3.add("kok");
+        language3.add("kat");
+       /* language3.add("kok");
         language3.add("kotokokoojhooo");
         language3.add("bok");
         language3.add("bokot"); */
