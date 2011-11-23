@@ -28,28 +28,21 @@ automaton, Set<String> language) {
         if (s == "") {
             automaton.markAsFinal(q[0]);
         } else {
-            int activeState = 0;
+            State activeState = q[0];
             int letter = 0;
 
             for ( ; letter < s.length(); letter++) {
-                boolean leave = false;
-
-                for (int search = 0; search <= statesCounter; search++) {
-
-                    if (automaton.targetState(q[activeState],s.charAt(letter)).equals(q[search])) {
-                        activeState = search;
-                        leave = true;
-                        break;
-                    }
-                }
-
-                if (!leave) {
+                
+                    if (automaton.targetState(activeState,s.charAt(letter)) != null) {
+                        activeState = automaton.targetState(activeState,s.charAt(letter));
+                        
+                    } else {
                     statesCounter++;
                     q[statesCounter] = automaton.addState();
-                    automaton.addTransition(q[activeState], q[statesCounter],
+                    automaton.addTransition(activeState, q[statesCounter],
 new CharTransitionLabel(s.charAt(letter)));
-                    activeState = statesCounter;
-                }
+                    activeState = q[statesCounter];
+                    }
 
             }
             automaton.markAsFinal(q[statesCounter]);
