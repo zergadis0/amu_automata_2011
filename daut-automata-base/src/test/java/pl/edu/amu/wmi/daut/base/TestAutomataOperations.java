@@ -288,7 +288,7 @@ public class TestAutomataOperations extends TestCase {
         try {
             AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
         } catch (Exception e) {
-            fail(e.getMessage());
+            fail();
         }
 
         AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
@@ -319,7 +319,7 @@ public class TestAutomataOperations extends TestCase {
         try {
             AutomataOperations.determinize2(nonDeterministicAutomat, innaNazwa);
         } catch (Exception e) {
-            fail(e.getMessage());
+            fail();
         }
 
         AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(innaNazwa);
@@ -362,7 +362,7 @@ public class TestAutomataOperations extends TestCase {
         try {
             AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
         } catch (Exception e) {
-            fail(e.getMessage());
+            fail();
         }
 
         AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
@@ -388,16 +388,18 @@ public class TestAutomataOperations extends TestCase {
 
         try {
             AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
-        } catch (Exception e) { 
-            try {
-                State first = nonDeterministicAutomat.addState();
-                nonDeterministicAutomat.addTransition(first, new EpsilonTransitionLabel());
-                AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
-            } catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(true);
-            }
         }
 
+        State first = nonDeterministicAutomat.addState();
+        nonDeterministicAutomat.addTransition(first, new EpsilonTransitionLabel());
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
     }
 
     /**
@@ -425,7 +427,7 @@ public class TestAutomataOperations extends TestCase {
         try {
             AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
         } catch (Exception e) {
-            fail(e.getMessage());
+            fail();
         }
 
         AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
