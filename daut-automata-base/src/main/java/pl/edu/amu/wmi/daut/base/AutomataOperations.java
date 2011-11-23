@@ -444,7 +444,7 @@ public class AutomataOperations {
             }
 
             //Obliczenie liczby stanów automatu DFA. Oznaczenie: |K'|.
-            int nrOfdfaStates = (int) Math.pow((double) 2, (double) (nfa.countStates()));
+            int nrOfdfaStates = (int) Math.pow((double) 2, (double) (nfa.countStates() + 2));
 
             //Utworzenie stanów automatu DFA. Oznaczenie: K'.
             for (int i = 0; i < nrOfdfaStates; i++) {
