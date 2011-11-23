@@ -31,7 +31,7 @@ class AnyTransitionLabel extends TransitionLabel {
 
     @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
-         boolean isResultEmpty = (label.isEmpty() || label.canBeEpsilon());
-         return isResultEmpty ? new EmptyTransitionLabel() : label;
+        boolean isResultEmpty = (label.isEmpty() || label.canBeEpsilon());
+        return isResultEmpty ? new EmptyTransitionLabel() : this;
     }
 }
