@@ -10,12 +10,12 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
      * ze stanu from przez znak c.
      */
     public abstract State targetState(State from, char c);
-    
+
     public List<State> findPreviousState(DeterministicAutomatonSpecification automaton,
             State nextState) {
-        
+
         List<State> previousStates = new ArrayList<State>();
-        
+
         for (State state : automaton.allStates()) {
             for (OutgoingTransition transition : automaton.allOutgoingTransitions(state)) {
                 if (transition.getTargetState() == nextState) {
@@ -25,37 +25,37 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         }
         return previousStates;
     }
-    
+
     public List<OutgoingTransition> findPreviousStateTransitions(
             DeterministicAutomatonSpecification automaton,
             State previousState, State nextState) {
-        
+
         List<OutgoingTransition> needTransitions = new ArrayList<OutgoingTransition>();
-        
+
         for (OutgoingTransition transition : automaton.allOutgoingTransitions(previousState)) {
             if (transition.getTargetState() == nextState)
                 needTransitions.add(transition);
         }
         return needTransitions;
     }
-    
+
     public void deleteUselessStates(DeterministicAutomatonSpecification automaton) {
         /*Sprawdzamy czy automat nie posiada zbednych stanow, to jest takich
                 do ktorych nie mozna dojsc ze stanu poczatkowego, jesli tak usuwamy je*/
-       
+
         State startState = automaton.getInitialState();
-        
+
         List<State> startStates = new ArrayList<State>();
         List<State> uselessStates = new ArrayList<State>();
-        
+
         uselessStates.addAll(automaton.allStates());
         uselessStates.remove(automaton.getInitialState());
-        
+
         for (OutgoingTransition transition : automaton.allOutgoingTransitions(startState)) {
             startStates.add(transition.getTargetState());
             uselessStates.remove(transition.getTargetState());
         }
-        
+
         while (!startStates.isEmpty()) {
             for (int i = 0; i < startStates.size(); i++) {
                 for (OutgoingTransition transition : automaton
@@ -68,26 +68,26 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
                 startStates.remove(startStates.get(i));
             }
         }
-        
+
         if (!uselessStates.isEmpty())
             automaton.allStates().removeAll(uselessStates);
     }
-    
+
     public DeterministicAutomatonSpecification makeMinimal(
             DeterministicAutomatonSpecification automaton) {
         DeterministicAutomatonSpecification returnAutomaton;
-        
+
         deleteUselessStates(automaton);
-        
+
         //Szukamy stanow rownowaznych
         int size = automaton.allStates().size() - 1;
         boolean[][] mark = new boolean[size][size];
-        
+
         for (int i = 0; i < size; i++) {
             for (int a = 0; a < size; a++)
             mark[i][a] = true;
         }
-        
+
         for (int i = 0; i < size; i++) {
             if (i + 1 < size) {
                 for (int a = (i + 1); a < size; a++) {
@@ -107,7 +107,7 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
                 }
             }
         }
-        
+
         for (int i = 0; i < size; i++) {
             if (i + 1 < size) {
                 for (int a = (i + 1); a < size; a++) {
@@ -127,7 +127,7 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
                 }
             }
         }
-        
+
         for (int i = 0; i < size; i++)
             mark[i][i] = false;
         returnAutomaton = automaton;
@@ -152,7 +152,7 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
                 }
             }
         }
-        
+
         return returnAutomaton;
     }
 }
