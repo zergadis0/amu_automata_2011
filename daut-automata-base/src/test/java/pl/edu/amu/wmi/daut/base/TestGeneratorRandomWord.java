@@ -121,11 +121,13 @@ public class TestGeneratorRandomWord extends TestCase {
      * Ilość wygenerowanych słów jest sprawdzana po wywołaniu metody
      * określoną ilość razy.
      */
-    private boolean checkAllPossibilities(AutomatonSpecification automaton, String alphabet, int numberOfTests, int allPossibilities) {
+    private boolean checkAllPossibilities(AutomatonSpecification automaton,
+            String alphabet, int numberOfTests, int allPossibilities) {
         List<String> words = new ArrayList<String>();
         Generator generator = new Generator();
         for (int i = 0; i < numberOfTests; i++) {
-            String generatedWord = generator.randomWord(automaton, alphabet, automaton.getInitialState());
+            String generatedWord = generator.randomWord(automaton,
+                    alphabet, automaton.getInitialState());
             if (!(Collections.binarySearch(words, generatedWord) >= 0)) {
                 words.add(generatedWord);
                 Collections.sort(words);
