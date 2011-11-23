@@ -278,7 +278,7 @@ public class AutomataOperations {
   * @param h homomorfizm języka
 
   */
- AutomatonSpecification homomorphism(AutomatonSpecification automaton, 
+ AutomatonSpecification homomorphism(AutomatonSpecification automaton,
          Map<Character, String> h, String alphabet) {
      if (automaton.isEmpty()) {
          return automaton;
@@ -289,8 +289,6 @@ public class AutomataOperations {
      AutomatonSpecification homoautomaton = new NaiveDeterministicAutomatonSpecification();
      List<State> states = new ArrayList<State>();
      states.addAll(automaton.allStates());
-     List<OutgoingTransition> outtransitions =
-                new ArrayList<OutgoingTransition>();
      HashMap<State, State> connectedStates = new HashMap<State, State>();
      int dlugosc;
      String napis;
@@ -312,7 +310,7 @@ public class AutomataOperations {
                      homoautomaton.addTransition(prev, next, new CharTransitionLabel(znaki[i]));
                      prev = next;
                  }
-                 homoautomaton.addTransition(prev, docelowy, 
+                 homoautomaton.addTransition(prev, docelowy,
                          new CharTransitionLabel(znaki[dlugosc]));
                  connectedStates.put(docelowy, homoautomaton.addState());
               }
