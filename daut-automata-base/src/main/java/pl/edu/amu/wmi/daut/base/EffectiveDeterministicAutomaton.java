@@ -7,97 +7,97 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 {
     static class MyState implements State {
         private static int TRANSITIONS_LENGTH = Character.MAX_VALUE + 1;
-        private MyState[] m_characterTargetState;
-        private MyState m_epsilonTargetState;
-        private int m_hasCharacterTransition;
-        private boolean m_isFinal;
-        private Vector<OutgoingTransition> m_outgoingTransitions;
-        private EffectiveDeterministicAutomaton m_owner;
+        private MyState[] mCharacterTargetState;
+        private MyState mEpsilonTargetState;
+        private int mHasCharacterTransition;
+        private boolean mIsFinal;
+        private Vector<OutgoingTransition> mOutgoingTransitions;
+        private EffectiveDeterministicAutomaton mOwner;
 
 
         public MyState(EffectiveDeterministicAutomaton owner) {
-            m_characterTargetState = new MyState[TRANSITIONS_LENGTH];
+            mCharacterTargetState = new MyState[TRANSITIONS_LENGTH];
             for (int i = 0; i < TRANSITIONS_LENGTH; ++i) {
-                m_characterTargetState[i] = null;
+                mCharacterTargetState[i] = null;
             }
-            m_epsilonTargetState = null;
-            m_hasCharacterTransition = 0;
-            m_isFinal = false;
-            m_outgoingTransitions = new Vector<OutgoingTransition>();
-            m_owner = owner;
+            mEpsilonTargetState = null;
+            mHasCharacterTransition = 0;
+            mIsFinal = false;
+            mOutgoingTransitions = new Vector<OutgoingTransition>();
+            mOwner = owner;
         }
 
 
         private void addOutgoingTransition(OutgoingTransition transition) {
-            m_outgoingTransitions.addElement(transition);
+            mOutgoingTransitions.addElement(transition);
         }
 
 
         public EffectiveDeterministicAutomaton getOwner() {
-            return m_owner;
+            return mOwner;
         }
 
 
         public MyState getEpsilonTargetState() {
-            return m_epsilonTargetState;
+            return mEpsilonTargetState;
         }
 
 
         public Vector<OutgoingTransition> getOutgoingTransitions() {
-            return m_outgoingTransitions;
+            return mOutgoingTransitions;
         }
 
 
         public MyState getTargetState(char c) {
-            return m_characterTargetState[c];
+            return mCharacterTargetState[c];
         }
 
 
         public boolean hasCharacterTransition() {
-            return (m_hasCharacterTransition > 0);
+            return (mHasCharacterTransition > 0);
         }
 
 
         public boolean hasEpsilonTransition() {
-            return (m_epsilonTargetState != null);
+            return (mEpsilonTargetState != null);
         }
 
 
         public boolean isFinal() {
-            return m_isFinal;
+            return mIsFinal;
         }
 
 
         public void setEpsilonTargetState(MyState state) {
-            m_epsilonTargetState = state;
+            mEpsilonTargetState = state;
         }
 
 
         public void setFinal(boolean value) {
-            m_isFinal = value;
+            mIsFinal = value;
         }
 
 
         public void setTargetState(char c, MyState state) {
-            if (state != m_characterTargetState[c]) {
-                if (m_characterTargetState[c] == null)
-                    ++m_hasCharacterTransition;
+            if (state != mCharacterTargetState[c]) {
+                if (mCharacterTargetState[c] == null)
+                    ++mHasCharacterTransition;
                 else if (state == null)
-                    --m_hasCharacterTransition;
-                m_characterTargetState[c] = state;
+                    --mHasCharacterTransition;
+                mCharacterTargetState[c] = state;
             }
         }
     }
 
 
-    private MyState m_initialState;
-    private Vector<State> m_states;
+    private MyState mInitialState;
+    private Vector<State> mStates;
 
 
     @Override
     public State addState() {
         MyState myState = new MyState(this);
-        m_states.addElement(myState);
+        mStates.addElement(myState);
         return myState;
     }
 
@@ -144,7 +144,7 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
     @Override
     public List<State> allStates() {
-        return m_states;
+        return mStates;
     }
 
 
@@ -162,14 +162,14 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
 
     public EffectiveDeterministicAutomaton() {
-        m_initialState = null;
-        m_states = new Vector<State>();
+        mInitialState = null;
+        mStates = new Vector<State>();
     }
 
 
     @Override
     public State getInitialState() {
-        return m_initialState;
+        return mInitialState;
     }
 
 
@@ -182,7 +182,7 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
     @Override
     public void markAsInitial(State state) {
-        m_initialState = assertStateValid(state);
+        mInitialState = assertStateValid(state);
     }
 
 
