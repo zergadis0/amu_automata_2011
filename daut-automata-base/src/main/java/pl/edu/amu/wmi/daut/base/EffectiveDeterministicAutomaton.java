@@ -5,9 +5,8 @@ import java.util.List;
 
 class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecification
 {
-    static class MyState implements State
-    {
-        private static int TRANSITIONS_LENGTH = Character.MAX_VALUE+1;
+    static class MyState implements State {
+        private static int TRANSITIONS_LENGTH = Character.MAX_VALUE + 1;
         private MyState[] m_characterTargetState;
         private MyState m_epsilonTargetState;
         private int m_hasCharacterTransition;
@@ -52,8 +51,8 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
         public MyState getTargetState(char c) {
             return m_characterTargetState[c];
         }
-        
-        
+
+
         public boolean hasCharacterTransition() {
             return (m_hasCharacterTransition > 0);
         }
@@ -80,8 +79,7 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
 
         public void setTargetState(char c, MyState state) {
-            if (state != m_characterTargetState[c])
-            {
+            if (state != m_characterTargetState[c]) {
                 if (m_characterTargetState[c] == null)
                     ++m_hasCharacterTransition;
                 else if (state == null)
@@ -97,7 +95,7 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
 
     @Override
-	public State addState() {
+    public State addState() {
         MyState myState = new MyState(this);
         m_states.addElement(myState);
         return myState;
@@ -115,9 +113,8 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
             char c = (char) i;
             if (label.canAcceptCharacter(c)) {
                 MyState currentTargetState = myFrom.getTargetState(c);
-                if (currentTargetState == null) {
+                if (currentTargetState == null)
                     myFrom.setTargetState(c, myTo);
-                }
                 else if (currentTargetState != myTo)
                     throw new IllegalArgumentException();
             }
@@ -133,8 +130,8 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
         if (myFrom.hasCharacterTransition() && myFrom.hasEpsilonTransition())
             throw new IllegalArgumentException();
-        
-        myFrom.addOutgoingTransition(new OutgoingTransition(label, to)); 
+
+        myFrom.addOutgoingTransition(new OutgoingTransition(label, to));
     }
 
 
@@ -188,17 +185,18 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
         m_initialState = assertStateValid(state);
     }
 
-    
+
     @Override
     public void markAsFinal(State state) {
         MyState myState = assertStateValid(state);
         myState.setFinal(true);
     }
-    
-    
+
+
     @Override
     public State targetState(State from, char c) {
         MyState myFrom = assertStateValid(from);
         return myFrom.getTargetState(c);
     }
 }
+
