@@ -505,7 +505,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
             transitions.clear();
             transitions = allOutgoingTransitions(tocheck.get(i));
 
-            for (OutgoingTransition j : transitions ) {
+            for (OutgoingTransition j : transitions) {
                 label = j.getTransitionLabel();
                 state = j.getTargetState();
 
