@@ -121,6 +121,7 @@ public class AutomataOperations {
                 automatonC.markAsFinal(stateCn);
         return empty;
     }
+
     /**
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
      * dwa podane automaty.
@@ -231,6 +232,7 @@ public class AutomataOperations {
 
         return automatonC;
     }
+
     /**
      * Zwraca automat akceptujący domknięcie Kleene'ego
      * języka akceptowanego przez dany automat.
@@ -252,6 +254,7 @@ public class AutomataOperations {
         }
         return kleeneautomaton;
     }
+
      /**
      * Metoda tworzaca automat akceptujacy sume 2 jezykow.
      */
