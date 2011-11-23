@@ -48,7 +48,7 @@ new CharTransitionLabel(s.charAt(letter)));
             automaton.markAsFinal(q[statesCounter]);
         }
     }
-    }
+    } 
 
 /**
 * Pusty konstruktor klasy DeterministicUtilities
