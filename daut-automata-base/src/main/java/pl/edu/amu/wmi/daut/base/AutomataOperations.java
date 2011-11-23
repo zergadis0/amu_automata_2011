@@ -421,9 +421,6 @@ public class AutomataOperations {
             //Uzupełnienie zbioru przejść, aby był zbiorem przejść automatu NFA. Oznaczenie: T.
             for (State s : kList) {
                 for (OutgoingTransition oT : nfa.allOutgoingTransitions(s)) {
-                    if (oT.getTransitionLabel().canBeEpsilon()) {
-                        throw new StructureException();
-                    }
                     if (oT.getTransitionLabel() instanceof ComplementCharClassTransitionLabel) {
                         putTransitionLabelInSet(tSet, oT.getTransitionLabel());
                     } else {
