@@ -80,7 +80,7 @@ public class TestGeneratorRandomWord extends TestCase {
     
     /**
      * Metoda zwraca niedeterministyczny automat sk. stanowy akceptujący słowa
-     * które zawierają ciąg literę 'a' na przedostatnim miejscu
+     * które zawierają ciąg literę 'b' na przedostatnim miejscu
      * nad językiem {a,b}*
      * 
      * @return AutomatonSpecification
@@ -140,13 +140,19 @@ public class TestGeneratorRandomWord extends TestCase {
      * @param alphabet String
      * @param numberOfTests int
      */
-    private void check(AutomatonSpecification automaton, String alphabet, int numberOfTests) {
+    private boolean check(AutomatonSpecification automaton, String alphabet, int numberOfTests) {
         AutomatonByRecursion automatonCheck = new AutomatonByRecursion(automaton);
         Generator generator = new Generator();
+        boolean result = true;
+        String generatedWord = new String();
         for (int i = 0; i < numberOfTests; i++) {
-            String generatedWord = generator.randomWord(automaton, alphabet, automaton.getInitialState());
-            assertTrue(automatonCheck.accepts(generatedWord));
+            generatedWord = generator.randomWord(automaton, alphabet, automaton.getInitialState());
+            if (!automatonCheck.accepts(generatedWord)) {
+                result = false;
+                break;
+            }
         }
+        return result;
     }
     
     /**
@@ -166,17 +172,12 @@ public class TestGeneratorRandomWord extends TestCase {
         Generator generator = new Generator();
         for (int i = 0; i < numberOfTests; i++) {
             String generatedWord = generator.randomWord(automaton, alphabet, automaton.getInitialState());
-            if (Collections.binarySearch(words, generatedWord) != -1) {
+            if (!(Collections.binarySearch(words, generatedWord) >= 0)) {
                 words.add(generatedWord);
                 Collections.sort(words);
             }
         }
-        if (words.size() == allPossibilities) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return (words.size() == allPossibilities);
     }
     
     /**
@@ -184,9 +185,9 @@ public class TestGeneratorRandomWord extends TestCase {
      * Generator.
      */
     public final void testGeneratorRandomWord() {
-        check(getAutomatonA(), "ab", 100);
-        check(getAutomatonB(), "ab", 100);
-        check(getAutomatonC(), "ab", 100);
+        assertTrue(check(getAutomatonA(), "ab", 100));
+        assertTrue(check(getAutomatonB(), "ab", 100));
+        assertTrue(check(getAutomatonC(), "ab", 100));
         
         assertTrue(checkAllPossibilities(getAutomatonD(), "abc", 1000, 3));
     }
