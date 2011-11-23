@@ -6,8 +6,8 @@ import java.util.List;
 class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecification
 {
     static class MyState implements State {
-        private static int TRANSITIONS_LENGTH = Character.MAX_VALUE + 1;
         private MyState[] mCharacterTargetState;
+        private int mCharacterTargetStateLength;
         private MyState mEpsilonTargetState;
         private int mHasCharacterTransition;
         private boolean mIsFinal;
@@ -16,8 +16,9 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
 
         public MyState(EffectiveDeterministicAutomaton owner) {
-            mCharacterTargetState = new MyState[TRANSITIONS_LENGTH];
-            for (int i = 0; i < TRANSITIONS_LENGTH; ++i) {
+            mCharacterTargetStateLength = 256;
+            mCharacterTargetState = new MyState[mCharacterTargetStateLength];
+            for (int i = 0; i < mCharacterTargetStateLength; ++i) {
                 mCharacterTargetState[i] = null;
             }
             mEpsilonTargetState = null;
@@ -49,7 +50,7 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
 
         public MyState getTargetState(char c) {
-            return mCharacterTargetState[c];
+            return (c < mCharacterTargetStateLength ? mCharacterTargetState[c] : null);
         }
 
 
@@ -79,6 +80,17 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
 
         public void setTargetState(char c, MyState state) {
+            if (c >= mCharacterTargetStateLength) {
+                MyState[] oldArray = mCharacterTargetState;
+                int oldArrayLength = mCharacterTargetStateLength;
+                mCharacterTargetStateLength = c + 1;
+                mCharacterTargetState = new MyState[mCharacterTargetStateLength];
+                for (int j = 0; j < oldArrayLength; ++j)
+                    mCharacterTargetState[j] = oldArray[j];
+                for (int j = oldArrayLength; j < mCharacterTargetStateLength; ++j)
+                    mCharacterTargetState[j] = null;
+            }
+
             if (state != mCharacterTargetState[c]) {
                 if (mCharacterTargetState[c] == null)
                     ++mHasCharacterTransition;
