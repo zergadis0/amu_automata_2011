@@ -52,11 +52,11 @@ assertTrue(compare(language2, Accepted2));
         Set<String> language3 = new HashSet<String>();
         language3.add("kot");
         language3.add("pies");
-        language3.add("koty");
+        /*language3.add("koty");
         language3.add("kok");
         language3.add("kotokokoojhooo");
         language3.add("bok");
-        language3.add("bokot");
+        language3.add("bokot");*/
         DeterministicAutomatonSpecification automaton3 = new NaiveDeterministicAutomatonSpecification();
         DeterministicUtilities.createAutomatonForFiniteLanguage(automaton3, language3);
         Generator words3 = new Generator();
