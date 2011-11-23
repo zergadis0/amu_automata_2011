@@ -505,13 +505,13 @@ public abstract class AutomatonSpecification implements Cloneable  {
             transitions.clear();
             transitions = allOutgoingTransitions(tocheck.get(i));
 
-            for (int j = 0; j < transitions.size(); ++j) {
-                label = transitions.get(j).getTransitionLabel();
-                state = transitions.get(j).getTargetState();
+            for (OutgoingTransition j : transitions ) {
+                label = j.getTransitionLabel();
+                state = j.getTargetState();
 
                 if (label.canBeEpsilon() && !tocheck.contains(state)) {
                     tocheck.add(state);
-                    iterator++;
+                    ++iterator;
 
                     if (isFinal(state)) {
                         return true;
