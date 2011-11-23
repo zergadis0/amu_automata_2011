@@ -290,9 +290,9 @@ public class TestAutomataOperations extends TestCase {
         } catch (Exception e) {
             fail();
         }
-
+        
         AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
-
+        
         assertTrue(zdeterminizowany.accepts(""));
         assertTrue(zdeterminizowany.accepts("aaaaa"));
         assertTrue(zdeterminizowany.accepts("abbababbaa"));
@@ -321,9 +321,9 @@ public class TestAutomataOperations extends TestCase {
         } catch (Exception e) {
             fail();
         }
-
+        
         AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(innaNazwa);
-
+        
         assertFalse(zdeterminizowany.accepts(""));
         assertTrue(zdeterminizowany.accepts("1"));
         assertTrue(zdeterminizowany.accepts("101"));
@@ -366,7 +366,7 @@ public class TestAutomataOperations extends TestCase {
         }
 
         AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
-
+        
         assertFalse(zdeterminizowany.accepts(""));
         assertTrue(zdeterminizowany.accepts("Marcin"));
         assertTrue(zdeterminizowany.accepts("Maria"));
@@ -423,7 +423,7 @@ public class TestAutomataOperations extends TestCase {
         nonDeterministicAutomat.markAsFinal(qFirstEnd);
         nonDeterministicAutomat.markAsFinal(qSecondEnd);
         nonDeterministicAutomat.markAsFinal(qThirdEnd);
-
+        
         try {
             AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
         } catch (Exception e) {
