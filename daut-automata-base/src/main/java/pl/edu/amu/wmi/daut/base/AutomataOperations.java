@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Klasa zwierająca operacje na automatach.
@@ -268,4 +269,54 @@ public class AutomataOperations {
         automaton.addTransition(q0, q2, new EpsilonTransitionLabel());
         return automaton;
     }
+  /**
+  * Zwraca automat akceptujący język powstały w wyniku zastosowania homomorfizmu h na
+  * języku akceptowanym przez automat automaton. Homomorfizm jest dany jako mapa, w której
+  * kluczami są znaki, a wartościami - napisy.
+  * @param alphabet alfabet w postaci String, np. abc
+  * @param automaton automat wejściowy
+  * @param h homomorfizm języka
+
+  */
+ AutomatonSpecification homomorphism(AutomatonSpecification automaton, Map<Character, String> h, String alphabet){
+     if (automaton.isEmpty()){
+         return automaton;
+     }
+
+     char[] tablica;
+     tablica = alphabet.toCharArray();
+     AutomatonSpecification homoautomaton = new NaiveDeterministicAutomatonSpecification();
+     List<State> states = new ArrayList<State>();
+     states.addAll(automaton.allStates());
+     List<OutgoingTransition> outtransitions =
+                new ArrayList<OutgoingTransition>();
+     HashMap<State, State> connectedStates = new HashMap<State, State>();
+     int dlugosc;
+     String napis;
+     State docelowy;
+      for (State current : states) {
+          if (!connectedStates.containsKey(current))
+         connectedStates.put(current, homoautomaton.addState());
+        for (OutgoingTransition currenttrans : automaton.allOutgoingTransitions(current)){
+          TransitionLabel tl = currenttrans.getTransitionLabel();
+          for (char znak : tablica) {
+            if (tl.canAcceptCharacter(znak)) {
+                 napis = h.get(znak);
+                 dlugosc = napis.length();
+                 char znaki[] = napis.toCharArray();
+                 docelowy = currenttrans.getTargetState();
+                 State prev = homoautomaton.addState();
+                 for (int i = 0; i<dlugosc-1; i++) {
+                     State next = homoautomaton.addState();
+                     homoautomaton.addTransition(prev, next, new CharTransitionLabel(znaki[i]));
+                     prev = next;
+                 }
+                 homoautomaton.addTransition(prev, docelowy, new CharTransitionLabel(znaki[dlugosc]));
+                 connectedStates.put(docelowy, homoautomaton.addState());
+              }
+          }
+      }
+     }
+     return homoautomaton;
+ }
 }
