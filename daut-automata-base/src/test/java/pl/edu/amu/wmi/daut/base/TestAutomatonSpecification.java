@@ -27,7 +27,7 @@ public class TestAutomatonSpecification extends TestCase {
         assertEquals(spec.countStates(), 123456 + 1);
     }
     /**
-     * Test metody acceptEmptyWord.
+     * Test metody acceptEmptyWord dla automatu z tym samym stanem poczatkowym i koncowym
      */
     public final void testAcceptEmptyWordFinalTheSameAsInitial() {
 
@@ -38,6 +38,9 @@ public class TestAutomatonSpecification extends TestCase {
         testSpec1.markAsFinal(state);
         assertTrue(testSpec1.acceptEmptyWord());
     }
+    /**
+     * Test metody acceptEmptyWord dla automatu bez epsilon-przejsc.
+     */
     public final void testAcceptEmptyWordNoEpsilonTransitions() {
 
         //Test 2 - automat ma wiecej stanow, bez epsilon-przejsc do stanu koncowego
@@ -45,6 +48,9 @@ public class TestAutomatonSpecification extends TestCase {
         State q0 = testSpec2.addState();
         State q1 = testSpec2.addState();
         State q2 = testSpec2.addState();
+
+        testSpec2.markAsInitial(q0);
+        testSpec2.markAsFinal(q2);
 
         testSpec2.addTransition(q0, q1, new CharTransitionLabel('a'));
         testSpec2.addTransition(q1, q2, new CharTransitionLabel('b'));
@@ -54,6 +60,10 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertFalse(testSpec2.acceptEmptyWord());
     }
+    /**
+     * Test metody acceptEmptyWord dla automatu z epsilon przejsciami
+     * ze stanu poczatkowego do koncowego.
+     */
     public final void testAcceptEmptyWordWithEpsilonTransitions() {
 
         //Test 3 - automat jak w poprzednim przypadku
@@ -63,7 +73,7 @@ public class TestAutomatonSpecification extends TestCase {
         State q1 = testSpec2.addState();
         State q2 = testSpec2.addState();
         State q3 = testSpec2.addState();
-        
+
         testSpec2.addTransition(q0, q1, new CharTransitionLabel('a'));
         testSpec2.addTransition(q1, q2, new CharTransitionLabel('b'));
 
