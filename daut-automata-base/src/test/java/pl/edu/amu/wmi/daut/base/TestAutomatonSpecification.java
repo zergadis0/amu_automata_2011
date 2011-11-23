@@ -508,7 +508,7 @@ public class TestAutomatonSpecification extends TestCase {
      * Test metody getEpsilonClosure(State).
      */
     public final void testGetEpsilonClosure() {
-        //jakaś treść ej
+        // Widać mnie?
         NaiveAutomatonSpecification base = new NaiveAutomatonSpecification();
     }
 }
