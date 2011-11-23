@@ -17,4 +17,4 @@ public class DoNothingOperator extends UnaryRegexpOperator {
         return null;
     }
 
-};
+}
