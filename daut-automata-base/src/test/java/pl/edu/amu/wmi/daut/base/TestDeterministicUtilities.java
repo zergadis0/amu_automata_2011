@@ -51,6 +51,7 @@ assertTrue(compare(language2, Accepted2));
 
         Set<String> language3 = new HashSet<String>();
         language3.add("kot");
+        language3.add("pies");
         language3.add("koty");
         language3.add("kok");
         language3.add("kotokokoojhooo");
@@ -59,14 +60,14 @@ assertTrue(compare(language2, Accepted2));
         DeterministicAutomatonSpecification automaton3 = new NaiveDeterministicAutomatonSpecification();
         DeterministicUtilities.createAutomatonForFiniteLanguage(automaton3, language3);
         Generator words3 = new Generator();
-        List<String> Accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "kotyjhb");
+        List<String> Accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "kotyjhbpies");
         assertTrue(compare(language3, Accepted3));
     }
 
     /*
 * Test przykładowy ze słowem pustym.
 */
-    public final void test4() {
+ /*   public final void test4() {
 
         Set<String> language4 = new HashSet<String>();
         language4.add("");
@@ -82,7 +83,7 @@ assertTrue(compare(language2, Accepted2));
         List<String> Accepted4 = words4.wordsFromAutomatonWithoutCycles(automaton4, "kotyjhb");
         assertTrue(compare(language4, Accepted4));
     }
-    
+*/    
     /*
 * Metoda porównująca słowa akceptowane przez powstały automat ze słowami oczekiwanymi
 */
