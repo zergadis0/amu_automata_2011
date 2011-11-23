@@ -170,7 +170,7 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-     * Test metody intersection z AutomataOperations gdzie automat A 
+     * Test metody intersection z AutomataOperations gdzie automat A
      * ma epsilon przejscia i stan koncowy jest poczatkowym.
      */
     public final void testIntersectionwhereInitialIsFinalA() {
@@ -205,7 +205,7 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-     * Test metody intersection z AutomataOperations gdzie automat B 
+     * Test metody intersection z AutomataOperations gdzie automat B
      * ma epsilon przejscia i stan koncowy jest poczatkowym.
      */
     public final void testIntersectionwhereInitialisFinalB() {
