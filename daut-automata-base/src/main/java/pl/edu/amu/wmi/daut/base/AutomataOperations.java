@@ -278,8 +278,9 @@ public class AutomataOperations {
   * @param h homomorfizm języka
 
   */
- AutomatonSpecification homomorphism(AutomatonSpecification automaton, Map<Character, String> h, String alphabet){
-     if (automaton.isEmpty()){
+ AutomatonSpecification homomorphism(AutomatonSpecification automaton, 
+         Map<Character, String> h, String alphabet) {
+     if (automaton.isEmpty()) {
          return automaton;
      }
 
@@ -297,21 +298,22 @@ public class AutomataOperations {
       for (State current : states) {
           if (!connectedStates.containsKey(current))
          connectedStates.put(current, homoautomaton.addState());
-        for (OutgoingTransition currenttrans : automaton.allOutgoingTransitions(current)){
+        for (OutgoingTransition currenttrans : automaton.allOutgoingTransitions(current)) {
           TransitionLabel tl = currenttrans.getTransitionLabel();
           for (char znak : tablica) {
             if (tl.canAcceptCharacter(znak)) {
                  napis = h.get(znak);
                  dlugosc = napis.length();
-                 char znaki[] = napis.toCharArray();
+                 char[] znaki = napis.toCharArray();
                  docelowy = currenttrans.getTargetState();
                  State prev = homoautomaton.addState();
-                 for (int i = 0; i<dlugosc-1; i++) {
+                 for (int i = 0; i < dlugosc - 1; i++) {
                      State next = homoautomaton.addState();
                      homoautomaton.addTransition(prev, next, new CharTransitionLabel(znaki[i]));
                      prev = next;
                  }
-                 homoautomaton.addTransition(prev, docelowy, new CharTransitionLabel(znaki[dlugosc]));
+                 homoautomaton.addTransition(prev, docelowy, 
+                         new CharTransitionLabel(znaki[dlugosc]));
                  connectedStates.put(docelowy, homoautomaton.addState());
               }
           }
