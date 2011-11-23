@@ -503,4 +503,11 @@ public class TestAutomatonSpecification extends TestCase {
         State s1 = automat.addState();
         assertFalse(automat.isEmpty());
     }
+
+    /**
+     * Test metody getEpsilonClosure(State).
+     */
+    public final void testGetEpsilonClosure() {
+        
+    }
 }
