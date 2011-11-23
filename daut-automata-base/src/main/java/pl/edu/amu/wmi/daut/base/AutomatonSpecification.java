@@ -48,9 +48,9 @@ public abstract class AutomatonSpecification implements Cloneable  {
         State prev = from;
         State next = prev;
 
-        for (int i = 1; i <= text.length(); i++) {
+        for (int i = 0; i < text.length(); ++i) {
             prev = addTransition(next,
-                    new CharTransitionLabel(text.charAt(i - 1)));
+                    new CharTransitionLabel(text.charAt(i)));
             next = prev;
         }
        return prev;
