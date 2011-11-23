@@ -27,7 +27,7 @@ automaton, Set<String> language) {
             automaton.markAsFinal(q[0]);
         } else {
             int activeState = 0;
-        	int letter = 0;
+            int letter = 0;
             for ( ; letter < s.length(); letter++) {
                 boolean leave = false;
                 for (int search = 0; search <= statesCounter; search++) {
