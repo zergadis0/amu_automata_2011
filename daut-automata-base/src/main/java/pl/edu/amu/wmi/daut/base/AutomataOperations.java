@@ -280,12 +280,12 @@ public class AutomataOperations {
         private State dfaState;
         private static int numberOfPowerSetElements = 0;
 
-        public PowerSetElement(Iterable<State> nfaStates, State dfaState) {
+        public PowerSetElement(Iterable<State> nfaStatesRemote, State dfaStateRemote) {
             nfaStates = new HashSet<State>();
-            for (State s : nfaStates) {
+            for (State s : nfaStatesRemote) {
                 nfaStates.add(s);
             }
-            dfaState = dfaState;
+            dfaState = dfaStateRemote;
             numberOfPowerSetElements++;
         }
 
