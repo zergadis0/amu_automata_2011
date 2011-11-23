@@ -8,9 +8,9 @@ import junit.framework.TestCase;
 public class TestAutomataOperations extends TestCase {
 
     /**
-* Pierwszy test.
+* Test metody intersection z AutomataOperations na automatach z petlami.
 */
-    public final void testIntersection1() {
+    public final void testIntersectionSimple() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
@@ -46,6 +46,7 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("aba"));
         assertFalse(automaton.accepts("ba"));
     }
+
     /**
     *drugi test.
     */
@@ -80,10 +81,11 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("baba"));
         assertFalse(automaton.accepts("dziwne dlugie slowo"));
     }
+
     /**
-     * trzeci test.
+     * Test metody intersection z AutomataOperations na automacie A z soba samym.
      */
-    public final void testIntersection3() {
+    public final void testIntersectionWithTheSameAutomaton() {
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
         State q0 = automatonA.addState();
@@ -107,10 +109,11 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts(""));
 
     }
+
      /**
-     * czwarty test.
+     * Test metody intersection z AutomataOperations na automatach z epsilon przejsciami.
      */
-    public final void testIntersection4() {
+    public final void testIntersectionwithEpsilonTransition() {
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
         State q0 = automatonA.addState();
@@ -165,10 +168,12 @@ public class TestAutomataOperations extends TestCase {
 
 
     }
+
     /**
-     * test piaty.
+     * Test metody intersection z AutomataOperations gdzie automat A 
+     * ma epsilon przejscia i stan koncowy jest poczatkowym.
      */
-    public final void testIntersection5() {
+    public final void testIntersectionwhereInitialIsFinalA() {
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
 
         State q0 = automatonA.addState();
@@ -198,10 +203,12 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("bardzodlugieslowowbardzodlugieslowo"));
 
     }
+
     /**
-     * test szosty.
+     * Test metody intersection z AutomataOperations gdzie automat B 
+     * ma epsilon przejscia i stan koncowy jest poczatkowym.
      */
-    public final void testIntersection6() {
+    public final void testIntersectionwhereInitialisFinalB() {
 
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
