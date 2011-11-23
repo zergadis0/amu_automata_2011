@@ -275,19 +275,17 @@ public class AutomataOperations {
     /**
      * Klasa pomocnicza do determinize2(). Rekuprezentuje "zbiór stanów" będący stanem automatu dfa.
      */
-    static private class PowerSetElement{
-        private Set<State> NFAStates;
-        private State DFAState;
-        private int number;
+    private static class PowerSetElement {
+        private Set<State> nfaStates;
+        private State dfaState;
         private static int numberOfPowerSetElements = 0;
 
         public PowerSetElement(Iterable<State> nfaStates, State dfaState) {
-            NFAStates = new HashSet<State>();
+            nfaStates = new HashSet<State>();
             for (State s : nfaStates) {
-                NFAStates.add(s);
+                nfaStates.add(s);
             }
-            DFAState = dfaState;
-            number = numberOfPowerSetElements;
+            dfaState = dfaState;
             numberOfPowerSetElements++;
         }
 
@@ -306,7 +304,7 @@ public class AutomataOperations {
         private static void giveAllPowerSetElementsRecurent(List<PowerSetElement> listOfStates,
             List<State> dfaStatesRemote, List<State> nfaStatesRemote, Set<State> nfaStates,
             int depth) {
-            if (depth < nfaStatesRemote.size()){
+            if (depth < nfaStatesRemote.size()) {
                 //Gałąź dla false(Obecnie rozpatrywany stan NFA nie jest brany)
                 giveAllPowerSetElementsRecurent(listOfStates, dfaStatesRemote,
                         nfaStatesRemote, nfaStates, depth + 1);
@@ -322,12 +320,12 @@ public class AutomataOperations {
             }
         }
 
-        public Set<State> getNFAStates(){
-            return NFAStates;
+        public Set<State> getnfaStates() {
+            return nfaStates;
         }
 
-        public State getDFAState(){
-            return DFAState;
+        public State getdfaState() {
+            return dfaState;
         }
     };
 
@@ -335,61 +333,60 @@ public class AutomataOperations {
      * Metoda pomocnicza dla determiinize2. Tworzy podstawowy zbiór etykiet przejścia używanych
      * przez oba automaty - niedeterministyczny i deterministyczny.
      */
-    static private void putTransitionLabelInSet(HashSet<TransitionLabel> TSet,
+    private static void putTransitionLabelInSet(HashSet<TransitionLabel> tSet,
             TransitionLabel transitionLabel) throws StructureException {
-        if (!transitionLabel.isEmpty())
-            if (!(transitionLabel instanceof AnyTransitionLabel))
-                if (transitionLabel instanceof CharTransitionLabel) {
-                    TSet.add(transitionLabel);
-                } else if (transitionLabel instanceof CharSetTransitionLabel) {
-                    for (char sign : ((CharSetTransitionLabel)transitionLabel).getCharSet()) {
-                        TSet.add(new CharTransitionLabel(sign));
-                        for (TransitionLabel t : TSet) {
-                            if (t instanceof ComplementCharClassTransitionLabel) {
-                                ((ComplementCharClassTransitionLabel)t).getSet().add(sign);
-                            }
-                        }
-                    }
-                } else if (transitionLabel instanceof CharRangeTransitionLabel) {
-                    for (char k = ((CharRangeTransitionLabel)transitionLabel)
-                        .getFirstChar(); k < ((CharRangeTransitionLabel)transitionLabel)
-                        .getSecondChar(); k++) {
-                            TSet.add(new CharTransitionLabel(k));
-                    }
-                } else if (transitionLabel instanceof ComplementCharClassTransitionLabel) {
-                    ComplementCharClassTransitionLabel newOne
-                            = (ComplementCharClassTransitionLabel)transitionLabel;
-                    ComplementCharClassTransitionLabel oldOne = null;
-                    TransitionLabel resTL = null;
-                    Set<Character> newSet = newOne.getSet();
-                    for (TransitionLabel t : TSet) {
+        if (!transitionLabel.isEmpty() || !(transitionLabel instanceof AnyTransitionLabel))
+            if (transitionLabel instanceof CharTransitionLabel) {
+                tSet.add(transitionLabel);
+            } else if (transitionLabel instanceof CharSetTransitionLabel) {
+                for (char sign : ((CharSetTransitionLabel) transitionLabel).getCharSet()) {
+                    tSet.add(new CharTransitionLabel(sign));
+                    for (TransitionLabel t : tSet) {
                         if (t instanceof ComplementCharClassTransitionLabel) {
-                            String oldBuilder = t.toString();
-                            oldOne = new ComplementCharClassTransitionLabel
-                                    (oldBuilder.substring(2, oldBuilder.length() - 1));
-                            resTL = oldOne.intersect(newOne);
-                            Set<Character> excluded = new HashSet<Character>();
-                            excluded.addAll(oldOne.getSet());
-                            excluded.removeAll(newOne.getSet());
-                            for (Character sign : excluded)
-                                TSet.add(new CharTransitionLabel(sign));
-                            excluded.clear();
-                            excluded.addAll(newOne.getSet());
-                            excluded.removeAll(oldOne.getSet());
-                            for (Character sign : excluded)
-                                TSet.add(new CharTransitionLabel(sign));
-                            oldOne = (ComplementCharClassTransitionLabel) t;
-                            newOne = (ComplementCharClassTransitionLabel) resTL;
-                            newSet = newOne.getSet();
-                        } else {
-                            newSet.add(t.toString().charAt(0));
+                            ((ComplementCharClassTransitionLabel) t).getSet().add(sign);
                         }
                     }
-                    TSet.add(newOne);
-                    if (oldOne != null)
-                        TSet.remove(oldOne);
-                } else
-                    throw new StructureException();
+                }
+            } else if (transitionLabel instanceof CharRangeTransitionLabel) {
+                for (char k = ((CharRangeTransitionLabel) transitionLabel)
+                    .getFirstChar(); k < ((CharRangeTransitionLabel) transitionLabel)
+                    .getSecondChar(); k++) {
+                        tSet.add(new CharTransitionLabel(k));
+                }
+            } else if (transitionLabel instanceof ComplementCharClassTransitionLabel) {
+                ComplementCharClassTransitionLabel newOne
+                        = (ComplementCharClassTransitionLabel) transitionLabel;
+                ComplementCharClassTransitionLabel oldOne = null;
+                TransitionLabel resTL = null;
+                Set<Character> newSet = newOne.getSet();
+                for (TransitionLabel t : tSet) {
+                    if (t instanceof ComplementCharClassTransitionLabel) {
+                        String oldBuilder = t.toString();
+                        oldOne = new ComplementCharClassTransitionLabel(
+                                oldBuilder.substring(2, oldBuilder.length() - 1));
+                        resTL = oldOne.intersect(newOne);
+                        Set<Character> excluded = new HashSet<Character>();
+                        excluded.addAll(oldOne.getSet());
+                        excluded.removeAll(newOne.getSet());
+                        for (Character sign : excluded)
+                            tSet.add(new CharTransitionLabel(sign));
+                        excluded.clear();
+                        excluded.addAll(newOne.getSet());
+                        excluded.removeAll(oldOne.getSet());
+                        for (Character sign : excluded)
+                            tSet.add(new CharTransitionLabel(sign));
+                        oldOne = (ComplementCharClassTransitionLabel) t;
+                        newOne = (ComplementCharClassTransitionLabel) resTL;
+                        newSet = newOne.getSet();
+                    } else {
+                        newSet.add(t.toString().charAt(0));
+                    }
+                }
+                tSet.add(newOne);
+                if (oldOne != null)
+                    tSet.remove(oldOne);
+            } else
+                throw new StructureException();
     }
 
     /**
@@ -397,7 +394,7 @@ public class AutomataOperations {
      * Determinizacja przebiega zgodnie z algorytmem przedstawionym na wykładzie.
      * Automat resultDfa na wejściu powinien być pusty!
      */
-    static public void determinize2(AutomatonSpecification nfa,
+    public static void determinize2(AutomatonSpecification nfa,
             DeterministicAutomatonSpecification resultDfa) throws StructureException {
 
         //Sprawdzenie, czy resultDfa na pewno jest pusty.
@@ -416,93 +413,91 @@ public class AutomataOperations {
 
             //Utworzenie pustego zbioru przejść, oraz dodatkowego zbioru przejść
             //klasy ComplementCharClassTransitionLabel
-            HashSet<TransitionLabel> TSet = new HashSet<TransitionLabel>();
+            HashSet<TransitionLabel> tSet = new HashSet<TransitionLabel>();
 
             //Utworzenie listy stanów automatu NFA. Oznaczenie: K.
-            List<State> KList = nfa.allStates();
+            List<State> kList = nfa.allStates();
 
             //Uzupełnienie zbioru przejść, aby był zbiorem przejść automatu NFA. Oznaczenie: T.
-            for (State s : KList){
+            for (State s : kList) {
                 for (OutgoingTransition oT : nfa.allOutgoingTransitions(s)) {
-                    if(oT.getTransitionLabel().canBeEpsilon()) {
+                    if (oT.getTransitionLabel().canBeEpsilon()) {
                         throw new StructureException();
                     }
                     if (oT.getTransitionLabel() instanceof ComplementCharClassTransitionLabel) {
-                        putTransitionLabelInSet(TSet, oT.getTransitionLabel());
+                        putTransitionLabelInSet(tSet, oT.getTransitionLabel());
                     } else {
-                        if (TSet.isEmpty()) {
-                            putTransitionLabelInSet(TSet, oT.getTransitionLabel());
+                        if (tSet.isEmpty()) {
+                            putTransitionLabelInSet(tSet, oT.getTransitionLabel());
                         }
                         boolean isUnique = true;
-                        for (TransitionLabel t : TSet) {
+                        for (TransitionLabel t : tSet) {
                             if (t.intersect(oT.getTransitionLabel()).equals(t)) {
                                 isUnique = false;
                                 break;
                             }
                         }
                         if (isUnique)
-                            putTransitionLabelInSet(TSet, oT.getTransitionLabel());
+                            putTransitionLabelInSet(tSet, oT.getTransitionLabel());
                     }
                 }
             }
 
             //Obliczenie liczby stanów automatu DFA. Oznaczenie: |K'|.
-            int nrOfDFAStates = (int)Math.pow((double)2,(double)(nfa.countStates()));
+            int nrOfdfaStates = (int) Math.pow((double) 2, (double) (nfa.countStates()));
 
             //Utworzenie stanów automatu DFA. Oznaczenie: K'.
-            for (int i = 0; i < nrOfDFAStates; i++) {
+            for (int i = 0; i < nrOfdfaStates; i++) {
                 resultDfa.addState();
             }
-            List<State> KPrimList = resultDfa.allStates();
-            List<PowerSetElement> KPrimAdditionalList = new Vector<PowerSetElement>();
-            PowerSetElement.giveAllPowerSetElements(KPrimAdditionalList, KPrimList, KList);
+            List<State> kPrimList = resultDfa.allStates();
+            List<PowerSetElement> kPrimAdditionalList = new Vector<PowerSetElement>();
+            PowerSetElement.giveAllPowerSetElements(kPrimAdditionalList, kPrimList, kList);
 
             //Odnajduje stany końcowe NFA.
-            Vector<Integer> FList = new Vector<Integer>();
-            for (State seeker : KList) {
+            Vector<Integer> fList = new Vector<Integer>();
+            for (State seeker : kList) {
                 if (nfa.isFinal(seeker)) {
-                    FList.add(KList.indexOf(seeker));
+                    fList.add(kList.indexOf(seeker));
                 }
             }
 
             //Na ich podstawie oznacza stany końcowe w DFA.
-            for (Integer endState : FList) {
-                for (PowerSetElement structure : KPrimAdditionalList) {
-                    if ((!resultDfa.isFinal(structure.getDFAState())) &&
-                            (structure.getNFAStates().contains(KList.get(endState))))
-                        resultDfa.markAsFinal(structure.getDFAState());
+            for (Integer endState : fList) {
+                for (PowerSetElement structure : kPrimAdditionalList) {
+                    if ((!resultDfa.isFinal(structure.getdfaState()))
+                            && (structure.getnfaStates().contains(kList.get(endState))))
+                        resultDfa.markAsFinal(structure.getdfaState());
                 }
             }
 
             //Odnajduje stan początkowy obu automatów.
-            {
-                HashSet<State> initialStates = new HashSet<State>();
-                initialStates.add(nfa.getInitialState());
-                for (PowerSetElement structure : KPrimAdditionalList) {
-                    if (initialStates.equals(structure.getNFAStates())) {
-                        resultDfa.markAsInitial(structure.getDFAState());
-                        break;
-                    }
+            HashSet<State> initialStates = new HashSet<State>();
+            initialStates.add(nfa.getInitialState());
+            for (PowerSetElement structure : kPrimAdditionalList) {
+                if (initialStates.equals(structure.getnfaStates())) {
+                    resultDfa.markAsInitial(structure.getdfaState());
+                    break;
                 }
             }
 
             //Utworzenie przejść dla nowego automatu na podstawie przejść z nfa.
             //Dla każdego "nowego stanu w dfa będącego tak naprawdę zbiorem stanów z nfa"
-            for (PowerSetElement structure : KPrimAdditionalList) {
-                if (structure.getNFAStates().isEmpty()) {
-                    for (PowerSetElement targetStructure : KPrimAdditionalList) {
-                        if (targetStructure.getNFAStates().isEmpty())
-                            resultDfa.addTransition(structure.getDFAState(),
-                                targetStructure.getDFAState(), new AnyTransitionLabel());
-                        else 
-                            resultDfa.addTransition(structure.getDFAState(),
-                                targetStructure.getDFAState(), new EmptyTransitionLabel());
+            for (PowerSetElement structure : kPrimAdditionalList) {
+                if (structure.getnfaStates().isEmpty()) {
+                    for (PowerSetElement targetStructure : kPrimAdditionalList) {
+                        if (targetStructure.getnfaStates().isEmpty())
+                            resultDfa.addTransition(structure.getdfaState(),
+                                targetStructure.getdfaState(), new AnyTransitionLabel());
+                        else
+                            resultDfa.addTransition(structure.getdfaState(),
+                                targetStructure.getdfaState(), new EmptyTransitionLabel());
                     }
                 } else {
-                    for (TransitionLabel t : TSet) {
+                    for (TransitionLabel t : tSet) {
                         HashSet<State> whereTo = new HashSet<State>();
                         if (t instanceof ComplementCharClassTransitionLabel) {
-                            for (State s : structure.getNFAStates()) {
+                            for (State s : structure.getnfaStates()) {
                                 for (OutgoingTransition oT : nfa.allOutgoingTransitions(s)) {
                                     if (!(t.intersect(oT.getTransitionLabel()).isEmpty())) {
                                         whereTo.add(oT.getTargetState());
@@ -510,7 +505,7 @@ public class AutomataOperations {
                                 }
                             }
                         } else {
-                            for (State s : structure.getNFAStates()) {
+                            for (State s : structure.getnfaStates()) {
                                 for (OutgoingTransition oT : nfa.allOutgoingTransitions(s)) {
                                     if (oT.getTransitionLabel().canAcceptCharacter(t.toString()
                                             .charAt(0))) {
@@ -521,16 +516,16 @@ public class AutomataOperations {
                         }
 
                         PowerSetElement thereGoesNow = structure;
-                        for (PowerSetElement targetStructure : KPrimAdditionalList) {
-                            if (whereTo.equals(targetStructure.getNFAStates())) {
+                        for (PowerSetElement targetStructure : kPrimAdditionalList) {
+                            if (whereTo.equals(targetStructure.getnfaStates())) {
                                 thereGoesNow = targetStructure;
                                 break;
                             }
                         }
                         //Gdy skończyliśmy przecinanie wszystkich etykiet przejścia
                         //tworzymy OutgoingTransition.
-                        resultDfa.addTransition(structure.getDFAState(),
-                                thereGoesNow.getDFAState(), t);
+                        resultDfa.addTransition(structure.getdfaState(),
+                                thereGoesNow.getdfaState(), t);
                     }
                 }
             }
