@@ -6,6 +6,7 @@ import java.util.List;
 class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecification
 {
     static class MyState implements State {
+        private static final int DEFAULT_ARRAY_LENGTH = 256;
         private MyState[] mCharacterTargetState;
         private int mCharacterTargetStateLength;
         private MyState mEpsilonTargetState;
@@ -16,7 +17,7 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
 
 
         public MyState(EffectiveDeterministicAutomaton owner) {
-            mCharacterTargetStateLength = 256;
+            mCharacterTargetStateLength = DEFAULT_ARRAY_LENGTH;
             mCharacterTargetState = new MyState[mCharacterTargetStateLength];
             for (int i = 0; i < mCharacterTargetStateLength; ++i) {
                 mCharacterTargetState[i] = null;
