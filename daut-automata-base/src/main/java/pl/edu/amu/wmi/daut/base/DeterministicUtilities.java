@@ -36,8 +36,7 @@ automaton, Set<String> language) {
 
                 for (int search = 0; search <= statesCounter; search++) {
 
-                    if (automaton.targetState(q[activeState],
-s.charAt(letter)).equals(q[search])) {
+                    if (automaton.targetState(q[activeState],s.charAt(letter)).equals(q[search])) {
                         activeState = search;
                         leave = true;
                         break;
