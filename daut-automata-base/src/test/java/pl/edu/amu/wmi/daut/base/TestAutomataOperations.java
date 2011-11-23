@@ -266,6 +266,7 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(automaton.accepts("aaabbbb"));
         assertFalse(automaton.accepts(""));
     }
+
     /**
 * Test metody intersection z AutomataOperations na automatach z petlami.
 */

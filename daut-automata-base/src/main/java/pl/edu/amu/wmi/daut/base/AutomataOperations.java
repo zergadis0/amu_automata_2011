@@ -269,4 +269,3 @@ public class AutomataOperations {
         return automaton;
     }
 }
-
