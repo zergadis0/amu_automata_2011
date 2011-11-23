@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.re;
 
+import pl.edu.amu.wmi.daut.base.AutomataOperations;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
 /**
@@ -11,10 +12,7 @@ public class KleeneStarOperator extends UnaryRegexpOperator {
     @Override
     public final AutomatonSpecification createAutomatonFromOneAutomaton
             (AutomatonSpecification subautomaton) {
-        //Odkomentować po opracowaniu poprawnej Gwiazdki Kleene'ego.
-//        return AutomataOperations.getKleeneStar(subautomaton);
-        //Usunąć po opracowaniu poprawnej Gwiazdki Kleene'ego.
-        return subautomaton;
+        return AutomataOperations.getKleeneStar(subautomaton);
     }
     
 }
