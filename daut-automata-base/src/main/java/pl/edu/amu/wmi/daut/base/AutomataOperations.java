@@ -238,7 +238,7 @@ public class AutomataOperations {
      * Zwraca automat akceptujący domknięcie Kleene'ego
      * języka akceptowanego przez dany automat.
      */
-    public AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
+    public static AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
         AutomatonSpecification kleeneautomaton = new NaiveAutomatonSpecification();
         State state1 = kleeneautomaton.addState();
         kleeneautomaton.markAsInitial(state1);
