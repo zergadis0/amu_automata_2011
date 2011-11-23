@@ -508,6 +508,6 @@ public class TestAutomatonSpecification extends TestCase {
      * Test metody getEpsilonClosure(State).
      */
     public final void testGetEpsilonClosure() {
-        //treść
+        //jakaś treść
     }
 }
