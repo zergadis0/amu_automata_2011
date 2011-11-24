@@ -103,12 +103,10 @@ public class TestDeterministicUtilities extends TestCase {
                 }
             }
             //if (language.isEmpty() && acceptedWords.isEmpty()) {
-            if (language.size()==number) {
+            if (language.size()==number)
                 return true;
-            }
-            else {
+            else
                 return false;
-            }
         }
         else {
             return false;
