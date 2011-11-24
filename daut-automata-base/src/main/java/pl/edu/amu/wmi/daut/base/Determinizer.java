@@ -19,13 +19,27 @@ public class Determinizer {
     /**
      * Porownanie dwoch TransitioLabel; aktualnie prymitywne, bo moze byc tylko CharTransitionLabel.
      * @return
-     * Jedna z TransitionLabel jesli przechodza po tym samym lub null.
+     * Jeden z argumentow jesli przechodza po tym samym lub EmptyTransitionLabel.
      */
     public TransitionLabel equalTrLabel(TransitionLabel trA, TransitionLabel trB) {
         if (trA != trB) {
             return trA.intersect(trB);
         }
         return trA;
+    }
+
+    private boolean addTrToSet(TransitionLabel thisLabel, Set<TransitionLabel> addHere) {
+        boolean exists = false;
+        for (TransitionLabel temp : addHere) {
+            if (!equalTrLabel(thisLabel, temp).isEmpty()) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            return addHere.add(thisLabel);
+        }
+        return false;
     }
 
     /**
@@ -48,17 +62,20 @@ public class Determinizer {
     public void determinize(AutomatonSpecification nfa,
             DeterministicAutomatonSpecification emptyDfa) {
         if (nfa.isDeterministic()) {
-            emptyDfa = (DeterministicAutomatonSpecification) nfa.clone();
+            State initialState = emptyDfa.addState();
+            emptyDfa.markAsInitial(initialState);
+            emptyDfa.insert(initialState, nfa);
         } else {
 
             Queue<StateSet> queueOfNewSets = new LinkedList<StateSet>();
             StateSet initialSet = new StateSet(nfa.getInitialState());
+            Set<TransitionLabel> alphabetSet = new HashSet<TransitionLabel>();
+
             initialSet.setThatState(emptyDfa.addState());
             emptyDfa.markAsInitial(initialSet.getThatState());
             if (nfa.isFinal(nfa.getInitialState())) {
                 emptyDfa.markAsFinal(initialSet.getThatState());
             }
-
             listOfSets.add(initialSet);
             queueOfNewSets.offer(initialSet);
 
@@ -70,16 +87,19 @@ public class Determinizer {
 
                 for (State tmpSt : currentStSet.getStateSet()) {
                     for (OutgoingTransition tmpOuTra : nfa.allOutgoingTransitions(tmpSt)) {
-                        setsTrLabels.add(tmpOuTra.getTransitionLabel());
+                        if (addTrToSet(tmpOuTra.getTransitionLabel(), setsTrLabels)) {
+                            addTrToSet(tmpOuTra.getTransitionLabel(), alphabetSet);
+                        }
                     }
                 }
 
-                StateSet newStSet = new StateSet();
+                int i = 1;
                 for (TransitionLabel currentTrLabel : setsTrLabels) {
+                    StateSet newStSet = new StateSet();
                     for (State tmpState : currentStSet.getStateSet()) {
                         for (OutgoingTransition tmpOuTr : nfa.allOutgoingTransitions(tmpState)) {
-                            if (equalTrLabel(currentTrLabel, tmpOuTr.getTransitionLabel())
-                                    != null) {
+                            if (!equalTrLabel(currentTrLabel,
+                                    tmpOuTr.getTransitionLabel()).isEmpty()) {
                                 newStSet.add(tmpOuTr.getTargetState());
                             }
                         }
@@ -116,6 +136,7 @@ public class Determinizer {
 
         public State getThatState() {
             return thatState;
+
         }
 
         public void setThatState(State s) {
