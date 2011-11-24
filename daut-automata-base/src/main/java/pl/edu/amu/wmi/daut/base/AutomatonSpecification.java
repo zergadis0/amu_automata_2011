@@ -13,7 +13,7 @@ import java.util.HashMap;
  * odpowiadających na pytanie, czy automat akceptuje napis, czy nie),
  * tylko "zawartość" automatu.
  */
-abstract class AutomatonSpecification implements Cloneable  {
+public abstract class AutomatonSpecification implements Cloneable  {
 
     // metody "budujące" automat
     /**
@@ -326,10 +326,16 @@ abstract class AutomatonSpecification implements Cloneable  {
         return tmp.getDotGraph();
     }
 
+    /**
+     * Zwraca liczbę stanów.
+     */
     public int countStates() {
         return allStates().size();
     }
 
+    /**
+     * Zwraca liczbę przejść.
+     */
     public int countTransitions() {
         int sum = 0;
         for (State state : allStates()) {
@@ -376,6 +382,10 @@ abstract class AutomatonSpecification implements Cloneable  {
         this.markAsFinal(emptyState);
     }
 
+    /**
+     * Sprawdza, czy dla każdego stanu i dla każdego znaku z alfabetu
+     * istnieje przejście.
+     */
     public boolean isFull(String alphabet) {
         int index;
         if (allStates().isEmpty())
@@ -399,6 +409,9 @@ abstract class AutomatonSpecification implements Cloneable  {
         return true;
     }
 
+    /**
+     * Dopełnia automat tak, aby isFull zwracało prawdę.
+     */
     public void makeFull(String alphabet) {
         State trash = addState();
         int indeks;
@@ -424,6 +437,9 @@ abstract class AutomatonSpecification implements Cloneable  {
         }
     }
 
+    /**
+     * Sprawdza, czy od stanu state można dojść do stanu końcowego.
+     */
     public boolean prefixChecker(State state) {
 
         if (isFinal(state)) {
@@ -505,7 +521,9 @@ abstract class AutomatonSpecification implements Cloneable  {
         return false;
     }
 
-    //true-istnieją stany zbędne
+    /**
+     * Sprawdza, czy w automacie istnieją zbędne stany.
+     */
     public boolean uselessStates() {
         boolean flag1 = true;
         boolean flag2 = false;
@@ -549,6 +567,9 @@ abstract class AutomatonSpecification implements Cloneable  {
         return false;
     }
 
+    /**
+     * Tworzy automat akceptujący napisy nad alfabetem.
+     */
     public void makeAllStringsAutomaton(String alphabet) {
         State state = addState();
         markAsInitial(state);
@@ -557,6 +578,9 @@ abstract class AutomatonSpecification implements Cloneable  {
             addLoop(state, new CharTransitionLabel(alphabet.charAt(i)));
     }
 
+    /**
+     * Tworzy automat akceptujący wszystkie niepuste napisy nad alfabetem.
+     */
     public void makeAllNonEmptyStringsAutomaton(String alphabet) {
         State s0 = addState();
         State s1 = addState();
@@ -568,6 +592,9 @@ abstract class AutomatonSpecification implements Cloneable  {
         }
     }
 
+    /**
+     * Sprawdza, czy można przedłużyć word do słowa akceptowanego.
+     */
     public boolean checkPrefix(String word) {
 
         List<State> finalStates = new ArrayList<State>();
@@ -628,13 +655,20 @@ abstract class AutomatonSpecification implements Cloneable  {
         return false;
     }
 
+    /**
+     * Klonowanie automatu.
+     */
     @Override
     public AutomatonSpecification clone() {
         AutomatonSpecification mini = new NaiveAutomatonSpecification();
-        State q5 = mini.addState();
-        mini.insert(q5, this);
+        State q = mini.addState();
+        mini.insert(q, this);
         return mini;
     }
+
+    /**
+     * Tworzy automat z jednym przejściem.
+     */
     public void makeOneLoopAutomaton(char c) {
         State q0 = addState();
         addLoop(q0, new CharTransitionLabel(c));
@@ -661,7 +695,7 @@ abstract class AutomatonSpecification implements Cloneable  {
         boolean result = false;
 
         if (isFinal(state))
-            return checkForLoop(state, new ArrayList<State>());
+            result = result || checkForLoop(state, new ArrayList<State>());
 
         if (allOutgoingTransitions(state).size() == 0)
             return false;
@@ -669,13 +703,17 @@ abstract class AutomatonSpecification implements Cloneable  {
         for (State his : history)
             if (his == state)
                 return false;
+
         history.add(state);
 
         for (OutgoingTransition child : allOutgoingTransitions(state)) {
-            result = result || findFinals(child.getTargetState(), history);
+            List<State> newHistory = new ArrayList<State>();
+            for (State s : history)
+                newHistory.add(s);
+            result = result || findFinals(child.getTargetState(), newHistory);
             if (result)
                 break;
-            }
+        }
         return result;
     }
 
@@ -686,10 +724,14 @@ abstract class AutomatonSpecification implements Cloneable  {
 
         if (allOutgoingTransitions(state).size() == 0)
             return false;
+
         history.add(state);
         boolean result = false;
         for (OutgoingTransition child : allOutgoingTransitions(state)) {
-            result = result || checkForLoop(child.getTargetState(), history);
+            List<State> newHistory = new ArrayList<State>();
+            for (State s : history)
+                newHistory.add(s);
+            result = result || checkForLoop(child.getTargetState(), newHistory);
             if (result)
                 break;
         }
@@ -713,6 +755,32 @@ abstract class AutomatonSpecification implements Cloneable  {
             return min;
         } else
             throw new RuntimeException("error");
+    }
+    /**
+     *Metoda zwraca długość najdłuższego słowa akceptowanego.
+     */
+    public int maxWordLength() {
+        AllAcceptedWords words = new AllAcceptedWords(this);
+        String word;
+        int tmp;
+        final int infinitereturncode = -2;
+        final int emptyreturncode = -1;
+        int max = 0;
+        if (isInfinite()) {
+            return infinitereturncode;
+        }
+        if (words.hasNext()) {
+            do {
+                word = words.next();
+                tmp = word.length();
+                if (max < tmp) {
+                    max = tmp;
+                }
+            } while (words.hasNext());
+            return max;
+        } else {
+            return emptyreturncode;
+        }
     }
 };
 

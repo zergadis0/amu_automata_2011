@@ -13,33 +13,40 @@ public final class DeterministicUtilities {
      */
     public static void createAutomatonForFiniteLanguage(DeterministicAutomatonSpecification
 automaton, Set<String> language) {
-    int symbolsCounter = 0;
+    int symbolsCounter = 1;
     for (String s : language) {
         symbolsCounter += s.length();
     }
+
     State[] q;
     q = new State[symbolsCounter];
+    q[0] = automaton.addState();
     automaton.markAsInitial(q[0]);
     int statesCounter = 0;
+
     for (String s : language) {
-        int activeState = 0;
-        for ( ; activeState < s.length(); activeState++) {
-            boolean leave = false;
-            for (int search = 0; search <= statesCounter; search++) {
-                if (automaton.targetState(q[activeState], s.charAt(activeState)) != null) {
-                    activeState = search;
-                    leave = true;
-                    break;
-                }
+        if (s == "") {
+            automaton.markAsFinal(q[0]);
+        } else {
+            State activeState = q[0];
+            int letter = 0;
+
+            for ( ; letter < s.length(); letter++) {
+
+                    if (automaton.targetState(activeState, s.charAt(letter)) != null) {
+                        activeState = automaton.targetState(activeState, s.charAt(letter));
+
+                    } else {
+                    statesCounter++;
+                    q[statesCounter] = automaton.addState();
+                    automaton.addTransition(activeState, q[statesCounter],
+new CharTransitionLabel(s.charAt(letter)));
+                    activeState = q[statesCounter];
+                    }
+
             }
-            if (!leave) {
-                statesCounter++;
-                q[statesCounter] = automaton.addState();
-                automaton.addTransition(q[activeState], q[statesCounter],
-new CharTransitionLabel(s.charAt(activeState)));
-            }
+            automaton.markAsFinal(q[statesCounter]);
         }
-        automaton.markAsFinal(q[statesCounter]);
     }
     }
 
