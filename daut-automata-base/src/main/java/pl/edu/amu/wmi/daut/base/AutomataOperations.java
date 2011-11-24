@@ -327,6 +327,10 @@ public class AutomataOperations {
         public State getdfaState() {
             return dfaState;
         }
+
+        public static void resetNumber() {
+            numberOfPowerSetElements = 0;
+        }
     };
 
     /*
@@ -334,9 +338,11 @@ public class AutomataOperations {
      * przez oba automaty - niedeterministyczny i deterministyczny.
      */
     private static void putTransitionLabelInSet(HashSet<TransitionLabel> tSet,
-            TransitionLabel transitionLabel) throws StructureException {
-        if (!transitionLabel.isEmpty() || !(transitionLabel instanceof AnyTransitionLabel))
-            if (transitionLabel instanceof CharTransitionLabel) {
+            TransitionLabel transitionLabel) {
+        if (!transitionLabel.isEmpty())
+            if (transitionLabel instanceof AnyTransitionLabel) {
+                putTransitionLabelInSet(tSet, new ComplementCharClassTransitionLabel(""));
+            } else if (transitionLabel instanceof CharTransitionLabel) {
                 tSet.add(transitionLabel);
             } else if (transitionLabel instanceof CharSetTransitionLabel) {
                 for (char sign : ((CharSetTransitionLabel) transitionLabel).getCharSet()) {
@@ -385,8 +391,7 @@ public class AutomataOperations {
                 tSet.add(newOne);
                 if (oldOne != null)
                     tSet.remove(oldOne);
-            } else
-                throw new StructureException();
+            }
     }
 
     /**
@@ -421,7 +426,8 @@ public class AutomataOperations {
             //Uzupełnienie zbioru przejść, aby był zbiorem przejść automatu NFA. Oznaczenie: T.
             for (State s : kList) {
                 for (OutgoingTransition oT : nfa.allOutgoingTransitions(s)) {
-                    if (oT.getTransitionLabel() instanceof ComplementCharClassTransitionLabel) {
+                    if (oT.getTransitionLabel() instanceof ComplementCharClassTransitionLabel)
+                           || (oT.getTransitionLabel() instanceof AnyTransitionLabel)) {
                         putTransitionLabelInSet(tSet, oT.getTransitionLabel());
                     } else {
                         if (tSet.isEmpty()) {
@@ -441,7 +447,7 @@ public class AutomataOperations {
             }
 
             //Obliczenie liczby stanów automatu DFA. Oznaczenie: |K'|.
-            int nrOfdfaStates = (int) Math.pow((double) 2, (double) (nfa.countStates() + 2));
+            int nrOfdfaStates = (int) Math.pow((double) 2, (double) (nfa.countStates()));
 
             //Utworzenie stanów automatu DFA. Oznaczenie: K'.
             for (int i = 0; i < nrOfdfaStates; i++) {
@@ -526,6 +532,7 @@ public class AutomataOperations {
                     }
                 }
             }
+            PowerSetElement.resetNumber();
             //Gdy metoda będzie gotowa - odkomentować!
             //resultDfa.deleteUselessStates();
         } else {
