@@ -461,14 +461,21 @@ public class TestAutomataOperations extends TestCase {
         mySet.add('z');
         State qSecondEnd = nonDeterministicAutomat
                 .addTransition(qFirstArm, new CharSetTransitionLabel(mySet));
-        mySet.add('a');
-        mySet.add('f');
-        mySet.add('h');
-        nonDeterministicAutomat.addTransition(qBegin, qSecondEnd, new CharSetTransitionLabel(mySet));
-        mySet.remove('b');
-        mySet.remove('d');
-        mySet.remove('z');
-        nonDeterministicAutomat.addTransition(qSecondEnd, qFirstEnd, new CharSetTransitionLabel(mySet));
+        HashSet<Character> mySet2 = new HashSet<Character>();
+        mySet2.add('b');
+        mySet2.add('d');
+        mySet2.add('z');
+        mySet2.add('a');
+        mySet2.add('f');
+        mySet2.add('h');
+        nonDeterministicAutomat.addTransition(qBegin, qSecondEnd,
+                new CharSetTransitionLabel(mySet));
+        HashSet<Character> mySet3 = new HashSet<Character>();
+        mySet3.add('a');
+        mySet3.add('f');
+        mySet3.add('h');
+        nonDeterministicAutomat.addTransition(qSecondEnd, qFirstEnd,
+                new CharSetTransitionLabel(mySet));
         nonDeterministicAutomat.markAsInitial(qBegin);
         nonDeterministicAutomat.markAsFinal(qFirstEnd);
         nonDeterministicAutomat.markAsFinal(qSecondEnd);
