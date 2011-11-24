@@ -23,11 +23,12 @@ public class TestDeterministicUtilities extends TestCase {
     */
     /*public final void test1() {
         Set<String> language1 = new HashSet<String>();
-        DeterministicAutomatonSpecification automaton1 = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton1 =
+        new NaiveDeterministicAutomatonSpecification();
         DeterministicUtilities.createAutomatonForFiniteLanguage(automaton1,  language1);
         Generator words1 = new Generator();
-        List<String> Accepted1 = words1.wordsFromAutomatonWithoutCycles(automaton1, "abc");
-        assertTrue(compare(language1, Accepted1));
+        List<String> accepted1 = words1.wordsFromAutomatonWithoutCycles(automaton1, "abc");
+        assertTrue(compare(language1, accepted1));
     }
 
     /*
@@ -37,11 +38,12 @@ public class TestDeterministicUtilities extends TestCase {
 
         Set<String> language2 = new HashSet<String>();
         language2.add("");
-        DeterministicAutomatonSpecification automaton2 = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton2 =
+        new NaiveDeterministicAutomatonSpecification();
         DeterministicUtilities.createAutomatonForFiniteLanguage(automaton2,  language2);
         Generator words2 = new Generator();
-        List<String> Accepted2 = words2.wordsFromAutomatonWithoutCycles(automaton2, "abc");
-        assertTrue(compare(language2, Accepted2));
+        List<String> accepted2 = words2.wordsFromAutomatonWithoutCycles(automaton2, "abc");
+        assertTrue(compare(language2, accepted2));
     }
 
     /*
@@ -58,11 +60,12 @@ public class TestDeterministicUtilities extends TestCase {
         language3.add("b");
         language3.add("bok");
         language3.add("bokot");
-        DeterministicAutomatonSpecification automaton3 = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton3 =
+        new NaiveDeterministicAutomatonSpecification();
         DeterministicUtilities.createAutomatonForFiniteLanguage(automaton3,  language3);
         Generator words3 = new Generator();
-        List<String> Accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "kotyjhb");
-        assertTrue(compare(language3, Accepted3));
+        List<String> accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "kotyjhb");
+        assertTrue(compare(language3, accepted3));
     }
 
     /*
@@ -78,24 +81,25 @@ public class TestDeterministicUtilities extends TestCase {
         language4.add("kotokokoojhooo");
         language4.add("bok");
         language4.add("bokot");
-        DeterministicAutomatonSpecification automaton4 = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification automaton4 =
+        new NaiveDeterministicAutomatonSpecification();
         DeterministicUtilities.createAutomatonForFiniteLanguage(automaton4,  language4);
         Generator words4 = new Generator();
-        List<String> Accepted4 = words4.wordsFromAutomatonWithoutCycles(automaton4, "kotyjhb");
-        assertTrue(compare(language4, Accepted4));
+        List<String> accepted4 = words4.wordsFromAutomatonWithoutCycles(automaton4, "kotyjhb");
+        assertTrue(compare(language4, accepted4));
     }
     
     /*
      * Metoda porównująca słowa akceptowane przez powstały automat ze słowami oczekiwanymi
      */
     private boolean compare(Set<String> language, List<String> acceptedWords) {
-        int number=0;
+        int number = acceptedWords.size();
 
-        if (language.size() == acceptedWords.size()) {
-            for(String i : language) {
-                for(String j : acceptedWords) {
+        if (language.size() == number) {
+            for (String i : language) {
+                for (String j : acceptedWords) {
                     if (i.equals(j)) {
-                        number++;
+                        number--;
                         //language.remove(i);
                         //acceptedWords.remove(j);
                         break;
@@ -103,13 +107,12 @@ public class TestDeterministicUtilities extends TestCase {
                 }
             }
             //if (language.isEmpty() && acceptedWords.isEmpty()) {
-            if (language.size()==number)
+            if (number == 0)
                 return true;
             else
                 return false;
         }
-        else {
+        else
             return false;
-        }
     }
 }
