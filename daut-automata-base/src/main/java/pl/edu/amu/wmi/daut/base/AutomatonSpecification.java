@@ -432,8 +432,7 @@ abstract class AutomatonSpecification implements Cloneable  {
                             trash = addState();
                         addTransition(state, trash, new CharTransitionLabel(
                                 alphabet.charAt(i)));
-                    }
-                    else
+                    } else
                         indeks++;
                 }
             }
