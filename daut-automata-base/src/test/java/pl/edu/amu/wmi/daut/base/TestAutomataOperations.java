@@ -451,19 +451,24 @@ public class TestAutomataOperations extends TestCase {
                 = new NaiveDeterministicAutomatonSpecification();
 
         State qBegin = nonDeterministicAutomat.addState();
-        HashSet<Character> mySet = new HashSet<Character>();
-        mySet.add('a');
-        mySet.add('b');
-        mySet.add('d');
-        mySet.add('f');
-        mySet.add('h');
-        mySet.add('z');
         State qFirstArm = nonDeterministicAutomat
                 .addTransition(qBegin, new CharTransitionLabel('a'));
         State qFirstEnd = nonDeterministicAutomat
                 .addTransition(qFirstArm, new AnyTransitionLabel());
+        HashSet<Character> mySet = new HashSet<Character>();
+        mySet.add('b');
+        mySet.add('d');
+        mySet.add('z');
         State qSecondEnd = nonDeterministicAutomat
-                .addTransition(qBegin, new CharSetTransitionLabel(mySet));
+                .addTransition(qFirstArm, new CharSetTransitionLabel(mySet));
+        mySet.add('a');
+        mySet.add('f');
+        mySet.add('h');
+        nonDeterministicAutomat.addTransition(qFirstArm, qFirstEnd, new CharSetTransitionLabel(mySet));
+        mySet.remove('b');
+        mySet.remove('d');
+        mySet.remove('z');
+        nonDeterministicAutomat.addTransition(qSecondEnd, qFirstEnd, new CharSetTransitionLabel(mySet));
         nonDeterministicAutomat.markAsInitial(qBegin);
         nonDeterministicAutomat.markAsFinal(qFirstEnd);
         nonDeterministicAutomat.markAsFinal(qSecondEnd);
@@ -483,6 +488,8 @@ public class TestAutomataOperations extends TestCase {
         assertTrue(zdeterminizowany.accepts("z"));
         assertTrue(zdeterminizowany.accepts("az"));
         assertTrue(zdeterminizowany.accepts("ak"));
+        assertTrue(zdeterminizowany.accepts("bf"));
+        assertTrue(zdeterminizowany.accepts("zh"));
         assertFalse(zdeterminizowany.accepts("g"));
         assertFalse(zdeterminizowany.accepts("A"));
         assertFalse(zdeterminizowany.accepts("fz"));
