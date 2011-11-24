@@ -68,9 +68,8 @@ public class Determinizer {
         } else {
 
             Queue<StateSet> queueOfNewSets = new LinkedList<StateSet>();
-            StateSet initialSet = new StateSet(nfa.getInitialState());
-            Set<TransitionLabel> alphabetSet = new HashSet<TransitionLabel>();
 
+            StateSet initialSet = new StateSet(nfa.getInitialState());
             initialSet.setThatState(emptyDfa.addState());
             emptyDfa.markAsInitial(initialSet.getThatState());
             if (nfa.isFinal(nfa.getInitialState())) {
@@ -87,13 +86,10 @@ public class Determinizer {
 
                 for (State tmpSt : currentStSet.getStateSet()) {
                     for (OutgoingTransition tmpOuTra : nfa.allOutgoingTransitions(tmpSt)) {
-                        if (addTrToSet(tmpOuTra.getTransitionLabel(), setsTrLabels)) {
-                            addTrToSet(tmpOuTra.getTransitionLabel(), alphabetSet);
-                        }
+                        addTrToSet(tmpOuTra.getTransitionLabel(), setsTrLabels);
                     }
                 }
 
-                int i = 1;
                 for (TransitionLabel currentTrLabel : setsTrLabels) {
                     StateSet newStSet = new StateSet();
                     for (State tmpState : currentStSet.getStateSet()) {
