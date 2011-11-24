@@ -461,7 +461,7 @@ public class TestAutomataOperations extends TestCase {
         State qFirstArm = nonDeterministicAutomat
                 .addTransition(qBegin, new CharTransitionLabel('a'));
         State qFirstEnd = nonDeterministicAutomat
-                .addTransition(qSecondArm, new AnyTransitionLabel());
+                .addTransition(qFirstArm, new AnyTransitionLabel());
         State qSecondEnd = nonDeterministicAutomat
                 .addTransition(qBegin, new CharSetTransitionLabel(mySet));
         nonDeterministicAutomat.markAsInitial(qBegin);
