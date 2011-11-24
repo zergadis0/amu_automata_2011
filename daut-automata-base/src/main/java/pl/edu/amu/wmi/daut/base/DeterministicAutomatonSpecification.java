@@ -100,9 +100,6 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         for (int i = 0; i < size; i++) {
             if (i + 1 < size) {
                 for (int a = (i + 1); a < size; a++) {
-                    if (returnAutomaton.allStates().get(i) == returnAutomaton.allStates().get(a)) {
-                        break;
-                    }
                     if (returnAutomaton.isFinal(returnAutomaton.allStates().get(i))
                             && !returnAutomaton.isFinal(returnAutomaton.allStates().get(a))) {
                         mark[i][a] = false;
