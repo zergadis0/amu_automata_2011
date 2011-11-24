@@ -469,13 +469,13 @@ public class TestAutomataOperations extends TestCase {
         mySet2.add('f');
         mySet2.add('h');
         nonDeterministicAutomat.addTransition(qBegin, qSecondEnd,
-                new CharSetTransitionLabel(mySet));
+                new CharSetTransitionLabel(mySet2));
         HashSet<Character> mySet3 = new HashSet<Character>();
         mySet3.add('a');
         mySet3.add('f');
         mySet3.add('h');
         nonDeterministicAutomat.addTransition(qSecondEnd, qFirstEnd,
-                new CharSetTransitionLabel(mySet));
+                new CharSetTransitionLabel(mySet3));
         nonDeterministicAutomat.markAsInitial(qBegin);
         nonDeterministicAutomat.markAsFinal(qFirstEnd);
         nonDeterministicAutomat.markAsFinal(qSecondEnd);
