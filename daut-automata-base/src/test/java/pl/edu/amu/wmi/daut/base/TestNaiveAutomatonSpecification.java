@@ -182,11 +182,13 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         spec.makeFull("abc");
         assertTrue(spec.isFull("abc"));
+        assertEquals(spec.countStates(), 1);
 
         State s = spec2.addState();
 
         spec2.makeFull("abc");
         assertTrue(spec2.isFull("abc"));
+        assertEquals(spec2.countStates(), 2);
 
         State s0 = spec3.addState();
         State s1 = spec3.addState();
@@ -196,6 +198,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         spec3.makeFull("abc");
         assertTrue(spec3.isFull("abc"));
+        assertEquals(spec3.countStates(), 4);
     }
 
     /**
