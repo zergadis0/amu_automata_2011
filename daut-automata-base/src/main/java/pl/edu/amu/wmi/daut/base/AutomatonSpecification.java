@@ -400,27 +400,48 @@ abstract class AutomatonSpecification implements Cloneable  {
     }
 
     public void makeFull(String alphabet) {
-        State trash = addState();
+
+        State trash = null;
         int indeks;
-        for (State state : allStates()) {
+
+        if (this.isEmpty()) {
+            trash = addState();
+            for (int i = 0; i < alphabet.length(); i++)
+                addLoop(trash, new CharTransitionLabel(
+                        alphabet.charAt(i)));
+            return;
+        }
+
+        for (State state : new ArrayList<State>(allStates())) {
             for (int i = 0; i < alphabet.length(); i++) {
                 indeks = 0;
-                if (allOutgoingTransitions(state).isEmpty())
+                if (allOutgoingTransitions(state).isEmpty()) {
+                    if (trash == null)
+                        trash = addState();
                     addTransition(state, trash, new CharTransitionLabel(
                             alphabet.charAt(i)));
+                }
                 for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
                     if (transition1.getTransitionLabel().canAcceptCharacter(
                             alphabet.charAt(i)))
                         break;
                     else if ((indeks == allOutgoingTransitions(state).size() - 1)
                             && !transition1.getTransitionLabel()
-                                    .canAcceptCharacter(alphabet.charAt(i)))
+                                    .canAcceptCharacter(alphabet.charAt(i))) {
+                        if (trash == null)
+                            trash = addState();
                         addTransition(state, trash, new CharTransitionLabel(
                                 alphabet.charAt(i)));
+                    }
                     else
                         indeks++;
                 }
             }
+        }
+        if (trash != null) {
+            for (int i = 0; i < alphabet.length(); i++)
+                addLoop(trash, new CharTransitionLabel(
+                        alphabet.charAt(i)));
         }
     }
 
