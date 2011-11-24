@@ -88,7 +88,7 @@ public class TestDeterministicUtilities extends TestCase {
         List<String> accepted4 = words4.wordsFromAutomatonWithoutCycles(automaton4, "kotyjhb");
         assertTrue(compare(language4, accepted4));
     }
-    
+
     /*
      * Metoda porównująca słowa akceptowane przez powstały automat ze słowami oczekiwanymi
      */
@@ -107,12 +107,8 @@ public class TestDeterministicUtilities extends TestCase {
                 }
             }
             //if (language.isEmpty() && acceptedWords.isEmpty()) {
-            if (number == 0)
-                return true;
-            else
-                return false;
+            return (number == 0);
         }
-        else
-            return false;
+        else return false;
     }
 }
