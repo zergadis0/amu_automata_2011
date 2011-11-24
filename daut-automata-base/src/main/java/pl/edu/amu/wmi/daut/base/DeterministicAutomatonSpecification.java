@@ -10,8 +10,10 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
      * ze stanu from przez znak c.
      */
     public abstract State targetState(State from, char c);
-
-    public List<State> findPreviousState(DeterministicAutomatonSpecification automaton,
+    /**
+     * Zwraca liste stanów z których przejścia wychodzą do podanego stanu.
+     */
+    public  List<State> findPreviousState(DeterministicAutomatonSpecification automaton,
             State nextState) {
 
         List<State> previousStates = new ArrayList<State>();
@@ -25,7 +27,9 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         }
         return previousStates;
     }
-
+    /**
+     * Pobiera dwa stany, zwraca przejścia między nimi.
+     */
     public List<OutgoingTransition> findPreviousStateTransitions(
             DeterministicAutomatonSpecification automaton,
             State previousState, State nextState) {
@@ -38,10 +42,11 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         }
         return needTransitions;
     }
-
+    /**
+     * Usuwa zbędne stany. To znaczy takie, do których nie można,
+     * dojść ze stanu początkowego.
+     */
     public void deleteUselessStates(DeterministicAutomatonSpecification automaton) {
-        /*Sprawdzamy czy automat nie posiada zbednych stanow, to jest takich
-                do ktorych nie mozna dojsc ze stanu poczatkowego, jesli tak usuwamy je*/
 
         State startState = automaton.getInitialState();
 
@@ -60,7 +65,7 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
             for (int i = 0; i < startStates.size(); i++) {
                 for (OutgoingTransition transition : automaton
                         .allOutgoingTransitions(startStates.get(i))) {
-                    if (!startStates.contains(transition.getTargetState())) {
+                    if (uselessStates.contains(transition.getTargetState())) {
                         startStates.add(transition.getTargetState());
                         uselessStates.remove(transition.getTargetState());
                     }
@@ -71,16 +76,20 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
 
         if (!uselessStates.isEmpty())
             automaton.allStates().removeAll(uselessStates);
-    }
 
+    }
+    /**
+     * Pobiera automat na wejsciu.
+     * Zwraca zminimalizowany automat
+     */
     public DeterministicAutomatonSpecification makeMinimal(
             DeterministicAutomatonSpecification automaton) {
-        DeterministicAutomatonSpecification returnAutomaton;
 
-        deleteUselessStates(automaton);
+        DeterministicAutomatonSpecification returnAutomaton = automaton;
 
-        //Szukamy stanow rownowaznych
-        int size = automaton.allStates().size() - 1;
+        deleteUselessStates(returnAutomaton);
+
+        int size = returnAutomaton.allStates().size() - 1;
         boolean[][] mark = new boolean[size][size];
 
         for (int i = 0; i < size; i++) {
@@ -91,16 +100,16 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         for (int i = 0; i < size; i++) {
             if (i + 1 < size) {
                 for (int a = (i + 1); a < size; a++) {
-                    if (automaton.allStates().get(i) == automaton.allStates().get(a)) {
+                    if (returnAutomaton.allStates().get(i) == returnAutomaton.allStates().get(a)) {
                         break;
                     }
-                    if (automaton.isFinal(automaton.allStates().get(i))
-                            && !automaton.isFinal(automaton.allStates().get(a))) {
+                    if (returnAutomaton.isFinal(returnAutomaton.allStates().get(i))
+                            && !returnAutomaton.isFinal(returnAutomaton.allStates().get(a))) {
                         mark[i][a] = false;
                         break;
                     }
-                    if (!automaton.isFinal(automaton.allStates().get(i))
-                            && automaton.isFinal(automaton.allStates().get(a))) {
+                    if (!returnAutomaton.isFinal(returnAutomaton.allStates().get(i))
+                            && returnAutomaton.isFinal(returnAutomaton.allStates().get(a))) {
                         mark[i][a] = false;
                         break;
                     }
@@ -111,16 +120,16 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         for (int i = 0; i < size; i++) {
             if (i + 1 < size) {
                 for (int a = (i + 1); a < size; a++) {
-                    for (OutgoingTransition itransition : automaton
-                            .allOutgoingTransitions(automaton.allStates().get(i))) {
-                        for (OutgoingTransition atransition : automaton
-                                .allOutgoingTransitions(automaton.allStates().get(a))) {
+                    for (OutgoingTransition itransition : returnAutomaton
+                            .allOutgoingTransitions(returnAutomaton.allStates().get(i))) {
+                        for (OutgoingTransition atransition : returnAutomaton
+                                .allOutgoingTransitions(returnAutomaton.allStates().get(a))) {
                             State state1 = itransition.getTargetState();
                             State state2 = atransition.getTargetState();
                             if (state1 == state2)
                                 break;
-                            if (!mark[automaton.allStates().indexOf(state1) - 1]
-                                    [automaton.allStates().indexOf(state2) - 1])
+                            if (!mark[returnAutomaton.allStates().indexOf(state1) - 1]
+                                    [returnAutomaton.allStates().indexOf(state2) - 1])
                                 mark[i][a] = false;
                         }
                     }
@@ -130,7 +139,6 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
 
         for (int i = 0; i < size; i++)
             mark[i][i] = false;
-        returnAutomaton = automaton;
         for (int i = 0; i < size; i++) {
             if (i + 1 < size) {
                 for (int a = (i + 1); a < size; a++) {
