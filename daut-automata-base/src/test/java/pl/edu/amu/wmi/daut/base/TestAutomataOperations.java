@@ -464,7 +464,7 @@ public class TestAutomataOperations extends TestCase {
         mySet.add('a');
         mySet.add('f');
         mySet.add('h');
-        nonDeterministicAutomat.addTransition(qFirstArm, qFirstEnd, new CharSetTransitionLabel(mySet));
+        nonDeterministicAutomat.addTransition(qBegin, qSecondEnd, new CharSetTransitionLabel(mySet));
         mySet.remove('b');
         mySet.remove('d');
         mySet.remove('z');
