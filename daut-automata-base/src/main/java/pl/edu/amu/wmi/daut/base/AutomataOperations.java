@@ -238,7 +238,7 @@ public class AutomataOperations {
      * Zwraca automat akceptujący domknięcie Kleene'ego
      * języka akceptowanego przez dany automat.
      */
-    public AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
+    public static AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
         AutomatonSpecification kleeneautomaton = new NaiveAutomatonSpecification();
         State state1 = kleeneautomaton.addState();
         kleeneautomaton.markAsInitial(state1);
@@ -327,7 +327,7 @@ public class AutomataOperations {
         public State getdfaState() {
             return dfaState;
         }
-
+        
         public static void resetNumber() {
             numberOfPowerSetElements = 0;
         }
@@ -338,7 +338,7 @@ public class AutomataOperations {
      * przez oba automaty - niedeterministyczny i deterministyczny.
      */
     private static void putTransitionLabelInSet(HashSet<TransitionLabel> tSet,
-            TransitionLabel transitionLabel) {
+            TransitionLabel transitionLabel) throws StructureException {
         if (!transitionLabel.isEmpty())
             if (transitionLabel instanceof AnyTransitionLabel) {
                 putTransitionLabelInSet(tSet, new ComplementCharClassTransitionLabel(""));
@@ -355,7 +355,7 @@ public class AutomataOperations {
                 }
             } else if (transitionLabel instanceof CharRangeTransitionLabel) {
                 for (char k = ((CharRangeTransitionLabel) transitionLabel)
-                    .getFirstChar(); k < ((CharRangeTransitionLabel) transitionLabel)
+                    .getFirstChar(); k <= ((CharRangeTransitionLabel) transitionLabel)
                     .getSecondChar(); k++) {
                         tSet.add(new CharTransitionLabel(k));
                 }
@@ -391,7 +391,8 @@ public class AutomataOperations {
                 tSet.add(newOne);
                 if (oldOne != null)
                     tSet.remove(oldOne);
-            }
+            } else
+                throw new StructureException();
     }
 
     /**
@@ -426,8 +427,8 @@ public class AutomataOperations {
             //Uzupełnienie zbioru przejść, aby był zbiorem przejść automatu NFA. Oznaczenie: T.
             for (State s : kList) {
                 for (OutgoingTransition oT : nfa.allOutgoingTransitions(s)) {
-                    if (oT.getTransitionLabel() instanceof ComplementCharClassTransitionLabel)
-                           || (oT.getTransitionLabel() instanceof AnyTransitionLabel)) {
+                    if ((oT.getTransitionLabel() instanceof ComplementCharClassTransitionLabel)
+                            || (oT.getTransitionLabel() instanceof AnyTransitionLabel)) {
                         putTransitionLabelInSet(tSet, oT.getTransitionLabel());
                     } else {
                         if (tSet.isEmpty()) {
@@ -435,7 +436,8 @@ public class AutomataOperations {
                         }
                         boolean isUnique = true;
                         for (TransitionLabel t : tSet) {
-                            if (t.intersect(oT.getTransitionLabel()).equals(t)) {
+                            if (oT.getTransitionLabel().intersect(t).equals(oT
+                                    .getTransitionLabel())) {
                                 isUnique = false;
                                 break;
                             }
