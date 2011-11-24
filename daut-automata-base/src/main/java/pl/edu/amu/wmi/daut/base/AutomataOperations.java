@@ -327,7 +327,7 @@ public class AutomataOperations {
         public State getdfaState() {
             return dfaState;
         }
-        
+
         public static void resetNumber() {
             numberOfPowerSetElements = 0;
         }
