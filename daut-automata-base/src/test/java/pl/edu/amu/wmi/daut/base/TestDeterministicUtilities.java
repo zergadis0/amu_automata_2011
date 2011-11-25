@@ -109,20 +109,26 @@ assertTrue(compare(language4, accepted4));
     private boolean compare(Set<String> language, List<String> acceptedWords) {
         int number = acceptedWords.size();
 
+        for (String j : acceptedWords) {
+            if (j.equals("")) {
+                acceptedWords.remove(j);
+                break;
+            }
+        }
+        
         if (language.size() == number) {
             for (String i : language) {
                 for (String j : acceptedWords) {
                     if (i.equals(j)) {
                         number--;
-                        language.remove(i);
-                        acceptedWords.remove(j);
+                        //language.remove(i);
+                        //acceptedWords.remove(j);
                         break;
                     }
                 }
             }
-        }//
-            if (language.isEmpty() && acceptedWords.isEmpty()) {//
-            return (number == 0);//
+            //if (language.isEmpty() && acceptedWords.isEmpty()) {
+            return (number == 0);
         }
         else return false;
     }
