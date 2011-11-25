@@ -50,7 +50,6 @@ public class TestDeterministicUtilities extends TestCase {
     * Test Przykładowy.
     */
     public final void test3() {
-
         Set<String> language3 = new HashSet<String>();
         language3.add("kot");
         //language3.add("koty");
