@@ -25,7 +25,7 @@ automaton, Set<String> language) {
     int statesCounter = 0;
 
     for (String s : language) {
-        if (s == "") {
+        if (s.equals("")) {
             automaton.markAsFinal(q[0]);
         } else {
             State activeState = q[0];
