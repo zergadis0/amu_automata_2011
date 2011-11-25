@@ -25,7 +25,8 @@ public class TestDeterministicUtilities extends TestCase {
 Set<String> language1 = new HashSet<String>();
 DeterministicAutomatonSpecification automaton1 =
 new NaiveDeterministicAutomatonSpecification();
-DeterministicUtilities.createAutomatonForFiniteLanguage(automaton1, language1);
+DeterministicUtilities detUtil = new DeterministicUtilities();
+detUtil.createAutomatonForFiniteLanguage(automaton1, language1);
 Generator words1 = new Generator();
 List<String> accepted1 = words1.wordsFromAutomatonWithoutCycles(automaton1, "abc");
 assertTrue(compare(language1, accepted1));
@@ -40,7 +41,8 @@ Set<String> language2 = new HashSet<String>();
 language2.add("");
 DeterministicAutomatonSpecification automaton2 =
 new NaiveDeterministicAutomatonSpecification();
-DeterministicUtilities.createAutomatonForFiniteLanguage(automaton2, language2);
+DeterministicUtilities detUtil = new DeterministicUtilities();
+detUtil.createAutomatonForFiniteLanguage(automaton2, language2);
 AutomatonByRecursion angle = new AutomatonByRecursion(automaton2);
 assertTrue(angle.accepts(""));
 assertFalse(angle.accepts("cokolwiek_niepustego"));
@@ -76,7 +78,8 @@ assertTrue(compare(language2, accepted2));*/
         language3.add("bokot");
         DeterministicAutomatonSpecification automaton3 =
         new NaiveDeterministicAutomatonSpecification();
-        DeterministicUtilities.createAutomatonForFiniteLanguage(automaton3, language3);
+        DeterministicUtilities detUtil = new DeterministicUtilities();
+        detUtil.createAutomatonForFiniteLanguage(automaton3, language3);
         Generator words3 = new Generator();
         List<String> accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "qwertyuiopasdfghjklzxcvbnm");
         
@@ -101,7 +104,8 @@ language4.add("bok");
 language4.add("bokot");
 DeterministicAutomatonSpecification automaton4 =
 new NaiveDeterministicAutomatonSpecification();
-DeterministicUtilities.createAutomatonForFiniteLanguage(automaton4, language4);
+DeterministicUtilities detUtil = new DeterministicUtilities();
+detUtil.createAutomatonForFiniteLanguage(automaton4, language4);
 Generator words4 = new Generator();
 List<String> accepted4 = words4.wordsFromAutomatonWithoutCycles(automaton4, "kotyjhb");
 assertTrue(compare(language4, accepted4));
