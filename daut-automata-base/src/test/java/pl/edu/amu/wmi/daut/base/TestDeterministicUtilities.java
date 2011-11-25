@@ -67,7 +67,7 @@ assertTrue(compare(language2, accepted2));
         new NaiveDeterministicAutomatonSpecification();
         DeterministicUtilities.createAutomatonForFiniteLanguage(automaton3, language3);
         Generator words3 = new Generator();
-        List<String> accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "kotyjhb");
+        List<String> accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "qwertyuiopasdfghjklzxcvbnm");
         assertTrue(compare(language3, accepted3));
     }
 
