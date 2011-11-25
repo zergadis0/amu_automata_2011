@@ -41,9 +41,13 @@ language2.add("");
 DeterministicAutomatonSpecification automaton2 =
 new NaiveDeterministicAutomatonSpecification();
 DeterministicUtilities.createAutomatonForFiniteLanguage(automaton2, language2);
+AutomatonByRecursion angle = new AutomatonByRecursion(automaton2);
+assertTrue(angle.accepts(""));
+assertFalse(angle.accepts("cokolwiek"));
+/*
 Generator words2 = new Generator();
 List<String> accepted2 = words2.wordsFromAutomatonWithoutCycles(automaton2, "abc");
-assertTrue(compare(language2, accepted2));
+assertTrue(compare(language2, accepted2));*/
 }
 
 /*
