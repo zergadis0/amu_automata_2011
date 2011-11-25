@@ -5,7 +5,7 @@ import java.util.Set;
 * Różne pomocnicze funkcje
 * związane z automatami deterministycznymi.
 */
-public final class DeterministicUtilities {
+public /*final*/ class DeterministicUtilities {
      /**
      * Tworzy automat deterministyczny, który akceptuje napisy ze zbioru `language`
      * i nie akceptuje żadnych innych napisów. Automat powstaje przez
