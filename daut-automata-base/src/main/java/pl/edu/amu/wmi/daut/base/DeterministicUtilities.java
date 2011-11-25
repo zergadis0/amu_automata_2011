@@ -45,7 +45,7 @@ new CharTransitionLabel(s.charAt(letter)));
                     }
 
             }
-            automaton.markAsFinal(q[statesCounter]);
+            automaton.markAsFinal(activeState);
         }
     }
     }
