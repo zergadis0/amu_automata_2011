@@ -7,46 +7,39 @@ import java.util.Set;
 */
 public final class DeterministicUtilities {
      /**
-     * Tworzy automat deterministyczny, który akceptuje napisy ze zbioru `language`
-     * i nie akceptuje żadnych innych napisów. Automat powstaje przez
-     * rozbudowanie pustego automatu deterministycznego przekazanego jako argument `automaton`.
-     */
+* Tworzy automat deterministyczny, który akceptuje napisy ze zbioru `language`
+* i nie akceptuje żadnych innych napisów. Automat powstaje przez
+* rozbudowanie pustego automatu deterministycznego przekazanego jako argument `automaton`.
+*/
     public static void createAutomatonForFiniteLanguage(DeterministicAutomatonSpecification
 automaton, Set<String> language) {
-    int symbolsCounter = 1;
+    int symbolsCounter = 0;
     for (String s : language) {
         symbolsCounter += s.length();
     }
-
     State[] q;
     q = new State[symbolsCounter];
-    q[0] = automaton.addState();
     automaton.markAsInitial(q[0]);
     int statesCounter = 0;
-
     for (String s : language) {
-        if (s == "") {
-            automaton.markAsFinal(q[0]);
-        } else {
-            State activeState = q[0];
-            int letter = 0;
-
-            for ( ; letter < s.length(); letter++) {
-
-                    if (automaton.targetState(activeState, s.charAt(letter)) != null) {
-                        activeState = automaton.targetState(activeState, s.charAt(letter));
-
-                    } else {
-                    statesCounter++;
-                    q[statesCounter] = automaton.addState();
-                    automaton.addTransition(activeState, q[statesCounter],
-new CharTransitionLabel(s.charAt(letter)));
-                    activeState = q[statesCounter];
-                    }
-
+        int activeState = 0;
+        for ( ; activeState < s.length(); activeState++) {
+            boolean leave = false;
+            for (int search = 0; search <= statesCounter; search++) {
+                if (automaton.targetState(q[activeState], s.charAt(activeState)) != null) {
+                    activeState = search;
+                    leave = true;
+                    break;
+                }
             }
-            automaton.markAsFinal(q[statesCounter]);
+            if (!leave) {
+                statesCounter++;
+                q[statesCounter] = automaton.addState();
+                automaton.addTransition(q[activeState], q[statesCounter],
+new CharTransitionLabel(s.charAt(activeState)));
+            }
         }
+        automaton.markAsFinal(q[statesCounter]);
     }
     }
 
