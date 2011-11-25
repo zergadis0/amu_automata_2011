@@ -80,6 +80,8 @@ assertTrue(compare(language2, accepted2));*/
         Generator words3 = new Generator();
         List<String> accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "qwertyuiopasdfghjklzxcvbnm");
         assertTrue(compare(language3, accepted3));
+        AutomatonByRecursion angle = new AutomatonByRecursion(automaton3);
+        assertTrue(angle.accepts(""));
     }
 
     /*
@@ -104,7 +106,7 @@ assertTrue(compare(language4, accepted4));
 }
 
 /*
-* Metoda porównująca słowa akceptowane przez powstały automat ze słowami oczekiwanymi
+* Metoda porównująca słowa akceptowane przez powstały automat ze słowami oczekiwanymi.
 */
     private boolean compare(Set<String> language, List<String> acceptedWords) {
         int number = acceptedWords.size();
