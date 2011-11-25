@@ -21,7 +21,7 @@ public class TestDeterministicUtilities extends TestCase {
     /*
 * Testuje automat dla języka pustego.
 */
-    /*public final void test1() {
+    public final void test1() {
 Set<String> language1 = new HashSet<String>();
 DeterministicAutomatonSpecification automaton1 =
 new NaiveDeterministicAutomatonSpecification();
@@ -55,7 +55,7 @@ assertTrue(compare(language2, accepted2));
         language3.add("kot");
         language3.add("kok");
         language3.add("kat");
-        language3.add("");
+       // language3.add("");
         language3.add("ko");
         language3.add("k");
         language3.add("tak");
