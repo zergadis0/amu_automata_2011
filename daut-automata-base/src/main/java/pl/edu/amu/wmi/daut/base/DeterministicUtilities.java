@@ -5,13 +5,14 @@ import java.util.Set;
 * Różne pomocnicze funkcje
 * związane z automatami deterministycznymi.
 */
-public /*final*/ class DeterministicUtilities {
+public class DeterministicUtilities {
+
      /**
      * Tworzy automat deterministyczny, który akceptuje napisy ze zbioru `language`
      * i nie akceptuje żadnych innych napisów. Automat powstaje przez
      * rozbudowanie pustego automatu deterministycznego przekazanego jako argument `automaton`.
      */
-    public /*static*/ void createAutomatonForFiniteLanguage(DeterministicAutomatonSpecification
+    public void createAutomatonForFiniteLanguage(DeterministicAutomatonSpecification
 automaton, Set<String> language) {
     int symbolsCounter = 1;
     for (String s : language) {
@@ -50,10 +51,4 @@ new CharTransitionLabel(s.charAt(letter)));
     }
     }
 
-/**
-* Pusty konstruktor klasy DeterministicUtilities
-* niebędący konstruktorem domyślnym.
-*/
- //   private DeterministicUtilities() {
- //   }
 }
