@@ -51,24 +51,25 @@ assertTrue(compare(language2, accepted2));
 */
     public final void test3() {
         Set<String> language3 = new HashSet<String>();
-      //  language3.add("ko");
+        language3.add("ko");
         language3.add("kot");
         language3.add("kok");
         language3.add("kat");
        // language3.add("");
         language3.add("ko");
-       // language3.add("k");
-        //language3.add("tak");
-       // language3.add("ak");
-        //language3.add("bokot");
-        //language3.add("boko");
-        /*language3.add("koty");
+        language3.add("k");
+        language3.add("tak");
+        language3.add("takmakptak");
+        language3.add("ak");
+        language3.add("bokot");
+        language3.add("boko");
+        language3.add("koty");
         language3.add("kok");
         language3.add("tyt");
         language3.add("kotokokoojhooo");
         language3.add("b");
         language3.add("bok");
-        language3.add("bokot");*/
+        language3.add("bokot");
         DeterministicAutomatonSpecification automaton3 =
         new NaiveDeterministicAutomatonSpecification();
         DeterministicUtilities.createAutomatonForFiniteLanguage(automaton3, language3);
