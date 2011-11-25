@@ -109,9 +109,9 @@ assertTrue(compare(language4, accepted4));
     private boolean compare(Set<String> language, List<String> acceptedWords) {
         int number = acceptedWords.size();
 
-        for (String j : acceptedWords) {
-            if (j.equals("")) {
-                acceptedWords.remove(j);
+        for (String i : language) {
+            if (i.equals("")) {
+                language.remove(i);
                 break;
             }
         }
