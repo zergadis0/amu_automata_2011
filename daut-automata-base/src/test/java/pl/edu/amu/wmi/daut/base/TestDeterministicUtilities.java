@@ -34,7 +34,7 @@ assertTrue(compare(language1, accepted1));
 /*
 * Testuje automat dla języka z tylko słowem pustym.
 */
-    /*public final void test2() {
+    public final void test2() {
 
 Set<String> language2 = new HashSet<String>();
 language2.add("");
