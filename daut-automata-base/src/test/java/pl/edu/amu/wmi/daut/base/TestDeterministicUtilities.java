@@ -43,7 +43,7 @@ new NaiveDeterministicAutomatonSpecification();
 DeterministicUtilities.createAutomatonForFiniteLanguage(automaton2, language2);
 AutomatonByRecursion angle = new AutomatonByRecursion(automaton2);
 assertTrue(angle.accepts(""));
-assertFalse(angle.accepts("cokolwiek"));
+assertFalse(angle.accepts("cokolwiek_niepustego"));
 /*
 Generator words2 = new Generator();
 List<String> accepted2 = words2.wordsFromAutomatonWithoutCycles(automaton2, "abc");
@@ -59,7 +59,7 @@ assertTrue(compare(language2, accepted2));*/
         language3.add("kot");
         language3.add("kok");
         language3.add("kat");
-        language3.add("");
+      //  language3.add("");
         language3.add("ko");
         language3.add("k");
         language3.add("tak");
@@ -79,15 +79,17 @@ assertTrue(compare(language2, accepted2));*/
         DeterministicUtilities.createAutomatonForFiniteLanguage(automaton3, language3);
         Generator words3 = new Generator();
         List<String> accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "qwertyuiopasdfghjklzxcvbnm");
+        
         assertTrue(compare(language3, accepted3));
-        AutomatonByRecursion angle = new AutomatonByRecursion(automaton3);
-        assertTrue(angle.accepts(""));
+     //   AutomatonByRecursion angle = new AutomatonByRecursion(automaton3);
+     //   assertTrue(angle.accepts(""));
+    //    assertFalse(angle.accepts("cokolwiek_niepustego_i_nie_z_language"));
     }
 
     /*
 * Test przykładowy ze słowem pustym.
 */
-    /*public final void test4() {
+    public final void test4() {
 
 Set<String> language4 = new HashSet<String>();
 language4.add("");
@@ -103,6 +105,10 @@ DeterministicUtilities.createAutomatonForFiniteLanguage(automaton4, language4);
 Generator words4 = new Generator();
 List<String> accepted4 = words4.wordsFromAutomatonWithoutCycles(automaton4, "kotyjhb");
 assertTrue(compare(language4, accepted4));
+
+        AutomatonByRecursion angle = new AutomatonByRecursion(automaton4);
+        assertTrue(angle.accepts(""));
+        assertFalse(angle.accepts("cokolwiek_niepustego_i_nie_z_language"));
 }
 
 /*
