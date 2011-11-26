@@ -5,32 +5,32 @@ import java.util.List;
 import java.util.HashMap;
 
 /**
-* Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
-* (jakie są stany, przejścia, który stan jest stanem początkowym,
-* które stany są stanami akceptującymi).
-*
-* Uwaga: klasa ta nie reprezentuje działającego automatu (nie ma tu funkcji
-* odpowiadających na pytanie, czy automat akceptuje napis, czy nie),
-* tylko "zawartość" automatu.
-*/
-public abstract class AutomatonSpecification implements Cloneable {
+ * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
+ * (jakie są stany, przejścia, który stan jest stanem początkowym,
+ * które stany są stanami akceptującymi).
+ *
+ * Uwaga: klasa ta nie reprezentuje działającego automatu (nie ma tu funkcji
+ * odpowiadających na pytanie, czy automat akceptuje napis, czy nie),
+ * tylko "zawartość" automatu.
+ */
+public abstract class AutomatonSpecification implements Cloneable  {
 
     // metody "budujące" automat
     /**
-* Dodaje nowy stan do automatu.
-*
-* Zwraca dodany stan.
-*/
+     * Dodaje nowy stan do automatu.
+     *
+     * Zwraca dodany stan.
+     */
     public abstract State addState();
 
     /**
-* Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą transitionLabel.
-*/
+     * Dodaje przejście od stanu 'from' do stanu 'to' etykietowane etykietą transitionLabel.
+     */
     public abstract void addTransition(State from, State to, TransitionLabel transitionLabel);
     /**
-* Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to' etykietowane etykietą
-* transitionLabel, a następnie zwraca utworzony stan.
-*/
+     * Dodaje przejście od stanu 'from' do nowo utworzonego stanu 'to' etykietowane etykietą
+     * transitionLabel, a następnie zwraca utworzony stan.
+     */
     public State addTransition(State from, TransitionLabel transitionLabel) {
 
         State to = addState();
@@ -40,10 +40,10 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Dla zadanego słowa dodaje stany i przejścia.
-*
-* Zwraca stan końcowy.
-*/
+     * Dla zadanego słowa dodaje stany i przejścia.
+     *
+     * Zwraca stan końcowy.
+     */
     public State addTransitionSequence(State from, String text) {
         State prev = from;
         State next = prev;
@@ -57,11 +57,11 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Tworzy "gałąź" w automacie.
-* Metoda dodaje ciąg przejść od stanu początkowego automatu,
-* dla podanej listy etykiet przejść.
-* Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
-*/
+     * Tworzy "gałąź" w automacie.
+     * Metoda dodaje ciąg przejść od stanu początkowego automatu,
+     * dla podanej listy etykiet przejść.
+     * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
+     */
     public State addBranch(State from, List<TransitionLabel> oTransition) {
         State prev = from;
         State next = prev;
@@ -74,13 +74,13 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Oznacza stan jako początkowy.
-*/
+     * Oznacza stan jako początkowy.
+     */
     public abstract void markAsInitial(State state);
 
     /**
-* Metoda budująca 2-stanowy automat z jednym przejściem.
-*/
+     * Metoda budująca 2-stanowy automat z jednym przejściem.
+     */
     public AutomatonSpecification makeOneTransitionAutomaton(char c) {
         AutomatonSpecification spec1 = new NaiveAutomatonSpecification();
         State q0 = spec1.addState();
@@ -92,40 +92,40 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Oznacza stan jako końcowy (akceptujący).
-*/
+     * Oznacza stan jako końcowy (akceptujący).
+     */
     public abstract void markAsFinal(State state);
 
     // metody zwracające informacje o automacie
     /**
-* Zwraca listę wszystkich stanów.
-*
-* Stany niekoniecznie muszą być zwrócone w identycznej
-* kolejności jak były dodane.
-*/
+     * Zwraca listę wszystkich stanów.
+     *
+     * Stany niekoniecznie muszą być zwrócone w identycznej
+     * kolejności jak były dodane.
+     */
     public abstract List<State> allStates();
 
     /**
-* Zwraca listę wszystkich przejść wychodzących ze stanu 'from'.
-*
-* Przejścia niekoniecznie muszą być zwrócone w identycznej
-* kolejności jak były dodane.
-*/
+     * Zwraca listę wszystkich przejść wychodzących ze stanu 'from'.
+     *
+     * Przejścia niekoniecznie muszą być zwrócone w identycznej
+     * kolejności jak były dodane.
+     */
     public abstract List<OutgoingTransition> allOutgoingTransitions(State from);
 
     /**
-* Zwraca stan początkowy.
-*/
+     * Zwraca stan początkowy.
+     */
     public abstract State getInitialState();
 
     /**
-* Zwraca true wgdy stan jest stanem końcowym.
-*/
+     * Zwraca true wgdy stan jest stanem końcowym.
+     */
     public abstract boolean isFinal(State state);
 
     /**
-* Metoda sprawdza czy automat jest pusty.
-*/
+     * Metoda sprawdza czy automat jest pusty.
+     */
     public boolean isEmpty() {
 
         List<State> states = allStates();
@@ -135,9 +135,9 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
-* @return String
-*/
+     * Zwraca zawartość automatu w czytelnej dla człowieka postaci String'a.
+     * @return String
+     */
     @Override
     public String toString() {
         StringBuffer retString = new StringBuffer("Automaton:\n-States: ");
@@ -153,7 +153,7 @@ public abstract class AutomatonSpecification implements Cloneable {
         for (int i = 0; i < listOfStates.size(); i++) {
             List<OutgoingTransition> listOfTrans = allOutgoingTransitions(listOfStates.get(i));
             for (int j = 0; j < listOfTrans.size(); j++) {
-                retString.append(" q" + i + " -" + listOfTrans.get(j).getTransitionLabel()
+                retString.append("  q" + i + " -" + listOfTrans.get(j).getTransitionLabel()
                         + "-> q");
                 State target = listOfTrans.get(j).getTargetState();
                 for (int m = 0; m < listOfStates.size(); m++) {
@@ -188,12 +188,12 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
    /**
-* Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
-* przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
-* sytuacji, gdy epsilon-przejście jest jedynym sposobem wyjścia ze stanu)
-* oraz czy przejścia z danego stanu do innych stanów odbywają się po
-* różnych znakach).
-*/
+     * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
+     * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
+     * sytuacji, gdy epsilon-przejście jest jedynym sposobem wyjścia ze stanu)
+     * oraz czy przejścia z danego stanu do innych stanów odbywają się po
+     * różnych znakach).
+     */
     public boolean isDeterministic() {
         List<State> states = allStates();
 
@@ -224,23 +224,23 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Dodaje przejście od stanu state z powrotem do tego samego stanu
-* po etykiecie transitionLabel.
-*/
+     * Dodaje przejście od stanu state z powrotem do tego samego stanu
+     * po etykiecie transitionLabel.
+     */
     public void addLoop(State state, TransitionLabel transitionLabel) {
 
         addTransition(state, state, transitionLabel);
     }
 
     /**
-* Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT służący do
-* przedstawienia automatu w formie graficznej, (w ubuntu pakiet
-* graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
-* -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
-* png. Więcej w: man dot.
-*
-* @return Kod źródłowy schematu w języku DOT.
-*/
+     * Zwraca obiekt typu String, który zawiera gotowy kod w języku DOT służący do
+     * przedstawienia automatu w formie graficznej, (w ubuntu pakiet
+     * graphviz). Z konsoli wywołuje się przykładowo w następujący sposób: dot
+     * -Tpng -O plik_zkodem.dot który tworzy plik-schemat zapisany w formacie
+     * png. Więcej w: man dot.
+     *
+     * @return Kod źródłowy schematu w języku DOT.
+     */
     public String getDotGraph() {
 
         class DotGraph {
@@ -255,14 +255,14 @@ public abstract class AutomatonSpecification implements Cloneable {
             private void getDotGraphIntro() {
                 dotCode.append(
                         "digraph finite_state_machine {\n"
-                         + " rankdir=LR;\n"
-                         + " size=\"8,5\"\n"
-                         + " node [style=filled fillcolor=\"#00ff005f\" shape = ");
+                         + "    rankdir=LR;\n"
+                         + "    size=\"8,5\"\n"
+                         + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
                 if (isFinal(getInitialState())) dotCode.append("double");
                 dotCode.append("circle];\n"
-                               + " \"State #" + states.indexOf(getInitialState()) + "\";\n"
-                               + " node [shape = doublecircle style=filled "
-                               + "fillcolor=\"#00000000\"];\n ");
+                               + "    \"State #" + states.indexOf(getInitialState()) + "\";\n"
+                               + "    node [shape = doublecircle style=filled "
+                               + "fillcolor=\"#00000000\"];\n    ");
             }
 
             private void getDotGraphFinalStates() {
@@ -275,7 +275,7 @@ public abstract class AutomatonSpecification implements Cloneable {
 
             private void getEdgeLabel(State state, int target, String label) {
                 if (label.length() != 0) {
-                    dotCode.append(" \"State #");
+                    dotCode.append("    \"State #");
                     dotCode.append(states.indexOf(state) + "\"");
                     dotCode.append(" -> ");
                     dotCode.append("\"State #");
@@ -312,10 +312,10 @@ public abstract class AutomatonSpecification implements Cloneable {
                 }
             }
 
-            public String getDotGraph() {
+            public String  getDotGraph() {
                 getDotGraphIntro();
                 getDotGraphFinalStates();
-                dotCode.append(";\n" + " node [shape = circle];\n" + "");
+                dotCode.append(";\n" + "    node [shape = circle];\n" + "");
                 getDotGraphEdges();
                 dotCode.append("\n}\n");
                 return dotCode.toString();
@@ -327,15 +327,15 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Zwraca liczbę stanów.
-*/
+     * Zwraca liczbę stanów.
+     */
     public int countStates() {
         return allStates().size();
     }
 
     /**
-* Zwraca liczbę przejść.
-*/
+     * Zwraca liczbę przejść.
+     */
     public int countTransitions() {
         int sum = 0;
         for (State state : allStates()) {
@@ -345,10 +345,10 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Wstawia począwszy od stanu state kopię automatu automaton.
-* Stan state będzie utożsamiony ze stanem
-* początkowym automatu automaton.
-*/
+     * Wstawia począwszy od stanu state kopię automatu automaton.
+     * Stan state będzie utożsamiony ze stanem
+     * początkowym automatu automaton.
+     */
     void insert(State state, AutomatonSpecification automaton) {
         List<State> loadedStates = automaton.allStates();
         HashMap<State, State> connectedStates = new HashMap<State, State>();
@@ -373,9 +373,9 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie napis
-* pusty.
-*/
+     * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie napis
+     * pusty.
+     */
     public void makeEmptyStringAutomaton() {
         State emptyState = this.addState();
         this.markAsInitial(emptyState);
@@ -383,9 +383,9 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Sprawdza, czy dla każdego stanu i dla każdego znaku z alfabetu
-* istnieje przejście.
-*/
+     * Sprawdza, czy dla każdego stanu i dla każdego znaku z alfabetu
+     * istnieje przejście.
+     */
     public boolean isFull(String alphabet) {
         int index;
         if (allStates().isEmpty())
@@ -410,8 +410,8 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Dopełnia automat tak, aby isFull zwracało prawdę.
-*/
+     * Dopełnia automat tak, aby isFull zwracało prawdę.
+     */
     public void makeFull(String alphabet) {
         State trash = addState();
         int indeks;
@@ -438,8 +438,8 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Sprawdza, czy od stanu state można dojść do stanu końcowego.
-*/
+     * Sprawdza, czy od stanu state można dojść do stanu końcowego.
+     */
     public boolean prefixChecker(State state) {
 
         if (isFinal(state)) {
@@ -475,8 +475,8 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Funkcja tworzaca zawartość automatu ze Stringa.
-*/
+     * Funkcja tworzaca zawartość automatu ze Stringa.
+     */
 
     void fromString(String automatonDescription) throws StructureException {
         MakeAutomatonFromString graph = new MakeAutomatonFromString(this, automatonDescription);
@@ -484,8 +484,9 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Zwraca true, gdy automat akceptuje napis pusty.
-*/
+     * Zwraca true, gdy automat akceptuje napis pusty.
+     */
+
     public boolean acceptEmptyWord() {
 
         List<State> tocheck = new ArrayList<State>();
@@ -521,9 +522,10 @@ public abstract class AutomatonSpecification implements Cloneable {
         return false;
     }
 
+
     /**
-* Sprawdza, czy w automacie istnieją zbędne stany.
-*/
+     * Sprawdza, czy w automacie istnieją zbędne stany.
+     */
     public boolean uselessStates() {
         boolean flag1 = true;
         boolean flag2 = false;
@@ -568,8 +570,8 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Tworzy automat akceptujący napisy nad alfabetem.
-*/
+     * Tworzy automat akceptujący napisy nad alfabetem.
+     */
     public void makeAllStringsAutomaton(String alphabet) {
         State state = addState();
         markAsInitial(state);
@@ -579,8 +581,8 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Tworzy automat akceptujący wszystkie niepuste napisy nad alfabetem.
-*/
+     * Tworzy automat akceptujący wszystkie niepuste napisy nad alfabetem.
+     */
     public void makeAllNonEmptyStringsAutomaton(String alphabet) {
         State s0 = addState();
         State s1 = addState();
@@ -593,8 +595,8 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Sprawdza, czy można przedłużyć word do słowa akceptowanego.
-*/
+     * Sprawdza, czy można przedłużyć word do słowa akceptowanego.
+     */
     public boolean checkPrefix(String word) {
 
         List<State> finalStates = new ArrayList<State>();
@@ -656,8 +658,8 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Klonowanie automatu.
-*/
+     * Klonowanie automatu.
+     */
     @Override
     public AutomatonSpecification clone() {
         AutomatonSpecification mini = new NaiveAutomatonSpecification();
@@ -667,8 +669,8 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Tworzy automat z jednym przejściem.
-*/
+     * Tworzy automat z jednym przejściem.
+     */
     public void makeOneLoopAutomaton(char c) {
         State q0 = addState();
         addLoop(q0, new CharTransitionLabel(c));
@@ -677,16 +679,17 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Metoda zwracającą wszystkie napisy akceptowane przez automat.
-*/
+     * Metoda zwracającą wszystkie napisy akceptowane przez automat.
+     */
     public AllAcceptedWords returnAllAcceptedWords() {
         AllAcceptedWords words = new AllAcceptedWords(this);
         return words;
     }
 
+
     /**
-* Sprawdza, czy akceptowany język jest nieskończony.
-*/
+     * Sprawdza, czy akceptowany język jest nieskończony.
+     */
     public boolean isInfinite() {
         return findFinals(getInitialState(), new ArrayList<State>());
     }
@@ -739,9 +742,9 @@ public abstract class AutomatonSpecification implements Cloneable {
     }
 
     /**
-* Metoda zwracająca pierwszy według kolejności alfabetycznej napis,
-* akceptowany przez automat.
-*/
+     * Metoda zwracająca pierwszy według kolejności alfabetycznej napis,
+     * akceptowany przez automat.
+     */
     public String firstAcceptedWord() {
         AllAcceptedWords words = new AllAcceptedWords(this);
         String tmp;
@@ -757,8 +760,8 @@ public abstract class AutomatonSpecification implements Cloneable {
             throw new RuntimeException("error");
     }
     /**
-*Metoda zwraca długość najdłuższego słowa akceptowanego.
-*/
+     *Metoda zwraca długość najdłuższego słowa akceptowanego.
+     */
     public int maxWordLength() {
         AllAcceptedWords words = new AllAcceptedWords(this);
         String word;
