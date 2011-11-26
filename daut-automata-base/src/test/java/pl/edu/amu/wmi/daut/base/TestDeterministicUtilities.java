@@ -18,9 +18,7 @@ import junit.framework.TestCase;
  */
 public class TestDeterministicUtilities extends TestCase {
 
-    /*
-* Testuje automat dla języka pustego.
-*/
+/* Testuje automat dla języka pustego. */
     public final void test1() {
 Set<String> language1 = new HashSet<String>();
 DeterministicAutomatonSpecification automaton1 =
@@ -81,7 +79,8 @@ assertTrue(compare(language2, accepted2));*/
         DeterministicUtilities detUtil = new DeterministicUtilities();
         detUtil.createAutomatonForFiniteLanguage(automaton3, language3);
         Generator words3 = new Generator();
-        List<String> accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3, "qwertyuiopasdfghjklzxcvbnm");
+        List<String> accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3,
+                "qwertyuiopasdfghjklzxcvbnm");
         
         assertTrue(compare(language3, accepted3));
      //   AutomatonByRecursion angle = new AutomatonByRecursion(automaton3);
