@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 public class TestDeterministicUtilities extends TestCase {
 
 /* Testuje automat dla języka pustego. */
-    public final void test1() {
+    public final void testEmptyLanguage() {
 Set<String> language1 = new HashSet<String>();
 DeterministicAutomatonSpecification automaton1 =
 new NaiveDeterministicAutomatonSpecification();
@@ -33,7 +33,7 @@ assertTrue(compare(language1, accepted1));
 /*
 * Testuje automat dla języka z tylko słowem pustym.
 */
-    public final void test2() {
+    public final void testEmptyWord() {
 
 Set<String> language2 = new HashSet<String>();
 language2.add("");
@@ -53,7 +53,7 @@ assertTrue(compare(language2, accepted2));*/
 /*
 * Test Przykładowy.
 */
-    public final void test3() {
+    public final void testNormal() {
         Set<String> language3 = new HashSet<String>();
         language3.add("ko");
         language3.add("kot");
@@ -81,7 +81,7 @@ assertTrue(compare(language2, accepted2));*/
         Generator words3 = new Generator();
         List<String> accepted3 = words3.wordsFromAutomatonWithoutCycles(automaton3,
                 "qwertyuiopasdfghjklzxcvbnm");
-        
+
         assertTrue(compare(language3, accepted3));
      //   AutomatonByRecursion angle = new AutomatonByRecursion(automaton3);
      //   assertTrue(angle.accepts(""));
@@ -91,7 +91,7 @@ assertTrue(compare(language2, accepted2));*/
     /*
 * Test przykładowy ze słowem pustym.
 */
-    public final void test4() {
+    public final void testNormalAndEmptyWord() {
 
 Set<String> language4 = new HashSet<String>();
 language4.add("");
@@ -126,7 +126,7 @@ assertTrue(compare(language4, accepted4));
                 break;
             }
         }
-        
+
         if (language.size() == number) {
             for (String i : language) {
                 for (String j : acceptedWords) {
