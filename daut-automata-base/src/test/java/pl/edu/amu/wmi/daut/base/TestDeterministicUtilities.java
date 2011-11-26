@@ -18,7 +18,9 @@ import junit.framework.TestCase;
  */
 public class TestDeterministicUtilities extends TestCase {
 
-    /* Testuje automat dla języka pustego. */
+    /**
+     * Testuje automat dla języka pustego.
+     */
     public final void testEmptyLanguage() {
     Set<String> language1 = new HashSet<String>();
     DeterministicAutomatonSpecification automaton1 =
@@ -141,6 +143,8 @@ public class TestDeterministicUtilities extends TestCase {
             //if (language.isEmpty() && acceptedWords.isEmpty()) {
             return (number == 0);
         }
-        else return false;
+        else {
+            return false;
+        }
     }
 }
