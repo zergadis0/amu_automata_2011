@@ -694,7 +694,7 @@ abstract class AutomatonSpecification implements Cloneable  {
             String min = words.next();
             while (words.hasNext()) {
                 tmp = words.next();
-                if (tmp.compareTo(min) > 0)
+                if (tmp.compareTo(min) < 0)
                     min = tmp;
             }
             return min;
