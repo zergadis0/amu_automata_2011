@@ -142,8 +142,7 @@ public class TestDeterministicUtilities extends TestCase {
             }
             //if (language.isEmpty() && acceptedWords.isEmpty()) {
             return (number == 0);
-        }
-        else {
+        } else {
             return false;
         }
     }
