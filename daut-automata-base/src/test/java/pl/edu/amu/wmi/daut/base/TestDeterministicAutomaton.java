@@ -139,7 +139,7 @@ public class TestDeterministicAutomaton extends TestCase {
         automaton.addTransition(state2, state4, new CharTransitionLabel('a'));
         automaton.addTransition(state3, state5, new CharTransitionLabel('a'));
 
-        automaton2 = automaton.makeMinimal(automaton);
+        automaton2 = automaton.makeMinimal();
         int states = automaton2.countStates();
 
         assertEquals(4, states);
@@ -171,7 +171,7 @@ public class TestDeterministicAutomaton extends TestCase {
         automaton4.addTransition(states4, states1, new CharTransitionLabel('a'));
         automaton4.addLoop(states4, new CharTransitionLabel('b'));
 
-        automaton5 = automaton4.makeMinimal(automaton4);
+        automaton5 = automaton4.makeMinimal();
 
         AutomatonByRecursion automaton6 = new AutomatonByRecursion(automaton5);
 
@@ -207,7 +207,7 @@ public class TestDeterministicAutomaton extends TestCase {
         automaton7.addTransition(statez6, statez2, new CharTransitionLabel('a'));
         automaton7.addLoop(statez6, new CharTransitionLabel('b'));
 
-        automaton8 = automaton7.makeMinimal(automaton7);
+        automaton8 = automaton7.makeMinimal();
 
         AutomatonByRecursion automaton9 = new AutomatonByRecursion(automaton8);
 
