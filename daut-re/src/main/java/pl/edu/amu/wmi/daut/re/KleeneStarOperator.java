@@ -10,9 +10,9 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 public class KleeneStarOperator extends UnaryRegexpOperator {
 
     @Override
-    public final AutomatonSpecification createAutomatonFromOneAutomaton
-            (AutomatonSpecification subautomaton) {
+    public final AutomatonSpecification createAutomatonFromOneAutomaton(
+            AutomatonSpecification subautomaton) {
         return AutomataOperations.getKleeneStar(subautomaton);
     }
-    
+
 }
