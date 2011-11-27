@@ -13,13 +13,12 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
     /**
      * Zwraca liste stanów z których przejścia wychodzą do podanego stanu.
      */
-    public  List<State> findPreviousState(DeterministicAutomatonSpecification automaton,
-            State nextState) {
+    public  List<State> findPreviousState(State nextState) {
 
         List<State> previousStates = new ArrayList<State>();
 
-        for (State state : automaton.allStates()) {
-            for (OutgoingTransition transition : automaton.allOutgoingTransitions(state)) {
+        for (State state : allStates()) {
+            for (OutgoingTransition transition : allOutgoingTransitions(state)) {
                 if (transition.getTargetState() == nextState) {
                     previousStates.add(state);
                 }
@@ -30,13 +29,11 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
     /**
      * Pobiera dwa stany, zwraca przejścia między nimi.
      */
-    public List<OutgoingTransition> findPreviousStateTransitions(
-            DeterministicAutomatonSpecification automaton,
-            State previousState, State nextState) {
+    public List<OutgoingTransition> findPreviousStateTransitions(State previousState, State nextState) {
 
         List<OutgoingTransition> needTransitions = new ArrayList<OutgoingTransition>();
 
-        for (OutgoingTransition transition : automaton.allOutgoingTransitions(previousState)) {
+        for (OutgoingTransition transition : allOutgoingTransitions(previousState)) {
             if (transition.getTargetState() == nextState)
                 needTransitions.add(transition);
         }
@@ -46,25 +43,25 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
      * Usuwa zbędne stany. To znaczy takie, do których nie można,
      * dojść ze stanu początkowego.
      */
-    public void deleteUselessStates(DeterministicAutomatonSpecification automaton) {
+    public void deleteUselessStates() {
 
-        State startState = automaton.getInitialState();
+        State startState = getInitialState();
 
         List<State> startStates = new ArrayList<State>();
         List<State> uselessStates = new ArrayList<State>();
 
-        uselessStates.addAll(automaton.allStates());
-        uselessStates.remove(automaton.getInitialState());
+        uselessStates.addAll(allStates());
+        uselessStates.remove(getInitialState());
 
-        for (OutgoingTransition transition : automaton.allOutgoingTransitions(startState)) {
+        for (OutgoingTransition transition : allOutgoingTransitions(startState)) {
             startStates.add(transition.getTargetState());
             uselessStates.remove(transition.getTargetState());
         }
 
         while (!startStates.isEmpty()) {
             for (int i = 0; i < startStates.size(); i++) {
-                for (OutgoingTransition transition : automaton
-                        .allOutgoingTransitions(startStates.get(i))) {
+                for (OutgoingTransition transition :allOutgoingTransitions(
+                        startStates.get(i))) {
                     if (uselessStates.contains(transition.getTargetState())) {
                         startStates.add(transition.getTargetState());
                         uselessStates.remove(transition.getTargetState());
@@ -75,19 +72,18 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         }
 
         if (!uselessStates.isEmpty())
-            automaton.allStates().removeAll(uselessStates);
+            allStates().removeAll(uselessStates);
 
     }
     /**
      * Pobiera automat na wejsciu.
      * Zwraca zminimalizowany automat
      */
-    public DeterministicAutomatonSpecification makeMinimal(
-            DeterministicAutomatonSpecification automaton) {
+    public DeterministicAutomatonSpecification makeMinimal() {
 
-        DeterministicAutomatonSpecification returnAutomaton = automaton;
+        DeterministicAutomatonSpecification returnAutomaton = this;
 
-        deleteUselessStates(returnAutomaton);
+        deleteUselessStates();
 
         int size = returnAutomaton.allStates().size() - 1;
         boolean[][] mark = new boolean[size][size];
@@ -142,11 +138,11 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
                     if (mark[i][a]) {
                         List<State> prevStates;
                         List<OutgoingTransition> prevTransitions;
-                        prevStates = findPreviousState(returnAutomaton, returnAutomaton
+                        prevStates = returnAutomaton.findPreviousState(returnAutomaton
                                 .allStates().get(a));
                         for (State state : prevStates) {
-                            prevTransitions = findPreviousStateTransitions(
-                                    returnAutomaton, state, returnAutomaton.allStates().get(a));
+                            prevTransitions = findPreviousStateTransitions(state,
+                                    returnAutomaton.allStates().get(a));
                             for (OutgoingTransition transition : prevTransitions)
                                 returnAutomaton.addTransition(
                                         state, returnAutomaton.allStates().get(i),
