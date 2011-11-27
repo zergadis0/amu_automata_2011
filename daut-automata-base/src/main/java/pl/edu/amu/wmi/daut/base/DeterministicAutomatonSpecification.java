@@ -29,7 +29,8 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
     /**
      * Pobiera dwa stany, zwraca przejścia między nimi.
      */
-    public List<OutgoingTransition> findPreviousStateTransitions(State previousState, State nextState) {
+    public List<OutgoingTransition> findPreviousStateTransitions(
+            State previousState, State nextState) {
 
         List<OutgoingTransition> needTransitions = new ArrayList<OutgoingTransition>();
 
@@ -60,7 +61,7 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
 
         while (!startStates.isEmpty()) {
             for (int i = 0; i < startStates.size(); i++) {
-                for (OutgoingTransition transition :allOutgoingTransitions(
+                for (OutgoingTransition transition : allOutgoingTransitions(
                         startStates.get(i))) {
                     if (uselessStates.contains(transition.getTargetState())) {
                         startStates.add(transition.getTargetState());
