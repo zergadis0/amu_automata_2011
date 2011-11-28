@@ -21,7 +21,7 @@ public class Determinizer {
      * @return
      * Jeden z argumentow jesli przechodza po tym samym lub EmptyTransitionLabel.
      */
-    public TransitionLabel equalTrLabel(TransitionLabel trA, TransitionLabel trB) {
+    private TransitionLabel equalTrLabel(TransitionLabel trA, TransitionLabel trB) {
         if (trA != trB) {
             return trA.intersect(trB);
         }
@@ -45,7 +45,7 @@ public class Determinizer {
     /**
      * Sprawdza, czy zbior sS juz istnieje i zwraca ten zbior; null jesli nie istnieje.
      */
-    public StateSet existsSet(StateSet sS) {
+    private StateSet existsSet(StateSet sS) {
         for (StateSet tmpSS : listOfSets) {
             if (tmpSS.isEqual(sS)) {
                 return tmpSS;
@@ -57,66 +57,70 @@ public class Determinizer {
     /**
      * Dla nieterministycznego automatu skończenie stanowego nfa
      * tworzy równoważny automat deterministyczny.
-     * Automat deterministyczny będzie tworzony poprzez rozbudowywanie pustego automatu emptyDfa.
+     * Automat deterministyczny będzie tworzony poprzez rozbudowywanie
+     * pustego automatu emptyDfa.
      */
     public void determinize(AutomatonSpecification nfa,
             DeterministicAutomatonSpecification emptyDfa) {
-        if (nfa.isDeterministic()) {
-            State initialState = emptyDfa.addState();
-            emptyDfa.markAsInitial(initialState);
-            emptyDfa.insert(initialState, nfa);
-        } else {
+        if (!nfa.isEmpty() && emptyDfa.isEmpty()) {
+            if (nfa.isDeterministic()) {
+                State initialState = emptyDfa.addState();
+                emptyDfa.markAsInitial(initialState);
+                emptyDfa.insert(initialState, nfa);
+            } else {
 
-            Queue<StateSet> queueOfNewSets = new LinkedList<StateSet>();
+                Queue<StateSet> queueOfNewSets = new LinkedList<StateSet>();
 
-            StateSet initialSet = new StateSet(nfa.getInitialState());
-            initialSet.setThatState(emptyDfa.addState());
-            emptyDfa.markAsInitial(initialSet.getThatState());
-            if (nfa.isFinal(nfa.getInitialState())) {
-                emptyDfa.markAsFinal(initialSet.getThatState());
-            }
-            listOfSets.add(initialSet);
-            queueOfNewSets.offer(initialSet);
-
-            StateSet currentStSet;
-
-            while ((currentStSet = queueOfNewSets.poll()) != null) {
-
-                Set<TransitionLabel> setsTrLabels = new HashSet<TransitionLabel>();
-
-                for (State tmpSt : currentStSet.getStateSet()) {
-                    for (OutgoingTransition tmpOuTra : nfa.allOutgoingTransitions(tmpSt)) {
-                        addTrToSet(tmpOuTra.getTransitionLabel(), setsTrLabels);
-                    }
+                StateSet initialSet = new StateSet(nfa.getInitialState());
+                initialSet.setThatState(emptyDfa.addState());
+                emptyDfa.markAsInitial(initialSet.getThatState());
+                if (nfa.isFinal(nfa.getInitialState())) {
+                    emptyDfa.markAsFinal(initialSet.getThatState());
                 }
+                listOfSets.add(initialSet);
+                queueOfNewSets.offer(initialSet);
 
-                for (TransitionLabel currentTrLabel : setsTrLabels) {
-                    StateSet newStSet = new StateSet();
-                    for (State tmpState : currentStSet.getStateSet()) {
-                        for (OutgoingTransition tmpOuTr : nfa.allOutgoingTransitions(tmpState)) {
-                            if (!equalTrLabel(currentTrLabel,
-                                    tmpOuTr.getTransitionLabel()).isEmpty()) {
-                                newStSet.add(tmpOuTr.getTargetState());
-                            }
+                StateSet currentStSet;
+
+                while ((currentStSet = queueOfNewSets.poll()) != null) {
+
+                    Set<TransitionLabel> setsTrLabels = new HashSet<TransitionLabel>();
+
+                    for (State tmpSt : currentStSet.getStateSet()) {
+                        for (OutgoingTransition tmpOuTra : nfa.allOutgoingTransitions(tmpSt)) {
+                            addTrToSet(tmpOuTra.getTransitionLabel(), setsTrLabels);
                         }
                     }
 
-                    StateSet foundStSet = existsSet(newStSet);
-                    if (foundStSet != null) {
-                        newStSet = foundStSet;
-                    } else {
-                        listOfSets.add(newStSet);
-                        queueOfNewSets.offer(newStSet);
-                        newStSet.setThatState(emptyDfa.addState());
-                        for (State finalState : newStSet.getStateSet()) {
-                            if (nfa.isFinal(finalState)) {
-                                emptyDfa.markAsFinal(newStSet.getThatState());
-                                break;
+                    for (TransitionLabel currentTrLabel : setsTrLabels) {
+                        StateSet newStSet = new StateSet();
+                        for (State tmpState : currentStSet.getStateSet()) {
+                            for (OutgoingTransition tmpOuTr
+                                    : nfa.allOutgoingTransitions(tmpState)) {
+                                if (!equalTrLabel(currentTrLabel,
+                                        tmpOuTr.getTransitionLabel()).isEmpty()) {
+                                    newStSet.add(tmpOuTr.getTargetState());
+                                }
                             }
                         }
+
+                        StateSet foundStSet = existsSet(newStSet);
+                        if (foundStSet != null) {
+                            newStSet = foundStSet;
+                        } else {
+                            listOfSets.add(newStSet);
+                            queueOfNewSets.offer(newStSet);
+                            newStSet.setThatState(emptyDfa.addState());
+                            for (State finalState : newStSet.getStateSet()) {
+                                if (nfa.isFinal(finalState)) {
+                                    emptyDfa.markAsFinal(newStSet.getThatState());
+                                    break;
+                                }
+                            }
+                        }
+                        emptyDfa.addTransition(currentStSet.getThatState(), newStSet.getThatState(),
+                                currentTrLabel);
                     }
-                    emptyDfa.addTransition(currentStSet.getThatState(), newStSet.getThatState(),
-                            currentTrLabel);
                 }
             }
         }
@@ -125,50 +129,58 @@ public class Determinizer {
     /**
      * Klasa reprezentujaca zbior stanow wykorzystywana przy determinizacji.
      */
-    public class StateSet {
+    private class StateSet {
 
         private Set<State> stateSet;
         private State thatState;
 
+        /**
+         * Zwroci stan w DFA odpowiadajacy zbiorowi stanow w NFA.
+         */
         public State getThatState() {
             return thatState;
 
         }
 
+        /**
+         * Ustawi stan w DFA odpowiadajacy zbiorowi stanow w NFA.
+         */
         public void setThatState(State s) {
             thatState = s;
         }
 
+        /**
+         * Konstruktor tworzacy zbior pusty.
+         */
         public StateSet() {
             stateSet = new HashSet<State>();
         }
 
+        /**
+         * Konstruktor tworzacy zbior z poczatkowym elementem.
+         */
         public StateSet(State s) {
             stateSet = new HashSet<State>();
             stateSet.add(s);
         }
 
-        public StateSet(StateSet sS) {
-            stateSet = new HashSet<State>();
-            stateSet.addAll(sS.stateSet);
-        }
-
+        /**
+         * Zwraca zbior stanow.
+         */
         public Set<State> getStateSet() {
             return stateSet;
         }
 
+        /**
+         * Dodaje stan z NFA do zbioru.
+         */
         public boolean add(State s) {
             return stateSet.add(s);
         }
 
-        public boolean remove(State s) {
-            return stateSet.remove(s);
-        }
-
-        public boolean contains(State s) {
-            return stateSet.contains(s);
-        }
-
+        /**
+         * Sprawdza, czy obiekt podany jako argument zawiera taki sam zbior stanow.
+         */
         public boolean isEqual(StateSet sS) {
             if (sS.stateSet.isEmpty() && this.stateSet.isEmpty()) {
                 return true;
