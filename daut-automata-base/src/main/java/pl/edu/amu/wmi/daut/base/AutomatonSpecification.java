@@ -383,29 +383,49 @@ public abstract class AutomatonSpecification implements Cloneable  {
     }
 
     /**
+     * Sprawdza czy dla danego stanu i znaku istnieje przejście.
+     */
+    private boolean isTransitionExist(State state, char c) {
+
+        int indeks = 0;
+
+        for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
+
+            if (transition1.getTransitionLabel().canAcceptCharacter(c))
+                return true;
+
+            else if ((indeks == allOutgoingTransitions(state).size() - 1)
+                    && !transition1.getTransitionLabel()
+                    .canAcceptCharacter(c))
+                return false;
+
+            else
+                indeks++;
+        }
+
+        return true;
+    }
+
+    /**
      * Sprawdza, czy dla każdego stanu i dla każdego znaku z alfabetu
      * istnieje przejście.
      */
     public boolean isFull(String alphabet) {
-        int index;
+
         if (allStates().isEmpty())
             return false;
+
         for (State state : allStates()) {
+
             if (allOutgoingTransitions(state).isEmpty())
                     return false;
+
             for (int i = 0; i < alphabet.length(); i++) {
-                index = 0;
-                for (OutgoingTransition transition : allOutgoingTransitions(state)) {
-                    if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
-                        break;
-                    else if ((index == allOutgoingTransitions(state).size() - 1)
-                            && !transition.getTransitionLabel()
-                            .canAcceptCharacter(alphabet.charAt(i)))
-                        return false;
-                    else index++;
-                }
+                if(!isTransitionExist(state, alphabet.charAt(i)))
+                    return false;
             }
         }
+
         return true;
     }
 
@@ -415,7 +435,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public void makeFull(String alphabet) {
 
         State trash = null;
-        int indeks;
 
         if (this.isEmpty()) {
             trash = addState();
@@ -426,31 +445,31 @@ public abstract class AutomatonSpecification implements Cloneable  {
         }
 
         for (State state : new ArrayList<State>(allStates())) {
+
             for (int i = 0; i < alphabet.length(); i++) {
-                indeks = 0;
+
                 if (allOutgoingTransitions(state).isEmpty()) {
+
                     if (trash == null)
                         trash = addState();
+
                     addTransition(state, trash, new CharTransitionLabel(
                             alphabet.charAt(i)));
                 }
-                for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                    if (transition1.getTransitionLabel().canAcceptCharacter(
-                            alphabet.charAt(i)))
-                        break;
-                    else if ((indeks == allOutgoingTransitions(state).size() - 1)
-                            && !transition1.getTransitionLabel()
-                                    .canAcceptCharacter(alphabet.charAt(i))) {
-                        if (trash == null)
-                            trash = addState();
-                        addTransition(state, trash, new CharTransitionLabel(
-                                alphabet.charAt(i)));
-                    } else
-                        indeks++;
+
+                if (!isTransitionExist(state, alphabet.charAt(i))) {
+
+                    if (trash == null)
+                        trash = addState();
+
+                    addTransition(state, trash, new CharTransitionLabel(
+                            alphabet.charAt(i)));
                 }
             }
         }
+        
         if (trash != null) {
+
             for (int i = 0; i < alphabet.length(); i++)
                 addLoop(trash, new CharTransitionLabel(
                         alphabet.charAt(i)));
