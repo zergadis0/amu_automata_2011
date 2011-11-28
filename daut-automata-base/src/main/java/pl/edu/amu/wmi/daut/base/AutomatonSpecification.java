@@ -3,6 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * Klasa abstrakcyjna reprezentująca specyfikację (opis) automatu
@@ -185,6 +186,65 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
         //Zwrócenie wyniku
         return retString.toString();
+    }
+
+
+   /**
+     * Sprawdza, czy język akceptowany przez automat jest niepusty.
+     */
+    public boolean isNotEmpty() {
+        List<State> states = allStates();
+
+        if (states.isEmpty())
+            return false;
+        else {
+            int counter = 0;
+            boolean isThereNoInitialState = false;
+            try {
+                for (State s : allStates()) {
+                    if (this.isFinal(s))
+                        counter++;
+                    this.getInitialState();
+                }
+            } catch (Exception e) {
+                isThereNoInitialState = true;
+            }
+
+            if (counter == 0 || isThereNoInitialState)
+                return false;
+            else {
+                Stack<Integer> stateStack = new Stack<Integer>();
+                Stack<Integer> transitionStack = new Stack<Integer>();
+                Stack<Integer> branchStack = new Stack<Integer>();
+
+                Integer state = states.indexOf(this.getInitialState());
+                Integer transition = 0;
+                Integer branches = this.allOutgoingTransitions(states.get(state)).size();
+
+                stateStack.push(state);
+                transitionStack.push(transition);
+
+                do {
+                    state = stateStack.pop();
+                    transition = transitionStack.pop();
+
+                    if (this.isFinal(states.get(state)))
+                        return true;
+
+                    if (transition < branches) {
+                        stateStack.push(state);
+                        transitionStack.push(transition++);
+                        branchStack.push(branches);
+                        State stateForWhile = this.allOutgoingTransitions(states.get(state))
+                                .get(transition).getTargetState();
+                        branchStack.push(this.allOutgoingTransitions(stateForWhile).size());
+                        stateStack.push(states.indexOf(stateForWhile));
+                        transitionStack.push(0);
+                    }
+                } while (!stateStack.empty());
+            }
+        }
+        return false;
     }
 
    /**
