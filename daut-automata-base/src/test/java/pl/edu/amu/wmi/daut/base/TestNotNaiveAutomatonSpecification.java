@@ -78,7 +78,7 @@ public class TestNotNaiveAutomatonSpecification extends TestCase {
      * Test metody dopełniającej automat na automacie, któremu brakuje jednego przejścia.
      */
     public final void testMakeFullAlmostFull() {
-        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+        NotNaiveAutomatonSpecification spec = new NotNaiveAutomatonSpecification();
 
         State s0 = spec.addState();
         State s1 = spec.addState();
