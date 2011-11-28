@@ -392,7 +392,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
         for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
 
             if (transition1.getTransitionLabel().canAcceptCharacter(c))
-                return true;
+                break;
 
             else if ((indeks == allOutgoingTransitions(state).size() - 1)
                     && !transition1.getTransitionLabel()
@@ -421,7 +421,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                     return false;
 
             for (int i = 0; i < alphabet.length(); i++) {
-                if(!isTransitionExist(state, alphabet.charAt(i)))
+                if (!isTransitionExist(state, alphabet.charAt(i)))
                     return false;
             }
         }
@@ -467,7 +467,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 }
             }
         }
-        
+
         if (trash != null) {
 
             for (int i = 0; i < alphabet.length(); i++)
