@@ -48,9 +48,9 @@ public abstract class AutomatonSpecification implements Cloneable  {
         State prev = from;
         State next = prev;
 
-        for (int i = 1; i <= text.length(); i++) {
+        for (int i = 0; i < text.length(); ++i) {
             prev = addTransition(next,
-                    new CharTransitionLabel(text.charAt(i - 1)));
+                    new CharTransitionLabel(text.charAt(i)));
             next = prev;
         }
        return prev;
@@ -413,27 +413,47 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Dopełnia automat tak, aby isFull zwracało prawdę.
      */
     public void makeFull(String alphabet) {
-        State trash = addState();
+
+        State trash = null;
         int indeks;
-        for (State state : allStates()) {
+
+        if (this.isEmpty()) {
+            trash = addState();
+            for (int i = 0; i < alphabet.length(); i++)
+                addLoop(trash, new CharTransitionLabel(
+                        alphabet.charAt(i)));
+            return;
+        }
+
+        for (State state : new ArrayList<State>(allStates())) {
             for (int i = 0; i < alphabet.length(); i++) {
                 indeks = 0;
-                if (allOutgoingTransitions(state).isEmpty())
+                if (allOutgoingTransitions(state).isEmpty()) {
+                    if (trash == null)
+                        trash = addState();
                     addTransition(state, trash, new CharTransitionLabel(
                             alphabet.charAt(i)));
+                }
                 for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
                     if (transition1.getTransitionLabel().canAcceptCharacter(
                             alphabet.charAt(i)))
                         break;
                     else if ((indeks == allOutgoingTransitions(state).size() - 1)
                             && !transition1.getTransitionLabel()
-                                    .canAcceptCharacter(alphabet.charAt(i)))
+                                    .canAcceptCharacter(alphabet.charAt(i))) {
+                        if (trash == null)
+                            trash = addState();
                         addTransition(state, trash, new CharTransitionLabel(
                                 alphabet.charAt(i)));
-                    else
+                    } else
                         indeks++;
                 }
             }
+        }
+        if (trash != null) {
+            for (int i = 0; i < alphabet.length(); i++)
+                addLoop(trash, new CharTransitionLabel(
+                        alphabet.charAt(i)));
         }
     }
 
