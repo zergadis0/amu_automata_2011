@@ -30,7 +30,7 @@ public class TestDoNothingOperator extends TestCase {
 
         AutomatonSpecification automaton =
                 operator.createAutomatonFromOneAutomaton(subautomaton);
-    
+
         assertEquals(automaton, subautomaton);
     }
 }
