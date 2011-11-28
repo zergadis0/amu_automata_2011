@@ -7,6 +7,9 @@ import java.util.Set;
  */
 public final class FromTransitionTableMaker {
 
+    private FromTransitionTableMaker() {
+    }
+
     /**
      * Metoda dla pustego automatu podanego jako parametr 'spec' dodaje
      * odpowiednie stany i przejścia.
