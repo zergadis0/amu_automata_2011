@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 import junit.framework.TestCase;
 
+/**
+ * Klasa testujaca tworzenie AutomatonSpecification z tablicy przejsc.
+ */
 public class TestFromTransitionTableMaker extends TestCase {
 
     /**
