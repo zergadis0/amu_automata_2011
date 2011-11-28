@@ -7,6 +7,9 @@ import junit.framework.TestCase;
  */
 public class TestEpsilonUtilities extends TestCase {
 
+/**
+*  Metoda sprawdza czy w automacie sa epsilon przejscia.
+*/
     public final void testEpsilonUtilities() {
         /*
         *  Automat bez epsilon przejsc.
