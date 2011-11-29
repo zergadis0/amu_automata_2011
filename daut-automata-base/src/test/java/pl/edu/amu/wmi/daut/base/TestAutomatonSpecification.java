@@ -521,6 +521,6 @@ public class TestAutomatonSpecification extends TestCase {
         // Zaznaczamy stan początkowy jako końcowy.
         automat.markAsFinal(automat.getInitialState());
         Set<State> zbior = automat.getEpsilonClosure(automat.getInitialState());
-        assertTrue(zbior.size()==1);
+        assertTrue(zbior.size() == 1);
     }
 }
