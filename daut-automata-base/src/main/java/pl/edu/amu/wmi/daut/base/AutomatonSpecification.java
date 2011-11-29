@@ -862,6 +862,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
             return emptyreturncode;
         }
     }
+
 };
 
 class StructureException extends Exception {
