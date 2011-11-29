@@ -28,6 +28,7 @@ public class TestAutomatonSpecification extends TestCase {
         }
         assertEquals(spec.countStates(), 123456 + 1);
     }
+
     /**
      * Test metody acceptEmptyWord dla automatu z tym samym stanem poczatkowym i koncowym.
      */
@@ -40,6 +41,7 @@ public class TestAutomatonSpecification extends TestCase {
         testSpec1.markAsFinal(state);
         assertTrue(testSpec1.acceptEmptyWord());
     }
+
     /**
      * Test metody acceptEmptyWord dla automatu bez epsilon-przejsc.
      */
@@ -59,6 +61,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertFalse(testSpec2.acceptEmptyWord());
     }
+
     /**
      * Test metody acceptEmptyWord dla automatu z epsilon przejsciami
      * ze stanu poczatkowego do koncowego.
@@ -84,6 +87,25 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertTrue(testSpec2.acceptEmptyWord());
     }
+
+    /**
+     * Test metody acceptEmptyWord dla automatu z pętlą.
+     */
+    public final void testAcceptEmptyWordForAutomatonWithLoop() {
+
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+        State s0 = spec.addState();
+        State s1 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.markAsFinal(s1);
+        spec.addLoop(s0, new CharTransitionLabel('a'));
+        spec.addTransition(s1, s0, new CharTransitionLabel('b'));
+        assertFalse(spec.acceptEmptyWord());
+
+        spec.markAsFinal(s0);
+        assertTrue(spec.acceptEmptyWord());
+    }
+
     /**
      * Test metody countStates.
      */
