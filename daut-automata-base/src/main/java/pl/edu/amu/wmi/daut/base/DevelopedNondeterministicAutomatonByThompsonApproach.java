@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+ * Rozwinięty algorytm niedeterministycznego automatu przy pomocy metody Thompsona. Różni się tym
+ * od wersji wcześniejszej, że posiada tabele przejść, w której zapisywane są wszystkie wykonane
+ * przejśćia. Gdy ma się powtórzyć identyczne przejście, algorytm zczytuje wartość z tabeli bez
+ * potrzeby przeszukiwania automatu.
+ */
 public class DevelopedNondeterministicAutomatonByThompsonApproach implements Acceptor {
 
     private final AutomatonSpecification automaton;
@@ -39,7 +45,7 @@ public class DevelopedNondeterministicAutomatonByThompsonApproach implements Acc
                         new HashMap<String, List<State>>();
                 temporaryMap.putAll(map.get(currentStates));
 
-                if(i == limit || limit == 0) {
+                if (i == limit || limit == 0) {
                     if (temporaryMap.containsKey("")) {
                         currentStates.clear();
                         currentStates.addAll(temporaryMap.get(""));
@@ -65,7 +71,7 @@ public class DevelopedNondeterministicAutomatonByThompsonApproach implements Acc
             }
 
 
-            if(!skip) {
+            if (!skip) {
                 do {
                     added = false;
 
@@ -110,7 +116,7 @@ public class DevelopedNondeterministicAutomatonByThompsonApproach implements Acc
                 HashMap<String, List<State>> temporaryMap =
                         new HashMap<String, List<State>>();
 
-                if(limit == 0 || i == limit) {
+                if (limit == 0 || i == limit) {
                     temporaryMap.put("", currentStates);
                     map.put(startMapStates, temporaryMap);
                     startMapStates.clear();
