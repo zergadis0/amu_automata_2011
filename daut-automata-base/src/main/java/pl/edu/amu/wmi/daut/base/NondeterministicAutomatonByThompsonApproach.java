@@ -75,7 +75,7 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
         return accept;
     }
 
-    private List<State> epsilonClosure(State state) {
+    protected List<State> epsilonClosure(State state) {
         List<State> epsilonStates = new LinkedList<State>();
         List<State> temporaryStates = new LinkedList<State>();
         List<State> pStates = new LinkedList<State>();
@@ -116,6 +116,6 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
         return epsilonStates;
     }
     private List<State> currentStates;
-    private final AutomatonSpecification automaton;
+    protected final AutomatonSpecification automaton;
     private boolean accept;
 };
