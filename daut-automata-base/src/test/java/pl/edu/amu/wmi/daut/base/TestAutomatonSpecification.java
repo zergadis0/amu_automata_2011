@@ -2,6 +2,7 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.List;
 import java.util.Arrays;
 
+import java.util.Set;
 import junit.framework.TestCase;
 
 /**
@@ -508,7 +509,18 @@ public class TestAutomatonSpecification extends TestCase {
      * Test metody getEpsilonClosure(State).
      */
     public final void testGetEpsilonClosure() {
-        // Widać mnie?
-        NaiveAutomatonSpecification base = new NaiveAutomatonSpecification();
+
+        // Automat z tylko jednym stanem (początkowy i końcowy).
+        // Tylko jedne możliwe przejście (czytanie znaku pustego
+        // i wracanie na ten sam stan).
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        // Nowy automat ma już stan początkowy i ustawiamy przejście.
+        automat.addTransition(automat.getInitialState(),
+                automat.getInitialState(),
+                new EpsilonTransitionLabel());
+        // Zaznaczamy stan początkowy jako końcowy.
+        automat.markAsFinal(automat.getInitialState());
+        Set<State> zbior = automat.getEpsilonClosure(automat.getInitialState());
+        assertTrue(zbior.size()==1);
     }
 }
