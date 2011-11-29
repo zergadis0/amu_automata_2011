@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.edu.amu.wmi.daut.base;
 
 import junit.framework.TestCase;
+
 /**
  *
  * @author marcinwacho
@@ -12,50 +9,52 @@ import junit.framework.TestCase;
 public class TestCharClassTransitionLabel extends TestCase {
 
     /**
-     * Testujemy metody CharClassTransitionLabel, addChar, canBeEpsilon,
+     * Testujemy metody addChar, canBeEpsilon,
      * canAcceptCharacter, isEmpty, toString.
      */
-
-public final void testCharClassTransitionLabel() {
-
-     //budujemy
+    public final void testCharClassTransitionLabel() {
+ 
+        //budujemy
         TransitionLabel test1 = new CharClassTransitionLabel("0-9");
 
         //testujemy
         assertTrue(test1.canAcceptCharacter('0'));
         assertTrue(test1.canAcceptCharacter('5'));
+        assertFalse(test1.canAcceptCharacter('a'));
         assertTrue(test1.canAcceptCharacter('9'));
         assertEquals(test1.toString(), "[0-9]");
         assertFalse(test1.canBeEpsilon());
-        assertFalse(test1.isEmpty());
-        assertFalse(test1.canAcceptCharacter('a'));
+        assertTrue(test1.isEmpty());
+        assertFalse(test1.canAcceptCharacter('b'));
 
-
-//budujemy
-        TransitionLabel test2 = new CharClassTransitionLabel("6a-fA-Z");
+        //budujemy
+        TransitionLabel test2 = new CharClassTransitionLabel("6a-fA-Zq");
 
         //testujemy
-        assertTrue(test1.canAcceptCharacter('a'));
-        assertTrue(test1.canAcceptCharacter('b'));
-        assertTrue(test1.canAcceptCharacter('f'));
-        assertTrue(test1.canAcceptCharacter('A'));
-        assertTrue(test1.canAcceptCharacter('C'));
-        assertTrue(test1.canAcceptCharacter('G'));
-        assertTrue(test1.canAcceptCharacter('Y'));
-        assertTrue(test1.canAcceptCharacter('6'));
-        assertTrue(test1.canAcceptCharacter('Z'));
-        assertEquals(test1.toString(), "[a-fA-Z]");
-        assertFalse(test1.canBeEpsilon());
-        assertFalse(test1.isEmpty());
-        assertFalse(test1.canAcceptCharacter('g'));
-        assertFalse(test1.canAcceptCharacter('5'));
+        assertTrue(test2.canAcceptCharacter('6'));
+        assertTrue(test2.canAcceptCharacter('a'));
+        assertTrue(test2.canAcceptCharacter('b'));
+        assertTrue(test2.canAcceptCharacter('f'));
+        assertTrue(test2.canAcceptCharacter('A'));
+        assertTrue(test2.canAcceptCharacter('C'));
+        assertFalse(test2.canAcceptCharacter('7'));
+        assertTrue(test2.canAcceptCharacter('G'));
+        assertTrue(test2.canAcceptCharacter('Y'));
+        assertTrue(test2.canAcceptCharacter('6'));
+        assertFalse(test2.canAcceptCharacter('g'));
+        assertTrue(test2.canAcceptCharacter('q'));
+        assertEquals(test2.toString(), "[6a-fA-Zq]");
+        assertFalse(test2.canBeEpsilon());
+        assertTrue(test2.isEmpty());
+        assertFalse(test2.canAcceptCharacter('h'));
+        assertFalse(test2.canAcceptCharacter('5'));
+        assertEquals(test2.toString(), "[6a-fA-Zq]");
+    }
 
-}
-
- /**
+    /**
      * Testujemy intersectWith.
      */
-    public final void testintersect() {
+    public final void testIntersectWith() {
 
         //budujemy
         TransitionLabel test1 = new CharClassTransitionLabel("a-c");
@@ -63,16 +62,16 @@ public final void testCharClassTransitionLabel() {
 
         //testujemy
         TransitionLabel inter = test1.intersect(test2);
+
         assertTrue(inter.canAcceptCharacter('b'));
         assertTrue(inter.canAcceptCharacter('c'));
         assertFalse(inter.canAcceptCharacter('a'));
         assertFalse(inter.canAcceptCharacter('d'));
         assertFalse(inter.canAcceptCharacter('f'));
         assertFalse(inter.canBeEpsilon());
-        assertFalse(inter.isEmpty());
-        assertEquals(inter.toString(), "[b-c]");
+        assertTrue(inter.isEmpty());
+        assertEquals(inter.toString(), "[bc]");
         assertFalse(inter.canBeEpsilon());
-
-
-}
+        assertTrue(inter.canAcceptCharacter('c'));
+    }
 }
