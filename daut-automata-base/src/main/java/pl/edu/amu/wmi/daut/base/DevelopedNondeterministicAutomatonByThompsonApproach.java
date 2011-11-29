@@ -16,8 +16,8 @@ extends NondeterministicAutomatonByThompsonApproach implements Acceptor {
     private HashMap<List<State>, HashMap<String, List<State>>> map =
             new HashMap<List<State>, HashMap<String, List<State>>>();
 
-    DevelopedNondeterministicAutomatonByThompsonApproach
-            (final AutomatonSpecification specification) {
+    DevelopedNondeterministicAutomatonByThompsonApproach(
+            AutomatonSpecification specification) {
         super(specification);
     }
 
