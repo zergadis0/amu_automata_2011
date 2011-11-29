@@ -548,12 +548,14 @@ public class TestAutomatonSpecification extends TestCase {
         automat.addTransition(s3, s0, new EpsilonTransitionLabel());
 
         zbior = new HashSet<State>();
-        assertTrue(zbior.isEmpty());
+        assertEquals(zbior, automat.getEpsilonClosure(s1));
 
-        zbior = automat.getEpsilonClosure(s2);
-        assertTrue(zbior.size() == 1);
+        zbior.add(s3);
+        assertEquals(zbior, automat.getEpsilonClosure(s2));
 
-        zbior = automat.getEpsilonClosure(s3);
-        assertTrue(zbior.size() == 2);
+        zbior = new HashSet<State>();
+        zbior.add(s0);
+        zbior.add(s1);
+        assertEquals(zbior, automat.getEpsilonClosure(s3));
     }
 }
