@@ -10,15 +10,15 @@ import java.util.List;
  * przejśćia. Gdy ma się powtórzyć identyczne przejście, algorytm zczytuje wartość z tabeli bez
  * potrzeby przeszukiwania automatu.
  */
-public class DevelopedNondeterministicAutomatonByThompsonApproach implements Acceptor {
+public class DevelopedNondeterministicAutomatonByThompsonApproach
+extends NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
-    private final AutomatonSpecification automaton;
     private HashMap<List<State>, HashMap<String, List<State>>> map =
             new HashMap<List<State>, HashMap<String, List<State>>>();
 
-    DevelopedNondeterministicAutomatonByThompsonApproach(final AutomatonSpecification specification)
-    {
-        automaton = specification;
+    DevelopedNondeterministicAutomatonByThompsonApproach
+            (final AutomatonSpecification specification) {
+        super(specification);
     }
 
     @Override
@@ -135,8 +135,8 @@ public class DevelopedNondeterministicAutomatonByThompsonApproach implements Acc
 
         } while (i <= limit);
 
-        for (State someState : currentStates) {
-            if (automaton.isFinal(someState)) {
+        for (State state : currentStates) {
+            if (automaton.isFinal(state)) {
                 accept = true;
             }
         }
@@ -144,43 +144,4 @@ public class DevelopedNondeterministicAutomatonByThompsonApproach implements Acc
         return accept;
     }
 
-    private List<State> epsilonClosure(State state) {
-        List<State> epsilonStates = new LinkedList<State>();
-        List<State> temporaryStates = new LinkedList<State>();
-        List<State> pStates = new LinkedList<State>();
-        boolean added;
-
-        epsilonStates.add(state);
-
-        do {
-            added = false;
-
-            for (State someState : epsilonStates) {
-                List<OutgoingTransition> someStateTransitions = new LinkedList<OutgoingTransition>(
-                        automaton.allOutgoingTransitions(someState));
-
-                for (OutgoingTransition transition : someStateTransitions) {
-                    if (transition.getTransitionLabel().canBeEpsilon()
-                            && !temporaryStates.contains(transition.getTargetState())) {
-                        temporaryStates.add(transition.getTargetState());
-                    }
-                }
-
-                for (State tState : temporaryStates) {
-                    if (!epsilonStates.contains(tState)
-                            && !pStates.contains(tState)) {
-                        pStates.add(tState);
-                        added = true;
-                    }
-                }
-                temporaryStates.clear();
-            }
-
-            epsilonStates.addAll(pStates);
-            pStates.clear();
-
-        } while (added);
-
-        return epsilonStates;
-    }
 }
