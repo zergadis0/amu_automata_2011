@@ -13,7 +13,7 @@ public class TestCharClassTransitionLabel extends TestCase {
      * canAcceptCharacter, isEmpty, toString.
      */
     public final void testCharClassTransitionLabel() {
- 
+
         //budujemy
         TransitionLabel test1 = new CharClassTransitionLabel("0-9");
 
