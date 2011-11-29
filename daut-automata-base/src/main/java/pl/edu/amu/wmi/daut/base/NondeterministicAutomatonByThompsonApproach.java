@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
-    NondeterministicAutomatonByThompsonApproach(final AutomatonSpecification specification) {
+    NondeterministicAutomatonByThompsonApproach(AutomatonSpecification specification) {
         automaton = specification;
     }
 
@@ -116,6 +116,6 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
         return epsilonStates;
     }
     private List<State> currentStates;
-    protected final AutomatonSpecification automaton;
+    protected AutomatonSpecification automaton;
     private boolean accept;
 };
