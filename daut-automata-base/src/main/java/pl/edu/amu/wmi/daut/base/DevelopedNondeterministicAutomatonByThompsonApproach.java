@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-/*
+/**
  * Rozwinięty algorytm niedeterministycznego automatu przy pomocy metody Thompsona. Różni się tym
  * od wersji wcześniejszej, że posiada tabele przejść, w której zapisywane są wszystkie wykonane
  * przejśćia. Gdy ma się powtórzyć identyczne przejście, algorytm zczytuje wartość z tabeli bez
