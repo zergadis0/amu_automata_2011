@@ -2,6 +2,7 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.List;
 import java.util.Arrays;
 
+import java.util.HashSet;
 import java.util.Set;
 import junit.framework.TestCase;
 
@@ -520,8 +521,10 @@ public class TestAutomatonSpecification extends TestCase {
                 new EpsilonTransitionLabel());
         // Zaznaczamy stan początkowy jako końcowy.
         automat.markAsFinal(automat.getInitialState());
-        Set<State> zbior = automat.getEpsilonClosure(automat.getInitialState());
-        assertTrue(zbior.size() == 1);
+        Set<State> zbior = new HashSet<State>();
+        zbior.add(automat.getInitialState());
+        assertEquals(zbior,
+                automat.getEpsilonClosure(automat.getInitialState()));
 
         // Prosty automat z czterema stanami.
         automat = new NaiveAutomatonSpecification();
@@ -544,7 +547,7 @@ public class TestAutomatonSpecification extends TestCase {
         automat.addTransition(s3, s1, new EpsilonTransitionLabel());
         automat.addTransition(s3, s0, new EpsilonTransitionLabel());
 
-        zbior = automat.getEpsilonClosure(s1);
+        zbior = new HashSet<State>();
         assertTrue(zbior.isEmpty());
 
         zbior = automat.getEpsilonClosure(s2);
