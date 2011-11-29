@@ -522,5 +522,33 @@ public class TestAutomatonSpecification extends TestCase {
         automat.markAsFinal(automat.getInitialState());
         Set<State> zbior = automat.getEpsilonClosure(automat.getInitialState());
         assertTrue(zbior.size() == 1);
+
+        // Prosty automat z czterema stanami.
+        automat = new NaiveAutomatonSpecification();
+        State s0, s1, s2, s3;
+        s0 = automat.getInitialState();
+        s1 = automat.addState();
+        s2 = automat.addState();
+        s3 = automat.addState();
+        automat.markAsFinal(s3);
+
+        // Dodajmy jakieś "normalne" przejścia.
+        automat.addTransition(s0, s1, new CharTransitionLabel('a'));
+        automat.addTransition(s0, s2, new CharTransitionLabel('b'));
+        automat.addTransition(s1, s3, new CharTransitionLabel('a'));
+        automat.addTransition(s1, s3, new CharTransitionLabel('b'));
+        automat.addTransition(s2, s1, new CharTransitionLabel('b'));
+
+        // Dodajemy epsilon przejścia.
+        automat.addTransition(s2, s3, new EpsilonTransitionLabel());
+        automat.addTransition(s3, s1, new EpsilonTransitionLabel());
+        automat.addTransition(s3, s0, new EpsilonTransitionLabel());
+
+        zbior = automat.getEpsilonClosure(s1);
+        assertTrue(zbior.isEmpty());
+        zbior = automat.getEpsilonClosure(s2);
+        assertTrue(zbior.size() == 1);
+        zbior = automat.getEpsilonClosure(s3);
+        assertTrue(zbior.size() == 2);
     }
 }
