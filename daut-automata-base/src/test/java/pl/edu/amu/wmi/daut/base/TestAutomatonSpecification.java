@@ -543,9 +543,9 @@ public class TestAutomatonSpecification extends TestCase {
         automat.addTransition(s2, s1, new CharTransitionLabel('b'));
 
         // Dodajemy epsilon przejścia.
-        /*automat.addTransition(s2, s3, new EpsilonTransitionLabel());
+        automat.addTransition(s2, s3, new EpsilonTransitionLabel());
         automat.addTransition(s3, s1, new EpsilonTransitionLabel());
-        automat.addTransition(s3, s0, new EpsilonTransitionLabel());*/
+        automat.addTransition(s3, s0, new EpsilonTransitionLabel());
 
 
 
