@@ -4,13 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.HashMap;
-<<<<<<< HEAD
 import java.util.Map;
-=======
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
->>>>>>> 3262f043e81e271e5574949795cf61cc875af8d6
+
 
 /**
  * Klasa zwierająca operacje na automatach.
@@ -275,7 +273,7 @@ public class AutomataOperations {
         automaton.addTransition(q0, q2, new EpsilonTransitionLabel());
         return automaton;
     }
-<<<<<<< HEAD
+
   /**
   * Zwraca automat akceptujący język powstały w wyniku zastosowania homomorfizmu h na
   * języku akceptowanym przez automat automaton. Homomorfizm jest dany jako mapa, w której
@@ -297,21 +295,24 @@ public class AutomataOperations {
      List<State> states = new ArrayList<State>();
      states.addAll(automaton.allStates());
      HashMap<State, State> connectedStates = new HashMap<State, State>();
-     int dlugosc;
-     String napis;
-     State docelowy;
+     
+    
+     
       for (State current : states) {
           if (!connectedStates.containsKey(current))
-         connectedStates.put(current, homoautomaton.addState());
+              connectedStates.put(current, homoautomaton.addState());
         for (OutgoingTransition currenttrans : automaton.allOutgoingTransitions(current)) {
           TransitionLabel tl = currenttrans.getTransitionLabel();
           for (char znak : tablica) {
             if (tl.canAcceptCharacter(znak)) {
-                 napis = h.get(znak);
-                 dlugosc = napis.length();
+                 String napis = h.get(znak);
+                 int dlugosc = napis.length();
                  char[] znaki = napis.toCharArray();
-                 docelowy = currenttrans.getTargetState();
-                 State prev = homoautomaton.addState();
+                 State docelowy = currenttrans.getTargetState();
+                 State prev = current;
+                 if (dlugosc == 0) {
+                     homoautomaton.addTransition(prev, docelowy, new EpsilonTransitionLabel());
+                 }
                  for (int i = 0; i < dlugosc - 1; i++) {
                      State next = homoautomaton.addState();
                      homoautomaton.addTransition(prev, next, new CharTransitionLabel(znaki[i]));
@@ -326,7 +327,7 @@ public class AutomataOperations {
      }
      return homoautomaton;
  }
-=======
+
 
     /**
      * Klasa pomocnicza do determinize2(). Rekuprezentuje "zbiór stanów" będący stanem automatu dfa.
@@ -597,5 +598,5 @@ public class AutomataOperations {
             throw new StructureException();
         }
     }
->>>>>>> 3262f043e81e271e5574949795cf61cc875af8d6
+
 }
