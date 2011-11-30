@@ -385,25 +385,15 @@ public abstract class AutomatonSpecification implements Cloneable  {
     /**
      * Sprawdza czy dla danego stanu i znaku istnieje przejście.
      */
-    private boolean isTransitionExist(State state, char c) {
-
-        int indeks = 0;
+    private boolean doesTransitionExist(State state, char c) {
 
         for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
 
             if (transition1.getTransitionLabel().canAcceptCharacter(c))
-                break;
-
-            else if ((indeks == allOutgoingTransitions(state).size() - 1)
-                    && !transition1.getTransitionLabel()
-                    .canAcceptCharacter(c))
-                return false;
-
-            else
-                indeks++;
+                return true;
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -421,7 +411,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                     return false;
 
             for (int i = 0; i < alphabet.length(); i++) {
-                if (!isTransitionExist(state, alphabet.charAt(i)))
+                if (!doesTransitionExist(state, alphabet.charAt(i)))
                     return false;
             }
         }
@@ -457,7 +447,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                             alphabet.charAt(i)));
                 }
 
-                if (!isTransitionExist(state, alphabet.charAt(i))) {
+                if (!doesTransitionExist(state, alphabet.charAt(i))) {
 
                     if (trash == null)
                         trash = addState();
