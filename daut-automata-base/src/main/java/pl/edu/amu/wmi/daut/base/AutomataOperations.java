@@ -102,7 +102,7 @@ public class AutomataOperations {
     * combinedC po etykiecie transition. Dodanie nowo utworzonego stanu stateCn do listy newStates
     * wraz z wpisaniem jej oraz jej kombinacji stanów do HashMap.
     * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
-    */  
+    */
     private static boolean makeTransition(CombinedState combinedC, List newStates,
             TransitionLabel transition, List<HashMap> hashMaps, State stateC,
             AutomatonSpecification automatonC, boolean isFinal) {
@@ -541,7 +541,7 @@ public class AutomataOperations {
             throw new StructureException();
         }
     }
-    
+
     /**
      * Metoda tworząca automat akcpetujący konkatenację dwóch języków,
      * akceptowanych przez dwa dane automaty L i R.
