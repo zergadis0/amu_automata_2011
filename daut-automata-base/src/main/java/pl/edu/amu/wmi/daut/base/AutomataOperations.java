@@ -295,7 +295,6 @@ public class AutomataOperations {
      List<State> states = new ArrayList<State>();
      states.addAll(automaton.allStates());
      HashMap<State, State> connectedStates = new HashMap<State, State>();
-     
       for (State current : states) {
           if (!connectedStates.containsKey(current))
               connectedStates.put(current, homoautomaton.addState());
@@ -316,6 +315,7 @@ public class AutomataOperations {
                      homoautomaton.addTransition(prev, next, new CharTransitionLabel(znaki[i]));
                      prev = next;
                  }
+                 
                  homoautomaton.addTransition(prev, docelowy,
                          new CharTransitionLabel(znaki[dlugosc]));
                  connectedStates.put(docelowy, homoautomaton.addState());
