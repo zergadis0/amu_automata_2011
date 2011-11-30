@@ -35,7 +35,7 @@ extends NondeterministicAutomatonByThompsonApproach implements Acceptor {
         List<State> pStates = new LinkedList<State>();
         List<State> startMapStates = new LinkedList<State>();
 
-        currentStates.add(automaton.getInitialState());
+        currentStates.add(getSpecification().getInitialState());
 
         do {
             skip = false;
@@ -97,7 +97,7 @@ extends NondeterministicAutomatonByThompsonApproach implements Acceptor {
                 for (State someState : currentStates) {
                     List<OutgoingTransition> someStateTransitions =
                             new LinkedList<OutgoingTransition>(
-                            automaton.allOutgoingTransitions(someState));
+                            getSpecification().allOutgoingTransitions(someState));
 
                     for (OutgoingTransition transition : someStateTransitions) {
                         if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))
@@ -136,7 +136,7 @@ extends NondeterministicAutomatonByThompsonApproach implements Acceptor {
         } while (i <= limit);
 
         for (State state : currentStates) {
-            if (automaton.isFinal(state)) {
+            if (getSpecification().isFinal(state)) {
                 accept = true;
             }
         }
