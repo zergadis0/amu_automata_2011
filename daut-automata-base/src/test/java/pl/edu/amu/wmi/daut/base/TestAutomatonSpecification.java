@@ -551,7 +551,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         zbior = automat.getEpsilonClosure(s1);
         int i = zbior.size();
-        assertEquals(i, 0);
+        assertEquals(i, 1);
         /*
         zbior.add(s3);
         assertEquals(zbior, automat.getEpsilonClosure(s2));
