@@ -30,6 +30,83 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
+     * Test metody acceptEmptyWord dla automatu z tym samym stanem poczatkowym i koncowym.
+     */
+    public final void testAcceptEmptyWordFinalTheSameAsInitial() {
+
+        //Test 1 - stan poczatkowy jest stanem koncowym
+        NaiveAutomatonSpecification testSpec1 = new NaiveAutomatonSpecification();
+        State state = testSpec1.addState();
+        testSpec1.markAsInitial(state);
+        testSpec1.markAsFinal(state);
+        assertTrue(testSpec1.acceptEmptyWord());
+    }
+
+    /**
+     * Test metody acceptEmptyWord dla automatu bez epsilon-przejsc.
+     */
+    public final void testAcceptEmptyWordNoEpsilonTransitions() {
+
+        //Test 2 - automat ma wiecej stanow, bez epsilon-przejsc do stanu koncowego
+        NaiveAutomatonSpecification testSpec2 = new NaiveAutomatonSpecification();
+        State q0 = testSpec2.addState();
+        State q1 = testSpec2.addState();
+        State q2 = testSpec2.addState();
+
+        testSpec2.addTransition(q0, q1, new CharTransitionLabel('a'));
+        testSpec2.addTransition(q1, q2, new CharTransitionLabel('b'));
+
+        testSpec2.markAsInitial(q0);
+        testSpec2.markAsFinal(q2);
+
+        assertFalse(testSpec2.acceptEmptyWord());
+    }
+
+    /**
+     * Test metody acceptEmptyWord dla automatu z epsilon przejsciami
+     * ze stanu poczatkowego do koncowego.
+     */
+    public final void testAcceptEmptyWordWithEpsilonTransitions() {
+
+        //Test 3 - automat jak w poprzednim przypadku
+        //ale zawiera epsilon-przejscia do stanu koncowego
+        NaiveAutomatonSpecification testSpec2 = new NaiveAutomatonSpecification();
+        State q0 = testSpec2.addState();
+        State q1 = testSpec2.addState();
+        State q2 = testSpec2.addState();
+        State q3 = testSpec2.addState();
+
+        testSpec2.markAsInitial(q0);
+        testSpec2.markAsFinal(q2);
+
+        testSpec2.addTransition(q0, q1, new CharTransitionLabel('a'));
+        testSpec2.addTransition(q1, q2, new CharTransitionLabel('b'));
+
+        testSpec2.addTransition(q0, q3, new EpsilonTransitionLabel());
+        testSpec2.addTransition(q3, q2, new EpsilonTransitionLabel());
+
+        assertTrue(testSpec2.acceptEmptyWord());
+    }
+
+    /**
+     * Test metody acceptEmptyWord dla automatu z pętlą.
+     */
+    public final void testAcceptEmptyWordForAutomatonWithLoop() {
+
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+        State s0 = spec.addState();
+        State s1 = spec.addState();
+        spec.markAsInitial(s0);
+        spec.markAsFinal(s1);
+        spec.addLoop(s0, new CharTransitionLabel('a'));
+        spec.addTransition(s1, s0, new CharTransitionLabel('b'));
+        assertFalse(spec.acceptEmptyWord());
+
+        spec.markAsFinal(s0);
+        assertTrue(spec.acceptEmptyWord());
+    }
+
+    /**
      * Test metody countStates.
      */
     public final void testCountTransitions() {
@@ -738,5 +815,66 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(numberOfStates1 == numberOfStates2);
         assertFalse(numberOfTransitions1 == numberOfTransitions2);
         assertTrue(automat.allOutgoingTransitions(s0).get(0).getTargetState() == s1);
+    }
+
+    /**
+     * test metody insert: testuje zwykłe użycie.
+     */
+    public final void testInsertSimpleTest() {
+        AutomatonSpecification firstAutomaton = new NaiveAutomatonSpecification();
+        State firstState = firstAutomaton.addState();
+        firstAutomaton.markAsInitial(firstState);
+        AutomatonSpecification second = new NaiveAutomatonSpecification();
+        String fromString = "Automaton:\n-States: q0 q1 q2 q3 q4 \n-Transitions:\n  q0 -a-> "
+            + "q1\n  q1 -a-> q0\n  q2 -epsilon-> q4"
+            + "\n  q3 -ANY-> q4\n-Initial state: q0\n-Final states: q1 ";
+        try {
+            second.fromString(fromString);
+        } catch (Exception e) {
+            fail("Nie udało się stworzyć automatu.");
+        }
+
+        firstAutomaton.insert(firstState, second);
+        assertTrue(fromString.equals(firstAutomaton.toString()));
+    }
+
+    /**
+     * test funkcji insert: dodaje do automatu pusty automat.
+     */
+    public final void testInsertEmptyAutomaton() {
+        AutomatonSpecification base =  new NaiveAutomatonSpecification();
+        State s1 = base.addState();
+        State s2 = base.addState();
+        State s3 = base.addState();
+        base.markAsInitial(s1);
+        base.markAsFinal(s1);
+        base.markAsFinal(s3);
+        base.addTransition(s1, s3, new CharTransitionLabel('a'));
+        base.addTransition(s2, s1, new CharTransitionLabel('b'));
+        base.addTransition(s2, s1, new CharTransitionLabel('c'));
+        AutomatonSpecification empty = new NaiveAutomatonSpecification();
+        String automatonString = base.toString();
+        base.insert(s2, empty);
+        assertEquals(automatonString, base.toString());
+    }
+
+    /**
+     * testuje metodę insert, ale dodaje automat bez jakichkolwiek przejść.
+     */
+    public final void testInsertNoTransitions() {
+        final int automatonSize = 300;
+        AutomatonSpecification base = new NaiveAutomatonSpecification();
+        for (int iter = 0; iter < 99; ++iter) {
+            base.addState();
+        }
+        AutomatonSpecification secondAutomaton = new NaiveAutomatonSpecification();
+        State initial = secondAutomaton.addState();
+        secondAutomaton.markAsInitial(initial);
+        for (int iter = 0; iter < 201; ++iter) {
+            secondAutomaton.addState();
+        }
+        base.insert(initial, secondAutomaton);
+        assertEquals(base.countTransitions(), 0);
+        assertEquals(base.countStates(), automatonSize);
     }
 }
