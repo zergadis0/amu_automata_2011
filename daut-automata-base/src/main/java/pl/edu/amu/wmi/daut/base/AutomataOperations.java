@@ -268,4 +268,23 @@ public class AutomataOperations {
         automaton.addTransition(q0, q2, new EpsilonTransitionLabel());
         return automaton;
     }
+    
+    /**
+     * Metoda tworząca automat akcpetujący konkatenację dwóch języków,
+     * akceptowanych przez dwa dane automaty L i R.
+     */
+    public static AutomatonSpecification concatenation(
+            AutomatonSpecification automatonL, AutomatonSpecification automatonR) {
+
+        List<State> statesL = new ArrayList<State>();
+        statesL.addAll(automatonL.allStates());
+
+        for (State state : statesL) {
+            if (automatonL.isFinal(state)) {
+                automatonL.insert(state, automatonR);
+            }
+        }
+
+        return automatonL;
+    }
 }
