@@ -315,7 +315,6 @@ public class AutomataOperations {
                      homoautomaton.addTransition(prev, next, new CharTransitionLabel(znaki[i]));
                      prev = next;
                  }
-                 
                  homoautomaton.addTransition(prev, docelowy,
                          new CharTransitionLabel(znaki[dlugosc]));
                  connectedStates.put(docelowy, homoautomaton.addState());
