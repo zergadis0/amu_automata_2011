@@ -296,8 +296,6 @@ public class AutomataOperations {
      states.addAll(automaton.allStates());
      HashMap<State, State> connectedStates = new HashMap<State, State>();
      
-    
-     
       for (State current : states) {
           if (!connectedStates.containsKey(current))
               connectedStates.put(current, homoautomaton.addState());
