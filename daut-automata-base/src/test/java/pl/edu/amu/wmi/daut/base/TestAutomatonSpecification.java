@@ -546,7 +546,7 @@ public class TestAutomatonSpecification extends TestCase {
         automat.addTransition(s2, s3, new EpsilonTransitionLabel());
         automat.addTransition(s3, s1, new EpsilonTransitionLabel());
         automat.addTransition(s3, s0, new EpsilonTransitionLabel());
-        automat.addTransition(s0, s2, new EpsilonTransitionLabel());
+        automat.addTransition(s0, s3, new EpsilonTransitionLabel());
 
         zbior = new HashSet<State>();
         zbior.add(s1);
@@ -554,7 +554,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         zbior = automat.getEpsilonClosure(s1);
         zbior.add(s2);
-        zbior.add(s1);
+        zbior.add(s3);
         assertEquals(zbior, automat.getEpsilonClosure(s2));
 
         // Tu jest pętla.
@@ -562,7 +562,6 @@ public class TestAutomatonSpecification extends TestCase {
         zbior.add(s0);
         zbior.add(s1);
         zbior.add(s3);
-        zbior.add(s2);
         assertEquals(zbior, automat.getEpsilonClosure(s3));
     }
 }
