@@ -547,11 +547,9 @@ public class TestAutomatonSpecification extends TestCase {
         automat.addTransition(s3, s1, new EpsilonTransitionLabel());
         automat.addTransition(s3, s0, new EpsilonTransitionLabel());
 
-
-
-        zbior = automat.getEpsilonClosure(s1);
-        int i = zbior.size();
-        assertEquals(i, 1);
+        zbior = new HashSet<State>();
+        zbior.add(s1);
+        assertEquals(zbior, automat.getEpsilonClosure(s1));
 
         zbior = automat.getEpsilonClosure(s1);
         zbior.add(s2);
