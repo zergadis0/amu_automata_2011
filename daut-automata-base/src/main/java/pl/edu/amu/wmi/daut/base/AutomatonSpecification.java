@@ -834,7 +834,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 if (tmp.compareTo(min) < 0) {
                     if (min.length()>=tmp.length())
                         min = tmp;
-                }          
+                }
             } while (words.hasNext());
             return min;
         } else
