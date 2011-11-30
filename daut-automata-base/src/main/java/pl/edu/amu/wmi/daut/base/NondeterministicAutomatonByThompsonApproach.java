@@ -115,7 +115,14 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
         return epsilonStates;
     }
+
+
+    protected AutomatonSpecification getSpecification() {
+        return automaton;
+    }
+
+
     private List<State> currentStates;
-    protected AutomatonSpecification automaton;
+    private AutomatonSpecification automaton;
     private boolean accept;
 };
