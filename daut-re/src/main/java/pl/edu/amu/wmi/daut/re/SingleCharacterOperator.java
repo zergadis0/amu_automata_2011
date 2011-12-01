@@ -11,13 +11,20 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
  */
 public class SingleCharacterOperator extends NullaryRegexpOperator {
 
-    char character;
+    private char character
 
     /**
      * Konstruktor jaki jest każdy widzi. Ten akurat pobiera chara :)
      */
     public SingleCharacterOperator(char a) {
         character = a;
+    }
+
+    /**
+     * getter do charactera
+     */
+    public getCharacter() {
+        return character;
     }
 
     /**
@@ -29,6 +36,6 @@ public class SingleCharacterOperator extends NullaryRegexpOperator {
         AutomatonSpecification automaton = new NaiveAutomatonSpecification();
         automaton.makeOneTransitionAutomaton(character);
 
-        return automaton;           
+        return automaton;
     }
 }
