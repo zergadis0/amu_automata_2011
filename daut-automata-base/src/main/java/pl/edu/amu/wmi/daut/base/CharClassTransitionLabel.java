@@ -1,5 +1,5 @@
 /*
-* Klsa służy obsłudze prostych klas wyrażeń regularnych,
+* Klasa służy obsłudze prostych klas wyrażeń regularnych,
 * pozwala na sprawdzenie czy dany znak je spełnia.
 */
 package pl.edu.amu.wmi.daut.base;
@@ -57,7 +57,7 @@ public class CharClassTransitionLabel extends TransitionLabel {
 
     @Override
     public boolean isEmpty() {
-        return !charClass.isEmpty();
+        return charClass.isEmpty();
     }
 
     @Override
