@@ -1,4 +1,3 @@
-
 package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
@@ -7,6 +6,8 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 /**
  *
  * @author Adam
+ * 
+ * klasa reprezentująca operator jednego znaku z wyrażeń regularnych. Na przykład "a" albo "%"
  */
 public class SingleCharacterOperator extends NullaryRegexpOperator {
 
