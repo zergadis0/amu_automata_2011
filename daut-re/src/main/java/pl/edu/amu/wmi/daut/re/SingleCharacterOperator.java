@@ -20,7 +20,7 @@ public class SingleCharacterOperator extends NullaryRegexpOperator {
         character = a;
     }
 
-    public getCharacter() {
+    public char getCharacter() {
         return character;
     }
 
