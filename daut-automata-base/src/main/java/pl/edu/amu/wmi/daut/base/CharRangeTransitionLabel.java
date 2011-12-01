@@ -67,4 +67,14 @@ class CharRangeTransitionLabel extends TransitionLabel {
             throw new CannotDetermineIntersectionException();
         }
     }
+
+    /**
+    *
+    * @return Zwraca zakres aktualnego przejścia/przecięcia.
+    */
+    @Override
+    public String toString() {
+        String s = this.getFirstChar() + "-" + this.getSecondChar();
+        return s;
+    }
 };
