@@ -6,6 +6,7 @@ import java.util.List;
  * klasa która decyduje czy automat zaakceptuje dany napis.
  */
 public final class AutomatonByRecursion implements Acceptor {
+
     /**
      * konstruktor, pobiera specyfikacje automatu
      */
