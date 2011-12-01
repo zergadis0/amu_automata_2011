@@ -59,7 +59,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
     /**
      * Tworzy "gałąź" w automacie.
-     * Metoda dodaje ciąg przejść od stanu początkowego automatu,
+     * Metoda dodaje ciąg przejść od stanu początkowego autpublic abstract void unmarkAsFinalState(State state);omatu,
      * dla podanej listy etykiet przejść.
      * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
      */
@@ -84,6 +84,11 @@ public abstract class AutomatonSpecification implements Cloneable  {
      */
     public abstract void markAsFinal(State state);
 
+    /**
+     * Odznacza stan końcowy.
+     */
+    public abstract void unmarkAsFinalState(State state);
+
     // metody zwracające informacje o automacie
     /**
      * Zwraca listę wszystkich stanów.
@@ -91,8 +96,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Stany niekoniecznie muszą być zwrócone w identycznej
      * kolejności jak były dodane.
      */
-    public abstract void unmarkAsFinalState(State state);
-
     public abstract List<State> allStates();
 
     /**
@@ -119,9 +122,8 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public boolean isEmpty() {
 
         List<State> states = allStates();
-        if (states.isEmpty()) {
+        if (states.isEmpty())
             return true;
-        }
         return false;
     }
 
@@ -237,11 +239,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
         return false;
     }
 
-<<<<<<< HEAD
-    /**
-=======
    /**
->>>>>>> aab94fb34ff3d2f0e2d5ecb51eb1f02bd227913a
      * Sprawdza, czy automat jest deterministyczny (to znaczy, czy ma
      * przynajmniej jeden stan, czy nie zawiera epsilon-przejść (za wyjątkiem
      * sytuacji, gdy epsilon-przejście jest jedynym sposobem wyjścia ze stanu)
@@ -251,29 +249,25 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public boolean isDeterministic() {
         List<State> states = allStates();
 
-        if (states.isEmpty()) {
+        if (states.isEmpty())
             return false;
-        }
 
         for (State state : states) {
             List<OutgoingTransition> transitions = allOutgoingTransitions(state);
 
-            if (transitions.size() <= 1) {
+            if (transitions.size() <= 1)
                 continue;
-            }
 
             for (int i = 0; i < transitions.size(); ++i) {
                 TransitionLabel label = transitions.get(i).getTransitionLabel();
 
-                if (label.canBeEpsilon()) {
+                if (label.canBeEpsilon())
                     return false;
-                }
 
                 for (int j = i + 1; j < transitions.size(); ++j) {
                     TransitionLabel label2 = transitions.get(j).getTransitionLabel();
-                    if (!label2.intersect(label).isEmpty()) {
+                    if (!label2.intersect(label).isEmpty())
                         return false;
-                    }
                 }
             }
         }
@@ -302,7 +296,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public String getDotGraph() {
 
         class DotGraph {
-
             private StringBuffer dotCode;
             private List<State> states;
 
@@ -314,16 +307,14 @@ public abstract class AutomatonSpecification implements Cloneable  {
             private void getDotGraphIntro() {
                 dotCode.append(
                         "digraph finite_state_machine {\n"
-                        + "    rankdir=LR;\n"
-                        + "    size=\"8,5\"\n"
-                        + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
-                if (isFinal(getInitialState())) {
-                    dotCode.append("double");
-                }
+                         + "    rankdir=LR;\n"
+                         + "    size=\"8,5\"\n"
+                         + "    node [style=filled fillcolor=\"#00ff005f\" shape = ");
+                if (isFinal(getInitialState())) dotCode.append("double");
                 dotCode.append("circle];\n"
-                        + "    \"State #" + states.indexOf(getInitialState()) + "\";\n"
-                        + "    node [shape = doublecircle style=filled "
-                        + "fillcolor=\"#00000000\"];\n    ");
+                               + "    \"State #" + states.indexOf(getInitialState()) + "\";\n"
+                               + "    node [shape = doublecircle style=filled "
+                               + "fillcolor=\"#00000000\"];\n    ");
             }
 
             private void getDotGraphFinalStates() {
@@ -373,7 +364,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 }
             }
 
-            public String getDotGraph() {
+            public String  getDotGraph() {
                 getDotGraphIntro();
                 getDotGraphFinalStates();
                 dotCode.append(";\n" + "    node [shape = circle];\n" + "");
@@ -415,22 +406,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         HashMap<State, State> connectedStates = new HashMap<State, State>();
         State automatonInitialState = automaton.getInitialState();
         for (State currentState : loadedStates) {
-<<<<<<< HEAD
-            if (currentState == automatonInitialState) {
-                connectedStates.put(currentState, state);
-            } else {
-                connectedStates.put(currentState, this.addState());
-            }
-        }
-        for (State currentState : loadedStates) {
-            List<OutgoingTransition> list = automaton.allOutgoingTransitions(currentState);
-            for (OutgoingTransition transition : list) {
-                this.addTransition(connectedStates.get(currentState),
-                        connectedStates.get(transition.getTargetState()),
-                        transition.getTransitionLabel());
-            }
-        }
-=======
             if (currentState == automatonInitialState)
                 connectedStates.put(currentState, state);
             else
@@ -459,7 +434,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         this.markAsFinal(emptyState);
 
         return this;
->>>>>>> aab94fb34ff3d2f0e2d5ecb51eb1f02bd227913a
     }
 
     /**
@@ -481,29 +455,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * istnieje przejście.
      */
     public boolean isFull(String alphabet) {
-<<<<<<< HEAD
-        int index;
-        if (allStates().isEmpty()) {
-            return false;
-        }
-        for (State state : allStates()) {
-            if (allOutgoingTransitions(state).isEmpty()) {
-                return false;
-            }
-            for (int i = 0; i < alphabet.length(); i++) {
-                index = 0;
-                for (OutgoingTransition transition : allOutgoingTransitions(state)) {
-                    if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i))) {
-                        break;
-                    } else if ((index == allOutgoingTransitions(state).size() - 1)
-                            && !transition.getTransitionLabel()
-                            .canAcceptCharacter(alphabet.charAt(i))) {
-                        return false;
-                    } else {
-                        index++;
-                    }
-                }
-=======
 
         if (allStates().isEmpty())
             return false;
@@ -516,7 +467,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
             for (int i = 0; i < alphabet.length(); i++) {
                 if (!doesTransitionExist(state, alphabet.charAt(i)))
                     return false;
->>>>>>> aab94fb34ff3d2f0e2d5ecb51eb1f02bd227913a
             }
         }
 
@@ -527,31 +477,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Dopełnia automat tak, aby isFull zwracało prawdę.
      */
     public void makeFull(String alphabet) {
-<<<<<<< HEAD
-        if (!isFull(alphabet)) {
-            State trash = addState();
-            int indeks;
-            for (State state : allStates()) {
-                for (int i = 0; i < alphabet.length(); i++) {
-                    indeks = 0;
-                    if (allOutgoingTransitions(state).isEmpty()) {
-                        addTransition(state, trash,
-                                new CharTransitionLabel(alphabet.charAt(i)));
-                    }
-                    for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                        if (transition1.getTransitionLabel()
-                                .canAcceptCharacter(alphabet.charAt(i))) {
-                            break;
-                        } else if ((indeks == allOutgoingTransitions(state).size() - 1)
-                                && !transition1.getTransitionLabel()
-                                .canAcceptCharacter(alphabet.charAt(i))) {
-                            addTransition(state, trash,
-                                    new CharTransitionLabel(alphabet.charAt(i)));
-                        } else {
-                            indeks++;
-                        }
-                    }
-=======
 
         State trash = null;
 
@@ -583,7 +508,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
                     addTransition(state, trash, new CharTransitionLabel(
                             alphabet.charAt(i)));
->>>>>>> aab94fb34ff3d2f0e2d5ecb51eb1f02bd227913a
                 }
             }
         }
@@ -621,7 +545,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 currentState = outgoing.get(j).getTargetState();
 
                 if (isFinal(currentState)) {
-                    return true;
+                        return true;
                 }
 
                 if (!checkedStates.contains(currentState)) {
@@ -733,14 +657,10 @@ public abstract class AutomatonSpecification implements Cloneable  {
         State state = addState();
         markAsInitial(state);
         markAsFinal(state);
-        for (int i = 0; i < alphabet.length(); i++) {
+        for (int i = 0; i < alphabet.length(); i++)
             addLoop(state, new CharTransitionLabel(alphabet.charAt(i)));
-<<<<<<< HEAD
-        }
-=======
 
         return this;
->>>>>>> aab94fb34ff3d2f0e2d5ecb51eb1f02bd227913a
     }
 
     /**
@@ -751,13 +671,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         State s1 = addState();
         markAsInitial(s0);
         markAsFinal(s1);
-<<<<<<< HEAD
-        addLoop(s0, new EpsilonTransitionLabel());
-        s1 = addTransition(s0, new CharTransitionLabel(alphabet.charAt(0)));
-        for (int i = 1; i < alphabet.length(); i++) {
-            addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
-        }
-=======
         for (int i = 0; i < alphabet.length(); i++) {
             addTransition(s0, s1, new CharTransitionLabel(alphabet.charAt(i)));
             addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
@@ -850,7 +763,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         markAsFinal(q0);
 
         return this;
->>>>>>> aab94fb34ff3d2f0e2d5ecb51eb1f02bd227913a
     }
 
     /**

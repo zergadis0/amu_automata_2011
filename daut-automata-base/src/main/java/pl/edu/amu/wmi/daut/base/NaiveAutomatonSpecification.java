@@ -86,14 +86,11 @@ public class NaiveAutomatonSpecification extends AutomatonSpecification {
         finalStates.add((NaiveState) state);
     }
 
-<<<<<<< HEAD
+    @Override
     public void unmarkAsFinalState(State state) {
         finalStates.remove((NaiveState) state);
     }
-
-=======
     @Override
->>>>>>> aab94fb34ff3d2f0e2d5ecb51eb1f02bd227913a
     public List<State> allStates() {
         return allStates;
     }
