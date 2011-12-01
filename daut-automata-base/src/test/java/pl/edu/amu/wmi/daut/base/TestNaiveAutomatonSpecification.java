@@ -180,11 +180,16 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
         NaiveAutomatonSpecification spec3 = new NaiveAutomatonSpecification();
 
+        assertFalse(spec.isFull("abc"));
+
         spec.makeFull("abc");
+
         assertTrue(spec.isFull("abc"));
         assertEquals(spec.countStates(), 1);
 
         State s = spec2.addState();
+
+        assertFalse(spec2.isFull("abc"));
 
         spec2.makeFull("abc");
         assertTrue(spec2.isFull("abc"));
@@ -195,6 +200,8 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         State s2 = spec3.addState();
 
         spec3.addTransition(s0, s1, new CharTransitionLabel('a'));
+
+        assertFalse(spec3.isFull("abc"));
 
         spec3.makeFull("abc");
         assertTrue(spec3.isFull("abc"));
