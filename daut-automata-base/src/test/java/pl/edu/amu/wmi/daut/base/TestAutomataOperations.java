@@ -551,7 +551,7 @@ public class TestAutomataOperations extends TestCase {
     /**
      * Test funkcji determinize2(). Automat zawiera CharRangeTransitionLabel.
      */
-    public final void testDeterminize2AutomatonWithCharRange() {
+    public final void testDeterminize2BigAutomaton() {
         AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
         DeterministicAutomatonSpecification deterministicAutomat
                 = new NaiveDeterministicAutomatonSpecification();
