@@ -21,9 +21,9 @@ public class SingleCharacterOperator extends NullaryRegexpOperator {
     }
 
     /**
-     * getter do charactera
+     * Chyba widać.
      */
-    public getCharacter() {
+    public char getCharacter() {
         return character;
     }
 
