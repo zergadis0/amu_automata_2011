@@ -1,15 +1,11 @@
-/*
- * Klsa służy obsłudze prostych klas wyrażeń regularnych,
- * pozwala na sprawdzenie czy dany znak je spełnia.
- */
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-/**
- *
- * @author kacper
+/*
+ * Klasa służy obsłudze prostych klas wyrażeń regularnych,
+ * pozwala na sprawdzenie czy dany znak je spełnia.
  */
 public class CharClassTransitionLabel extends TransitionLabel {
 
