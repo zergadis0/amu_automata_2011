@@ -19,10 +19,10 @@ public class SingleCharacterOperator extends NullaryRegexpOperator {
     public SingleCharacterOperator(char a) {
         character = a;
     }
-    
+
     /**
-     *  Opis gettera bo checstyle się sra
-     */ 
+     *  Opis gettera bo checstyle się sra. kropka też jest bo tego też mi nie przepuści.
+     */
     public char getCharacter() {
         return character;
     }
