@@ -80,19 +80,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public abstract void markAsInitial(State state);
 
     /**
-     * Metoda budująca 2-stanowy automat z jednym przejściem.
-     */
-    public AutomatonSpecification makeOneTransitionAutomaton(char c) {
-        AutomatonSpecification spec1 = new NaiveAutomatonSpecification();
-        State q0 = spec1.addState();
-        State q1 = spec1.addState();
-        spec1.addTransition(q0, q1, new CharTransitionLabel(c));
-        spec1.markAsInitial(q0);
-        spec1.markAsFinal(q1);
-        return spec1;
-    }
-
-    /**
      * Oznacza stan jako końcowy (akceptujący).
      */
     public abstract void markAsFinal(State state);
@@ -754,6 +741,17 @@ public abstract class AutomatonSpecification implements Cloneable  {
         addLoop(q0, new CharTransitionLabel(c));
         markAsInitial(q0);
         markAsFinal(q0);
+    }
+
+    /**
+     * Metoda budująca 2-stanowy automat z jednym przejściem.
+     */
+    public void makeOneTransitionAutomaton(char c) {
+        State q0 = addState();
+        State q1 = addState();
+        addTransition(q0, q1, new CharTransitionLabel(c));
+        markAsInitial(q0);
+        markAsFinal(q1);
     }
 
     /**
