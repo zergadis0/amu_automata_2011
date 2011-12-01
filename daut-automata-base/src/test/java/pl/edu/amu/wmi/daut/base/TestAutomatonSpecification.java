@@ -507,14 +507,13 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody getEpsilonClosure(State).
+     * Prosty test metody getEpsilonClosure(State).
      */
-    public final void testGetEpsilonClosure() {
-
+    public final void simpleTestGetEpsilonClosure() {
         // Automat z tylko jednym stanem (początkowy i końcowy).
         // Tylko jedne możliwe przejście (czytanie znaku pustego
         // i wracanie na ten sam stan).
-        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+        automat = new NaiveAutomatonSpecification();
         // Nowy automat ma już stan początkowy i ustawiamy przejście.
         automat.addTransition(automat.getInitialState(),
                 automat.getInitialState(),
@@ -525,9 +524,14 @@ public class TestAutomatonSpecification extends TestCase {
         zbior.add(automat.getInitialState());
         assertEquals(zbior,
                 automat.getEpsilonClosure(automat.getInitialState()));
+    }
 
+    /**
+     * Trudniejszy test metody getEpsilonClosure(State).
+     */
+    public final void hardTestGetEpsilonClosure() {
         // Prosty automat z czterema stanami.
-        automat = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0, s1, s2, s3;
         s0 = automat.getInitialState();
         s1 = automat.addState();
@@ -548,7 +552,7 @@ public class TestAutomatonSpecification extends TestCase {
         automat.addTransition(s3, s0, new EpsilonTransitionLabel());
         automat.addTransition(s0, s3, new EpsilonTransitionLabel());
 
-        zbior = new HashSet<State>();
+        Set<State> zbior zbior = new HashSet<State>();
         zbior.add(s1);
         assertEquals(zbior, automat.getEpsilonClosure(s1));
 
