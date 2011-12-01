@@ -535,8 +535,7 @@ public class AutomataOperations {
                 }
             }
             PowerSetElement.resetNumber();
-            //Gdy metoda będzie gotowa - odkomentować!
-            //resultDfa.deleteUselessStates();
+            resultDfa.deleteUselessStates();
         } else {
             throw new StructureException();
         }
