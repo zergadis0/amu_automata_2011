@@ -12,7 +12,7 @@ import junit.framework.TestCase;
  * @author JakubS91
  */
 public class TestGeneratorRandomWord extends TestCase {
-    
+
     /**
      * Metoda zwraca deterministyczny automat sk. stanowy akceptujący słowa
      * z parzystą liczbą wystąpień 'a' i parzystą liczbą wystąpień 'b'
@@ -36,7 +36,7 @@ public class TestGeneratorRandomWord extends TestCase {
         automaton.markAsFinal(qpp);
         return automaton;
     }
-    
+
     /**
      * Metoda zwraca deterministyczny automat sk. stanowy akceptujący słowa
      * które zawierają ciąg "aba" nad językiem {a,b}*.
@@ -59,7 +59,7 @@ public class TestGeneratorRandomWord extends TestCase {
         automaton.markAsFinal(q3);
         return automaton;
     }
-    
+
     /**
      * Metoda zwraca niedeterministyczny automat sk. stanowy akceptujący słowa
      * które zawierają ciąg literę 'b' na przedostatnim miejscu
@@ -79,7 +79,7 @@ public class TestGeneratorRandomWord extends TestCase {
         automaton.markAsFinal(q2);
         return automaton;
     }
-    
+
     /**
      * Metoda zwraca deterministyczny automat sk. stanowy akceptujący słowa
      * "a", "b" i "c" nad językiem {a, b, c}*.
@@ -99,7 +99,7 @@ public class TestGeneratorRandomWord extends TestCase {
         automaton.markAsFinal(q3);
         return automaton;
     }
-    
+
     /**
      * Sprawdza poprawność wygenerowanych słów. Sprawdza czy zwrócone słowo
      * przez metodę randomWord z klasy Generator jest akceptowane przez dany automat.
@@ -119,7 +119,7 @@ public class TestGeneratorRandomWord extends TestCase {
         }
         return result;
     }
-    
+
     /**
      * Metoda sprawdza losowość wygenerowanych słów. Sprawdza czy zostały
      * wygenerowane wszystkie możliwe słowa przez metodę randomWord z klasy
@@ -141,7 +141,7 @@ public class TestGeneratorRandomWord extends TestCase {
         }
         return (words.size() == allPossibilities);
     }
-    
+
     /**
      * Główna metoda wywołująca metody testujące metodę randomWord z klasy
      * Generator.
