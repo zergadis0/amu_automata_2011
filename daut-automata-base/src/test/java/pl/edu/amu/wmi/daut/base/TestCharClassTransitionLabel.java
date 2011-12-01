@@ -24,7 +24,7 @@ public class TestCharClassTransitionLabel extends TestCase {
         assertTrue(test1.canAcceptCharacter('9'));
         assertEquals(test1.toString(), "[0-9]");
         assertFalse(test1.canBeEpsilon());
-        assertTrue(test1.isEmpty());
+        assertFalse(test1.isEmpty());
         assertFalse(test1.canAcceptCharacter('b'));
 
         //budujemy
@@ -45,7 +45,7 @@ public class TestCharClassTransitionLabel extends TestCase {
         assertTrue(test2.canAcceptCharacter('q'));
         assertEquals(test2.toString(), "[6a-fA-Zq]");
         assertFalse(test2.canBeEpsilon());
-        assertTrue(test2.isEmpty());
+        assertFalse(test2.isEmpty());
         assertFalse(test2.canAcceptCharacter('h'));
         assertFalse(test2.canAcceptCharacter('5'));
         assertEquals(test2.toString(), "[6a-fA-Zq]");
@@ -69,7 +69,7 @@ public class TestCharClassTransitionLabel extends TestCase {
         assertFalse(inter.canAcceptCharacter('d'));
         assertFalse(inter.canAcceptCharacter('f'));
         assertFalse(inter.canBeEpsilon());
-        assertTrue(inter.isEmpty());
+        assertFalse(inter.isEmpty());
         assertEquals(inter.toString(), "[bc]");
         assertFalse(inter.canBeEpsilon());
         assertTrue(inter.canAcceptCharacter('c'));
