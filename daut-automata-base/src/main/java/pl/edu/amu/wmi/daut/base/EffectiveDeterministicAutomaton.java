@@ -206,7 +206,7 @@ class EffectiveDeterministicAutomaton extends DeterministicAutomatonSpecificatio
     }
 
     @Override
-    public void unmarkAsFinal(State state) {
+    public void unmarkAsFinalState(State state) {
         MyState myState = assertStateValid(state);
         myState.setFinal(false);
     }

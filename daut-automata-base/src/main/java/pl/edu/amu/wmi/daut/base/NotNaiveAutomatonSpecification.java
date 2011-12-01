@@ -43,7 +43,7 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
     }
 
     public void unmarkAsFinalState(State state) {
-        finalstates.remove((NotNaiveState) state);
+        finalStates.remove((NotNaiveState) state);
     }
 
     public List<State> allStates() {
