@@ -53,7 +53,7 @@ public class CharClassTransitionLabel extends TransitionLabel {
 
     @Override
     public boolean isEmpty() {
-        return !charClass.isEmpty();
+        return charClass.isEmpty();
     }
 
     @Override
