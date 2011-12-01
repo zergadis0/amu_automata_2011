@@ -297,21 +297,21 @@ public class AutomataOperations {
         public static void giveAllPowerSetElements(List<PowerSetElement> listOfStates,
             List<State> dfaStatesRemote, List<State> nfaStatesRemote) {
             Set<State> nfaStates = new HashSet<State>();
-            giveAllPowerSetElementsRecurent(listOfStates, dfaStatesRemote, nfaStatesRemote,
+            giveAllPowerSetElementsRecursive(listOfStates, dfaStatesRemote, nfaStatesRemote,
                     nfaStates, 0);
         }
 
-        private static void giveAllPowerSetElementsRecurent(List<PowerSetElement> listOfStates,
+        private static void giveAllPowerSetElementsRecursive(List<PowerSetElement> listOfStates,
             List<State> dfaStatesRemote, List<State> nfaStatesRemote, Set<State> nfaStates,
             int depth) {
             if (depth < nfaStatesRemote.size()) {
                 //Gałąź dla false(Obecnie rozpatrywany stan NFA nie jest brany)
-                giveAllPowerSetElementsRecurent(listOfStates, dfaStatesRemote,
+                giveAllPowerSetElementsRecursive(listOfStates, dfaStatesRemote,
                         nfaStatesRemote, nfaStates, depth + 1);
 
                 //Gałąź dla true(Obecnie rozpatrywany stan NFA jest brany)
                 nfaStates.add(nfaStatesRemote.get(depth));
-                giveAllPowerSetElementsRecurent(listOfStates, dfaStatesRemote,
+                giveAllPowerSetElementsRecursive(listOfStates, dfaStatesRemote,
                         nfaStatesRemote, nfaStates, depth + 1);
                 nfaStates.remove(nfaStatesRemote.get(depth));
             } else {
@@ -494,9 +494,6 @@ public class AutomataOperations {
                         if (targetStructure.getnfaStates().isEmpty())
                             resultDfa.addTransition(structure.getdfaState(),
                                 targetStructure.getdfaState(), new AnyTransitionLabel());
-                        else
-                            resultDfa.addTransition(structure.getdfaState(),
-                                targetStructure.getdfaState(), new EmptyTransitionLabel());
                     }
                 } else {
                     for (TransitionLabel t : tSet) {
