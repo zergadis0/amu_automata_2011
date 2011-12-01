@@ -59,7 +59,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
     /**
      * Tworzy "gałąź" w automacie.
-     * Metoda dodaje ciąg przejść od stanu początkowego autpublic abstract void unmarkAsFinalState(State state);omatu,
+     * Metoda dodaje ciąg przejść od stanu początkowego automatu,
      * dla podanej listy etykiet przejść.
      * Metoda zwraca (nowo utworzony) stan docelowy ostatniego przejścia.
      */
@@ -83,11 +83,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Oznacza stan jako końcowy (akceptujący).
      */
     public abstract void markAsFinal(State state);
-
-    /**
-     * Odznacza stan końcowy.
-     */
-    public abstract void unmarkAsFinalState(State state);
 
     // metody zwracające informacje o automacie
     /**
