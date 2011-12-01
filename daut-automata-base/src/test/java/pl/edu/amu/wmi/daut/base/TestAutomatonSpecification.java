@@ -513,7 +513,7 @@ public class TestAutomatonSpecification extends TestCase {
         // Automat z tylko jednym stanem (początkowy i końcowy).
         // Tylko jedne możliwe przejście (czytanie znaku pustego
         // i wracanie na ten sam stan).
-        automat = new NaiveAutomatonSpecification();
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         // Nowy automat ma już stan początkowy i ustawiamy przejście.
         automat.addTransition(automat.getInitialState(),
                 automat.getInitialState(),
