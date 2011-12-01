@@ -11,7 +11,7 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
  */
 public class SingleCharacterOperator extends NullaryRegexpOperator {
 
-    private char character
+    private char character;
 
     /**
      * Konstruktor jaki jest każdy widzi. Ten akurat pobiera chara :)
