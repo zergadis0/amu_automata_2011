@@ -8,7 +8,7 @@ import java.util.List;
 public final class AutomatonByRecursion implements Acceptor {
 
     /**
-     * konstruktor, pobiera specyfikacje automatu
+     * konstruktor, pobiera specyfikacje automatu.
      */
     public AutomatonByRecursion(final AutomatonSpecification specification) {
         automaton = specification;
