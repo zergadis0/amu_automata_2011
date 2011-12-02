@@ -844,7 +844,22 @@ public abstract class AutomatonSpecification implements Cloneable  {
             for (int i = 0; i < le; i++) {
                 if (x > 1 && searchWord[x-1] == ter.charAt(ter.length()-1)) {
                     while (tempflag > 0) {
-                        if(searchWord[tempflag-1] == ter.charAt(ter.length()-1)) {
+                        if(tempflag-1 == 0) {
+                            int z = 0, y = 0;
+                            while (z < ter.length()-1 && y == 0){
+                                if (searchWord[tempflag-1] == ter.charAt(z))
+                                    y = z+1;
+                                else
+                                    z++;
+                            }
+                            searchWord[tempflag-1] = ter.charAt(y);
+                            tempflag = x;
+                            while(tempflag > 1) {
+                                searchWord[tempflag-1]=ter.charAt(0);
+                                tempflag--;
+                            }
+                            tempflag = 0;
+                        } else if(searchWord[tempflag-1] == ter.charAt(ter.length()-1)) {
                             tempflag--;
                         } else {
                             int z = 0, y = 0;
@@ -858,8 +873,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
                             tempflag = 0;
                         }
                     }
-//                    String word = new String(searchWord);
-//                    return word;
                 }
                 tempflag = x;
                 searchWord[x-1] = tmp[i%alphabet.length()];
