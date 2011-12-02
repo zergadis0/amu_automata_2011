@@ -825,7 +825,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public String firstAcceptedWord(String alphabet) {
         NondeterministicAutomatonByThompsonApproach a =
                 new NondeterministicAutomatonByThompsonApproach(this);
-        boolean found = false;
+        boolean found = false, found2 = false;
         char[] tmp = alphabet.toCharArray();
         java.util.Arrays.sort(tmp);
         String ter = new String(tmp);
@@ -835,29 +835,33 @@ public abstract class AutomatonSpecification implements Cloneable  {
             found = true;
             return "";
         } else do {
-            int flag = x;
-            int tempflag = flag;
+            int tempflag = x;
             char[] searchWord = new char[x];
             while(tempflag > 0) {
                 searchWord[tempflag-1]=ter.charAt(0);
                 tempflag--;
             }
-            tempflag = flag;
             for (int i = 0; i < le; i++) {
-                if (x > 1 && searchWord[flag-1] == ter.charAt(ter.length()-1)) {
+                if (x > 1 && searchWord[x-1] == ter.charAt(ter.length()-1)) {
                     while (tempflag > 0) {
                         if(searchWord[tempflag-1] == ter.charAt(ter.length()-1)) {
                             tempflag--;
                         } else {
-                            char incr = searchWord[tempflag-1];
-                            for (int z = 0; z < ter.length()-1; z++) {
-                                if (incr == ter.charAt(z)) 
-                                    incr = ter.charAt(z+1);
-                                    searchWord[tempflag-1] = incr;
+                            int z = 0, y = 0;
+                            while (z < ter.length()-1 && y == 0){
+                                if (searchWord[tempflag-1] == ter.charAt(z))
+                                    y = z+1;
+                                else
+                                    z++;
                             }
+                            searchWord[tempflag-1] = ter.charAt(y);
+                            tempflag = 0;
                         }
                     }
+//                    String word = new String(searchWord);
+//                    return word;
                 }
+                tempflag = x;
                 searchWord[x-1] = tmp[i%alphabet.length()];
                 String acceptedWord = new String(searchWord);
                 if (a.accepts(acceptedWord)) {
