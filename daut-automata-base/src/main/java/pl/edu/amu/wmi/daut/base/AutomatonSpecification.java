@@ -822,24 +822,52 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Metoda zwracająca pierwszy według kolejności alfabetycznej napis,
      * akceptowany przez automat.
      */
-    public String firstAcceptedWord() {
-        AllAcceptedWords words = new AllAcceptedWords(this);
-        String tmp;
-        if (words.hasNext()) {
-            String min = words.next();
-            if (min.isEmpty())
-                return min;
-            if (words.hasNext()) do {
-                tmp = words.next();
-                if (tmp.compareTo(min) < 0) {
-                    if (min.length()>=tmp.length())
-                        min = tmp;
-                    else
-                        return min;
+    public String firstAcceptedWord(String alphabet) {
+        NondeterministicAutomatonByThompsonApproach a =
+                new NondeterministicAutomatonByThompsonApproach(this);
+        boolean found = false;
+        char[] tmp = alphabet.toCharArray();
+        java.util.Arrays.sort(tmp);
+        String ter = new String(tmp);
+        int le = alphabet.length();
+        int x = 1;
+        if (this.acceptEmptyWord()) {
+            found = true;
+            return "";
+        } else do {
+            int flag = x;
+            int tempflag = flag;
+            char[] searchWord = new char[x];
+            while(tempflag > 0) {
+                searchWord[tempflag-1]=ter.charAt(0);
+                tempflag--;
+            }
+            tempflag = flag;
+            for (int i = 0; i < le; i++) {
+                if (x > 1 && searchWord[flag-1] == ter.charAt(ter.length()-1)) {
+                    while (tempflag > 0) {
+                        if(searchWord[tempflag-1] == ter.charAt(ter.length()-1)) {
+                            tempflag--;
+                        } else {
+                            char incr = searchWord[tempflag-1];
+                            for (int z = 0; z < ter.length()-1; z++) {
+                                if (incr == ter.charAt(z)) 
+                                    incr = ter.charAt(z+1);
+                                    searchWord[tempflag-1] = incr;
+                            }
+                        }
+                    }
                 }
-            } while (words.hasNext());
-            return min;
-        } else
+                searchWord[x-1] = tmp[i%alphabet.length()];
+                String acceptedWord = new String(searchWord);
+                if (a.accepts(acceptedWord)) {
+                    found = true;
+                    return acceptedWord;
+                } 
+            }
+            le = le*le;
+            x++;
+        } while(found != true);
             throw new RuntimeException("error");
     }
     /**
