@@ -84,6 +84,11 @@ public abstract class AutomatonSpecification implements Cloneable  {
      */
     public abstract void markAsFinal(State state);
 
+    /**
+     * Odznacza stan końcowy.
+     */
+    public abstract void unmarkAsFinalState(State state);
+
     // metody zwracające informacje o automacie
     /**
      * Zwraca listę wszystkich stanów.
