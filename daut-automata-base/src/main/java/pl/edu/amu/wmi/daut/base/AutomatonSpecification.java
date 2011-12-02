@@ -828,53 +828,47 @@ public abstract class AutomatonSpecification implements Cloneable  {
         boolean found = false, found2 = false;
         char[] tmp = alphabet.toCharArray();
         java.util.Arrays.sort(tmp);
-        String ter = new String(tmp);
-        int le = alphabet.length();
+        String sorted = new String(tmp);
+        int l = alphabet.length();
         int x = 1;
+        if (this.isEmpty()) 
+            throw new RuntimeException("empty automaton");
         if (this.acceptEmptyWord()) {
             found = true;
             return "";
         } else do {
-            int tempflag = x;
+            int flag = x;
             char[] searchWord = new char[x];
-            while(tempflag > 0) {
-                searchWord[tempflag-1]=ter.charAt(0);
-                tempflag--;
+            while(flag > 0) {
+                searchWord[flag-1]=sorted.charAt(0);
+                flag--;
             }
-            for (int i = 0; i < le; i++) {
-                if (x > 1 && searchWord[x-1] == ter.charAt(ter.length()-1)) {
-                    while (tempflag > 0) {
-                        if(tempflag-1 == 0) {
-                            int z = 0, y = 0;
-                            while (z < ter.length()-1 && y == 0){
-                                if (searchWord[tempflag-1] == ter.charAt(z))
-                                    y = z+1;
-                                else
-                                    z++;
-                            }
-                            searchWord[tempflag-1] = ter.charAt(y);
-                            tempflag = x;
-                            while(tempflag > 1) {
-                                searchWord[tempflag-1]=ter.charAt(0);
-                                tempflag--;
-                            }
-                            tempflag = 0;
-                        } else if(searchWord[tempflag-1] == ter.charAt(ter.length()-1)) {
-                            tempflag--;
+            for (int i = 0; i < l; i++) {
+                if (x > 1 && searchWord[x-1] == sorted.charAt(sorted.length()-1)) {
+                    while (flag > 0) {
+                        if(searchWord[flag-1] == sorted.charAt(sorted.length()-1)) {
+                            flag--;
                         } else {
                             int z = 0, y = 0;
-                            while (z < ter.length()-1 && y == 0){
-                                if (searchWord[tempflag-1] == ter.charAt(z))
+                            while (z < sorted.length()-1 && y == 0){
+                                if (searchWord[flag-1] == sorted.charAt(z))
                                     y = z+1;
                                 else
                                     z++;
                             }
-                            searchWord[tempflag-1] = ter.charAt(y);
-                            tempflag = 0;
+                            searchWord[flag-1] = sorted.charAt(y);
+                            if(flag-1 == 0) {
+                                flag = x;
+                                while(flag > 1) {
+                                    searchWord[flag-1]=sorted.charAt(0);
+                                    flag--;
+                                }
+                            }
+                            flag = 0;
                         }
                     }
                 }
-                tempflag = x;
+                flag = x;
                 searchWord[x-1] = tmp[i%alphabet.length()];
                 String acceptedWord = new String(searchWord);
                 if (a.accepts(acceptedWord)) {
@@ -882,7 +876,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                     return acceptedWord;
                 } 
             }
-            le = le*le;
+            l = l*l;
             x++;
         } while(found != true);
             throw new RuntimeException("error");
