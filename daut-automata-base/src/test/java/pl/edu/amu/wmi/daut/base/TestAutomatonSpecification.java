@@ -898,10 +898,11 @@ public class TestAutomatonSpecification extends TestCase {
         assertEquals(mini.countStates(), clon.countStates());
         assertEquals(mini.countTransitions(), clon.countTransitions());
 
+        AutomatonByStack mini2 = new AutomatonByStack(mini);
         AutomatonByStack clon2 = new AutomatonByStack(clon);
-        assertTrue(clon2.accepts("ab"));
-        assertFalse(clon2.accepts("aa"));
-        assertFalse(clon2.accepts(""));
+        assertEquals(clon2.accepts("ab"), mini2.accepts("ab"));
+        assertEquals(clon2.accepts("aa"), mini2.accepts("aa"));
+        assertEquals(clon2.accepts(""), mini2.accepts(""));
     }
 
     /**
