@@ -80,22 +80,14 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public abstract void markAsInitial(State state);
 
     /**
-     * Metoda budująca 2-stanowy automat z jednym przejściem.
-     */
-    public AutomatonSpecification makeOneTransitionAutomaton(char c) {
-        AutomatonSpecification spec1 = new NaiveAutomatonSpecification();
-        State q0 = spec1.addState();
-        State q1 = spec1.addState();
-        spec1.addTransition(q0, q1, new CharTransitionLabel(c));
-        spec1.markAsInitial(q0);
-        spec1.markAsFinal(q1);
-        return spec1;
-    }
-
-    /**
      * Oznacza stan jako końcowy (akceptujący).
      */
     public abstract void markAsFinal(State state);
+
+    /**
+     * Odznacza stan końcowy.
+     */
+    public abstract void unmarkAsFinalState(State state);
 
     // metody zwracające informacje o automacie
     /**
@@ -436,10 +428,26 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Funkcja zmieniająca pusty automat na automat akceptujący wyłącznie napis
      * pusty.
      */
-    public void makeEmptyStringAutomaton() {
+    public AutomatonSpecification makeEmptyStringAutomaton() {
         State emptyState = this.addState();
         this.markAsInitial(emptyState);
         this.markAsFinal(emptyState);
+
+        return this;
+    }
+
+    /**
+     * Sprawdza czy dla danego stanu i znaku istnieje przejście.
+     */
+    private boolean doesTransitionExist(State state, char c) {
+
+        for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
+
+            if (transition1.getTransitionLabel().canAcceptCharacter(c))
+                return true;
+        }
+
+        return false;
     }
 
     /**
@@ -447,25 +455,21 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * istnieje przejście.
      */
     public boolean isFull(String alphabet) {
-        int index;
+
         if (allStates().isEmpty())
             return false;
+
         for (State state : allStates()) {
+
             if (allOutgoingTransitions(state).isEmpty())
                     return false;
+
             for (int i = 0; i < alphabet.length(); i++) {
-                index = 0;
-                for (OutgoingTransition transition : allOutgoingTransitions(state)) {
-                    if (transition.getTransitionLabel().canAcceptCharacter(alphabet.charAt(i)))
-                        break;
-                    else if ((index == allOutgoingTransitions(state).size() - 1)
-                            && !transition.getTransitionLabel()
-                            .canAcceptCharacter(alphabet.charAt(i)))
-                        return false;
-                    else index++;
-                }
+                if (!doesTransitionExist(state, alphabet.charAt(i)))
+                    return false;
             }
         }
+
         return true;
     }
 
@@ -475,7 +479,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public void makeFull(String alphabet) {
 
         State trash = null;
-        int indeks;
 
         if (this.isEmpty()) {
             trash = addState();
@@ -486,31 +489,31 @@ public abstract class AutomatonSpecification implements Cloneable  {
         }
 
         for (State state : new ArrayList<State>(allStates())) {
+
             for (int i = 0; i < alphabet.length(); i++) {
-                indeks = 0;
+
                 if (allOutgoingTransitions(state).isEmpty()) {
+
                     if (trash == null)
                         trash = addState();
+
                     addTransition(state, trash, new CharTransitionLabel(
                             alphabet.charAt(i)));
                 }
-                for (OutgoingTransition transition1 : allOutgoingTransitions(state)) {
-                    if (transition1.getTransitionLabel().canAcceptCharacter(
-                            alphabet.charAt(i)))
-                        break;
-                    else if ((indeks == allOutgoingTransitions(state).size() - 1)
-                            && !transition1.getTransitionLabel()
-                                    .canAcceptCharacter(alphabet.charAt(i))) {
-                        if (trash == null)
-                            trash = addState();
-                        addTransition(state, trash, new CharTransitionLabel(
-                                alphabet.charAt(i)));
-                    } else
-                        indeks++;
+
+                if (!doesTransitionExist(state, alphabet.charAt(i))) {
+
+                    if (trash == null)
+                        trash = addState();
+
+                    addTransition(state, trash, new CharTransitionLabel(
+                            alphabet.charAt(i)));
                 }
             }
         }
+
         if (trash != null) {
+
             for (int i = 0; i < alphabet.length(); i++)
                 addLoop(trash, new CharTransitionLabel(
                         alphabet.charAt(i)));
@@ -650,18 +653,20 @@ public abstract class AutomatonSpecification implements Cloneable  {
     /**
      * Tworzy automat akceptujący napisy nad alfabetem.
      */
-    public void makeAllStringsAutomaton(String alphabet) {
+    public AutomatonSpecification makeAllStringsAutomaton(String alphabet) {
         State state = addState();
         markAsInitial(state);
         markAsFinal(state);
         for (int i = 0; i < alphabet.length(); i++)
             addLoop(state, new CharTransitionLabel(alphabet.charAt(i)));
+
+        return this;
     }
 
     /**
      * Tworzy automat akceptujący wszystkie niepuste napisy nad alfabetem.
      */
-    public void makeAllNonEmptyStringsAutomaton(String alphabet) {
+    public AutomatonSpecification makeAllNonEmptyStringsAutomaton(String alphabet) {
         State s0 = addState();
         State s1 = addState();
         markAsInitial(s0);
@@ -670,6 +675,8 @@ public abstract class AutomatonSpecification implements Cloneable  {
             addTransition(s0, s1, new CharTransitionLabel(alphabet.charAt(i)));
             addLoop(s1, new CharTransitionLabel(alphabet.charAt(i)));
         }
+
+        return this;
     }
 
     /**
@@ -749,11 +756,26 @@ public abstract class AutomatonSpecification implements Cloneable  {
     /**
      * Tworzy automat z jednym przejściem.
      */
-    public void makeOneLoopAutomaton(char c) {
+    public AutomatonSpecification makeOneLoopAutomaton(char c) {
         State q0 = addState();
         addLoop(q0, new CharTransitionLabel(c));
         markAsInitial(q0);
         markAsFinal(q0);
+
+        return this;
+    }
+
+    /**
+     * Metoda budująca 2-stanowy automat z jednym przejściem.
+     */
+    public AutomatonSpecification makeOneTransitionAutomaton(char c) {
+        State q0 = addState();
+        State q1 = addState();
+        addTransition(q0, q1, new CharTransitionLabel(c));
+        markAsInitial(q0);
+        markAsFinal(q1);
+
+        return this;
     }
 
     /**
