@@ -879,9 +879,8 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Testuje działanie metody clone().
+     * Testuje działanie metody clone(). Test 1.
      */
-    // Pierwszy testowy automat:
     public final void testCloneMiniAutomaton() {
         AutomatonSpecification mini = new NaiveAutomatonSpecification();
         State q0 = mini.addState();
@@ -897,9 +896,7 @@ public class TestAutomatonSpecification extends TestCase {
         AutomatonSpecification clon = mini.clone();
 
         assertEquals(mini.countStates(), clon.countStates());
-        assertEquals(mini.countTransitions(),clon.countTransitions());
-        assertEquals(mini.allOutgoingTransitions(q0).get(0).getTransitionLabel(),
-                clon.allOutgoingTransitions(clon.getInitialState()).get(0).getTransitionLabel());
+        assertEquals(mini.countTransitions(), clon.countTransitions());
 
         AutomatonByStack clon2 = new AutomatonByStack(clon);
         assertTrue(clon2.accepts("ab"));
@@ -907,7 +904,9 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(clon2.accepts(""));
     }
 
-    // Drugi testowy automat:
+    /**
+     * Testuje działanie metody clone(). Test 2.
+     */
     public final void testCloneMini2Automaton() {
 
         AutomatonSpecification mini2 = new NaiveAutomatonSpecification();
@@ -925,9 +924,7 @@ public class TestAutomatonSpecification extends TestCase {
         AutomatonSpecification clon = mini2.clone();
 
         assertEquals(mini2.countStates(), clon.countStates());
-        assertEquals(mini2.countTransitions(),clon.countTransitions());
-        assertEquals(mini2.allOutgoingTransitions(q0).get(0).getTransitionLabel(),
-		clon.allOutgoingTransitions(clon.getInitialState()).get(0).getTransitionLabel());
+        assertEquals(mini2.countTransitions(), clon.countTransitions());
 
         AutomatonByStack clon2 = new AutomatonByStack(clon);
 
@@ -945,7 +942,9 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(clon2.accepts("cos"));
     }
 
-    // Trzeci testowy automat:
+    /**
+     * Testuje działanie metody clone(). Test 3.
+     */
     public final void testCloneMini3Automaton() {
 
         AutomatonSpecification mini3 = new NaiveAutomatonSpecification();
@@ -965,9 +964,7 @@ public class TestAutomatonSpecification extends TestCase {
         AutomatonSpecification clon = mini3.clone();
 
         assertEquals(mini3.countStates(), clon.countStates());
-        assertEquals(mini3.countTransitions(),clon.countTransitions());
-        assertEquals(mini3.allOutgoingTransitions(q0).get(0).getTransitionLabel(),
-		clon.allOutgoingTransitions(clon.getInitialState()).get(0).getTransitionLabel());
+        assertEquals(mini3.countTransitions(), clon.countTransitions());
 
         AutomatonByStack clon2 = new AutomatonByStack(clon);
 
@@ -976,7 +973,9 @@ public class TestAutomatonSpecification extends TestCase {
         assertFalse(clon2.accepts("bb"));
     }
 
-    // Czwarty testowy automat:
+    /**
+     * Testuje działanie metody clone(). Test 4.
+     */
     public final void testCloneMini4Automaton() {
 
     AutomatonSpecification mini4 = new NaiveAutomatonSpecification();
@@ -998,9 +997,7 @@ public class TestAutomatonSpecification extends TestCase {
         AutomatonSpecification clon = mini4.clone();
 
         assertEquals(mini4.countStates(), clon.countStates());
-        assertEquals(mini4.countTransitions(),clon.countTransitions());
-        assertEquals(mini4.allOutgoingTransitions(q0).get(0).getTransitionLabel(),
-		clon.allOutgoingTransitions(clon.getInitialState()).get(0).getTransitionLabel());
+        assertEquals(mini4.countTransitions(), clon.countTransitions());
 
         AutomatonByStack clon2 = new AutomatonByStack(clon);
 
