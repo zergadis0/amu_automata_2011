@@ -958,7 +958,7 @@ public class TestAutomatonSpecification extends TestCase {
         mini3.addTransition(q1, q2, new CharTransitionLabel('b'));
         mini3.addTransition(q1, q3, new CharTransitionLabel('b'));
 
-	mini3.markAsInitial(q0);
+        mini3.markAsInitial(q0);
         mini3.markAsFinal(q2);
 
         AutomatonSpecification clon = mini3.clone();
