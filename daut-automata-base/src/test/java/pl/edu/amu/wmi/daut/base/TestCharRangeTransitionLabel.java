@@ -11,7 +11,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Metoda testująca CharRangeTransitionLabel.
      * Puste przecięcie.
      */
-    public final void test1() {
+    public final void testEmptyIntersection() {
 
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
 
@@ -41,7 +41,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Metoda testująca CharRangeTransitionLabel.
      * Niepuste przecięcie.
      */
-    public final void test2() {
+    public final void testNotEmptyIntersection() {
 
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
@@ -75,7 +75,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Metoda testująca CharRangeTransitionLabel.
      * Puste przecięcie.
      */
-    public final void test3() {
+    public final void testEmptyIntersection2() {
          AutomatonSpecification aut = new NaiveAutomatonSpecification();
          State s0 = aut.addState();
          State s1 = aut.addState();
@@ -94,7 +94,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Metoda testująca CharRangeTransitionLabel.
      * Przedziały zawierające się.
      */
-    public final void test4() {
+    public final void testContainedIntersections() {
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
         State s1 = aut.addState();
@@ -130,7 +130,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Metoda testująca CharRangeTransitionLabel.
      * Przedziały równe.
      */
-    public final void test5() {
+    public final void testEqualIntersections() {
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
         State s1 = aut.addState();
@@ -158,7 +158,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Metoda testująca CharRangeTransitionLabel.
      * Końce przedziałów równe.
      */
-    public final void test6() {
+    public final void testEqualEdges() {
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
         State s1 = aut.addState();
@@ -185,7 +185,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Metoda testująca CharRangeTransitionLabel.
      * Przedziały zawierające się, jednoznakowe.
      */
-    public final void test7() {
+    public final void testOneCharEqualIntersections() {
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
         State s1 = aut.addState();
@@ -195,6 +195,30 @@ public class TestCharRangeTransitionLabel extends TestCase {
         aut.markAsFinal(s3);
         TransitionLabel trans = new CharRangeTransitionLabel('a', 'a');
         TransitionLabel trans2 = new CharRangeTransitionLabel('a', 'a');
+        aut.addTransition(s0, s1, trans);
+        aut.addTransition(s1, s2, trans2);
+        aut.addTransition(s2, s3, trans2.intersectWith(trans));
+
+        assertTrue(trans.canAcceptCharacter('a'));
+        assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
+        assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
+        assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
+        assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
+    }
+    /**
+     * Metoda testująca CharRangeTransitionLabel.
+     * Przecięcie dwóch różnych klas TransitionLabel.
+     */
+        public final void testCharIntersection() {
+        AutomatonSpecification aut = new NaiveAutomatonSpecification();
+        State s0 = aut.addState();
+        State s1 = aut.addState();
+        State s2 = aut.addState();
+        State s3 = aut.addState();
+        aut.markAsInitial(s0);
+        aut.markAsFinal(s3);
+        TransitionLabel trans = new CharRangeTransitionLabel('a', 'c');
+        TransitionLabel trans2 = new CharTransitionLabel('a');
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
         aut.addTransition(s2, s3, trans2.intersectWith(trans));
