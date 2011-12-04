@@ -7,16 +7,16 @@ import junit.framework.TestCase;
 
 
 /**
- * Testy klasy SingleCharOperator.
+ * Testy klasy SingleCharacterOperator.
  */
-public class SingleCharOperator extends TestCase {
+public class SingleCharacterOperator extends TestCase {
 
     /**
      * Metoda testujaca konstruktor
      */
-    public void testSingleCharOperator() {
+    public void testSingleCharacterOperator() {
 
-        SingleCharOperator operator = new SingleCharOperator('c');
+        SingleCharacterOperator operator = new SingleCharacterOperator('c');
         assertNotNull(operator);
         assertEquals(operator.Character(),'c');
     }
@@ -26,7 +26,7 @@ public class SingleCharOperator extends TestCase {
      */
     public final void testCreateFixedAutomaton() {
 
-        SingleCharOperator operator = new SingleCharOperator('c');
+        SingleCharacterOperator operator = new SingleCharacterOperator('c');
         AutomatonSpecification automaton = operator.createFixedAutomaton();
         assertFalse(automaton.isEmpty());
         assertTrue(automaton.isDeterministic());
