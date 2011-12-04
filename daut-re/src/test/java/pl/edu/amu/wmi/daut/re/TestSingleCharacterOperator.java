@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
-import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 
 import junit.framework.TestCase;
 
@@ -12,7 +11,7 @@ import junit.framework.TestCase;
 public class TestSingleCharacterOperator extends TestCase {
 
     /**
-     * Metoda testujaca konstruktor
+     * Metoda testujaca konstruktor.
      */
     public void testSingleCharacterOperator() {
 
