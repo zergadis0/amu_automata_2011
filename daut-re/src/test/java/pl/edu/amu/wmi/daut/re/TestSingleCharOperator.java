@@ -14,11 +14,11 @@ public class SingleCharOperator extends TestCase {
     /**
      * Metoda testujaca konstruktor
      */
-    public testSingleCharOperator() {
+    public void testSingleCharOperator() {
 
         SingleCharOperator operator = new SingleCharOperator('c');
         assertNotNull(operator);
-        assertEquals(operator.Character(),'c')
+        assertEquals(operator.Character(),'c');
     }
 
     /**
