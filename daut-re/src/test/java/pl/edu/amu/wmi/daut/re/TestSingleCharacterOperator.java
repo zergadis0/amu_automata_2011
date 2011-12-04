@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 /**
  * Testy klasy SingleCharacterOperator.
  */
-public class SingleCharacterOperator extends TestCase {
+public class TestSingleCharacterOperator extends TestCase {
 
     /**
      * Metoda testujaca konstruktor
