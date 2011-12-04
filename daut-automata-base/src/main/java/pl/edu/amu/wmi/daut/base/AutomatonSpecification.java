@@ -569,7 +569,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
     /**
      * Zwraca true, gdy automat akceptuje napis pusty.
      */
-
     public boolean acceptEmptyWord() {
 
         List<State> tocheck = new ArrayList<State>();
@@ -604,7 +603,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         }
         return false;
     }
-
 
     /**
      * Sprawdza, czy w automacie istnieją zbędne stany.
@@ -787,7 +785,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         AllAcceptedWords words = new AllAcceptedWords(this);
         return words;
     }
-
 
     /**
      * Sprawdza, czy akceptowany język jest nieskończony.
