@@ -22,11 +22,9 @@ abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator{
         
         List<AutomatonSpecification> lista =null;
         lista=subautomata;
-        AutomatonSpecification automatwejsciowy = new NaiveAutomatonSpecification();
-        automatwejsciowy = subautomaton.clone();
+        AutomatonSpecification automatwejsciowy = subautomaton.clone();
         
-        AutomatonSpecification automatbudowany = new NaiveAutomatonSpecification();
-        automatbudowany = subautomaton.clone();
+        AutomatonSpecification automatbudowany = subautomaton.clone();
         
         
         for(int i=0;i<this.n-1;i++) {
