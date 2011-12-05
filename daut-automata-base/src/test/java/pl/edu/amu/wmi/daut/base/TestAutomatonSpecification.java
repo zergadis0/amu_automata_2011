@@ -877,4 +877,143 @@ public class TestAutomatonSpecification extends TestCase {
         assertEquals(base.countTransitions(), 0);
         assertEquals(base.countStates(), automatonSize);
     }
+
+    /**
+     * Testuje działanie metody clone(). Test 1.
+     */
+    public final void testCloneMiniAutomaton() {
+
+        AutomatonSpecification mini = new NaiveAutomatonSpecification();
+
+        State q0 = mini.addState();
+        State q1 = mini.addState();
+        State q2 = mini.addState();
+
+        mini.markAsInitial(q0);
+        mini.markAsFinal(q2);
+
+        mini.addTransition(q0, q1, new CharTransitionLabel('a'));
+        mini.addTransition(q1, q2, new CharTransitionLabel('b'));
+
+        AutomatonSpecification clon = mini.clone();
+
+        assertEquals(mini.countStates(), clon.countStates());
+        assertEquals(mini.countTransitions(), clon.countTransitions());
+
+        AutomatonByStack mini2 = new AutomatonByStack(mini);
+        AutomatonByStack clon2 = new AutomatonByStack(clon);
+
+        assertEquals(clon2.accepts("ab"), mini2.accepts("ab"));
+        assertEquals(clon2.accepts("aa"), mini2.accepts("aa"));
+        assertEquals(clon2.accepts(""), mini2.accepts(""));
+    }
+
+    /**
+     * Testuje działanie metody clone(). Test 2.
+     */
+    public final void testCloneMini2Automaton() {
+
+        AutomatonSpecification mini = new NaiveAutomatonSpecification();
+
+        State q0 = mini.addState();
+        State q1 = mini.addState();
+
+        mini.markAsInitial(q0);
+        mini.markAsFinal(q1);
+
+        mini.addTransition(q0, q1, new CharTransitionLabel('a'));
+        mini.addLoop(q1, new CharTransitionLabel('a'));
+        mini.addLoop(q1, new CharTransitionLabel('b'));
+
+        AutomatonSpecification clon = mini.clone();
+
+        assertEquals(mini.countStates(), clon.countStates());
+        assertEquals(mini.countTransitions(), clon.countTransitions());
+
+        AutomatonByStack mini2 = new AutomatonByStack(mini);
+        AutomatonByStack clon2 = new AutomatonByStack(clon);
+
+        assertEquals(clon2.accepts("a"), mini2.accepts("a"));
+        assertEquals(clon2.accepts("aa"), mini2.accepts("aa"));
+        assertEquals(clon2.accepts("aaa"), mini2.accepts("aaa"));
+        assertEquals(clon2.accepts("ab"), mini2.accepts("ab"));
+        assertEquals(clon2.accepts("aab"), mini2.accepts("aab"));
+        assertEquals(clon2.accepts("aba"), mini2.accepts("aba"));
+        assertEquals(clon2.accepts("ababa"), mini2.accepts("ababa"));
+
+        assertEquals(clon2.accepts(""), mini2.accepts(""));
+        assertEquals(clon2.accepts("b"), mini2.accepts("b"));
+        assertEquals(clon2.accepts("bbba"), mini2.accepts("bbba"));
+        assertEquals(clon2.accepts("cos"), mini2.accepts("cos"));
+    }
+
+    /**
+     * Testuje działanie metody clone(). Test 3.
+     */
+    public final void testCloneMini3Automaton() {
+
+        AutomatonSpecification mini = new NaiveAutomatonSpecification();
+
+        State q0 = mini.addState();
+        State q1 = mini.addState();
+        State q2 = mini.addState();
+        State q3 = mini.addState();
+
+        mini.addTransition(q0, q1, new CharTransitionLabel('a'));
+        mini.addTransition(q1, q2, new CharTransitionLabel('b'));
+        mini.addTransition(q1, q3, new CharTransitionLabel('b'));
+
+        mini.markAsInitial(q0);
+        mini.markAsFinal(q2);
+
+        AutomatonSpecification clon = mini.clone();
+
+        assertEquals(mini.countStates(), clon.countStates());
+        assertEquals(mini.countTransitions(), clon.countTransitions());
+
+        AutomatonByStack mini2 = new AutomatonByStack(mini);
+        AutomatonByStack clon2 = new AutomatonByStack(clon);
+
+        assertEquals(clon2.accepts("ab"), mini2.accepts("ab"));
+        assertEquals(clon2.accepts("bb"), mini2.accepts("bb"));
+    }
+
+    /**
+     * Testuje działanie metody clone(). Test 4.
+     */
+    public final void testCloneMini4Automaton() {
+
+    AutomatonSpecification mini = new NaiveAutomatonSpecification();
+
+        State q0 = mini.addState();
+        State q1 = mini.addState();
+        State q2 = mini.addState();
+        State q3 = mini.addState();
+
+        mini.addTransition(q0, q1, new CharTransitionLabel('a'));
+        mini.addTransition(q1, q0, new CharTransitionLabel('b'));
+        mini.addTransition(q1, q2, new CharTransitionLabel('c'));
+        mini.addTransition(q2, q3, new CharTransitionLabel('a'));
+        mini.addTransition(q3, q2, new CharTransitionLabel('b'));
+
+        mini.markAsInitial(q0);
+        mini.markAsFinal(q3);
+
+        AutomatonSpecification clon = mini.clone();
+
+        assertEquals(mini.countStates(), clon.countStates());
+        assertEquals(mini.countTransitions(), clon.countTransitions());
+
+        AutomatonByStack mini2 = new AutomatonByStack(mini);
+        AutomatonByStack clon2 = new AutomatonByStack(clon);
+
+        assertEquals(clon2.accepts("aca"), mini2.accepts("aca"));
+        assertEquals(clon2.accepts("bc"), mini2.accepts("bc"));
+        assertEquals(clon2.accepts("bbc"), mini2.accepts("bbc"));
+        assertEquals(clon2.accepts("acabababa"), mini2.accepts("acabababa"));
+        assertEquals(clon2.accepts(""), mini2.accepts(""));
+        assertEquals(clon2.accepts("cc"), mini2.accepts("cc"));
+        assertEquals(clon2.accepts("bca"), mini2.accepts("bca"));
+        assertEquals(clon2.accepts("acc"), mini2.accepts("acc"));
+    }
 }

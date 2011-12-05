@@ -42,6 +42,10 @@ class NotNaiveAutomatonSpecification extends AutomatonSpecification {
         finalStates.add((NotNaiveState) state);
     }
 
+    public void unmarkAsFinalState(State state) {
+        finalStates.remove((NotNaiveState) state);
+    }
+
     public List<State> allStates() {
         return allStates;
     }

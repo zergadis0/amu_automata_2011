@@ -13,9 +13,9 @@ public class TestIsDeterministic extends TestCase {
     public final void testOneTransition() {
 
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
-        AutomatonSpecification automata = aut.makeOneTransitionAutomaton('g');
+        aut.makeOneTransitionAutomaton('g');
 
-        assertTrue(automata.isDeterministic());
+        assertTrue(aut.isDeterministic());
     }
 
     /**
