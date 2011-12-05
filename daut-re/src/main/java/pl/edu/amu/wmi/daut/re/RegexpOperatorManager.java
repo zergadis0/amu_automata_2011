@@ -131,7 +131,7 @@ public class RegexpOperatorManager {
 
                 if (s.startsWith(firstSeparator))// jeśli separator to cos (lub "") ??
                 {
-                    if (!firstSeparator.equals("")) { // ?? jeśli pierwszy separator = "" powinno zwracac wszystkie czy zadne ??
+                    if (!firstSeparator.equals("")) { // ?? jeśli pierwszy separator = "" to dodawac do zwracanych ??
                         returnedId.add(operator.id);
 
                         /*for (char symbol : s.toCharArray()) { // ?? o ktora wersje chodzi ??
