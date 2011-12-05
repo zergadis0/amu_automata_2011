@@ -38,7 +38,8 @@ public class TestAlternativeOperator extends TestCase {
 
         AlternativeOperator oper = new AlternativeOperator();
         NondeterministicAutomatonByThompsonApproach result =
-        new NondeterministicAutomatonByThompsonApproach(oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
+        new NondeterministicAutomatonByThompsonApproach
+                (oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
 
         assertTrue(result.accepts("aaaa"));
         assertTrue(result.accepts("bbaaaa"));
@@ -70,7 +71,8 @@ public class TestAlternativeOperator extends TestCase {
 
         AlternativeOperator oper = new AlternativeOperator();
         NondeterministicAutomatonByThompsonApproach result =
-        new NondeterministicAutomatonByThompsonApproach(oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
+        new NondeterministicAutomatonByThompsonApproach
+                (oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
 
         assertTrue(result.accepts("abab"));
         assertTrue(result.accepts("ababababababab"));
