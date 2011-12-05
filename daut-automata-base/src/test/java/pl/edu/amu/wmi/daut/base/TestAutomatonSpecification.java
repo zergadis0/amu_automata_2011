@@ -509,7 +509,7 @@ public class TestAutomatonSpecification extends TestCase {
     /**
      * Prosty test metody getEpsilonClosure(State).
      */
-    public final void simpleTestGetEpsilonClosure() {
+    public final void testSimpleGetEpsilonClosure() {
         // Automat z tylko jednym stanem (początkowy i końcowy).
         // Tylko jedne możliwe przejście (czytanie znaku pustego
         // i wracanie na ten sam stan).
@@ -529,7 +529,7 @@ public class TestAutomatonSpecification extends TestCase {
     /**
      * Trudniejszy test metody getEpsilonClosure(State).
      */
-    public final void hardTestGetEpsilonClosure() {
+    public final void testHardGetEpsilonClosure() {
         // Prosty automat z czterema stanami.
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
         State s0, s1, s2, s3;
