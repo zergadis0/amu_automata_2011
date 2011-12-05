@@ -1,15 +1,16 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.HashSet;
 import junit.framework.TestCase;
 
 /**
-* Testy różnych operacji na automatach.
-*/
+ * Testy różnych operacji na automatach.
+ */
 public class TestAutomataOperations extends TestCase {
 
     /**
-    * Test prostego automatu.
-    */
+     * Test prostego automatu.
+     */
     public final void testSimpleAutomaton() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
@@ -47,8 +48,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-    * Test sprawdza metode Sum w AutomataOperations A.
-    */
+     * Test sprawdza metode Sum w AutomataOperations A.
+     */
     public final void testSumA() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
@@ -91,8 +92,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-    * Test sprawdza metode Sum w AutomataOperations B.
-    */
+     * Test sprawdza metode Sum w AutomataOperations B.
+     */
     public final void testSumB() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -142,8 +143,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-    * Test sprawdza metode Sum w AutomataOperations C.
-    */
+     * Test sprawdza metode Sum w AutomataOperations C.
+     */
     public final void testSumC() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -184,8 +185,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-    * Test sprawdza metode Sum w AutomataOperations D.
-    */
+     * Test sprawdza metode Sum w AutomataOperations D.
+     */
     public final void testSumD() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -219,8 +220,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-    * Test sprawdza metode Sum w AutomataOperations E.
-    */
+     * Test sprawdza metode Sum w AutomataOperations E.
+     */
     public final void testSumE() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -268,202 +269,331 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-    * Test metody intersection z AutomataOperations na automatach z petlami.
-    */
-    public final void testIntersectionSimple() {
+     * Test funkcji determinize2(). Automat akceptuje słowa postaci:
+     * ((b)^2n)(a^m)(*), gdzie m,n >= 0, a (*) oznacza dowolny ciąg znaków.
+     */
+    public final void testDeterminize2SimpleAutomaton() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
 
-        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+        State qPoczatkowy = nonDeterministicAutomat.addState();
+        State qKoncowy = nonDeterministicAutomat.addState();
+        nonDeterministicAutomat.addLoop(qPoczatkowy, new CharTransitionLabel('a'));
+        nonDeterministicAutomat.addTransition(qPoczatkowy, qKoncowy, new CharTransitionLabel('a'));
+        nonDeterministicAutomat.addTransition(qPoczatkowy, qKoncowy, new CharTransitionLabel('b'));
+        nonDeterministicAutomat.addTransition(qKoncowy, qPoczatkowy, new CharTransitionLabel('b'));
+        nonDeterministicAutomat.markAsFinal(qPoczatkowy);
+        nonDeterministicAutomat.markAsInitial(qPoczatkowy);
 
-        State q0 = automatonA.addState();
-        State q1 = automatonA.addState();
-        automatonA.addTransition(q0, q1, new CharTransitionLabel('a'));
-        automatonA.addLoop(q1, new CharTransitionLabel('a'));
-        automatonA.addLoop(q1, new CharTransitionLabel('b'));
-        automatonA.markAsInitial(q0);
-        automatonA.markAsFinal(q1);
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
 
-        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-        State q10 = automatonB.addState();
-        State q11 = automatonB.addState();
-        State q12 = automatonB.addState();
-        automatonB.addTransition(q10, q11, new CharTransitionLabel('a'));
-        automatonB.addTransition(q10, q11, new CharTransitionLabel('b'));
-        automatonB.addTransition(q11, q12, new CharTransitionLabel('a'));
-        automatonB.addTransition(q11, q12, new CharTransitionLabel('b'));
-        automatonB.markAsInitial(q10);
-        automatonB.markAsFinal(q12);
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
 
-
-        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
-        AutomatonByRecursion automaton = new AutomatonByRecursion(result);
-
-        assertTrue(automaton.accepts("aa"));
-        assertTrue(automaton.accepts("ab"));
-        assertFalse(automaton.accepts(""));
-        assertFalse(automaton.accepts("a"));
-        assertFalse(automaton.accepts("Blablablabla bla"));
-        assertFalse(automaton.accepts("abababab"));
-        assertFalse(automaton.accepts("aba"));
-        assertFalse(automaton.accepts("ba"));
+        assertTrue(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("aaaaa"));
+        assertTrue(zdeterminizowany.accepts("abbababbaa"));
+        assertTrue(zdeterminizowany.accepts("bbaba"));
+        assertFalse(zdeterminizowany.accepts("bababb"));
     }
 
     /**
-     * Test metody intersection z AutomataOperations na automacie A z soba samym.
+     * Test funkcji determinize2(). Prosty automat niedeterministyczny z Wikipedii.
      */
-    public final void testIntersectionWithTheSameAutomaton() {
-        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+    public final void testDeterminize2AutomatonFromWikipedia() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification innaNazwa
+                = new NaiveDeterministicAutomatonSpecification();
 
-        State q0 = automatonA.addState();
-        State q1 = automatonA.addState();
-        State q2 = automatonA.addState();
-        automatonA.addTransition(q0, q2, new CharTransitionLabel('b'));
-        automatonA.addTransition(q0, q1, new CharTransitionLabel('a'));
-        automatonA.addTransition(q1, q2, new CharTransitionLabel('a'));
-        automatonA.addLoop(q2, new CharTransitionLabel('b'));
-        automatonA.markAsInitial(q0);
-        automatonA.markAsFinal(q2);
+        State qA = nonDeterministicAutomat.addState();
+        State qB = nonDeterministicAutomat.addTransition(qA, new CharTransitionLabel('1'));
+        State qC = nonDeterministicAutomat.addTransition(qA, new CharTransitionLabel('1'));
+        nonDeterministicAutomat.addTransition(qC, qB, new CharTransitionLabel('0'));
+        nonDeterministicAutomat.addTransition(qB, qA, new CharTransitionLabel('0'));
+        nonDeterministicAutomat.markAsInitial(qA);
+        nonDeterministicAutomat.markAsFinal(qC);
 
-        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonA);
-        AutomatonByRecursion automaton = new AutomatonByRecursion(result);
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, innaNazwa);
+        } catch (Exception e) {
+            fail();
+        }
 
-        assertTrue(automaton.accepts("aabb"));
-        assertTrue(automaton.accepts("bb"));
-        assertTrue(automaton.accepts("bbbbbbbbbbbbbbbbb"));
-        assertFalse(automaton.accepts("aaaaaaaaaaaaaaaa"));
-        assertFalse(automaton.accepts("xxxxaabbxxxxxx"));
-        assertFalse(automaton.accepts(""));
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(innaNazwa);
 
-    }
-
-     /**
-     * Test metody intersection z AutomataOperations na automatach z epsilon przejsciami.
-     */
-    public final void testIntersectionwithEpsilonTransition() {
-        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
-
-        State q0 = automatonA.addState();
-        State q1 = automatonA.addState();
-        State q2 = automatonA.addState();
-
-        automatonA.addTransition(q0, q1, new EpsilonTransitionLabel());
-        automatonA.addTransition(q0, q2, new EpsilonTransitionLabel());
-        automatonA.addLoop(q1, new CharTransitionLabel('a'));
-        automatonA.addLoop(q2, new CharTransitionLabel('b'));
-        automatonA.markAsInitial(q0);
-        automatonA.markAsFinal(q0);
-        automatonA.markAsFinal(q1);
-        automatonA.markAsFinal(q2);
-
-        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-
-        State q10 = automatonB.addState();
-        State q11 = automatonB.addState();
-        State q12 = automatonB.addState();
-        State q13 = automatonB.addState();
-        State q14 = automatonB.addState();
-        State q15 = automatonB.addState();
-        State q16 = automatonB.addState();
-
-        automatonB.addTransition(q10, q11, new EpsilonTransitionLabel());
-        automatonB.addTransition(q10, q14, new EpsilonTransitionLabel());
-        automatonB.addTransition(q11, q12, new CharTransitionLabel('a'));
-        automatonB.addTransition(q12, q13, new CharTransitionLabel('b'));
-        automatonB.addLoop(q13, new CharTransitionLabel('b'));
-        automatonB.addTransition(q14, q15, new CharTransitionLabel('b'));
-        automatonB.addTransition(q15, q16, new CharTransitionLabel('b'));
-        automatonB.addLoop(q16, new CharTransitionLabel('b'));
-        automatonB.markAsInitial(q10);
-        automatonB.markAsFinal(q12);
-        automatonB.markAsFinal(q13);
-        automatonB.markAsFinal(q15);
-
-        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
-
-        NondeterministicAutomatonByThompsonApproach automaton = new
-        NondeterministicAutomatonByThompsonApproach(result);
-
-        assertTrue(automaton.accepts("b"));
-        assertTrue(automaton.accepts("a"));
-        assertFalse(automaton.accepts("aaaaaaaaaaaaaaaa"));
-        assertFalse(automaton.accepts("bbbbbbbbbbbbbbbbbb"));
-        assertFalse(automaton.accepts(""));
-        assertFalse(automaton.accepts("abbb"));
-        assertFalse(automaton.accepts("nieakceptowanedlugieslowo"));
-
-
-
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("1"));
+        assertTrue(zdeterminizowany.accepts("101"));
+        assertTrue(zdeterminizowany.accepts("10101001"));
+        assertFalse(zdeterminizowany.accepts("1000"));
+        assertFalse(zdeterminizowany.accepts("0"));
     }
 
     /**
-     * Test metody intersection z AutomataOperations gdzie automat A
-     * ma epsilon przejscia i stan koncowy jest poczatkowym.
+     * Test funkcji determinize2(). Automat !już! deterministyczny akceptuje tylko słowa:
+     * Marcin, Maria, Marianna, Mariusz, Marek, Marzena.
      */
-    public final void testIntersectionwhereInitialIsFinalA() {
-        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+    public final void testDeterminize2DeterministicSixNames() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
 
-        State q0 = automatonA.addState();
-        automatonA.addLoop(q0, new CharTransitionLabel('b'));
-        automatonA.markAsInitial(q0);
-        automatonA.markAsFinal(q0);
+        State qPoczatkowy = nonDeterministicAutomat.addState();
+        State qMar = nonDeterministicAutomat.addTransitionSequence(qPoczatkowy, "Mar");
+        State qMarc = nonDeterministicAutomat.addTransition(qMar, new CharTransitionLabel('c'));
+        State qMarcin = nonDeterministicAutomat.addTransitionSequence(qMarc, "in");
+        State qMari = nonDeterministicAutomat.addTransition(qMar, new CharTransitionLabel('i'));
+        State qMaria = nonDeterministicAutomat.addTransition(qMari, new CharTransitionLabel('a'));
+        State qMarianna = nonDeterministicAutomat.addTransitionSequence(qMaria, "nna");
+        State qMariusz = nonDeterministicAutomat.addTransitionSequence(qMari, "usz");
+        State qMarek = nonDeterministicAutomat.addTransitionSequence(qMar, "ek");
+        State qMarzena = nonDeterministicAutomat.addTransitionSequence(qMar, "zena");
+        nonDeterministicAutomat.markAsInitial(qPoczatkowy);
+        nonDeterministicAutomat.markAsFinal(qMarcin);
+        nonDeterministicAutomat.markAsFinal(qMaria);
+        nonDeterministicAutomat.markAsFinal(qMarianna);
+        nonDeterministicAutomat.markAsFinal(qMariusz);
+        nonDeterministicAutomat.markAsFinal(qMarek);
+        nonDeterministicAutomat.markAsFinal(qMarzena);
 
-        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
 
-        State q10 = automatonB.addState();
-        State q11 = automatonB.addState();
-        automatonB.addTransition(q10, q11, new CharTransitionLabel('b'));
-        automatonB.addTransition(q10, q11, new EpsilonTransitionLabel());
-        automatonB.markAsInitial(q10);
-        automatonB.markAsFinal(q10);
-        automatonB.markAsFinal(q11);
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
 
-        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
-
-        NondeterministicAutomatonByThompsonApproach automaton = new
-        NondeterministicAutomatonByThompsonApproach(result);
-
-        assertTrue(automaton.accepts("b"));
-        assertTrue(automaton.accepts(""));
-        assertFalse(automaton.accepts("a"));
-        assertFalse(automaton.accepts("bbbbbbbbbbbbbb"));
-        assertFalse(automaton.accepts("bardzodlugieslowowbardzodlugieslowo"));
-
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("Marcin"));
+        assertTrue(zdeterminizowany.accepts("Maria"));
+        assertTrue(zdeterminizowany.accepts("Marianna"));
+        assertTrue(zdeterminizowany.accepts("Mariusz"));
+        assertTrue(zdeterminizowany.accepts("Marek"));
+        assertTrue(zdeterminizowany.accepts("Marzena"));
+        assertFalse(zdeterminizowany.accepts("mariusz"));
     }
 
     /**
-     * Test metody intersection z AutomataOperations gdzie automat B
-     * ma epsilon przejscia i stan koncowy jest poczatkowym.
+     * Test funkcji determinize2(). Automaty są niepoprawne dla tej metody, powinna ona
+     * zwracać wyjątki.
      */
-    public final void testIntersectionwhereInitialisFinalB() {
+    public final void testDeterminize2WrongAutomatons() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
 
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
 
-        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+        State first = nonDeterministicAutomat.addState();
+        nonDeterministicAutomat.addTransition(first, new EpsilonTransitionLabel());
 
-        State q10 = automatonA.addState();
-        State q11 = automatonA.addState();
-        automatonA.addTransition(q10, q11, new CharTransitionLabel('b'));
-        automatonA.addTransition(q10, q11, new EpsilonTransitionLabel());
-        automatonA.markAsInitial(q10);
-        automatonA.markAsFinal(q10);
-        automatonA.markAsFinal(q11);
-
-        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
-
-        State q0 = automatonB.addState();
-        automatonB.addLoop(q0, new CharTransitionLabel('b'));
-        automatonB.markAsInitial(q0);
-        automatonB.markAsFinal(q0);
-
-        AutomatonSpecification result = AutomataOperations.intersection(automatonA, automatonB);
-
-        NondeterministicAutomatonByThompsonApproach automaton = new
-        NondeterministicAutomatonByThompsonApproach(result);
-
-        assertTrue(automaton.accepts("b"));
-        assertTrue(automaton.accepts(""));
-        assertFalse(automaton.accepts("a"));
-        assertFalse(automaton.accepts("bbbbbbbbbbbbbb"));
-        assertFalse(automaton.accepts("bardzodlugieslowowbardzodlugieslowo"));
-
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
     }
 
+    /**
+     * Test funkcji determinize2(). Automat zawiera ComplementCharClassTransitionLabel.
+     */
+    public final void testDeterminize2AutomatonWithComplementCharClass() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qBegin = nonDeterministicAutomat.addState();
+        State qFirstEnd = nonDeterministicAutomat
+                .addTransition(qBegin, new ComplementCharClassTransitionLabel("a-gt"));
+        State qSecondEnd = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('z'));
+        State qThirdArm = nonDeterministicAutomat
+                .addTransition(qBegin, new ComplementCharClassTransitionLabel("f-t"));
+        State qThirdEnd = nonDeterministicAutomat
+                .addTransition(qThirdArm, new CharTransitionLabel('z'));
+        nonDeterministicAutomat.markAsInitial(qBegin);
+        nonDeterministicAutomat.markAsFinal(qFirstEnd);
+        nonDeterministicAutomat.markAsFinal(qSecondEnd);
+        nonDeterministicAutomat.markAsFinal(qThirdEnd);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("z"));
+        assertTrue(zdeterminizowany.accepts("ez"));
+        assertTrue(zdeterminizowany.accepts("uz"));
+        assertTrue(zdeterminizowany.accepts("h"));
+        assertTrue(zdeterminizowany.accepts("k"));
+        assertFalse(zdeterminizowany.accepts("f"));
+    }
+
+    /**
+     * Test funkcji determinize2(). Automat zawiera CharSetTransitionLabel.
+     */
+    public final void testDeterminize2AutomatonWithCharSet() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qBegin = nonDeterministicAutomat.addState();
+        State qFirstArm = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('a'));
+        State qFirstEnd = nonDeterministicAutomat
+                .addTransition(qFirstArm, new AnyTransitionLabel());
+        HashSet<Character> mySet = new HashSet<Character>();
+        mySet.add('b');
+        mySet.add('d');
+        mySet.add('z');
+        State qSecondEnd = nonDeterministicAutomat
+                .addTransition(qFirstArm, new CharSetTransitionLabel(mySet));
+        HashSet<Character> mySet2 = new HashSet<Character>();
+        mySet2.add('b');
+        mySet2.add('d');
+        mySet2.add('z');
+        mySet2.add('a');
+        mySet2.add('f');
+        mySet2.add('h');
+        nonDeterministicAutomat.addTransition(qBegin, qSecondEnd,
+                new CharSetTransitionLabel(mySet2));
+        HashSet<Character> mySet3 = new HashSet<Character>();
+        mySet3.add('a');
+        mySet3.add('f');
+        mySet3.add('h');
+        nonDeterministicAutomat.addTransition(qSecondEnd, qFirstEnd,
+                new CharSetTransitionLabel(mySet3));
+        nonDeterministicAutomat.markAsInitial(qBegin);
+        nonDeterministicAutomat.markAsFinal(qFirstEnd);
+        nonDeterministicAutomat.markAsFinal(qSecondEnd);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("a"));
+        assertTrue(zdeterminizowany.accepts("b"));
+        assertTrue(zdeterminizowany.accepts("h"));
+        assertTrue(zdeterminizowany.accepts("z"));
+        assertTrue(zdeterminizowany.accepts("az"));
+        assertTrue(zdeterminizowany.accepts("ak"));
+        assertTrue(zdeterminizowany.accepts("bf"));
+        assertTrue(zdeterminizowany.accepts("zh"));
+        assertFalse(zdeterminizowany.accepts("g"));
+        assertFalse(zdeterminizowany.accepts("A"));
+        assertFalse(zdeterminizowany.accepts("fz"));
+        assertFalse(zdeterminizowany.accepts("c"));
+    }
+
+    /**
+     * Test funkcji determinize2(). Automat zawiera CharRangeTransitionLabel.
+     */
+    public final void testDeterminize2AutomatonWithCharRange() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qBegin = nonDeterministicAutomat.addState();
+        State qFirstEnd = nonDeterministicAutomat
+                .addTransition(qBegin, new CharRangeTransitionLabel('a', 'f'));
+        State qSecondArm = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('a'));
+        State qSecondEnd = nonDeterministicAutomat
+                .addTransition(qSecondArm, new CharRangeTransitionLabel('g', 'j'));
+        nonDeterministicAutomat.addLoop(qFirstEnd, new CharTransitionLabel('a'));
+        nonDeterministicAutomat.markAsInitial(qBegin);
+        nonDeterministicAutomat.markAsFinal(qFirstEnd);
+        nonDeterministicAutomat.markAsFinal(qSecondEnd);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("a"));
+        assertTrue(zdeterminizowany.accepts("b"));
+        assertTrue(zdeterminizowany.accepts("c"));
+        assertTrue(zdeterminizowany.accepts("d"));
+        assertTrue(zdeterminizowany.accepts("e"));
+        assertTrue(zdeterminizowany.accepts("f"));
+        assertTrue(zdeterminizowany.accepts("aa"));
+        assertTrue(zdeterminizowany.accepts("fa"));
+        assertTrue(zdeterminizowany.accepts("ba"));
+        assertTrue(zdeterminizowany.accepts("ag"));
+        assertTrue(zdeterminizowany.accepts("aj"));
+        assertFalse(zdeterminizowany.accepts("g"));
+        assertFalse(zdeterminizowany.accepts("bb"));
+        assertFalse(zdeterminizowany.accepts("fat"));
+    }
+
+    /**
+     * Test funkcji determinize2(). Automat zawiera CharRangeTransitionLabel.
+     */
+    public final void testDeterminize2BigAutomaton() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qBegin = nonDeterministicAutomat.addState();
+        nonDeterministicAutomat
+                .addTransition(qBegin, qBegin, new CharTransitionLabel('a'));
+        State q1 = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('a'));
+        State q2 = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('b'));
+        State q4 = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('a'));
+        nonDeterministicAutomat
+                .addTransition(q1, q2, new CharTransitionLabel('b'));
+        nonDeterministicAutomat
+                .addTransition(q2, q2, new CharTransitionLabel('b'));
+        State q3 = nonDeterministicAutomat
+                .addTransition(q2, new CharTransitionLabel('a'));
+        nonDeterministicAutomat
+                .addTransition(q3, q4, new CharTransitionLabel('b'));
+        State q5 = nonDeterministicAutomat
+                .addTransition(q4, new CharTransitionLabel('b'));
+        nonDeterministicAutomat
+                .addTransition(q5, q3, new CharTransitionLabel('a'));
+        nonDeterministicAutomat.markAsInitial(qBegin);
+        nonDeterministicAutomat.markAsFinal(q5);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("aaaab"));
+        assertTrue(zdeterminizowany.accepts("babb"));
+        assertTrue(zdeterminizowany.accepts("abbbbabb"));
+        assertFalse(zdeterminizowany.accepts("bbb"));
+        assertFalse(zdeterminizowany.accepts("aaa"));
+        assertFalse(zdeterminizowany.accepts("inne"));
+    }
 }
