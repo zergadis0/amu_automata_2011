@@ -845,18 +845,63 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Metoda zwracająca pierwszy według kolejności alfabetycznej napis,
      * akceptowany przez automat.
      */
-    public String firstAcceptedWord() {
-        AllAcceptedWords words = new AllAcceptedWords(this);
-        String tmp;
-        if (words.hasNext()) {
-            String min = words.next();
-            while (words.hasNext()) {
-                tmp = words.next();
-                if (tmp.compareTo(min) < 0)
-                    min = tmp;
+    public String firstAcceptedWord(String alphabet) {
+        NondeterministicAutomatonByThompsonApproach a =
+                new NondeterministicAutomatonByThompsonApproach(this);
+        boolean found = false, found2 = false;
+        char[] tmp = alphabet.toCharArray();
+        java.util.Arrays.sort(tmp);
+        String sorted = new String(tmp);
+        int l = alphabet.length();
+        int x = 1;
+        if (this.isEmpty()) 
+            throw new RuntimeException("empty automaton");
+        if (this.acceptEmptyWord()) {
+            found = true;
+            return "";
+        } else do {
+            int flag = x;
+            char[] searchWord = new char[x];
+            while(flag > 0) {
+                searchWord[flag-1]=sorted.charAt(0);
+                flag--;
             }
-            return min;
-        } else
+            for (int i = 0; i < l; i++) {
+                if (x > 1 && searchWord[x-1] == sorted.charAt(sorted.length()-1)) {
+                    while (flag > 0) {
+                        if(searchWord[flag-1] == sorted.charAt(sorted.length()-1)) {
+                            flag--;
+                        } else {
+                            int z = 0, y = 0;
+                            while (z < sorted.length()-1 && y == 0){
+                                if (searchWord[flag-1] == sorted.charAt(z))
+                                    y = z+1;
+                                else
+                                    z++;
+                            }
+                            searchWord[flag-1] = sorted.charAt(y);
+                            if(flag-1 == 0) {
+                                flag = x;
+                                while(flag > 1) {
+                                    searchWord[flag-1]=sorted.charAt(0);
+                                    flag--;
+                                }
+                            }
+                            flag = 0;
+                        }
+                    }
+                }
+                flag = x;
+                searchWord[x-1] = tmp[i%alphabet.length()];
+                String acceptedWord = new String(searchWord);
+                if (a.accepts(acceptedWord)) {
+                    found = true;
+                    return acceptedWord;
+                } 
+            }
+            l = l*l;
+            x++;
+        } while(found != true);
             throw new RuntimeException("error");
     }
     /**
