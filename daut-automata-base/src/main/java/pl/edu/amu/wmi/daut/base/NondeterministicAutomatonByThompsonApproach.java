@@ -2,10 +2,15 @@ package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
 import java.util.LinkedList;
+/**
+* Klasa tworzy niedeterministyczny automat zgodnie z algorytmem Thompsona.
+*/
+public class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
-class NondeterministicAutomatonByThompsonApproach implements Acceptor {
-
-    NondeterministicAutomatonByThompsonApproach(AutomatonSpecification specification) {
+/**
+* Publiczny konstruktor.
+*/
+    public NondeterministicAutomatonByThompsonApproach(AutomatonSpecification specification) {
         automaton = specification;
     }
 
