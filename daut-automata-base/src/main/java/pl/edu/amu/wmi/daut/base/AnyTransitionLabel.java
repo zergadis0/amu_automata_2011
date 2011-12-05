@@ -9,7 +9,7 @@ package pl.edu.amu.wmi.daut.base;
 * przejscie po dowolnym znaku.
 */
 public class AnyTransitionLabel extends TransitionLabel {
-    
+
     @Override
     public boolean canBeEpsilon() {
         return false;

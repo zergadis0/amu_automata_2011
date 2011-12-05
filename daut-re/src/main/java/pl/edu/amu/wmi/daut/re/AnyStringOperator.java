@@ -22,7 +22,7 @@ public class AnyStringOperator extends NullaryRegexpOperator {
 
         spec.addTransition(qs, qf, new AnyTransitionLabel());
 
-        // return AutomataOperations.getKleeneStar(spec);
-        return new KleeneStarOperator().createAutomatonFromOneAutomaton(spec);
+        // return new KleeneStarOperator().createAutomatonFromOneAutomaton(spec);
+        return spec;
     }
 }

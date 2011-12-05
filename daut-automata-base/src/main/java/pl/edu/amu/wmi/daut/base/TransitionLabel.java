@@ -4,7 +4,7 @@ package pl.edu.amu.wmi.daut.base;
  * Interfejs reprezentujący etykietę przejścia (np. pojedynczy znak, zbiór znaków,
  * epsilon-przejście).
  */
-abstract class TransitionLabel {
+public abstract class TransitionLabel {
 
     /**
      * Zwraca true gdy przejście o danej etykiecie może nastąpić
