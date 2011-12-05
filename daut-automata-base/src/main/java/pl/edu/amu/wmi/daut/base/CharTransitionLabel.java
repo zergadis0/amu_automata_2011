@@ -10,14 +10,17 @@ public class CharTransitionLabel extends TransitionLabel {
         ch = c;
     }
 
+    @Override
     public boolean canBeEpsilon() {
         return false;
     }
 
+    @Override
     public boolean canAcceptCharacter(char c) {
         return c == ch;
     }
 
+    @Override
     public boolean isEmpty() {
         return false;
     }
@@ -31,6 +34,7 @@ public class CharTransitionLabel extends TransitionLabel {
         return Character.toString(ch);
     }
 
+    @Override
     protected TransitionLabel intersectWith(TransitionLabel label) {
         return label.canAcceptCharacter(ch) ? this : new EmptyTransitionLabel();
     }
