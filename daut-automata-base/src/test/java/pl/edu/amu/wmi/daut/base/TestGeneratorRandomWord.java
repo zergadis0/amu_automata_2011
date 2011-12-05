@@ -160,7 +160,7 @@ public class TestGeneratorRandomWord extends TestCase {
 
     /**
      * Metoda wywołująca test która sprawdza czy zwrócone słowo
-     * mające na przedostatnim miejscu 'b'
+     * mające na przedostatnim miejscu 'b'.
      */
     public final void testGeneratorRandomWordPenultimate() {
         assertTrue(check(getAutomatonC(), "ab", 100));
