@@ -5,31 +5,29 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
+
 /**
 * Klasa reprezentującą operator '{n}' z wyrażeń regularnych.
 */
 abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator{
-    
+
     private int n;
-    
-    public FixedNumberOfOccurrencesOperator(int a)
-    {
+
+    public FixedNumberOfOccurrencesOperator(int a) {
         this.n=a;
     }
-    
+
     public AutomatonSpecification createAutomatonFromOneAutomaton(
             AutomatonSpecification subautomaton, List<AutomatonSpecification> subautomata) {
         
-        List<AutomatonSpecification> lista =null;
-        lista=subautomata;
-        AutomatonSpecification automatwejsciowy = new NaiveAutomatonSpecification();
-        automatwejsciowy = subautomaton.clone();
+        List<AutomatonSpecification> lista = null;
+        lista = subautomata;
+        AutomatonSpecification automatwejsciowy = automatwejsciowy = subautomaton.clone();
         
-        AutomatonSpecification automatbudowany = new NaiveAutomatonSpecification();
-        automatbudowany = subautomaton.clone();
+        AutomatonSpecification automatbudowany = automatbudowany = subautomaton.clone();
         
         
-        for(int i=0;i<this.n-1;i++) {
+        for(int i = 0;i<this.n-1;i++) {
             lista.add(i, automatbudowany);
             
             for (State state : automatbudowany.allStates()) {
@@ -40,12 +38,9 @@ abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator{
                     automatbudowany.unmarkAsFinalState(state);
                 }
             }
-            
         }
-        
         return automatbudowany;
     }
-        
 }
     
     
