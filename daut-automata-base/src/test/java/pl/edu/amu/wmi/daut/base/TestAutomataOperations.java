@@ -597,7 +597,7 @@ public class TestAutomataOperations extends TestCase {
         assertFalse(zdeterminizowany.accepts("inne"));
     }
     /**
-    * Test metody intersection z AutomataOperations na automatach z petlami.
+    * Test metody Intersection z AutomataOperations na automatach z petlami.
     */
     public final void testIntersectionSimple() {
 
