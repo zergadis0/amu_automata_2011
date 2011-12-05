@@ -7,11 +7,11 @@ import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import junit.framework.TestCase;
 
-/*
+/**
  * Test klasy ConcatenationOperator
  */
 public class TestConcatenationOperator extends TestCase {
-    /*
+    /**
      * Pierwszy test
      */
     public final void testCreateAutomatonFromTwoAutomata1() {
@@ -24,7 +24,7 @@ public class TestConcatenationOperator extends TestCase {
         a1.addLoop(q0, new CharTransitionLabel('a'));
         a1.addLoop(q1, new CharTransitionLabel('b'));
         a1.addLoop(q1, new CharTransitionLabel('a'));
-        
+
         a1.markAsInitial(q0);
         a1.markAsFinal(q1);
 
@@ -44,8 +44,8 @@ public class TestConcatenationOperator extends TestCase {
 
         ConcatenationOperator con = new ConcatenationOperator();
         NondeterministicAutomatonByThompsonApproach result =
-        new NondeterministicAutomatonByThompsonApproach
-                (con.createAutomatonFromTwoAutomata(a1,a2));
+        new NondeterministicAutomatonByThompsonApproach(
+                con.createAutomatonFromTwoAutomata(a1, a2));
 
         assertTrue(result.accepts("abbbaaaacc"));
         assertTrue(result.accepts("ababababcaaaaaac"));
