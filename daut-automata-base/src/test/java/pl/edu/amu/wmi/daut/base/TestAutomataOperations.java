@@ -8,8 +8,8 @@ import junit.framework.TestCase;
 public class TestAutomataOperations extends TestCase {
 
     /**
-* Test prostego automatu.
-*/
+    * Test prostego automatu.
+    */
     public final void testSimpleAutomaton() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
@@ -47,8 +47,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-* Test sprawdza metode Sum w AutomataOperations A.
-*/
+    * Test sprawdza metode Sum w AutomataOperations A.
+    */
     public final void testSumA() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
@@ -91,8 +91,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-* Test sprawdza metode Sum w AutomataOperations B.
-*/
+    * Test sprawdza metode Sum w AutomataOperations B.
+    */
     public final void testSumB() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -142,8 +142,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-* Test sprawdza metode Sum w AutomataOperations C.
-*/
+    * Test sprawdza metode Sum w AutomataOperations C.
+    */
     public final void testSumC() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -184,8 +184,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-* Test sprawdza metode Sum w AutomataOperations D.
-*/
+    * Test sprawdza metode Sum w AutomataOperations D.
+    */
     public final void testSumD() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -219,8 +219,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-* Test sprawdza metode Sum w AutomataOperations E.
-*/
+    * Test sprawdza metode Sum w AutomataOperations E.
+    */
     public final void testSumE() {
 
         AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
@@ -268,8 +268,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-* Test metody intersection z AutomataOperations na automatach z petlami.
-*/
+    * Test metody intersection z AutomataOperations na automatach z petlami.
+    */
     public final void testIntersectionSimple() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
