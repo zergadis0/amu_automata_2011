@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
+import java.util.HashSet;
 import junit.framework.TestCase;
 
 /**
@@ -265,5 +266,334 @@ public class TestAutomataOperations extends TestCase {
         assertTrue(automaton.accepts("a"));
         assertFalse(automaton.accepts("aaabbbb"));
         assertFalse(automaton.accepts(""));
+    }
+
+    /**
+     * Test funkcji determinize2(). Automat akceptuje słowa postaci:
+     * ((b)^2n)(a^m)(*), gdzie m,n >= 0, a (*) oznacza dowolny ciąg znaków.
+     */
+    public final void testDeterminize2SimpleAutomaton() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qPoczatkowy = nonDeterministicAutomat.addState();
+        State qKoncowy = nonDeterministicAutomat.addState();
+        nonDeterministicAutomat.addLoop(qPoczatkowy, new CharTransitionLabel('a'));
+        nonDeterministicAutomat.addTransition(qPoczatkowy, qKoncowy, new CharTransitionLabel('a'));
+        nonDeterministicAutomat.addTransition(qPoczatkowy, qKoncowy, new CharTransitionLabel('b'));
+        nonDeterministicAutomat.addTransition(qKoncowy, qPoczatkowy, new CharTransitionLabel('b'));
+        nonDeterministicAutomat.markAsFinal(qPoczatkowy);
+        nonDeterministicAutomat.markAsInitial(qPoczatkowy);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertTrue(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("aaaaa"));
+        assertTrue(zdeterminizowany.accepts("abbababbaa"));
+        assertTrue(zdeterminizowany.accepts("bbaba"));
+        assertFalse(zdeterminizowany.accepts("bababb"));
+    }
+
+    /**
+     * Test funkcji determinize2(). Prosty automat niedeterministyczny z Wikipedii.
+     */
+    public final void testDeterminize2AutomatonFromWikipedia() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification innaNazwa
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qA = nonDeterministicAutomat.addState();
+        State qB = nonDeterministicAutomat.addTransition(qA, new CharTransitionLabel('1'));
+        State qC = nonDeterministicAutomat.addTransition(qA, new CharTransitionLabel('1'));
+        nonDeterministicAutomat.addTransition(qC, qB, new CharTransitionLabel('0'));
+        nonDeterministicAutomat.addTransition(qB, qA, new CharTransitionLabel('0'));
+        nonDeterministicAutomat.markAsInitial(qA);
+        nonDeterministicAutomat.markAsFinal(qC);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, innaNazwa);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(innaNazwa);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("1"));
+        assertTrue(zdeterminizowany.accepts("101"));
+        assertTrue(zdeterminizowany.accepts("10101001"));
+        assertFalse(zdeterminizowany.accepts("1000"));
+        assertFalse(zdeterminizowany.accepts("0"));
+    }
+
+    /**
+     * Test funkcji determinize2(). Automat !już! deterministyczny akceptuje tylko słowa:
+     * Marcin, Maria, Marianna, Mariusz, Marek, Marzena.
+     */
+    public final void testDeterminize2DeterministicSixNames() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qPoczatkowy = nonDeterministicAutomat.addState();
+        State qMar = nonDeterministicAutomat.addTransitionSequence(qPoczatkowy, "Mar");
+        State qMarc = nonDeterministicAutomat.addTransition(qMar, new CharTransitionLabel('c'));
+        State qMarcin = nonDeterministicAutomat.addTransitionSequence(qMarc, "in");
+        State qMari = nonDeterministicAutomat.addTransition(qMar, new CharTransitionLabel('i'));
+        State qMaria = nonDeterministicAutomat.addTransition(qMari, new CharTransitionLabel('a'));
+        State qMarianna = nonDeterministicAutomat.addTransitionSequence(qMaria, "nna");
+        State qMariusz = nonDeterministicAutomat.addTransitionSequence(qMari, "usz");
+        State qMarek = nonDeterministicAutomat.addTransitionSequence(qMar, "ek");
+        State qMarzena = nonDeterministicAutomat.addTransitionSequence(qMar, "zena");
+        nonDeterministicAutomat.markAsInitial(qPoczatkowy);
+        nonDeterministicAutomat.markAsFinal(qMarcin);
+        nonDeterministicAutomat.markAsFinal(qMaria);
+        nonDeterministicAutomat.markAsFinal(qMarianna);
+        nonDeterministicAutomat.markAsFinal(qMariusz);
+        nonDeterministicAutomat.markAsFinal(qMarek);
+        nonDeterministicAutomat.markAsFinal(qMarzena);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("Marcin"));
+        assertTrue(zdeterminizowany.accepts("Maria"));
+        assertTrue(zdeterminizowany.accepts("Marianna"));
+        assertTrue(zdeterminizowany.accepts("Mariusz"));
+        assertTrue(zdeterminizowany.accepts("Marek"));
+        assertTrue(zdeterminizowany.accepts("Marzena"));
+        assertFalse(zdeterminizowany.accepts("mariusz"));
+    }
+
+    /**
+     * Test funkcji determinize2(). Automaty są niepoprawne dla tej metody, powinna ona
+     * zwracać wyjątki.
+     */
+    public final void testDeterminize2WrongAutomatons() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+        State first = nonDeterministicAutomat.addState();
+        nonDeterministicAutomat.addTransition(first, new EpsilonTransitionLabel());
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * Test funkcji determinize2(). Automat zawiera ComplementCharClassTransitionLabel.
+     */
+    public final void testDeterminize2AutomatonWithComplementCharClass() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qBegin = nonDeterministicAutomat.addState();
+        State qFirstEnd = nonDeterministicAutomat
+                .addTransition(qBegin, new ComplementCharClassTransitionLabel("a-gt"));
+        State qSecondEnd = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('z'));
+        State qThirdArm = nonDeterministicAutomat
+                .addTransition(qBegin, new ComplementCharClassTransitionLabel("f-t"));
+        State qThirdEnd = nonDeterministicAutomat
+                .addTransition(qThirdArm, new CharTransitionLabel('z'));
+        nonDeterministicAutomat.markAsInitial(qBegin);
+        nonDeterministicAutomat.markAsFinal(qFirstEnd);
+        nonDeterministicAutomat.markAsFinal(qSecondEnd);
+        nonDeterministicAutomat.markAsFinal(qThirdEnd);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("z"));
+        assertTrue(zdeterminizowany.accepts("ez"));
+        assertTrue(zdeterminizowany.accepts("uz"));
+        assertTrue(zdeterminizowany.accepts("h"));
+        assertTrue(zdeterminizowany.accepts("k"));
+        assertFalse(zdeterminizowany.accepts("f"));
+    }
+
+    /**
+     * Test funkcji determinize2(). Automat zawiera CharSetTransitionLabel.
+     */
+    public final void testDeterminize2AutomatonWithCharSet() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qBegin = nonDeterministicAutomat.addState();
+        State qFirstArm = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('a'));
+        State qFirstEnd = nonDeterministicAutomat
+                .addTransition(qFirstArm, new AnyTransitionLabel());
+        HashSet<Character> mySet = new HashSet<Character>();
+        mySet.add('b');
+        mySet.add('d');
+        mySet.add('z');
+        State qSecondEnd = nonDeterministicAutomat
+                .addTransition(qFirstArm, new CharSetTransitionLabel(mySet));
+        HashSet<Character> mySet2 = new HashSet<Character>();
+        mySet2.add('b');
+        mySet2.add('d');
+        mySet2.add('z');
+        mySet2.add('a');
+        mySet2.add('f');
+        mySet2.add('h');
+        nonDeterministicAutomat.addTransition(qBegin, qSecondEnd,
+                new CharSetTransitionLabel(mySet2));
+        HashSet<Character> mySet3 = new HashSet<Character>();
+        mySet3.add('a');
+        mySet3.add('f');
+        mySet3.add('h');
+        nonDeterministicAutomat.addTransition(qSecondEnd, qFirstEnd,
+                new CharSetTransitionLabel(mySet3));
+        nonDeterministicAutomat.markAsInitial(qBegin);
+        nonDeterministicAutomat.markAsFinal(qFirstEnd);
+        nonDeterministicAutomat.markAsFinal(qSecondEnd);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("a"));
+        assertTrue(zdeterminizowany.accepts("b"));
+        assertTrue(zdeterminizowany.accepts("h"));
+        assertTrue(zdeterminizowany.accepts("z"));
+        assertTrue(zdeterminizowany.accepts("az"));
+        assertTrue(zdeterminizowany.accepts("ak"));
+        assertTrue(zdeterminizowany.accepts("bf"));
+        assertTrue(zdeterminizowany.accepts("zh"));
+        assertFalse(zdeterminizowany.accepts("g"));
+        assertFalse(zdeterminizowany.accepts("A"));
+        assertFalse(zdeterminizowany.accepts("fz"));
+        assertFalse(zdeterminizowany.accepts("c"));
+    }
+
+    /**
+     * Test funkcji determinize2(). Automat zawiera CharRangeTransitionLabel.
+     */
+    public final void testDeterminize2AutomatonWithCharRange() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qBegin = nonDeterministicAutomat.addState();
+        State qFirstEnd = nonDeterministicAutomat
+                .addTransition(qBegin, new CharRangeTransitionLabel('a', 'f'));
+        State qSecondArm = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('a'));
+        State qSecondEnd = nonDeterministicAutomat
+                .addTransition(qSecondArm, new CharRangeTransitionLabel('g', 'j'));
+        nonDeterministicAutomat.addLoop(qFirstEnd, new CharTransitionLabel('a'));
+        nonDeterministicAutomat.markAsInitial(qBegin);
+        nonDeterministicAutomat.markAsFinal(qFirstEnd);
+        nonDeterministicAutomat.markAsFinal(qSecondEnd);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("a"));
+        assertTrue(zdeterminizowany.accepts("b"));
+        assertTrue(zdeterminizowany.accepts("c"));
+        assertTrue(zdeterminizowany.accepts("d"));
+        assertTrue(zdeterminizowany.accepts("e"));
+        assertTrue(zdeterminizowany.accepts("f"));
+        assertTrue(zdeterminizowany.accepts("aa"));
+        assertTrue(zdeterminizowany.accepts("fa"));
+        assertTrue(zdeterminizowany.accepts("ba"));
+        assertTrue(zdeterminizowany.accepts("ag"));
+        assertTrue(zdeterminizowany.accepts("aj"));
+        assertFalse(zdeterminizowany.accepts("g"));
+        assertFalse(zdeterminizowany.accepts("bb"));
+        assertFalse(zdeterminizowany.accepts("fat"));
+    }
+
+    /**
+     * Test funkcji determinize2(). Automat zawiera CharRangeTransitionLabel.
+     */
+    public final void testDeterminize2BigAutomaton() {
+        AutomatonSpecification nonDeterministicAutomat = new NaiveAutomatonSpecification();
+        DeterministicAutomatonSpecification deterministicAutomat
+                = new NaiveDeterministicAutomatonSpecification();
+
+        State qBegin = nonDeterministicAutomat.addState();
+        nonDeterministicAutomat
+                .addTransition(qBegin, qBegin, new CharTransitionLabel('a'));
+        State q1 = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('a'));
+        State q2 = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('b'));
+        State q4 = nonDeterministicAutomat
+                .addTransition(qBegin, new CharTransitionLabel('a'));
+        nonDeterministicAutomat
+                .addTransition(q1, q2, new CharTransitionLabel('b'));
+        nonDeterministicAutomat
+                .addTransition(q2, q2, new CharTransitionLabel('b'));
+        State q3 = nonDeterministicAutomat
+                .addTransition(q2, new CharTransitionLabel('a'));
+        nonDeterministicAutomat
+                .addTransition(q3, q4, new CharTransitionLabel('b'));
+        State q5 = nonDeterministicAutomat
+                .addTransition(q4, new CharTransitionLabel('b'));
+        nonDeterministicAutomat
+                .addTransition(q5, q3, new CharTransitionLabel('a'));
+        nonDeterministicAutomat.markAsInitial(qBegin);
+        nonDeterministicAutomat.markAsFinal(q5);
+
+        try {
+            AutomataOperations.determinize2(nonDeterministicAutomat, deterministicAutomat);
+        } catch (Exception e) {
+            fail();
+        }
+
+        AutomatonByRecursion zdeterminizowany = new AutomatonByRecursion(deterministicAutomat);
+
+        assertFalse(zdeterminizowany.accepts(""));
+        assertTrue(zdeterminizowany.accepts("aaaab"));
+        assertTrue(zdeterminizowany.accepts("babb"));
+        assertTrue(zdeterminizowany.accepts("abbbbabb"));
+        assertFalse(zdeterminizowany.accepts("bbb"));
+        assertFalse(zdeterminizowany.accepts("aaa"));
+        assertFalse(zdeterminizowany.accepts("inne"));
     }
 }
