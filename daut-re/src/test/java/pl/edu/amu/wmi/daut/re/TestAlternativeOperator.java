@@ -7,9 +7,15 @@ import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import junit.framework.TestCase;
 
+   /**
+    * Test klasy AlternativeOperator.
+    */
 
 public class TestAlternativeOperator extends TestCase {
 
+    /**
+    * Pierwszy test.
+    */
     public final void testCreateAutomatonFromTwoAutomata1() {
 
         AutomatonSpecification automaton1 = new NaiveAutomatonSpecification();
@@ -20,7 +26,7 @@ public class TestAlternativeOperator extends TestCase {
         automaton1.addLoop(q0, new CharTransitionLabel('b'));
         automaton1.addLoop(q1, new CharTransitionLabel('a'));
         automaton1.addLoop(q1, new CharTransitionLabel('b'));
-        
+
         automaton1.markAsInitial(q0);
         automaton1.markAsFinal(q1);
 
@@ -38,8 +44,8 @@ public class TestAlternativeOperator extends TestCase {
 
         AlternativeOperator oper = new AlternativeOperator();
         NondeterministicAutomatonByThompsonApproach result =
-        new NondeterministicAutomatonByThompsonApproach
-                (oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
+        new NondeterministicAutomatonByThompsonApproach(
+                oper.createAutomatonFromTwoAutomata(automaton1, automaton2));
 
         assertTrue(result.accepts("aaaa"));
         assertTrue(result.accepts("bbaaaa"));
@@ -53,6 +59,9 @@ public class TestAlternativeOperator extends TestCase {
         assertFalse(result.accepts("kabaczek"));
     }
 
+    /**
+    * Drugi test.
+    */
     public final void testCreateAutomatonFromTwoAutomata2() {
 
         AutomatonSpecification automaton1 = new NaiveAutomatonSpecification();
@@ -71,8 +80,8 @@ public class TestAlternativeOperator extends TestCase {
 
         AlternativeOperator oper = new AlternativeOperator();
         NondeterministicAutomatonByThompsonApproach result =
-        new NondeterministicAutomatonByThompsonApproach
-                (oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
+        new NondeterministicAutomatonByThompsonApproach(
+                oper.createAutomatonFromTwoAutomata(automaton1, automaton2));
 
         assertTrue(result.accepts("abab"));
         assertTrue(result.accepts("ababababababab"));
