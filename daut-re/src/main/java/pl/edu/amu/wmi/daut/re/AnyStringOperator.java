@@ -6,7 +6,7 @@ import pl.edu.amu.wmi.daut.base.AnyTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 
 /**
- * Reprezentuje dowolny napis, dowolnej długości (także pusty). 
+ * Reprezentuje dowolny napis, dowolnej długości (także pusty).
  * Odpowiada to wyrażeniu regularnego '.*'.
  */
 public class AnyStringOperator extends NullaryRegexpOperator {
