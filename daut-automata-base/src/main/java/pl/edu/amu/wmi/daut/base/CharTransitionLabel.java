@@ -25,9 +25,9 @@ public class CharTransitionLabel extends TransitionLabel {
         return false;
     }
 
-    /*
-     * Zwraca znak przejscia.
-     */
+    /**
+    * Zwraca znak po którym następuje przejście.
+    */
     public char getChar() {
         return ch;
     }
