@@ -3,9 +3,9 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.List;
 import java.util.LinkedList;
 
-class NondeterministicAutomatonByThompsonApproach implements Acceptor {
+public class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
-    NondeterministicAutomatonByThompsonApproach(AutomatonSpecification specification) {
+    public NondeterministicAutomatonByThompsonApproach(AutomatonSpecification specification) {
         automaton = specification;
     }
 

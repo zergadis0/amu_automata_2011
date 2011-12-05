@@ -2,7 +2,7 @@ package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
-import pl.edu.amu.wmi.daut.base.AutomatonByRecursion;
+import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import junit.framework.TestCase;
@@ -37,8 +37,8 @@ public class TestAlternativeOperator extends TestCase {
         automaton2.markAsFinal(q3);
 
         AlternativeOperator oper = new AlternativeOperator();
-        AutomatonByRecursion result =
-        new AutomatonByRecursion(oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
+        NondeterministicAutomatonByThompsonApproach result =
+        new NondeterministicAutomatonByThompsonApproach(oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
 
         assertTrue(result.accepts("aaaa"));
         assertTrue(result.accepts("bbaaaa"));
@@ -69,8 +69,8 @@ public class TestAlternativeOperator extends TestCase {
         AutomatonSpecification automaton2 = new NaiveAutomatonSpecification();
 
         AlternativeOperator oper = new AlternativeOperator();
-        AutomatonByRecursion result =
-        new AutomatonByRecursion(oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
+        NondeterministicAutomatonByThompsonApproach result =
+        new NondeterministicAutomatonByThompsonApproach(oper.createAutomatonFromTwoAutomata(automaton1,automaton2));
 
         assertTrue(result.accepts("abab"));
         assertTrue(result.accepts("ababababababab"));
