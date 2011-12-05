@@ -8,8 +8,8 @@ package pl.edu.amu.wmi.daut.base;
 * Implementacja Transition Label reprezentujaca
 * przejscie po dowolnym znaku.
 */
-class AnyTransitionLabel extends TransitionLabel {
-
+public class AnyTransitionLabel extends TransitionLabel {
+    
     @Override
     public boolean canBeEpsilon() {
         return false;
