@@ -12,7 +12,7 @@ public class TestFromTransitionTableMaker extends TestCase {
     /**
      * Automat akceptujacy "ab" lub "ba".
      */
-    public final void testMakeAutomaton1() {
+    public final void testMakeAutomatonTwoDiffStates() {
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
         int[][] transitionTable = {
             {1, 3},
@@ -36,7 +36,7 @@ public class TestFromTransitionTableMaker extends TestCase {
     /**
      * Automat akceptujacy *a^2.
      */
-    public final void testMakeAutomaton2() {
+    public final void testMakeAutomatonEndsgWithASquared() {
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
         int[][] transitionTable = {
             {1, 0},
@@ -63,7 +63,7 @@ public class TestFromTransitionTableMaker extends TestCase {
     /**
      * Automat akceptujacy slowa zawierajace kazda litere z alfabetu przynajmniej raz.
      */
-    public final void testMakeAutomaton3() {
+    public final void testMakeAutomatonContainsAllChars() {
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
         int[][] transitionTable = {
             {1, 5, 7},
