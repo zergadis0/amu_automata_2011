@@ -143,13 +143,33 @@ public class TestGeneratorRandomWord extends TestCase {
     }
 
     /**
-     * Główna metoda wywołująca metody testujące metodę randomWord z klasy
-     * Generator.
+     * Metoda wywołująca test która sprawdza czy zwrócone słowo ma parzystą
+     * liczba wystąpień 'a' i 'b'.
+     */
+    public final void testGeneratorRandomWordOdd() {
+        assertTrue(check(getAutomatonA(), "ab", 100));
+    }
+
+    /**
+     * Metoda wywołująca test która sprawdza czy zwrócone słowo
+     * zawiera w sobie ciąg "aba".
+     */
+    public final void testGeneratorRandomWordABA() {
+        assertTrue(check(getAutomatonB(), "ab", 100));
+    }
+
+    /**
+     * Metoda wywołująca test która sprawdza czy zwrócone słowo
+     * mające na przedostatnim miejscu 'b'
+     */
+    public final void testGeneratorRandomWordPenultimate() {
+        assertTrue(check(getAutomatonC(), "ab", 100));
+    }
+
+    /**
+     * Metoda wywołująca test która sprawdza losowość wybenerowanych słów.
      */
     public final void testGeneratorRandomWord() {
-        assertTrue(check(getAutomatonA(), "ab", 100));
-        assertTrue(check(getAutomatonB(), "ab", 100));
-        assertTrue(check(getAutomatonC(), "ab", 100));
         assertTrue(checkAllPossibilities(getAutomatonD(), "abc", 1000, 3));
     }
 }
