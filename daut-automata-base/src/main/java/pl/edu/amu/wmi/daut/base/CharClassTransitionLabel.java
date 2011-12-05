@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-/*
+/**
  * Klasa służy obsłudze prostych klas wyrażeń regularnych,
  * pozwala na sprawdzenie czy dany znak je spełnia.
  */
