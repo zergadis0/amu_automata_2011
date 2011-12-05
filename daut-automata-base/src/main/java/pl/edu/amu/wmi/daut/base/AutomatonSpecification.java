@@ -848,7 +848,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public String firstAcceptedWord(String alphabet) {
         NondeterministicAutomatonByThompsonApproach a =
                 new NondeterministicAutomatonByThompsonApproach(this);
-        boolean found = false, found2 = false;
+        boolean found = false;
         char[] tmp = alphabet.toCharArray();
         java.util.Arrays.sort(tmp);
         String sorted = new String(tmp);
