@@ -10,10 +10,12 @@ import pl.edu.amu.wmi.daut.base.State;
  * Klasa reprezentująca operator '{n,m}'.
  */
 public class RangeNumberOfOccurrencesOperator extends UnaryRegexpOperator {
-    
-    public int max;
-    public int min;
-    
+    /**
+    * Zmienne dla ilosci wystapen wyrazenia.
+    */    
+    private int max;
+    private int min;
+
     /**
     * Konstruktor klasy.
     */
@@ -21,7 +23,7 @@ public class RangeNumberOfOccurrencesOperator extends UnaryRegexpOperator {
        this.max = m;
        this.min = n;
    }
-    
+
     /**
     * Glowna metoda klasy.
     */
@@ -33,20 +35,20 @@ public class RangeNumberOfOccurrencesOperator extends UnaryRegexpOperator {
         previousAutomaton = subautomaton.clone();
         AutomatonSpecification firstAutomaton = new NaiveAutomatonSpecification();
         firstAutomaton = subautomaton.clone();
-        firstAutomaton.addTransition(firstAutomaton.getInitialState(), 
-                            previousAutomaton.getInitialState(), 
+        firstAutomaton.addTransition(firstAutomaton.getInitialState(),
+                            previousAutomaton.getInitialState(),
                             new EpsilonTransitionLabel());
         
         AutomatonSpecification nextAutomaton = new NaiveAutomatonSpecification();
         nextAutomaton = subautomaton.clone();
-        int counter=1;
-        for(int i=1;i<this.max;i++) {
+        int counter = 1;
+        for(int i = 1; i < this.max; i++) {
             automata.add(i, nextAutomaton);
             
             for (State state : previousAutomaton.allStates()) {
                 if(previousAutomaton.isFinal(state)) {
-                    previousAutomaton.addTransition(state, 
-                            automata.get(i).getInitialState(), 
+                    previousAutomaton.addTransition(state,
+                            automata.get(i).getInitialState(),
                             new EpsilonTransitionLabel());
                 }
             }
