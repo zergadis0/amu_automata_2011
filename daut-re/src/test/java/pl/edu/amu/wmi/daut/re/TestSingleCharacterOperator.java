@@ -17,7 +17,7 @@ public class TestSingleCharacterOperator extends TestCase {
 
         SingleCharacterOperator operator = new SingleCharacterOperator('c');
         assertNotNull(operator);
-        assertEquals(operator.getCharacter(),'c');
+        assertEquals(operator.getCharacter(), 'c');
     }
 
     /**
@@ -29,7 +29,7 @@ public class TestSingleCharacterOperator extends TestCase {
         AutomatonSpecification automaton = operator.createFixedAutomaton();
         assertFalse(automaton.isEmpty());
         assertTrue(automaton.isDeterministic());
-        assertEquals(automaton.countTransitions(),1);
+        assertEquals(automaton.countTransitions(), 1);
 
     }
 }
