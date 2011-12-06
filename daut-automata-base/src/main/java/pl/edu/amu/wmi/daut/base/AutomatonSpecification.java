@@ -852,6 +852,8 @@ public abstract class AutomatonSpecification implements Cloneable  {
         char[] tmp = alphabet.toCharArray();
         java.util.Arrays.sort(tmp);
         String sorted = new String(tmp);
+        String word;
+        List<String> acceptedWords = new ArrayList<String>();
         int l = alphabet.length();
         int x = 1;
         if (this.isEmpty()) 
@@ -880,12 +882,11 @@ public abstract class AutomatonSpecification implements Cloneable  {
                                     z++;
                             }
                             searchWord[flag-1] = sorted.charAt(y);
-                            if(flag-1 == 0) {
-                                flag = x;
-                                while(flag > 1) {
-                                    searchWord[flag-1]=sorted.charAt(0);
-                                    flag--;
-                                }
+                            int tempFlag = flag;
+                            flag = x;
+                            while(flag > tempFlag) {
+                                searchWord[flag-1]=sorted.charAt(0);
+                                flag--;
                             }
                             flag = 0;
                         }
@@ -894,15 +895,25 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 flag = x;
                 searchWord[x-1] = tmp[i%alphabet.length()];
                 String acceptedWord = new String(searchWord);
+//                System.out.println(acceptedWord);
                 if (a.accepts(acceptedWord)) {
-                    found = true;
-                    return acceptedWord;
-                } 
+                        for (String str : acceptedWords) {
+                            if (acceptedWord.startsWith(str))
+                                found = true;
+                        }
+                        acceptedWords.add(acceptedWord);
+//                        System.out.println(acceptedWord);
+                    }
             }
-            l = l*l;
             x++;
+            l = l*alphabet.length();
         } while(found != true);
-            throw new RuntimeException("error");
+        word = acceptedWords.get(0);
+        for (int w = 1; w < acceptedWords.size(); w++) {
+            if (word.compareTo(acceptedWords.get(w)) > 0)
+                word = acceptedWords.get(w);
+        }
+        return word;
     }
     /**
      *Metoda zwraca długość najdłuższego słowa akceptowanego.
