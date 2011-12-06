@@ -615,7 +615,6 @@ public class TestAutomataOperations extends TestCase {
         AutomatonByRecursion pusteDziecko = new
          AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(pustyOjciec, zbior));
 
-        assertEquals(AutomataOperations.complementLanguageAutomaton(pustyOjciec, zbior), 2);
         assertTrue(pusteDziecko.accepts("a"));
         assertTrue(pusteDziecko.accepts("abba"));
         assertTrue(pusteDziecko.accepts(""));
@@ -647,7 +646,6 @@ public class TestAutomataOperations extends TestCase {
         AutomatonByRecursion autLucasBR = new
             AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(autLucas, zbior));
 
-        assertEquals(AutomataOperations.complementLanguageAutomaton(autLucas, zbior), 4);
         assertTrue(autLucasBR.accepts(""));
         assertTrue(autLucasBR.accepts("a"));
         assertTrue(autLucasBR.accepts("aaaa"));
@@ -684,7 +682,6 @@ public class TestAutomataOperations extends TestCase {
         AutomatonByRecursion abbaBR = new
                 AutomatonByRecursion(AutomataOperations.complementLanguageAutomaton(abba, zbior));
 
-        assertEquals(AutomataOperations.complementLanguageAutomaton(abba, zbior), 6);
         assertTrue(abbaBR.accepts(""));
         assertTrue(abbaBR.accepts("a"));
         assertTrue(abbaBR.accepts("b"));
@@ -698,4 +695,3 @@ public class TestAutomataOperations extends TestCase {
         assertTrue(abbaBR.accepts("baa"));
     }
 }
-
