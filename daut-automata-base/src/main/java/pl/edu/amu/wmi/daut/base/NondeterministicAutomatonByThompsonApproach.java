@@ -3,9 +3,15 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.List;
 import java.util.LinkedList;
 
-class NondeterministicAutomatonByThompsonApproach implements Acceptor {
+/**
+* Klasa tworzy niedeterministyczny automat zgodnie z algorytmem Thompsona.
+*/
+public class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
-    NondeterministicAutomatonByThompsonApproach(final AutomatonSpecification specification) {
+    /**
+    * Publiczny konstruktor.
+    */
+    public NondeterministicAutomatonByThompsonApproach(AutomatonSpecification specification) {
         automaton = specification;
     }
 
@@ -43,24 +49,28 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
             } while (added);
 
 
+            if (limit != 0 && i != limit) {
+                for (State someState : currentStates) {
+                    List<OutgoingTransition> someStateTransitions = new
+                            LinkedList<OutgoingTransition>(
+                            automaton.allOutgoingTransitions(someState));
 
-            for (State someState : currentStates) {
-                List<OutgoingTransition> someStateTransitions = new LinkedList<OutgoingTransition>(
-                        automaton.allOutgoingTransitions(someState));
-
-                for (OutgoingTransition transition : someStateTransitions) {
-                    if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))
-                            && !temporaryStates.contains(transition.getTargetState())) {
-                        temporaryStates.add(transition.getTargetState());
+                    for (OutgoingTransition transition : someStateTransitions) {
+                        if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))
+                                && !temporaryStates.contains(transition.getTargetState())) {
+                            temporaryStates.add(transition.getTargetState());
+                        }
                     }
                 }
+
+                currentStates.clear();
+                currentStates.addAll(temporaryStates);
+                temporaryStates.clear();
             }
-            currentStates.clear();
-            currentStates.addAll(temporaryStates);
-            temporaryStates.clear();
+
             i++;
 
-        } while (i < limit);
+        } while (i <= limit);
 
         for (State someState : currentStates) {
             if (automaton.isFinal(someState)) {
@@ -71,7 +81,7 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
         return accept;
     }
 
-    private List<State> epsilonClosure(State state) {
+    protected List<State> epsilonClosure(State state) {
         List<State> epsilonStates = new LinkedList<State>();
         List<State> temporaryStates = new LinkedList<State>();
         List<State> pStates = new LinkedList<State>();
@@ -83,7 +93,8 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
             added = false;
 
             for (State someState : epsilonStates) {
-                List<OutgoingTransition> someStateTransitions = new LinkedList<OutgoingTransition>(
+                List<OutgoingTransition> someStateTransitions = new
+                        LinkedList<OutgoingTransition>(
                         automaton.allOutgoingTransitions(someState));
 
                 for (OutgoingTransition transition : someStateTransitions) {
@@ -110,7 +121,14 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
         return epsilonStates;
     }
+
+
+    protected AutomatonSpecification getSpecification() {
+        return automaton;
+    }
+
+
     private List<State> currentStates;
-    private final AutomatonSpecification automaton;
+    private AutomatonSpecification automaton;
     private boolean accept;
 };
