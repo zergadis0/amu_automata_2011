@@ -13,29 +13,6 @@ import java.util.Vector;
  */
 public class AutomataOperations {
 
-    protected AutomataOperations() {
-        throw new UnsupportedOperationException(); // prevents calls from subclass
-    }
-
-    /**
-     * Metoda zwracajaca Automat akceptujacy jezyk bedacy dopelnieniem jezyka
-     * akceptowanego przez Automat otrzymywany "na wejsciu".
-     * @return AutomatonSpecification
-     */
-    static AutomatonSpecification
-            complementLanguageAutomaton(DeterministicAutomatonSpecification automaton,
-            Set<Character> alfabet) {
-        NaiveDeterministicAutomatonSpecification returned = automaton.clone();
-        returned.makeFull(alfabet.toString());
-        for(State obecny : returned.allStates()) {
-            if (returned.isFinal(obecny))
-                returned.unmarkAsFinal(obecny);
-            else
-                returned.markAsFinal(obecny);
-        }
-        return returned;
-    }
-
     /**
      * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
      * intersection.
@@ -147,6 +124,25 @@ public class AutomataOperations {
                 automatonC.markAsFinal(stateCn);
         return empty;
     }
+
+    /**
+     * Metoda zwracajaca Automat akceptujacy jezyk bedacy dopelnieniem jezyka
+     * akceptowanego przez Automat otrzymywany "na wejsciu".
+     */
+    static AutomatonSpecification
+            complementLanguageAutomaton(DeterministicAutomatonSpecification automaton,
+            Set<Character> alfabet) {
+        AutomatonSpecification returned = automaton.clone();
+        returned.makeFull(alfabet.toString());
+        for (State obecny : returned.allStates()) {
+            if (returned.isFinal(obecny))
+                returned.unmarkAsFinalState(obecny);
+            else
+                returned.markAsFinal(obecny);
+        }
+        return returned;
+    }
+
     /**
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
      * dwa podane automaty.
