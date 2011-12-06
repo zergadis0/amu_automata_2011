@@ -7,7 +7,7 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
  * Klasa abstrakcyjna reprezentujący operator wyrażenia regularnego, np.
  * '*', '?', '|'.
  */
-abstract class RegexpOperator {
+public abstract class RegexpOperator {
 
     /**
      * Zwraca arność operatora (oczekiwaną liczbę argumentów).
