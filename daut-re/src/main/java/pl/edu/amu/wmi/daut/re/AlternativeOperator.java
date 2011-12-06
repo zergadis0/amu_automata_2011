@@ -21,7 +21,7 @@ public class AlternativeOperator extends BinaryRegexpOperator {
 
         @Override
         public int numberOfParams() {
-            return 0; // ??? 2 ???
+            return 0;
         }
 
         protected RegexpOperator doCreateOperator(List<String> params) {
