@@ -5,6 +5,7 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
+
 /**
 * Klasa reprezentującą operator '{n}' z wyrażeń regularnych.
 */
