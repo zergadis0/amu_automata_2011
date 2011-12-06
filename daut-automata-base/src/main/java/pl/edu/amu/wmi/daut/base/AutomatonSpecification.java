@@ -401,7 +401,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Stan state będzie utożsamiony ze stanem
      * początkowym automatu automaton.
      */
-    void insert(State state, AutomatonSpecification automaton) {
+    public void insert(State state, AutomatonSpecification automaton) {
         List<State> loadedStates = automaton.allStates();
         HashMap<State, State> connectedStates = new HashMap<State, State>();
         State automatonInitialState = automaton.getInitialState();

@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.re;
 import pl.edu.amu.wmi.daut.base.*;
+
 /*
  * Klasa reprezentujaca operator oznaczający, że dwa elementy mogą wystąpić jeden po drugim
  * w dowolnej kolejności
