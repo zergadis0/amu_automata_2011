@@ -7,7 +7,10 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
  * Klasa reprezentująca operator '.' z wyrażeń regularnych (dowolny znak).
  */
 public class AnyCharOperator extends NullaryRegexpOperator {
-    public char character;
+    private char character;
+	void setCharacter(char Char) {
+        this.character = Char;
+    }
     @Override
     public AutomatonSpecification createFixedAutomaton() {
         return new NaiveAutomatonSpecification().makeOneTransitionAutomaton(character);
