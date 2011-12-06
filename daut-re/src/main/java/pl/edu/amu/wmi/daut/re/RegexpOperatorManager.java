@@ -2,7 +2,6 @@ package pl.edu.amu.wmi.daut.re;
 
 import java.util.List;
 import java.util.ArrayList;
-import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
     /**
     * Dodaje fabrykę operatorFactory danego operatora. Napis id będzie identyfikatorem (nazwą)
@@ -26,15 +25,15 @@ public class RegexpOperatorManager {
     /**
     * Reprezentuje dane operatora.
     */
-    public class AddedOperator {
+    public class operatorFactory {
         private String id;
-        private List<String> separators = new ArrayList<String>(); // ? kla kazdego operatora osobna lista
+        private List<String> separators = new ArrayList<String>();
         private int priority;
         private RegexpOperatorFactory operatorFactory;
     }
 
-    private List<AddedOperator> definedOperators= new ArrayList<AddedOperator>();// wszystkie dodane operatory
-    private AddedOperator actualOperator;
+    private List<operatorFactory> definedOperators= new ArrayList<operatorFactory>();
+    private operatorFactory actualOperator;
 
      /**
      * Dodaje fabrykę operatorFactory danego operatora.
@@ -42,10 +41,10 @@ public class RegexpOperatorManager {
     void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators,
             int priority)
     {
-        actualOperator.id = id;
-        actualOperator.priority = priority;
-        actualOperator.operatorFactory = operatorFactory;
-        actualOperator.separators.addAll(separators);
+        this.actualOperator.id = id;
+        this.actualOperator.priority = priority;
+        this.actualOperator.operatorFactory = operatorFactory;
+        this.actualOperator.separators.addAll(separators);
 
         definedOperators.add(actualOperator);
     }
@@ -55,10 +54,10 @@ public class RegexpOperatorManager {
      */
     void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators)
     {
-        actualOperator.id = id;
-        actualOperator.priority = 0; // ?????
-        actualOperator.operatorFactory = operatorFactory;
-        actualOperator.separators.addAll(separators);
+        this.actualOperator.id = id;
+        this.actualOperator.priority = 0; // ?????
+        this.actualOperator.operatorFactory = operatorFactory;
+        this.actualOperator.separators.addAll(separators);
 
         definedOperators.add(actualOperator);
     }
@@ -71,15 +70,14 @@ public class RegexpOperatorManager {
     {
         List<String> returnedSeparators = new ArrayList<String>();
 
-        for(AddedOperator operator: definedOperators) {
+        for(operatorFactory operator: definedOperators) {
             if (operator.id.equals(id))
                 returnedSeparators.addAll(operator.separators);
         }
 
-       return returnedSeparators; // jesli id nie istnieje zwraca pusta liste
-
-      // if (returnedSeparators.isEmpty())
-      //  return null;
+       if (returnedSeparators.isEmpty())
+            return null;
+       else return returnedSeparators;
     }
 
 
@@ -90,13 +88,12 @@ public class RegexpOperatorManager {
 
         RegexpOperatorFactory returned = null;
 
-        for(AddedOperator operator: definedOperators) {
+        for(operatorFactory operator: definedOperators) {
             if (operator.id.equals(id))
                   returned = operator.operatorFactory;
         }
-        // ??
-       return returned; // jesli id nie istnieje zwraca null
 
+       return returned;
     }
 
 
@@ -106,13 +103,11 @@ public class RegexpOperatorManager {
     int getPriority(String id) {
         int returned = -1;
 
-        for(AddedOperator operator: definedOperators) {
+        for(operatorFactory operator: definedOperators) {
             if (operator.id.equals(id))
                  returned = operator.priority;
         }
-      //  if (returned != -1)
         return returned;
-      //  else return 0; // ?? jeśli id nie istnieje to co zwracać ??
     }
 
 
@@ -124,36 +119,19 @@ public class RegexpOperatorManager {
     List<String> getOperatorsForStringPrefix(String s) {
         List<String> returnedId = new ArrayList<String>();
         String firstSeparator;
-       // int lenghtOfPrefix = 0, maxLenghtOfPrefix = 0;
 
-        for(AddedOperator operator: definedOperators) {
+        for(operatorFactory operator: definedOperators) {
             firstSeparator = operator.separators.get(0);
 
-                if (s.startsWith(firstSeparator))// jeśli separator to cos (lub "") ??
-                {
-                    if (!firstSeparator.equals("")) { // ?? jeśli pierwszy separator = "" to dodawac do zwracanych ??
-                        returnedId.add(operator.id);
-
-                        /*for (char symbol : s.toCharArray()) { // ?? o ktora wersje chodzi ??
-                                        // ?? "których pierwszy separator to najdłuższy prefiks" ??
-
-                            if (symbol == firstSeparator.toCharArray()[0])
-                                lenghtOfPrefix++;
-
-                            if(lenghtOfPrefix > maxLenghtOfPrefix) {
-                                maxLenghtOfPrefix = lenghtOfPrefix;
-                                returnedId.clear();
-                                returnedId.add(operator.id);
-                            }
-
-                            if(lenghtOfPrefix == maxLenghtOfPrefix)
-                                returnedId.add(operator.id);
-                        }*/
-                    }
+            if (s.startsWith(firstSeparator))
+            {
+                if (!firstSeparator.equals("")) {
+                    returnedId.add(operator.id);
                 }
+            }
         }
         if (returnedId.isEmpty()) {
-            for(AddedOperator operator: definedOperators) {
+            for(operatorFactory operator: definedOperators) {
                 firstSeparator = operator.separators.get(0);
 
                 if (firstSeparator.equals(""))
