@@ -124,6 +124,7 @@ public class AutomataOperations {
                 automatonC.markAsFinal(stateCn);
         return empty;
     }
+
     /**
      * Metoda zwracająca automat akceptujący przecięcie języków akceptowanych przez
      * dwa podane automaty.
@@ -234,6 +235,7 @@ public class AutomataOperations {
 
         return automatonC;
     }
+
     /**
      * Zwraca automat akceptujący domknięcie Kleene'ego
      * języka akceptowanego przez dany automat.
@@ -255,6 +257,7 @@ public class AutomataOperations {
         }
         return kleeneautomaton;
     }
+
      /**
      * Metoda tworzaca automat akceptujacy sume 2 jezykow.
      */
@@ -297,21 +300,21 @@ public class AutomataOperations {
         public static void giveAllPowerSetElements(List<PowerSetElement> listOfStates,
             List<State> dfaStatesRemote, List<State> nfaStatesRemote) {
             Set<State> nfaStates = new HashSet<State>();
-            giveAllPowerSetElementsRecurent(listOfStates, dfaStatesRemote, nfaStatesRemote,
+            giveAllPowerSetElementsRecursive(listOfStates, dfaStatesRemote, nfaStatesRemote,
                     nfaStates, 0);
         }
 
-        private static void giveAllPowerSetElementsRecurent(List<PowerSetElement> listOfStates,
+        private static void giveAllPowerSetElementsRecursive(List<PowerSetElement> listOfStates,
             List<State> dfaStatesRemote, List<State> nfaStatesRemote, Set<State> nfaStates,
             int depth) {
             if (depth < nfaStatesRemote.size()) {
                 //Gałąź dla false(Obecnie rozpatrywany stan NFA nie jest brany)
-                giveAllPowerSetElementsRecurent(listOfStates, dfaStatesRemote,
+                giveAllPowerSetElementsRecursive(listOfStates, dfaStatesRemote,
                         nfaStatesRemote, nfaStates, depth + 1);
 
                 //Gałąź dla true(Obecnie rozpatrywany stan NFA jest brany)
                 nfaStates.add(nfaStatesRemote.get(depth));
-                giveAllPowerSetElementsRecurent(listOfStates, dfaStatesRemote,
+                giveAllPowerSetElementsRecursive(listOfStates, dfaStatesRemote,
                         nfaStatesRemote, nfaStates, depth + 1);
                 nfaStates.remove(nfaStatesRemote.get(depth));
             } else {
@@ -494,9 +497,6 @@ public class AutomataOperations {
                         if (targetStructure.getnfaStates().isEmpty())
                             resultDfa.addTransition(structure.getdfaState(),
                                 targetStructure.getdfaState(), new AnyTransitionLabel());
-                        else
-                            resultDfa.addTransition(structure.getdfaState(),
-                                targetStructure.getdfaState(), new EmptyTransitionLabel());
                     }
                 } else {
                     for (TransitionLabel t : tSet) {
@@ -535,8 +535,7 @@ public class AutomataOperations {
                 }
             }
             PowerSetElement.resetNumber();
-            //Gdy metoda będzie gotowa - odkomentować!
-            //resultDfa.deleteUselessStates();
+            resultDfa.deleteUselessStates();
         } else {
             throw new StructureException();
         }
