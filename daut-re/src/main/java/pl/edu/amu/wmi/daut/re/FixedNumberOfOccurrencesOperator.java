@@ -46,9 +46,3 @@ abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator{
     }
         
 }
-    
-    
-    
-
-    
-
