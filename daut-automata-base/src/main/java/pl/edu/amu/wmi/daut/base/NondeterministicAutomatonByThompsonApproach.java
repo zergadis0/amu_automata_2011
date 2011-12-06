@@ -5,47 +5,68 @@ import java.util.LinkedList;
 
 class NondeterministicAutomatonByThompsonApproach implements Acceptor {
 
-    NondeterministicAutomatonByThompsonApproach(final AutomatonSpecification specification) {
+    NondeterministicAutomatonByThompsonApproach(AutomatonSpecification specification) {
         automaton = specification;
     }
 
     @Override
     public boolean accepts(final String text) {
         accept = false;
+        int i = 0;
         int limit = text.length();
-        oStates = new LinkedList();
-        aStates = new LinkedList();
-        oStates.add(automaton.getInitialState());
+        boolean added;
+        currentStates = new LinkedList<State>();
+        List<State> temporaryStates = new LinkedList<State>();
+        List<State> pStates = new LinkedList<State>();
 
-        for (int i = 0; i < limit; i++) {
+        currentStates.add(automaton.getInitialState());
 
-            for (State someState : oStates) {
-                epStates = new LinkedList();
-                epStates = epsilonClosure(someState);
+        do {
 
-                for (State eState : epStates) {
-                    oStates.add(eState);
-                }
-            }
+            do {
+                added = false;
 
-            for (State someState : oStates) {
-                List<OutgoingTransition> someStateTransitions;
-                someStateTransitions = automaton.allOutgoingTransitions(someState);
+                for (State someState : currentStates) {
+                    List<State> epsilonStates =
+                            new LinkedList<State>(epsilonClosure(someState));
 
-                for (OutgoingTransition transition : someStateTransitions) {
-                    if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))
-                            && !aStates.contains(transition.getTargetState())) {
-                        aStates.add(transition.getTargetState());
+                    for (State eState : epsilonStates) {
+                        if (!currentStates.contains(eState)
+                                && !pStates.contains(eState)) {
+                            pStates.add(eState);
+                            added = true;
+                        }
                     }
                 }
+                currentStates.addAll(pStates);
+                pStates.clear();
+            } while (added);
+
+
+            if (limit != 0 && i != limit) {
+                for (State someState : currentStates) {
+                    List<OutgoingTransition> someStateTransitions = new
+                            LinkedList<OutgoingTransition>(
+                            automaton.allOutgoingTransitions(someState));
+
+                    for (OutgoingTransition transition : someStateTransitions) {
+                        if (transition.getTransitionLabel().canAcceptCharacter(text.charAt(i))
+                                && !temporaryStates.contains(transition.getTargetState())) {
+                            temporaryStates.add(transition.getTargetState());
+                        }
+                    }
+                }
+
+                currentStates.clear();
+                currentStates.addAll(temporaryStates);
+                temporaryStates.clear();
             }
 
-            oStates = aStates;
-            aStates.clear();
+            i++;
 
-        }
+        } while (i <= limit);
 
-        for (State someState : oStates) {
+        for (State someState : currentStates) {
             if (automaton.isFinal(someState)) {
                 accept = true;
             }
@@ -54,41 +75,54 @@ class NondeterministicAutomatonByThompsonApproach implements Acceptor {
         return accept;
     }
 
-    private List<State> epsilonClosure(State state) {
-        List<State> eStates = new LinkedList();
-        List<State> cStates = new LinkedList();
+    protected List<State> epsilonClosure(State state) {
+        List<State> epsilonStates = new LinkedList<State>();
+        List<State> temporaryStates = new LinkedList<State>();
+        List<State> pStates = new LinkedList<State>();
         boolean added;
 
-        eStates.add(state);
+        epsilonStates.add(state);
 
         do {
             added = false;
 
-            for (State someState : eStates) {
-                List<OutgoingTransition> someStateTransitions;
-                someStateTransitions = automaton.allOutgoingTransitions(someState);
+            for (State someState : epsilonStates) {
+                List<OutgoingTransition> someStateTransitions = new
+                        LinkedList<OutgoingTransition>(
+                        automaton.allOutgoingTransitions(someState));
 
                 for (OutgoingTransition transition : someStateTransitions) {
-                    if (transition.getTransitionLabel().canBeEpsilon()) {
-                        cStates.add(transition.getTargetState());
+                    if (transition.getTransitionLabel().canBeEpsilon()
+                            && !temporaryStates.contains(transition.getTargetState())) {
+                        temporaryStates.add(transition.getTargetState());
                     }
                 }
 
-                for (State cState : cStates) {
-                    if (!eStates.contains(cState)) {
-                        eStates.add(cState);
+                for (State tState : temporaryStates) {
+                    if (!epsilonStates.contains(tState)
+                            && !pStates.contains(tState)) {
+                        pStates.add(tState);
                         added = true;
                     }
                 }
-                cStates.clear();
+                temporaryStates.clear();
             }
+
+            epsilonStates.addAll(pStates);
+            pStates.clear();
+
         } while (added);
 
-        return eStates;
+        return epsilonStates;
     }
-    private List<State> oStates;
-    private List<State> aStates;
-    private List<State> epStates;
-    private final AutomatonSpecification automaton;
+
+
+    protected AutomatonSpecification getSpecification() {
+        return automaton;
+    }
+
+
+    private List<State> currentStates;
+    private AutomatonSpecification automaton;
     private boolean accept;
 };
