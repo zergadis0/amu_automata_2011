@@ -16,37 +16,28 @@ public class DeterministicUtilities {
     public void createAutomatonForFiniteLanguage(
         DeterministicAutomatonSpecification automaton, Set<String> language) {
 
-        int symbolsCounter = 1;
-        for (String s : language) {
-            symbolsCounter += s.length();
-        }
-
-        State[] q;
-        q = new State[symbolsCounter];
-        q[0] = automaton.addState();
-        automaton.markAsInitial(q[0]);
-        int statesCounter = 0;
+        State q0 = automaton.addState();
+        automaton.markAsInitial(q0);
 
         for (String s : language) {
             if (s.equals("")) {
-                automaton.markAsFinal(q[0]);
+                automaton.markAsFinal(q0);
 
             } else {
-                State activeState = q[0];
+                State activeState = q0;
                 int letter = 0;
 
                 for ( ; letter < s.length(); letter++) {
 
-                        if (automaton.targetState(activeState, s.charAt(letter)) != null) {
-                            activeState = automaton.targetState(activeState, s.charAt(letter));
+                    if (automaton.targetState(activeState, s.charAt(letter)) != null) {
+                        activeState = automaton.targetState(activeState, s.charAt(letter));
 
-                        } else {
-                        statesCounter++;
-                        q[statesCounter] = automaton.addState();
-                        automaton.addTransition(activeState, q[statesCounter],
+                    } else {
+                        State newState = automaton.addState();
+                        automaton.addTransition(activeState, newState,
                             new CharTransitionLabel(s.charAt(letter)));
-                        activeState = q[statesCounter];
-                        }
+                        activeState = newState;
+                    }
 
                 }
                 automaton.markAsFinal(activeState);
