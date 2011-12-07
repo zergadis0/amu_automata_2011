@@ -8,7 +8,10 @@ import java.util.Set;
  */
 public class AutomatonUtilities {
 
-    public static Set<Character> getAlphabet(AutomatonSpecification automaton, Set<Character> superset) {
+    private AutomatonUtilities() {}
+    
+    public static Set<Character> getAlphabet(AutomatonSpecification automaton, 
+            Set<Character> superset) {
 
         Set<Character> alphabet = new HashSet<Character>();
 
@@ -17,13 +20,13 @@ public class AutomatonUtilities {
                 for (Character c : superset) {
 
                         boolean isAlreadyIn = false;
-                        for(Character ch : alphabet)
-                        if(ch.equals(c)) {
-                            isAlreadyIn = true;
-                            break;
-                        }
+                        for (Character ch : alphabet)
+                            if (ch.equals(c)) {
+                                isAlreadyIn = true;
+                                break;
+                            }
 
-			if(!isAlreadyIn)
+                        if  (!isAlreadyIn)
                             if (ot.getTransitionLabel().canAcceptCharacter(c)) {
                                 alphabet.add(c);
                                 continue;

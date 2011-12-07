@@ -12,7 +12,7 @@ public class TestAutomatonUtilities extends TestCase {
 
     /**
      * Test metody getAlphabet, sprawdza czy zwraca dwuelementowy alfabet.
-     */
+    */
     public final void test1GetAlphabet() {
 
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
@@ -52,8 +52,8 @@ public class TestAutomatonUtilities extends TestCase {
     }
 
     /**
-     *Drugi test, sprawdza alfabet przy powtarzajacych sie 
-     */
+     * Drugi test, sprawdza alfabet przy powtarzajacych sie.
+    */
     public final void test2GetAlphabet() {
 
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
@@ -88,8 +88,8 @@ public class TestAutomatonUtilities extends TestCase {
         assertTrue(result.equals(resultExpected));
     }
 
-       /**
-     *Trzeci test, sprawdza alfabet pusty.
+     /**
+      * Trzeci test, sprawdza alfabet pusty.
      */
      public final void test3GetAlphabet() {
 
@@ -119,9 +119,9 @@ public class TestAutomatonUtilities extends TestCase {
         assertTrue(result.equals(resultExpected));
     }
 
-       /**
-     *Czwarty test, sprawdza alfabet rowny calemu zbiorowi
-     */ 
+    /**
+     * Czwarty test, sprawdza alfabet rowny calemu zbiorowi.
+    */
     public final void test4GetAlphabet() {
 
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
@@ -170,9 +170,9 @@ public class TestAutomatonUtilities extends TestCase {
         assertTrue(result.equals(resultExpected));
     }
 
-       /**
-     *Piaty test, sprawdza uzycie elementu nie nalezacego do nadzbioru
-     */
+    /**
+     * Piaty test, sprawdza uzycie elementu nie nalezacego do nadzbioru.
+    */
     public final void test5GetAlphabet() {
 
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
