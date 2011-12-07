@@ -6,10 +6,10 @@ import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.AutomataOperations;
 import pl.edu.amu.wmi.daut.base.State;
 
-/*
+/**
  * Klasa reprezentujaca operator oznaczajacy, ze dwa elementy moga wystapic jeden po drugim
  * w dowolnej kolejnosci
-*/
+ */
 public class AnyOrderOperator extends BinaryRegexpOperator {
 
     @Override
