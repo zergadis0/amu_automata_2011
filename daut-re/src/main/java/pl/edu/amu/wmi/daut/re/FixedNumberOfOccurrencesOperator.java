@@ -8,7 +8,7 @@ import pl.edu.amu.wmi.daut.base.State;
 /**
 * Klasa reprezentującą operator '{n}' z wyrażeń regularnych.
 */
-abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator{
+abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
 
     private int n;
 
@@ -24,10 +24,10 @@ abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator{
         AutomatonSpecification automatbudowany = subautomaton.clone();
 
 
-        for(int i = 0; i < this.n-1; i++) {
+        for (int i = 0; i < this.n - 1; i++) {
 
             for (State state : automatbudowany.allStates()) {
-                if(automatbudowany.isFinal(state)) {
+                if (automatbudowany.isFinal(state)) {
                             automatbudowany.addTransition(state,
                             automatwejsciowy.getInitialState(),
                             new EpsilonTransitionLabel());
