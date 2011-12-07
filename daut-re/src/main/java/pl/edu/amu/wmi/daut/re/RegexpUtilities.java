@@ -10,7 +10,7 @@ public class RegexpUtilities {
 
 	static AutomatonSpecification createAutopmatonFromOperatorTree (RegexpOperatorTree tree) throws RuntimeException
 	{
-            //przejdŸ przez drzewo stanów metod¹ post-order, przy pomocy dwóch stosów.
+            //przejdÅº przez drzewo stanÃ³w metodÄ… post-order, przy pomocy dwÃ³ch stosÃ³w.
             Stack<RegexpOperatorTree> child = new Stack<RegexpOperatorTree>();
             Stack<RegexpOperatorTree> parent = new Stack<RegexpOperatorTree>();
             child.push(tree);
@@ -24,44 +24,44 @@ public class RegexpUtilities {
                     child.push(subTree);
             }
             
-            //na stosie "parent" mamy teraz wierzcho³ki w porz¹dku post-order!
-            //w porz¹dku post-order chodzi o to, ¿e zawsze zaczynamy od nieodwiedzonych liœci
+            //na stosie "parent" mamy teraz wierzchoÅ‚ki w porzÄ…dku post-order!
+            //w porzÄ…dku post-order chodzi o to, Å¼e zawsze zaczynamy od nieodwiedzonych liÅ›ci
             //i idziemy powoli w kierunku korzenia drzewa.
             
-            //utwórz mapê poddrzew na automaty przez nich utworzone.
+            //utwÃ³rz mapÄ™ poddrzew na automaty przez nich utworzone.
             Map<RegexpOperatorTree, AutomatonSpecification> map = new HashMap<RegexpOperatorTree, AutomatonSpecification>();
             
             while (!parent.empty())
             {
                 RegexpOperatorTree current = parent.peek();
                 
-                //utwórz listê automatów utworzonych przez synów wierzcho³ka.
+                //utwÃ³rz listÄ™ automatÃ³w utworzonych przez synÃ³w wierzchoÅ‚ka.
                 List<AutomatonSpecification> arguments = new ArrayList<AutomatonSpecification>();
                 for (RegexpOperatorTree subTree : current.getSubtrees())
                 {
-                    //nie bêdzie tutaj odwo³ania do nieistniej¹cych kluczy ze
-                    //wzgl. na charakter porz¹dku post-order. jeœli wyst¹pi tutaj
-                    //exception, to znaczy, ¿e Ÿle zaimplementowaliœmy coœ wczeœniej.
+                    //nie bÄ™dzie tutaj odwoÅ‚ania do nieistniejÄ…cych kluczy ze
+                    //wzgl. na charakter porzÄ…dku post-order. jeÅ›li wystÄ…pi tutaj
+                    //exception, to znaczy, Å¼e Åºle zaimplementowaliÅ›my coÅ› wczeÅ›niej.
                     AutomatonSpecification subTreeAutomaton = map.get(subTree);
                     arguments.add(subTreeAutomaton);
                 }
                 
-                //utwórz automat, którego argumentami s¹ automaty wszystkich synów.
+                //utwÃ³rz automat, ktÃ³rego argumentami sÄ… automaty wszystkich synÃ³w.
                 AutomatonSpecification currentAutomaton = current.getRoot().createAutomaton(arguments);
-                //zapamiêtaj automat dla danego wierzcho³ka. poniewa¿ liœcie siê
-                //wykonaj¹ "najpierw", to nadchodz¹cy po tym rodzice tych liœci
-                //bêd¹ mieli pe³n¹ informacjê o automatach utworzonych przez 
-                //swoich synów...
+                //zapamiÄ™taj automat dla danego wierzchoÅ‚ka. poniewaÅ¼ liÅ›cie siÄ™
+                //wykonajÄ… "najpierw", to nadchodzÄ…cy po tym rodzice tych liÅ›ci
+                //bÄ™dÄ… mieli peÅ‚nÄ… informacjÄ™ o automatach utworzonych przez 
+                //swoich synÃ³w...
                 map.put(current, currentAutomaton);
                 
                 parent.pop();
                 
-                //usunêliœmy w³aœnie wierzcho³ek-korzeñ - zostaliœmy z pustym stosem, mo¿emy zwróciæ automat.
+                //usunÄ™liÅ›my wÅ‚aÅ›nie wierzchoÅ‚ek-korzeÅ„ - zostaliÅ›my z pustym stosem, moÅ¼emy zwrÃ³ciÄ‡ automat.
                 if (parent.empty())
                     return currentAutomaton;
             }
 
-            //ten kod nie powinien siê nigdy wykonaæ.
+            //ten kod nie powinien siÄ™ nigdy wykonaÄ‡.
             throw new RuntimeException("");
     }
 }
