@@ -20,7 +20,8 @@ public class TestDeterminizer extends TestCase {
         determinizer.determinize(nfa, ndfa);
 
         if (ndfa.isEmpty()) {
-            //assertFalse(ndfa.isNotEmpty()); //Uzycie tej metody powoduje "zwieche" mvn przy testowaniu
+            //assertFalse(ndfa.isNotEmpty()); //Uzycie tej metody powoduje 
+                                              //"zwieche" mvn przy testowaniu
             assertTrue(ndfa.isEmpty());
         } else {
             assertTrue(ndfa.isDeterministic());
