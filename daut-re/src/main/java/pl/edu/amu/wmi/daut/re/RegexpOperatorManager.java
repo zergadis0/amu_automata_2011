@@ -32,7 +32,7 @@ public class RegexpOperatorManager {
         private RegexpOperatorFactory operatorFactory;
     }
 
-    private List<operatorFactory> definedOperators= new ArrayList<operatorFactory>();
+    private List<operatorFactory> definedOperators = new ArrayList<operatorFactory>();
     private operatorFactory actualOperator;
 
      /**
@@ -70,7 +70,7 @@ public class RegexpOperatorManager {
     {
         List<String> returnedSeparators = new ArrayList<String>();
 
-        for(operatorFactory operator: definedOperators) {
+        for(operatorFactory operator : definedOperators) {
             if (operator.id.equals(id))
                 returnedSeparators.addAll(operator.separators);
         }
@@ -88,11 +88,10 @@ public class RegexpOperatorManager {
 
         RegexpOperatorFactory returned = null;
 
-        for(operatorFactory operator: definedOperators) {
+        for(operatorFactory operator : definedOperators) {
             if (operator.id.equals(id))
                   returned = operator.operatorFactory;
         }
-
        return returned;
     }
 
@@ -103,7 +102,7 @@ public class RegexpOperatorManager {
     int getPriority(String id) {
         int returned = -1;
 
-        for(operatorFactory operator: definedOperators) {
+        for(operatorFactory operator : definedOperators) {
             if (operator.id.equals(id))
                  returned = operator.priority;
         }
@@ -120,7 +119,7 @@ public class RegexpOperatorManager {
         List<String> returnedId = new ArrayList<String>();
         String firstSeparator;
 
-        for(operatorFactory operator: definedOperators) {
+        for(operatorFactory operator : definedOperators) {
             firstSeparator = operator.separators.get(0);
 
             if (s.startsWith(firstSeparator))
@@ -131,14 +130,13 @@ public class RegexpOperatorManager {
             }
         }
         if (returnedId.isEmpty()) {
-            for(operatorFactory operator: definedOperators) {
+            for(operatorFactory operator : definedOperators) {
                 firstSeparator = operator.separators.get(0);
 
                 if (firstSeparator.equals(""))
                     returnedId.add(operator.id);
             }
         }
-
         return returnedId;
     }
 }
