@@ -26,11 +26,35 @@ public class RegexpOperatorManager {
     * Reprezentuje dane operatora.
     */
     public static class OperatorFactory {
-        
+
         private String id;
         private List<String> separators = new ArrayList<String>();
         private int priority;
         private RegexpOperatorFactory operatorFactory;
+
+        /**
+        * Konstruktor 4 argumentowy.
+        */
+        private OperatorFactory(String id, RegexpOperatorFactory operatorFactory,
+                List<String> separators, int priority) {
+
+            this.id = id;
+            this.priority = priority;
+            this.operatorFactory = operatorFactory;
+            this.separators.addAll(separators);
+        }
+
+        /**
+        * Konstruktor 3 argumentowy.
+        */
+        private OperatorFactory(String id, RegexpOperatorFactory operatorFactory,
+                List<String> separators) {
+
+            this.id = id;
+            this.priority = 0;
+            this.operatorFactory = operatorFactory;
+            this.separators.addAll(separators);
+        }
     }
 
     private List<OperatorFactory> definedOperators = new ArrayList<OperatorFactory>();
@@ -42,11 +66,12 @@ public class RegexpOperatorManager {
     void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators,
             int priority) {
 
-        actualOperator = new OperatorFactory();
+        actualOperator = new OperatorFactory(id, operatorFactory, separators, priority);
+       /* actualOperator = new OperatorFactory();
         this.actualOperator.id = id;
         this.actualOperator.priority = priority;
         this.actualOperator.operatorFactory = operatorFactory;
-        this.actualOperator.separators.addAll(separators);
+        this.actualOperator.separators.addAll(separators);*/
 
         definedOperators.add(actualOperator);
     }
@@ -56,11 +81,11 @@ public class RegexpOperatorManager {
      */
     void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators) {
 
-        actualOperator = new OperatorFactory();
-        this.actualOperator.id = id;
+        actualOperator = new OperatorFactory(id, operatorFactory, separators);
+        /*this.actualOperator.id = id;
         this.actualOperator.priority = 0; // ?????
         this.actualOperator.operatorFactory = operatorFactory;
-        this.actualOperator.separators.addAll(separators);
+        this.actualOperator.separators.addAll(separators);*/
 
         definedOperators.add(actualOperator);
     }
@@ -129,7 +154,7 @@ public class RegexpOperatorManager {
                 returnedId.add(operator.id);
         }
         if (returnedId.isEmpty()) {
-            for(OperatorFactory operator : definedOperators) {
+            for (OperatorFactory operator : definedOperators) {
                 firstSeparator = operator.separators.get(0);
 
                 if (firstSeparator.equals(""))
