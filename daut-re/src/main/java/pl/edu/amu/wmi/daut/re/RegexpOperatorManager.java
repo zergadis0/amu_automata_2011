@@ -41,7 +41,7 @@ public class RegexpOperatorManager {
     void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators,
             int priority)
     {
-        this.actualOperator.id = id;
+        this.actualOperator.id= id;
         this.actualOperator.priority = priority;
         this.actualOperator.operatorFactory = operatorFactory;
         this.actualOperator.separators.addAll(separators);
@@ -68,7 +68,7 @@ public class RegexpOperatorManager {
      */
     List<String> getSeparators(String id)
     {
-        List<String> returnedSeparators = new ArrayList<String>();
+        List< String> returnedSeparators = new ArrayList<String>();
 
         for(operatorFactory operator : definedOperators) {
             if (operator.id.equals(id))
@@ -137,6 +137,6 @@ public class RegexpOperatorManager {
                     returnedId.add(operator.id);
             }
         }
-        return returnedId ;
+        return returnedId;
     }
 }
