@@ -14,7 +14,7 @@ public class TestAutomatonUtilities extends TestCase {
      * Test metody getAlphabet, sprawdza czy zwraca dwuelementowy alfabet.
      */
     public final void test1GetAlphabet() {
-        
+
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0 = spec.addState();
@@ -37,24 +37,25 @@ public class TestAutomatonUtilities extends TestCase {
         superSet.add(('g'));
         superSet.add(('h'));
         superSet.add(('i'));
-        
+
         Set<Character> result = AutomatonUtilities.getAlphabet(spec, superSet);
-        
+
         Set<Character> resultExpected = new HashSet<Character>();
         resultExpected.add('a');
         resultExpected.add('b');
         assertTrue(result.equals(resultExpected));
-        
+
         resultExpected = new HashSet<Character>();
         resultExpected.add('c');
         resultExpected.add('b');
         assertFalse(result.equals(resultExpected));
     }
+
     /**
      *Drugi test, sprawdza alfabet przy powtarzajacych sie 
      */
     public final void test2GetAlphabet() {
-        
+
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0 = spec.addState();
@@ -86,6 +87,7 @@ public class TestAutomatonUtilities extends TestCase {
         resultExpected.add('b');
         assertTrue(result.equals(resultExpected));
     }
+
        /**
      *Trzeci test, sprawdza alfabet pusty.
      */
@@ -116,6 +118,7 @@ public class TestAutomatonUtilities extends TestCase {
         Set<Character> resultExpected = new HashSet<Character>();
         assertTrue(result.equals(resultExpected));
     }
+
        /**
      *Czwarty test, sprawdza alfabet rowny calemu zbiorowi
      */ 
@@ -166,6 +169,7 @@ public class TestAutomatonUtilities extends TestCase {
 
         assertTrue(result.equals(resultExpected));
     }
+
        /**
      *Piaty test, sprawdza uzycie elementu nie nalezacego do nadzbioru
      */

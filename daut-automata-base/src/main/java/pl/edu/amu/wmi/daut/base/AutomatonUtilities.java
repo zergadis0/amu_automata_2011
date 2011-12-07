@@ -18,17 +18,17 @@ public class AutomatonUtilities {
 
                         boolean isAlreadyIn = false;
                         for(Character ch : alphabet)
-                        if(ch == c) {
+                        if(ch.equals(c)) {
                             isAlreadyIn = true;
                             break;
                         }
 
 			if(!isAlreadyIn)
                             if (ot.getTransitionLabel().canAcceptCharacter(c)) {
-				alphabet.add(c);
-				continue;
+                                alphabet.add(c);
+                                continue;
                             }
-		}
+                }
             }
         }
         return alphabet;
