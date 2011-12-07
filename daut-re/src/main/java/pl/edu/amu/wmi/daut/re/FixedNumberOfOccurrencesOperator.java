@@ -15,7 +15,9 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
     public FixedNumberOfOccurrencesOperator(int a) {
         this.n = a;
     }
-
+    /**
+     * Główna metoda klasy.
+     */
     public AutomatonSpecification createAutomatonFromOneAutomaton(
             AutomatonSpecification subautomaton, List<AutomatonSpecification> subautomata) {
 
