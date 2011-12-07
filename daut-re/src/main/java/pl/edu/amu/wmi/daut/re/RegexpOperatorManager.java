@@ -25,7 +25,7 @@ public class RegexpOperatorManager {
     /**
     * Reprezentuje dane operatora.
     */
-    public static class OperatorFactory {
+    public static final class OperatorFactory {
 
         private String id;
         private List<String> separators = new ArrayList<String>();
