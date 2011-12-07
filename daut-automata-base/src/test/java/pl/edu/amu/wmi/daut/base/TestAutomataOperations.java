@@ -668,7 +668,7 @@ public class TestAutomataOperations extends TestCase {
      * Test metody intersection z AutomataOperations na automatach z epsilon przejsciami.
      */
     public final void testIntersectionwithEpsilonTransition() {
-        AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
+        AutomatonSpecification automatonA = new NotNaiveAutomatonSpecification();
 
         State q0 = automatonA.addState();
         State q1 = automatonA.addState();
@@ -683,7 +683,7 @@ public class TestAutomataOperations extends TestCase {
         automatonA.markAsFinal(q1);
         automatonA.markAsFinal(q2);
 
-        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
+        AutomatonSpecification automatonB = new NotNaiveAutomatonSpecification();
 
         State q10 = automatonB.addState();
         State q11 = automatonB.addState();
@@ -795,4 +795,24 @@ public class TestAutomataOperations extends TestCase {
 
     }
 
+    /**
+     * Test metody intersection na automacie bez stanu końcowego.
+     */
+    public final void testIntersectionOnNoFiniteStateAutomaton() {
+        AutomatonSpecification automatonA =
+            new NaiveAutomatonSpecification().makeOneTransitionAutomaton('a');
+
+        AutomatonSpecification automatonB = new NaiveAutomatonSpecification();
+        State q0 = automatonB.addState();
+        automatonB.markAsInitial(q0);
+        automatonB.addTransition(q0, new CharTransitionLabel('a'));
+
+        AutomatonSpecification intersectedAB = AutomataOperations.intersection(
+            automatonA, automatonB);
+
+        NondeterministicAutomatonByThompsonApproach automatonAB = new
+            NondeterministicAutomatonByThompsonApproach(intersectedAB);
+        assertFalse(automatonAB.accepts("a"));
+        assertFalse(automatonAB.accepts(""));
+    }
 }
