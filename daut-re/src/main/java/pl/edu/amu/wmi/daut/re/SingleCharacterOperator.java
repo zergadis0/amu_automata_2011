@@ -21,7 +21,7 @@ public class SingleCharacterOperator extends NullaryRegexpOperator {
     }
 
     /**
-     * Chyba widać.
+     * Funkcja zwracajaca znak akceptowany przez automat.
      */
     public char getCharacter() {
         return character;
