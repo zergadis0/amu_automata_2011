@@ -8,7 +8,7 @@ import pl.edu.amu.wmi.daut.base.State;
 
 /**
  * Klasa reprezentujaca operator oznaczajacy, ze dwa elementy moga wystapic jeden po drugim
- * w dowolnej kolejnosci
+ * w dowolnej kolejnosci.
  */
 public class AnyOrderOperator extends BinaryRegexpOperator {
 
