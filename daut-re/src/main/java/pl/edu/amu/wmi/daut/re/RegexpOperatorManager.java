@@ -25,22 +25,24 @@ public class RegexpOperatorManager {
     /**
     * Reprezentuje dane operatora.
     */
-    public class operatorFactory {
+    public static class OperatorFactory {
+        
         private String id;
         private List<String> separators = new ArrayList<String>();
         private int priority;
         private RegexpOperatorFactory operatorFactory;
     }
 
-    private List<operatorFactory> definedOperators = new ArrayList<operatorFactory>();
-    private operatorFactory actualOperator;
+    private List<OperatorFactory> definedOperators = new ArrayList<OperatorFactory>();
+    private OperatorFactory actualOperator;
 
      /**
      * Dodaje fabrykę operatorFactory danego operatora.
      */
     void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators,
-            int priority)
-    {
+            int priority) {
+
+        actualOperator = new OperatorFactory();
         this.actualOperator.id = id;
         this.actualOperator.priority = priority;
         this.actualOperator.operatorFactory = operatorFactory;
@@ -52,8 +54,9 @@ public class RegexpOperatorManager {
     /**
      * Dodaje fabrykę operatorFactory danego operatora bez podanego priorytetu.
      */
-    void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators)
-    {
+    void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators) {
+
+        actualOperator = new OperatorFactory();
         this.actualOperator.id = id;
         this.actualOperator.priority = 0; // ?????
         this.actualOperator.operatorFactory = operatorFactory;
@@ -66,11 +69,11 @@ public class RegexpOperatorManager {
     /**
      * Zwraca listę separatorów dla operatora o identyfikatorze id.
      */
-    List<String> getSeparators(String id)
-    {
+    List<String> getSeparators(String id) {
+
         List<String> returnedSeparators = new ArrayList<String>();
 
-        for(operatorFactory operator : definedOperators) {
+        for (OperatorFactory operator : definedOperators) {
             if (operator.id.equals(id))
                 returnedSeparators.addAll(operator.separators);
         }
@@ -88,7 +91,7 @@ public class RegexpOperatorManager {
 
         RegexpOperatorFactory returned = null;
 
-        for(operatorFactory operator : definedOperators) {
+        for (OperatorFactory operator : definedOperators) {
             if (operator.id.equals(id))
                   returned = operator.operatorFactory;
         }
@@ -102,7 +105,7 @@ public class RegexpOperatorManager {
     int getPriority(String id) {
         int returned = -1;
 
-        for(operatorFactory operator : definedOperators) {
+        for (OperatorFactory operator : definedOperators) {
             if (operator.id.equals(id))
                  returned = operator.priority;
         }
@@ -119,18 +122,14 @@ public class RegexpOperatorManager {
         List<String> returnedId = new ArrayList<String>();
         String firstSeparator;
 
-        for(operatorFactory operator : definedOperators) {
+        for (OperatorFactory operator : definedOperators) {
             firstSeparator = operator.separators.get(0);
 
-            if (s.startsWith(firstSeparator))
-            {
-                if (!firstSeparator.equals("")) {
-                    returnedId.add(operator.id);
-                }
-            }
+            if (s.startsWith(firstSeparator) && !firstSeparator.equals(""))
+                returnedId.add(operator.id);
         }
         if (returnedId.isEmpty()) {
-            for(operatorFactory operator : definedOperators) {
+            for(OperatorFactory operator : definedOperators) {
                 firstSeparator = operator.separators.get(0);
 
                 if (firstSeparator.equals(""))
