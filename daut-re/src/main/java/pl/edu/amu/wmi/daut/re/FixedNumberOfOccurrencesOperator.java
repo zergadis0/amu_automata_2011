@@ -8,7 +8,7 @@ import pl.edu.amu.wmi.daut.base.State;
 /**
 * Klasa reprezentującą operator '{n}' z wyrażeń regularnych.
 */
-abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
+public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
 
     private int n;
 
