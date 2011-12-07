@@ -30,11 +30,11 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
         AutomatonSpecification automatwejsciowy = subautomaton.clone();
 
         AutomatonSpecification automatbudowany = subautomaton.clone();
-        
+
 
         for (int i = 0; i < this.n - 1; i++) {
 
-            lista.add(i,automatwejsciowy);
+            lista.add(i, automatwejsciowy);
 
             for (State state : automatbudowany.allStates()) {
                 if (automatbudowany.isFinal(state)) {
@@ -44,7 +44,6 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
                     automatbudowany.unmarkAsFinalState(state);
                 }
             }
-            
         }
         return automatbudowany;
     }
