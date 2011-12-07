@@ -137,6 +137,6 @@ public class RegexpOperatorManager {
                     returnedId.add(operator.id);
             }
         }
-        return returnedId;
+        return returnedId ;
     }
 }
