@@ -8,8 +8,8 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
  */
 public class AnyCharOperator extends NullaryRegexpOperator {
     private char character;
-	void setCharacter(char Char) {
-        this.character = Char;
+    public void setCharacter(char Character) {
+        this.character = Character;
     }
     @Override
     public AutomatonSpecification createFixedAutomaton() {
