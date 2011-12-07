@@ -43,9 +43,7 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
         }
         automatonRL.insert(finalStateR, leftSubautomaton);
 
-        AutomatonSpecification automaton = AutomataOperations.sum(automatonLR, automatonRL);
-
-        return automaton;
+        return AutomataOperations.sum(automatonLR, automatonRL);
     }
 
 }
