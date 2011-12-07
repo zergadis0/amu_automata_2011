@@ -37,4 +37,4 @@ abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator{
         }
         return automatbudowany;
     }
-}
+} 
