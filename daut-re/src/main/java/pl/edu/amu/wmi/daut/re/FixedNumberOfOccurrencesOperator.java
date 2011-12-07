@@ -23,7 +23,7 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
      * Główna metoda klasy.
      */
     public AutomatonSpecification createAutomatonFromOneAutomaton(
-            AutomatonSpecification subautomaton, List<AutomatonSpecification> subautomata) {
+            AutomatonSpecification subautomaton) {
 
         AutomatonSpecification automatwejsciowy = subautomaton.clone();
 
