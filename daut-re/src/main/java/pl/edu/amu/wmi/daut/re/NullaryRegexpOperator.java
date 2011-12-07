@@ -20,7 +20,7 @@ abstract class NullaryRegexpOperator extends RegexpOperator {
     }
 
     /**
-     * Właściwa metoda budująca automat na podstawie podautomatu.
+     * Właściwa metoda budująca automat.
      */
     public abstract AutomatonSpecification createFixedAutomaton();
 
