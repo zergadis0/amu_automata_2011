@@ -3,55 +3,61 @@ package pl.edu.amu.wmi.daut.base;
 import junit.framework.TestCase;
 
 /**
- * Test klasy Determinizer
+ * Test klasy Determinizer.
  */
 public class TestDeterminizer extends TestCase {
-    
-    //Zestaw testow jakimi bedziemy poddawac zdeterminizowany automat
-    public final void setOfTests(AutomatonSpecification nfa, int numberOfStates, int numberOfTransitions, String acceptedWord, String notAcceptedWord) {
+
+    /**
+     * Zestaw testow jakimi bedziemy poddawac zdeterminizowany automat.
+     */
+    public final void setOfTests(AutomatonSpecification nfa, int numberOfStates,
+                                 int numberOfTransitions, String acceptedWord,
+                                 String notAcceptedWord) {
 
         Determinizer determinizer =  new Determinizer();
         DeterministicAutomatonSpecification ndfa = new NaiveDeterministicAutomatonSpecification();
-        
+
         determinizer.determinize(nfa, ndfa);
 
-        if(ndfa.isEmpty()) {
-            //assertFalse(ndfa.isNotEmpty());// dziwnie dziala??
+        if (ndfa.isEmpty()) {
+            //assertFalse(ndfa.isNotEmpty()); //Uzycie tej metody powoduje "zwieche" mvn przy testowaniu
             assertTrue(ndfa.isEmpty());
         } else {
             assertTrue(ndfa.isDeterministic());
-            //assertTrue(ndfa.isNotEmpty());
+            //assertTrue(ndfa.isNotEmpty()); //J.w.
             assertFalse(ndfa.isEmpty());
         }
-        
+
         DeterministicAutomaton dfa = new DeterministicAutomaton(ndfa);
 
-        if(acceptedWord != null & notAcceptedWord != null)
-        {
+        if (acceptedWord != null & notAcceptedWord != null) {
             assertTrue(dfa.accepts(acceptedWord));
             assertFalse(dfa.accepts(notAcceptedWord));
         }
 
-        //assertFalse(ndfa.uselessStates());  //metoda ma bledy z LinkedList outofBound
+        //assertFalse(ndfa.uselessStates());  //Metoda ma bledy -> listOutOfBound
 
         assertEquals(ndfa.countTransitions(), numberOfTransitions);
         assertEquals(ndfa.countStates(), numberOfStates);
     }
 
 
-    //Pusty automat
-    public final void test_1() {
+    /**
+     * Na poczatek pusty automat.
+     */
+    public final void test1() {
         AutomatonSpecification nfa = new NaiveAutomatonSpecification();
 
         setOfTests(nfa, 0, 0, null, null);
     }
-    
-    //Deterministyczny automat
-    public final void test_2() {
+    /**
+     * Deterministyczny automat do determinizacji.
+     */
+    public final void test2() {
         AutomatonSpecification nfa = new NaiveAutomatonSpecification();
-        
+
         State q0 = nfa.addState();
-        State q1 = nfa.addState();   
+        State q1 = nfa.addState();
 
         nfa.markAsInitial(q0);
         nfa.markAsFinal(q1);
@@ -61,12 +67,14 @@ public class TestDeterminizer extends TestCase {
 
         setOfTests(nfa, 2, 2, "abbb", "aba");
     }
-    //Prosty nfa 3 stanowy (przyklad z wykladu 14.11.2011) 
-    public final void test_3() {
+    /**
+     * Przykladowy nfa.
+     */
+    public final void test3() {
         AutomatonSpecification nfa = new NaiveAutomatonSpecification();
-        
+
         State q0 = nfa.addState();
-        State q1 = nfa.addState();   
+        State q1 = nfa.addState();
         State q2 = nfa.addState();
 
         nfa.markAsInitial(q0);
@@ -77,15 +85,17 @@ public class TestDeterminizer extends TestCase {
         nfa.addTransition(q0, q1, new CharTransitionLabel('1'));
         nfa.addTransition(q1, q2, new CharTransitionLabel('0'));
         nfa.addTransition(q1, q2, new CharTransitionLabel('1'));
-        
+
         setOfTests(nfa, 4, 8, "111010", "111101");
     }
-    
-    public final void test_4() {
+    /**
+     * Przykladowy nfa.
+     */
+    public final void test4() {
         AutomatonSpecification nfa = new NaiveAutomatonSpecification();
-        
+
         State q0 = nfa.addState();
-        State q1 = nfa.addState();   
+        State q1 = nfa.addState();
         State q2 = nfa.addState();
 
         nfa.markAsInitial(q0);
@@ -102,15 +112,17 @@ public class TestDeterminizer extends TestCase {
 
         setOfTests(nfa, 4, 9, "bccbbcaabccccbcbcbcbcccbcabc", "bcbcbcabcbcbcbcaaccbcbc");
     }
-    
-    public final void test_5() {
+    /**
+     * Przykladowy  nfa.
+     */
+    public final void test5() {
         AutomatonSpecification nfa = new NaiveAutomatonSpecification();
-        
+
         State q0 = nfa.addState();
-        State q1 = nfa.addState();   
+        State q1 = nfa.addState();
         State q2 = nfa.addState();
         State q3 = nfa.addState();
-        
+
         nfa.markAsInitial(q0);
         nfa.markAsFinal(q3);
 
@@ -124,52 +136,16 @@ public class TestDeterminizer extends TestCase {
 
         setOfTests(nfa, 5, 9, "aabaaaabc", "abbcc");
     }
-    /*
-    //NFA akceptujacy sume dwóch jezyków (wykorzystano e-przejscia)
-    public final void test_3() {
-        AutomatonSpecification nfa = new NaiveAutomatonSpecification();
-        
-        State q0 = nfa.addState();
-        State q1 = nfa.addState();   
-        State q2 = nfa.addState();
-        State q3 = nfa.addState();
-        State q4 = nfa.addState();
-        State q5 = nfa.addState();
-        State q6 = nfa.addState();
-        
-        nfa.markAsInitial(q0);
-        nfa.markAsFinal(q6);
-        
-        nfa.addTransition(q0, q1, new EpsilonTransitionLabel());
-        nfa.addLoop(q1, new CharTransitionLabel('a'));
-        nfa.addTransition(q1, q2, new CharTransitionLabel('b'));
-        nfa.addLoop(q2, new CharTransitionLabel('a'));
-        nfa.addLoop(q2, new CharTransitionLabel('b'));
-
-        nfa.addTransition(q1, q6, new EpsilonTransitionLabel());
-
-        nfa.addTransition(q0, q3, new EpsilonTransitionLabel());
-        nfa.addTransition(q3, q4, new CharTransitionLabel('a'));
-        nfa.addTransition(q4, q3, new CharTransitionLabel('b'));
-        nfa.addTransition(q4, q5, new CharTransitionLabel('a'));
-        nfa.addTransition(q3, q5, new CharTransitionLabel('b'));
-        nfa.addLoop(q5, new CharTransitionLabel('a'));
-        nfa.addLoop(q5, new CharTransitionLabel('b'));
-
-        nfa.addTransition(q3, q6, new EpsilonTransitionLabel());
-
-        setOfTests(nfa, 6, 12, "aaabbb", "aab");
-    }
-    */
-
+    /**
+     * Tu odpalamy wszystkie testy dla tej metody.
+     */
     public final void testDeterminize() {
-        
-        test_1();
-        test_2();
-        test_3();
-        test_4();
-        test_5();
+
+        test1();
+        test2();
+        test3();
+        test4();
+        test5();
     }
-    
 }
 
