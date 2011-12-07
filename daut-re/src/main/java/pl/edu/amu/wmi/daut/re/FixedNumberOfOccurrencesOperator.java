@@ -11,8 +11,8 @@ import pl.edu.amu.wmi.daut.base.State;
 public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
 
     private int n;
-    
-    /*
+
+    /**
      * Konstruktor klasy.
      */
     public FixedNumberOfOccurrencesOperator(int a) {
