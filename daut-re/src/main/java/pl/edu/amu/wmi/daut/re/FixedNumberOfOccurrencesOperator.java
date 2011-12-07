@@ -1,6 +1,5 @@
 package pl.edu.amu.wmi.daut.re;
 
-import java.util.List;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
