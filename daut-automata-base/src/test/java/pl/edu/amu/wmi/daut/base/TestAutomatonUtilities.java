@@ -1,7 +1,4 @@
 package pl.edu.amu.wmi.daut.base;
-import java.io.Console;
-import java.util.List;
-import java.util.Arrays;
 
 import junit.framework.TestCase;
 import java.util.HashSet;
@@ -14,7 +11,7 @@ import java.util.Set;
 public class TestAutomatonUtilities extends TestCase {
 
     /**
-     * Test metody countStates.
+     * Test metody getAlphabet, sprawdza czy zwraca dwuelementowy alfabet.
      */
     public final void test1GetAlphabet() {
         
@@ -29,7 +26,7 @@ public class TestAutomatonUtilities extends TestCase {
 
         spec.markAsInitial(q0);
         spec.markAsFinal(q2);
-        
+
         Set<Character> superSet = new HashSet<Character>();
         superSet.add(('a'));
         superSet.add(('b'));
@@ -53,7 +50,9 @@ public class TestAutomatonUtilities extends TestCase {
         resultExpected.add('b');
         assertFalse(result.equals(resultExpected));
     }
-    
+    /**
+     *Drugi test, sprawdza alfabet przy powtarzajacych sie 
+     */
     public final void test2GetAlphabet() {
         
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
@@ -68,7 +67,7 @@ public class TestAutomatonUtilities extends TestCase {
 
         spec.markAsInitial(q0);
         spec.markAsFinal(q2);
-        
+
         Set<Character> superSet = new HashSet<Character>();
         superSet.add(('a'));
         superSet.add(('b'));
@@ -79,17 +78,19 @@ public class TestAutomatonUtilities extends TestCase {
         superSet.add(('g'));
         superSet.add(('h'));
         superSet.add(('i'));
-        
+
         Set<Character> result = AutomatonUtilities.getAlphabet(spec, superSet);
-        
+
         Set<Character> resultExpected = new HashSet<Character>();
         resultExpected.add('a');
         resultExpected.add('b');
         assertTrue(result.equals(resultExpected));
     }
-    
+       /**
+     *Trzeci test, sprawdza alfabet pusty.
+     */
      public final void test3GetAlphabet() {
-        
+
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0 = spec.addState();
@@ -98,7 +99,7 @@ public class TestAutomatonUtilities extends TestCase {
 
         spec.markAsInitial(q0);
         spec.markAsFinal(q2);
-        
+
         Set<Character> superSet = new HashSet<Character>();
         superSet.add(('a'));
         superSet.add(('b'));
@@ -109,15 +110,17 @@ public class TestAutomatonUtilities extends TestCase {
         superSet.add(('g'));
         superSet.add(('h'));
         superSet.add(('i'));
-        
+
         Set<Character> result = AutomatonUtilities.getAlphabet(spec, superSet);
-        
+
         Set<Character> resultExpected = new HashSet<Character>();
         assertTrue(result.equals(resultExpected));
     }
-     
+       /**
+     *Czwarty test, sprawdza alfabet rowny calemu zbiorowi
+     */ 
     public final void test4GetAlphabet() {
-        
+
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0 = spec.addState();
@@ -133,10 +136,10 @@ public class TestAutomatonUtilities extends TestCase {
         spec.addTransition(q2, q0, new CharTransitionLabel('g'));
         spec.addTransition(q2, q1, new CharTransitionLabel('h'));
         spec.addTransition(q1, q2, new CharTransitionLabel('i'));
-        
+
         spec.markAsInitial(q0);
         spec.markAsFinal(q2);
-        
+
         Set<Character> superSet = new HashSet<Character>();
         superSet.add(('a'));
         superSet.add(('b'));
@@ -147,9 +150,9 @@ public class TestAutomatonUtilities extends TestCase {
         superSet.add(('g'));
         superSet.add(('h'));
         superSet.add(('i'));
-        
+
         Set<Character> result = AutomatonUtilities.getAlphabet(spec, superSet);
-        
+
         Set<Character> resultExpected = new HashSet<Character>();
         resultExpected.add(('a'));
         resultExpected.add(('b'));
@@ -160,12 +163,14 @@ public class TestAutomatonUtilities extends TestCase {
         resultExpected.add(('g'));
         resultExpected.add(('h'));
         resultExpected.add(('i'));
-        
+
         assertTrue(result.equals(resultExpected));
     }
-    
-      public final void test5GetAlphabet() {
-        
+       /**
+     *Piaty test, sprawdza uzycie elementu nie nalezacego do nadzbioru
+     */
+    public final void test5GetAlphabet() {
+
         final NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
         State q0 = spec.addState();
@@ -174,10 +179,10 @@ public class TestAutomatonUtilities extends TestCase {
 
         spec.addTransition(q0, q0, new CharTransitionLabel('a'));
         spec.addTransition(q0, q1, new CharTransitionLabel('y'));
-        
+
         spec.markAsInitial(q0);
         spec.markAsFinal(q2);
-        
+
         Set<Character> superSet = new HashSet<Character>();
         superSet.add(('a'));
         superSet.add(('b'));
@@ -188,13 +193,13 @@ public class TestAutomatonUtilities extends TestCase {
         superSet.add(('g'));
         superSet.add(('h'));
         superSet.add(('i'));
-        
+
         Set<Character> result = AutomatonUtilities.getAlphabet(spec, superSet);
-        
+
         Set<Character> resultExpected = new HashSet<Character>();
         resultExpected.add(('a'));
         resultExpected.add(('y'));
-        
+
         assertFalse(result.equals(resultExpected));
     }
 }
