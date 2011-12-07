@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 /**
  *
  * @author Adam
- *
+ * 
  * klasa testuje poprawność działania metody
  * public void createAutomatonForFiniteLanguage
  * (DeterministicAutomatonSpecification automaton, Set<String> language)
