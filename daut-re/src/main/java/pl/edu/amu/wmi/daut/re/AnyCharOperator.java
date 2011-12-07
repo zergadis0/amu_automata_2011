@@ -12,8 +12,8 @@ public class AnyCharOperator extends NullaryRegexpOperator {
     /**
      * Metoda, ustawia pożądany znak.
      */
-    public void setCharacter(char character) {
-        this.character = Character;
+    public void setCharacter(char c) {
+        this.character = c;
     }
     @Override
     public AutomatonSpecification createFixedAutomaton() {
