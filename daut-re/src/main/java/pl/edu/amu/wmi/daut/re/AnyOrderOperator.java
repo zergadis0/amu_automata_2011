@@ -1,11 +1,16 @@
 package pl.edu.amu.wmi.daut.re;
-import pl.edu.amu.wmi.daut.base.*;
+
+import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
+import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
+import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
+import pl.edu.amu.wmi.daut.base.AutomataOperations;
+import pl.edu.amu.wmi.daut.base.State;
 
 /*
- * Klasa reprezentujaca operator oznaczający, że dwa elementy mogą wystąpić jeden po drugim
- * w dowolnej kolejności
+ * Klasa reprezentujaca operator oznaczajacy, ze dwa elementy moga wystapic jeden po drugim
+ * w dowolnej kolejnosci
 */
-public class AnyOrderOperator extends BinaryRegexpOperator{
+public class AnyOrderOperator extends BinaryRegexpOperator {
 
     @Override
     public AutomatonSpecification createAutomatonFromTwoAutomata(
