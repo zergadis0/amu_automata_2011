@@ -37,16 +37,16 @@ public class DeterministicUtilities {
 
                 for ( ; letter < s.length(); letter++) {
 
-                        if (automaton.targetState(activeState, s.charAt(letter)) != null) {
-                            activeState = automaton.targetState(activeState, s.charAt(letter));
+                    if (automaton.targetState(activeState, s.charAt(letter)) != null) {
+                        activeState = automaton.targetState(activeState, s.charAt(letter));
 
-                        } else {
+                    } else {
                         statesCounter++;
                         q[statesCounter] = automaton.addState();
                         automaton.addTransition(activeState, q[statesCounter],
                             new CharTransitionLabel(s.charAt(letter)));
                         activeState = q[statesCounter];
-                        }
+                    }
 
                 }
                 automaton.markAsFinal(activeState);
