@@ -16,7 +16,6 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
     public AutomatonSpecification createAutomatonFromTwoAutomata(
             AutomatonSpecification leftSubautomaton, AutomatonSpecification rightSubautomaton) {
 
-        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
         AutomatonSpecification automatonLR = new NaiveAutomatonSpecification();
         AutomatonSpecification automatonRL = new NaiveAutomatonSpecification();
 
@@ -44,7 +43,7 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
         }
         automatonRL.insert(finalStateR, leftSubautomaton);
 
-        automaton = AutomataOperations.sum(automatonLR, automatonRL);
+        AutomatonSpecification automaton = AutomataOperations.sum(automatonLR, automatonRL);
 
         return automaton;
     }
