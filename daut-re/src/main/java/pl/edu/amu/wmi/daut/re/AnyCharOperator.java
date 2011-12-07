@@ -8,7 +8,11 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
  */
 public class AnyCharOperator extends NullaryRegexpOperator {
     private char character;
-    public void setCharacter(char Character) {
+    
+    /**
+     * Metoda, ustawia pożądany znak.
+     */
+    public void setCharacter(char character) {
         this.character = Character;
     }
     @Override
