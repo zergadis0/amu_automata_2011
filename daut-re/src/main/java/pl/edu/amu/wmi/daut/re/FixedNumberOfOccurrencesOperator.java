@@ -25,21 +25,19 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
     public AutomatonSpecification createAutomatonFromOneAutomaton(
             AutomatonSpecification subautomaton) {
 
-        LinkedList<AutomatonSpecification> lista = new LinkedList<AutomatonSpecification>();
-
-        AutomatonSpecification automatwejsciowy = subautomaton.clone();
-
         AutomatonSpecification automatbudowany = subautomaton.clone();
 
 
         for (int i = 0; i < this.n - 1; i++) {
 
-            lista.add(i, automatwejsciowy);
 
             for (State state : automatbudowany.allStates()) {
                 if (automatbudowany.isFinal(state)) {
+
+                    AutomatonSpecification automatwejsciowy = subautomaton.clone();
+
                     automatbudowany.addTransition(state,
-                    lista.get(i).getInitialState(),
+                    automatwejsciowy.getInitialState(),
                     new EpsilonTransitionLabel());
                     automatbudowany.unmarkAsFinalState(state);
                 }
