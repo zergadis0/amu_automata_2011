@@ -24,7 +24,7 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
     public AutomatonSpecification createAutomatonFromOneAutomaton(
             AutomatonSpecification subautomaton) {
 
-        AutomatonSpecification automatbudowany = subautomaton.clone(); 
+        AutomatonSpecification automatbudowany = subautomaton.clone();
         AutomatonSpecification automatpom1 = subautomaton.clone();
         automatbudowany.addTransition(automatbudowany.getInitialState(),
                             automatpom1.getInitialState(),
