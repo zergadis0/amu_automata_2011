@@ -51,4 +51,3 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
         return automatbudowany;
     }
 }
-dudek
