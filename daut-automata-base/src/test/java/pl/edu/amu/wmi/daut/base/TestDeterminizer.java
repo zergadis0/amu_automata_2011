@@ -138,7 +138,7 @@ public class TestDeterminizer extends TestCase {
         setOfTests(nfa, 5, 9, "aabaaaabc", "abbcc");
     }
     /**
-     * Tu odpalamy wszystkie testy dla tej metody.
+     * Test metody determinize.
      */
     public final void testDeterminize() {
 
