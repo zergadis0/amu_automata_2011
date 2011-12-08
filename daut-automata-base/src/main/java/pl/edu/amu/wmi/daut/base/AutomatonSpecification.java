@@ -1,8 +1,10 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -401,7 +403,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Stan state będzie utożsamiony ze stanem
      * początkowym automatu automaton.
      */
-    void insert(State state, AutomatonSpecification automaton) {
+    public void insert(State state, AutomatonSpecification automaton) {
         List<State> loadedStates = automaton.allStates();
         HashMap<State, State> connectedStates = new HashMap<State, State>();
         State automatonInitialState = automaton.getInitialState();
@@ -930,6 +932,36 @@ public abstract class AutomatonSpecification implements Cloneable  {
         } else {
             return emptyreturncode;
         }
+    }
+
+    /**
+     * Tworzy epsilon domknięcie zadanego stanu.
+     */
+    public Set<State> getEpsilonClosure(State initial) {
+
+        Set<State> epsilonClosure = new HashSet<State>();
+        Set<State> visited = new HashSet<State>();
+        Stack<State> stack = new Stack<State>();
+        stack.push(initial);
+        epsilonClosure.add(initial);
+
+        while (!stack.empty()) {
+            State from = stack.pop();
+            if (visited.contains(from)) {
+                continue;
+            }
+            visited.add(from);
+            for (OutgoingTransition trans : allOutgoingTransitions(from)) {
+                TransitionLabel label = trans.getTransitionLabel();
+                State to = trans.getTargetState();
+                if (label.canBeEpsilon()) {
+                    epsilonClosure.add(to);
+                    stack.push(to);
+                }
+            }
+        }
+
+        return epsilonClosure;
     }
 
 };
