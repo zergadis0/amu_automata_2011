@@ -31,9 +31,9 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
                             new EpsilonTransitionLabel());
 
         for (State state : automatbudowany.allStates()) {
-                if (automatbudowany.isFinal(state)) {
-                    automatbudowany.unmarkAsFinalState(state);
-                }
+            if (automatbudowany.isFinal(state)) {
+                automatbudowany.unmarkAsFinalState(state);
+            }
         }
 
         for (int i = 1; i < this.n; i++) {
