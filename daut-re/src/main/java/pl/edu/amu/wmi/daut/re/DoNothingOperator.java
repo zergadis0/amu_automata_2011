@@ -8,10 +8,6 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
  */
 public class DoNothingOperator extends UnaryRegexpOperator {
 
-    /**
-     * Nadpisana metoda, która była abstrakcyjną
-     * w UnaryRegexpOperator.
-     */
     @Override
     public AutomatonSpecification createAutomatonFromOneAutomaton(
         AutomatonSpecification subautomaton) {
