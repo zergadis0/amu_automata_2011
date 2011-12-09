@@ -67,12 +67,6 @@ public class RegexpOperatorManager {
             int priority) {
 
         actualOperator = new OperatorFactory(id, operatorFactory, separators, priority);
-       /* actualOperator = new OperatorFactory();
-        this.actualOperator.id = id;
-        this.actualOperator.priority = priority;
-        this.actualOperator.operatorFactory = operatorFactory;
-        this.actualOperator.separators.addAll(separators);*/
-
         definedOperators.add(actualOperator);
     }
 
@@ -82,11 +76,6 @@ public class RegexpOperatorManager {
     void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators) {
 
         actualOperator = new OperatorFactory(id, operatorFactory, separators);
-        /*this.actualOperator.id = id;
-        this.actualOperator.priority = 0; // ?????
-        this.actualOperator.operatorFactory = operatorFactory;
-        this.actualOperator.separators.addAll(separators);*/
-
         definedOperators.add(actualOperator);
     }
 
