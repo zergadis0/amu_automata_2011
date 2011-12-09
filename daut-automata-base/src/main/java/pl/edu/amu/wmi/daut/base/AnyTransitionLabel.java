@@ -5,12 +5,12 @@ package pl.edu.amu.wmi.daut.base;
  */
 
 /*
-* Implementacja Transition Label reprezentujaca
-* przejscie po dowolnym znaku.
-*/
+ * Implementacja Transition Label reprezentujaca
+ * przejscie po dowolnym znaku.
+ */
 public class AnyTransitionLabel extends TransitionLabel {
 
-     /**
+    /**
      * Konstruktor domyslny.
      */
     public AnyTransitionLabel() { };
