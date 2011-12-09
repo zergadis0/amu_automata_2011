@@ -107,8 +107,10 @@ public class RegexpOperatorManager {
         RegexpOperatorFactory returned = null;
 
         for (OperatorFactory operator : definedOperators) {
-            if (operator.id.equals(id))
+            if (operator.id.equals(id)) {
                   returned = operator.operatorFactory;
+                  break;
+            }
         }
        return returned;
     }
@@ -121,8 +123,10 @@ public class RegexpOperatorManager {
         int returned = -1;
 
         for (OperatorFactory operator : definedOperators) {
-            if (operator.id.equals(id))
+            if (operator.id.equals(id)) {
                  returned = operator.priority;
+                 break;
+            }
         }
         return returned;
     }
