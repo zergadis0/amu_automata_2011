@@ -15,7 +15,8 @@ import java.util.ArrayList;
     * parametry).
     *
     * Identyfikator operatora jest dowolnym napisem, zwykle będziemy jakoś wykorzystywać któryś z
-    * separatorów (ale nie jest to obowiązkowe), np. dobrym identyfikatorem KleeneStarOperator
+    * separatorów (ale nie jest to obowiązkowe), np.
+    * dobrym identyfikatorem KleeneStarOperator
     * będzie gwiazdka.
     *
     * Priority to priorytet operatora.
