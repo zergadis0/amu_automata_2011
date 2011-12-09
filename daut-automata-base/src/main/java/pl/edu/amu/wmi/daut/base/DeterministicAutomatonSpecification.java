@@ -61,6 +61,8 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
 
         while (!startStates.isEmpty()) {
             for (int i = 0; i < startStates.size(); i++) {
+                if (i > startStates.size())
+                    break;
                 for (OutgoingTransition transition : allOutgoingTransitions(
                         startStates.get(i))) {
                     if (uselessStates.contains(transition.getTargetState())) {
