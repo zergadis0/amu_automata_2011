@@ -965,6 +965,9 @@ public abstract class AutomatonSpecification implements Cloneable  {
         return epsilonClosure;
     }
     
+    /**
+     * Dla podanego automatu tworzy równoważny automat z 1 stanem końcowym.
+     */
     public void unmarkedAsFinalState(State state) {
         getFinalStates().remove(state);
     }
@@ -975,7 +978,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
         allStates.addAll(allStates());
 
-        for(State someState : allStates) {
+        for (State someState : allStates) {
             if (isFinal(someState)) {
                 allFinalStates.add(someState);
             }
