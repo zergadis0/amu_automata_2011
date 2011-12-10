@@ -109,7 +109,7 @@ public class TestDeterministicAutomaton extends TestCase {
      * test metody minimalizujacej automat.
      */
     public final void testMakeMinimal() {
-        
+
         System.out.println("testuje");
         DeterministicAutomatonSpecification automaton =
                 new NaiveDeterministicAutomatonSpecification();
@@ -139,7 +139,7 @@ public class TestDeterministicAutomaton extends TestCase {
         automaton.addTransition(state1, state3, new CharTransitionLabel('b'));
         automaton.addTransition(state2, state4, new CharTransitionLabel('a'));
         automaton.addTransition(state3, state5, new CharTransitionLabel('a'));
-        
+
         automaton2.makeMinimal(automaton, "ab");
         int states = automaton2.countStates();
 
