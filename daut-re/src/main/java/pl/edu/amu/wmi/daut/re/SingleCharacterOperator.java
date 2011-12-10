@@ -21,7 +21,7 @@ public class SingleCharacterOperator extends NullaryRegexpOperator {
     }
 
     /**
-     *  Opis gettera bo checstyle się sra. kropka też jest bo tego też mi nie przepuści.
+     * Funkcja zwracajaca znak akceptowany przez automat.
      */
     public char getCharacter() {
         return character;
