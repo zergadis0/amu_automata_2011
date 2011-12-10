@@ -9,6 +9,9 @@ import pl.edu.amu.wmi.daut.base.State;
  */
 public class OptionalityOperator extends UnaryRegexpOperator {
 
+    /**
+     * Główna metoda klasy.
+     */
     public AutomatonSpecification createAutomatonFromOneAutomaton(
             AutomatonSpecification subautomaton) {
         State q0 = subautomaton.addState();
