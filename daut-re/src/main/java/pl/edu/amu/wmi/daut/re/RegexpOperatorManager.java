@@ -15,7 +15,8 @@ import java.util.ArrayList;
     * parametry).
     *
     * Identyfikator operatora jest dowolnym napisem, zwykle będziemy jakoś wykorzystywać któryś z
-    * separatorów (ale nie jest to obowiązkowe), np. dobrym identyfikatorem KleeneStarOperator
+    * separatorów (ale nie jest to obowiązkowe), np.
+    * dobrym identyfikatorem KleeneStarOperator
     * będzie gwiazdka.
     *
     * Priority to priorytet operatora.
@@ -67,12 +68,6 @@ public class RegexpOperatorManager {
             int priority) {
 
         actualOperator = new OperatorFactory(id, operatorFactory, separators, priority);
-       /* actualOperator = new OperatorFactory();
-        this.actualOperator.id = id;
-        this.actualOperator.priority = priority;
-        this.actualOperator.operatorFactory = operatorFactory;
-        this.actualOperator.separators.addAll(separators);*/
-
         definedOperators.add(actualOperator);
     }
 
@@ -82,11 +77,6 @@ public class RegexpOperatorManager {
     void addOperator(String id, RegexpOperatorFactory operatorFactory, List<String> separators) {
 
         actualOperator = new OperatorFactory(id, operatorFactory, separators);
-        /*this.actualOperator.id = id;
-        this.actualOperator.priority = 0; // ?????
-        this.actualOperator.operatorFactory = operatorFactory;
-        this.actualOperator.separators.addAll(separators);*/
-
         definedOperators.add(actualOperator);
     }
 
@@ -117,8 +107,10 @@ public class RegexpOperatorManager {
         RegexpOperatorFactory returned = null;
 
         for (OperatorFactory operator : definedOperators) {
-            if (operator.id.equals(id))
+            if (operator.id.equals(id)) {
                   returned = operator.operatorFactory;
+                  break;
+            }
         }
        return returned;
     }
@@ -131,8 +123,10 @@ public class RegexpOperatorManager {
         int returned = -1;
 
         for (OperatorFactory operator : definedOperators) {
-            if (operator.id.equals(id))
+            if (operator.id.equals(id)) {
                  returned = operator.priority;
+                 break;
+            }
         }
         return returned;
     }
