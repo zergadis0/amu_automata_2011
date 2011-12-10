@@ -62,4 +62,3 @@ public class TestDoNothingOperator extends TestCase {
     }
 
 }
-
