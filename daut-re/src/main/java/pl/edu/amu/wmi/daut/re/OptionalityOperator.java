@@ -10,11 +10,12 @@ import pl.edu.amu.wmi.daut.base.State;
 public class OptionalityOperator extends UnaryRegexpOperator {
 
     public AutomatonSpecification createAutomatonFromOneAutomaton(
-    AutomatonSpecification subautomaton) {   
+            AutomatonSpecification subautomaton) {
         State q0 = subautomaton.addState();
         subautomaton.markAsInitial(q0);
         subautomaton.markAsFinal(q0);
-        subautomaton.addTransition(q0, subautomaton.getInitialState(), new EpsilonTransitionLabel());
+        subautomaton.addTransition(q0, subautomaton.getInitialState(),
+        new EpsilonTransitionLabel());
         return subautomaton;
     }
 }
