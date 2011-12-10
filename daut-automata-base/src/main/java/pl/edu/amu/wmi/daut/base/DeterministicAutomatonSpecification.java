@@ -83,7 +83,7 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
     }
 
     private void buildMinimal(DeterministicAutomatonSpecification automatonToBeMinimized,
-            HashMap<State,State> similarStates) {
+            HashMap<State, State> similarStates) {
 
         List<State> states = automatonToBeMinimized.allStates();
         List<State> prevStates;
