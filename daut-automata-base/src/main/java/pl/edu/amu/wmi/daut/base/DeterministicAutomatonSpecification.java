@@ -120,19 +120,16 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
 
         for (State state : simStates.keySet()) {
             for (State state1 : simStates.keySet()) {
-                if ((similarStates.get(state) == similarStates.get(state1)) && !(state == state1))
-                {
-                    if (automatonToBeMinimized.getInitialState() == state)
-                        if ((automatonToBeMinimized.getInitialState() == state1)
-                                || (automatonToBeMinimized
-                                .getInitialState() == similarStates.get(state1))) {
-                            similarStates.remove(state);
-                            break;
-                        } else {
-                            similarStates.remove(state1);
-                            continue;
-                        }
-
+                if ((similarStates.get(state) == similarStates.get(state1)) && !(state == state1)) {
+                    if ((automatonToBeMinimized.getInitialState() == state1)
+                            || (automatonToBeMinimized
+                            .getInitialState() == similarStates.get(state1))) {
+                        similarStates.remove(state);
+                        break;
+                    } else {
+                        similarStates.remove(state1);
+                        continue;
+                    }
                 }
             }
         }
@@ -224,7 +221,6 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
 
         do {
             changed = false;
-            System.out.println("do");
             for (int c = 0; c < alphabet.length(); c++) {
                 for (int i = 0; i < (size - 1); i++) {
                     for (int j = (i + 1); j < size; j++) {
