@@ -110,7 +110,6 @@ public class TestDeterministicAutomaton extends TestCase {
      */
     public final void testMakeMinimal() {
 
-        System.out.println("testuje");
         DeterministicAutomatonSpecification automaton =
                 new NaiveDeterministicAutomatonSpecification();
         DeterministicAutomatonSpecification automaton2 =
