@@ -28,7 +28,7 @@ public class TestDoNothingOperator extends TestCase {
         NondeterministicAutomatonByThompsonApproach automaton =
                 new NondeterministicAutomatonByThompsonApproach(
                 operator.createAutomatonFromOneAutomaton(subautomaton));
-     
+
         assertTrue(automaton.accepts(""));
         assertFalse(automaton.accepts("word"));
     }
