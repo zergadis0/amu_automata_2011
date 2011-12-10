@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.Stack;
 
@@ -963,7 +964,51 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
         return epsilonClosure;
     }
+    
+    public void unmarkedAsFinalState(State state) {
+        getFinalStates().remove(state);
+    }
 
+    public AutomatonSpecification makeOneFinalStateAutomaton() {
+        ArrayList<State> allFinalStates = new ArrayList<State>();
+        ArrayList<State> allStates = new ArrayList<State>();
+
+        allStates.addAll(allStates());
+
+        for(State someState : allStates) {
+            if (isFinal(someState)) {
+                allFinalStates.add(someState);
+            }
+        }
+
+        int size = allFinalStates.size();
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+
+        switch (size) {
+            case 0:
+                spec.clone();
+                spec.markAsFinal(spec.addState());
+                return spec;
+            case 1:
+                spec.clone();
+                return spec;
+            default:
+                spec.clone();
+                State stateFinal = spec.addState();
+                for (State someState : allFinalStates) {
+                    spec.unmarkedAsFinalState(someState);
+                    spec.addTransition(someState, stateFinal, new EpsilonTransitionLabel());
+                    return spec;
+                }
+        }
+        return null;
+    }
+
+    protected List<State> getFinalStates() {
+        return finalStates;
+    }
+
+    private LinkedList<State> finalStates = new LinkedList<State>();
 };
 
 class StructureException extends Exception {
