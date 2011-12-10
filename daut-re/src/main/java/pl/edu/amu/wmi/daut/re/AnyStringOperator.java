@@ -14,14 +14,12 @@ public class AnyStringOperator extends NullaryRegexpOperator {
     public final AutomatonSpecification createFixedAutomaton() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
 
-        State qs = spec.addState();
-        State qf = spec.addState();
+        State q = spec.addState();
+        spec.markAsInitial(q);
+        spec.markAsFinal(q);
 
-        spec.markAsInitial(qs);
-        spec.markAsFinal(qf);
+        spec.addTransition(q, q, new AnyTransitionLabel());
 
-        spec.addTransition(qs, qf, new AnyTransitionLabel());
-
-        return new KleeneStarOperator().createAutomatonFromOneAutomaton(spec);
+        return spec;
     }
 }
