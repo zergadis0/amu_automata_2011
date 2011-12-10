@@ -15,7 +15,8 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
      * Zwraca liste stanów z których przejścia wychodzą do podanego stanu.
      */
 
-    public  List<State> findPreviousState(State nextState, DeterministicAutomatonSpecification automaton) {
+    public  List<State> findPreviousState(State nextState,
+            DeterministicAutomatonSpecification automaton) {
 
         List<State> previousStates = new ArrayList<State>();
 
@@ -80,27 +81,122 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
         return uselessStates;
 
     }
+
+    private void buildMinimal(DeterministicAutomatonSpecification automatonToBeMinimized,
+            HashMap<State,State> similarStates) {
+
+        List<State> states = automatonToBeMinimized.allStates();
+        List<State> prevStates;
+        List<OutgoingTransition> prevTransitions;
+
+        HashMap<State, State> getOldStates = new HashMap<State, State>();
+        HashMap<State, State> getStates = new HashMap<State, State>();
+
+        for (State state : states) {
+            if (!similarStates.containsKey(state) && !similarStates.containsValue(state)) {
+                State newState = this.addState();
+                getOldStates.put(newState, state);
+                getStates.put(state, newState);
+                if (state == automatonToBeMinimized.getInitialState())
+                    this.markAsInitial(newState);
+                if (automatonToBeMinimized.isFinal(state))
+                    this.markAsFinal(newState);
+            }
+        }
+
+        for (State state : allStates()) {
+            List<OutgoingTransition> transitions = automatonToBeMinimized
+                    .allOutgoingTransitions(getOldStates.get(state));
+            for (OutgoingTransition transition : transitions) {
+                this.addTransition(state, getStates
+                        .get(transition.getTargetState()),
+                        transition.getTransitionLabel());
+            }
+        }
+
+
+        HashMap<State, State> simStates = new HashMap<State, State>(similarStates);
+
+
+        for (State state : simStates.keySet()) {
+            for (State state1 : simStates.keySet()) {
+                if ((similarStates.get(state) == similarStates.get(state1)) && !(state == state1))
+                {
+                    if (automatonToBeMinimized.getInitialState() == state)
+                        if ((automatonToBeMinimized.getInitialState() == state1)
+                                || (automatonToBeMinimized
+                                .getInitialState() == similarStates.get(state1))) {
+                            similarStates.remove(state);
+                            break;
+                        } else {
+                            similarStates.remove(state1);
+                            continue;
+                        }
+
+                }
+            }
+        }
+
+
+        for (State state : similarStates.keySet()) {
+            State newState = addState();
+            getStates.put(state, newState);
+            getStates.put(similarStates.get(state), newState);
+            if (state == automatonToBeMinimized.getInitialState())
+                this.markAsInitial(newState);
+            if (automatonToBeMinimized.isFinal(state))
+                this.markAsFinal(newState);
+            prevStates = automatonToBeMinimized.findPreviousState(state,
+                    automatonToBeMinimized);
+            for (State prevState : prevStates) {
+                prevTransitions = findPreviousStateTransitions(prevState,
+                        state, automatonToBeMinimized);
+                for (OutgoingTransition transition : prevTransitions)
+                    addTransition(getStates.get(prevState), newState,
+                            transition.getTransitionLabel());
+                prevTransitions = findPreviousStateTransitions(prevState,
+                        similarStates.get(state), automatonToBeMinimized);
+                for (OutgoingTransition transition : prevTransitions)
+                    addTransition(getStates.get(prevState), newState,
+                                    transition.getTransitionLabel());
+
+            }
+            for (OutgoingTransition transition : automatonToBeMinimized
+                    .allOutgoingTransitions(state))
+                addTransition(newState, getStates.get(transition.getTargetState()),
+                        transition.getTransitionLabel());
+            for (OutgoingTransition transition : automatonToBeMinimized
+                    .allOutgoingTransitions(similarStates.get(state)))
+                addTransition(newState, getStates.get(transition.getTargetState()),
+                        transition.getTransitionLabel());
+        }
+
+    }
+
     /**
      * Pobiera automat na wejsciu.
      * Zwraca zminimalizowany automat
      */
-    public void makeMinimal(DeterministicAutomatonSpecification automatonToBeMinimized, String alphabet) {
+    public void makeMinimal(
+            DeterministicAutomatonSpecification automatonToBeMinimized,
+            String alphabet) {
 
         List<State> states = automatonToBeMinimized.allStates();
         List<State> uselessStates =  automatonToBeMinimized.returnUselessStates();
-        List<State> prevStates;
-        List<OutgoingTransition> prevTransitions;
         HashMap<State, Integer> indexStates = new HashMap<State, Integer>();
         HashMap<State, State> similarStates = new HashMap<State, State>();
-        HashMap<State, State> getOldStates = new HashMap<State, State>();
-        HashMap<State, State> getStates = new HashMap<State, State>();
-        if(!uselessStates.isEmpty()){
+
+
+        if (!uselessStates.isEmpty()) {
             states.removeAll(uselessStates);
         }
+
+
         int index = 0;
         boolean changed;
 
-        for(State state : states) {
+
+        for (State state : states) {
             indexStates.put(state, index);
             index++;
         }
@@ -139,7 +235,8 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
                                 if (!((itransition.getTransitionLabel()
                                         .canAcceptCharacter(alphabet.charAt(c)))
                                 && (atransition.getTransitionLabel()
-                                        .canAcceptCharacter(alphabet.charAt(c))))) {                                   
+                                        .canAcceptCharacter(alphabet
+                                        .charAt(c))))) {
                                     continue;
                                 }
                                 State state1 = itransition.getTargetState();
@@ -157,102 +254,17 @@ abstract class DeterministicAutomatonSpecification extends AutomatonSpecificatio
                     }
                 }
             }
-        }while(changed);
+        } while(changed);
 
-        for (int i = 0; i < (size -1); i++) {
+        for (int i = 0; i < (size - 1); i++) {
             for (int j = (i + 1); j < size; j++) {
                 if (mark[i][j]) {
                     similarStates.put(states.get(i), states.get(j));
                 }
             }
         }
-        
-        for (State state : states) {
-            if (!similarStates.containsKey(state) && !similarStates.containsValue(state)) {
-                State newState = this.addState();
-                getOldStates.put(newState, state);
-                getStates.put(state, newState);
-                if(state == automatonToBeMinimized.getInitialState())
-                    this.markAsInitial(newState);
-                if(automatonToBeMinimized.isFinal(state))
-                    this.markAsFinal(newState);
-            }
-        }
-        for (State state : allStates()) {
-            List<OutgoingTransition> transitions = automatonToBeMinimized.allOutgoingTransitions(getOldStates.get(state));
-            for(OutgoingTransition transition : transitions) {
-                this.addTransition(state, getStates.get(transition.getTargetState()), transition.getTransitionLabel());
-            }
-        }
-        
-        
-        HashMap<State, State> simStates = new HashMap<State, State>(similarStates);
-        
-        
-        for (State state : simStates.keySet()) {
-//            System.out.println();
-//            System.out.println("pierwsza para:");
-//            System.out.print(indexStates.get(state));
-//            System.out.print(indexStates.get(similarStates.get(state)));
-//            System.out.println();
-            for (State state1 : simStates.keySet()) {
-//            System.out.println();
-//            System.out.println("druga para:");
-//            System.out.print(indexStates.get(state1));
-//            System.out.print(indexStates.get(similarStates.get(state1)));
-//            System.out.println();
-                if ((similarStates.get(state) == similarStates.get(state1)) && !(state == state1))
-                {
-                    if (automatonToBeMinimized.getInitialState() == state)
-                        if ((automatonToBeMinimized.getInitialState() == state1) 
-                                || (automatonToBeMinimized
-                                .getInitialState() == similarStates.get(state1))) {
-                            similarStates.remove(state);
-                            break;
-                        }
-                        else {
-                            similarStates.remove(state1);
-                            continue;
-                        }
-                        
-                }
-            }
-        }
-        
-        
-        for (State state : similarStates.keySet()) {
-            State newState = addState();
-            getStates.put(state, newState);
-            getStates.put(similarStates.get(state), newState);
-            if (state == automatonToBeMinimized.getInitialState()) 
-                this.markAsInitial(newState);
-            if (automatonToBeMinimized.isFinal(state))
-                this.markAsFinal(newState);
-            prevStates = automatonToBeMinimized.findPreviousState(state,
-                    automatonToBeMinimized);
-            for (State prevState : prevStates) {
-                prevTransitions = findPreviousStateTransitions(prevState,
-                        state, automatonToBeMinimized);
-                for (OutgoingTransition transition : prevTransitions)
-                    addTransition(getStates.get(prevState), newState,
-                            transition.getTransitionLabel());
-                prevTransitions = findPreviousStateTransitions(prevState,
-                        similarStates.get(state), automatonToBeMinimized);
-                for (OutgoingTransition transition : prevTransitions)
-                    addTransition(getStates.get(prevState), newState,
-                                    transition.getTransitionLabel());
 
-            }
-            for (OutgoingTransition transition : automatonToBeMinimized
-                    .allOutgoingTransitions(state))
-                addTransition(newState, getStates.get(transition.getTargetState()),
-                        transition.getTransitionLabel());
-            for (OutgoingTransition transition : automatonToBeMinimized
-                    .allOutgoingTransitions(similarStates.get(state)))
-                addTransition(newState, getStates.get(transition.getTargetState()),
-                        transition.getTransitionLabel());
-        }
+        buildMinimal(automatonToBeMinimized, similarStates);
 
-        
     }
 }
