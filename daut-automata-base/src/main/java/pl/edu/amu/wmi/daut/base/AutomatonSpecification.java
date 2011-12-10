@@ -964,14 +964,15 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
         return epsilonClosure;
     }
-    
     /**
-     * Dla podanego automatu tworzy równoważny automat z 1 stanem końcowym.
+     * Odznacza końcowy stan.
      */
     public void unmarkedAsFinalState(State state) {
         getFinalStates().remove(state);
     }
-
+    /**
+     * Dla podanego automatu tworzy równoważny automat z 1 stanem końcowym.
+     */
     public AutomatonSpecification makeOneFinalStateAutomaton() {
         ArrayList<State> allFinalStates = new ArrayList<State>();
         ArrayList<State> allStates = new ArrayList<State>();
@@ -1008,10 +1009,10 @@ public abstract class AutomatonSpecification implements Cloneable  {
     }
 
     protected List<State> getFinalStates() {
-        return finalStates;
+        return finalStatess;
     }
 
-    private LinkedList<State> finalStates = new LinkedList<State>();
+    private LinkedList<State> finalStatess = new LinkedList<State>();
 };
 
 class StructureException extends Exception {
