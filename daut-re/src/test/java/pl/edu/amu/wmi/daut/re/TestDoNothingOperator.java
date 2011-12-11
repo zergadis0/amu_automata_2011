@@ -15,7 +15,8 @@ import junit.framework.TestCase;
 public class TestDoNothingOperator extends TestCase {
 
     /**
-     * Test metody createAutomatonFromOneAutomaton nr 1.
+     * Test metody createAutomatonFromOneAutomaton
+     * z automatem z jednym stanem.
      */
     public final void testCreateAutomatonFromOneAutomaton1() {
 
@@ -34,7 +35,8 @@ public class TestDoNothingOperator extends TestCase {
     }
 
     /**
-     * Test metody createAutomatonFromOneAutomaton nr 2.
+     * Test metody createAutomatonFromOneAutomaton
+     * z automatem z kilkoma stanami i przejściami.
      */
     public final void testCreateAutomatonFromOneAutomaton2() {
 
