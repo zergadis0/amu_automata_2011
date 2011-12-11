@@ -10,13 +10,13 @@ import junit.framework.TestCase;
 
 
 /**
-* Testy klasy DoNothingOperator.
-*/
+ * Testy klasy DoNothingOperator.
+ */
 public class TestDoNothingOperator extends TestCase {
 
     /**
-* Test metody createAutomatonFromOneAutomaton nr 1.
-*/
+     * Test metody createAutomatonFromOneAutomaton nr 1.
+     */
     public final void testCreateAutomatonFromOneAutomaton1() {
 
         AutomatonSpecification subautomaton = new NaiveAutomatonSpecification();
@@ -34,8 +34,8 @@ public class TestDoNothingOperator extends TestCase {
     }
 
     /**
-* Test metody createAutomatonFromOneAutomaton nr 2.
-*/
+     * Test metody createAutomatonFromOneAutomaton nr 2.
+     */
     public final void testCreateAutomatonFromOneAutomaton2() {
 
         AutomatonSpecification subautomaton = new NaiveAutomatonSpecification();
