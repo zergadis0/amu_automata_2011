@@ -61,5 +61,4 @@ public class TestConcatenationOperator extends TestCase {
         assertFalse(result.accepts("bbaccab"));
         assertFalse(result.accepts("ccabba"));
     }
-
 }
