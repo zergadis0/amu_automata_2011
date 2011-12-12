@@ -7,9 +7,9 @@ import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import junit.framework.TestCase;
 
-/**
- * Test klasy ConcatenationOperator
- */
+    /**
+     * Test klasy ConcatenationOperator.
+     */
 public class TestConcatenationOperator extends TestCase {
     /**
      * Pierwszy automat akceptuje wyrażenia mające co najmniej jedno "b".
