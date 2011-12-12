@@ -12,9 +12,11 @@ import junit.framework.TestCase;
  */
 public class TestConcatenationOperator extends TestCase {
     /**
-     * Pierwszy test
+     * Pierwszy automat akceptuje wyrażenia mające co najmniej jedno "b".
+     * Drugi akceptuje słowa z dokładnie dwoma "c" i dowolną ilością "a".
+     * Powstały ma akceptować ich konkatenację.
      */
-    public final void testCreateAutomatonFromTwoAutomata1() {
+    public final void testCreateAutomatonFromTwoAutomata() {
 
         AutomatonSpecification a1 = new NaiveAutomatonSpecification();
 
@@ -49,8 +51,10 @@ public class TestConcatenationOperator extends TestCase {
 
         assertTrue(result.accepts("abbbaaaacc"));
         assertTrue(result.accepts("ababababcaaaaaac"));
-        assertTrue(result.accepts("aaaaaaaaaaaabaaaaaacaaaaaac"));
+        assertTrue(result.accepts("aaaaaaaaaaaabaaaaaacaaaaaacaaaaa"));
         assertTrue(result.accepts("bcc"));
+        assertFalse(result.accepts("aabaaba"));
+        assertFalse(result.accepts("abbca"));
         assertFalse(result.accepts("aaaacc"));
         assertFalse(result.accepts(""));
         assertFalse(result.accepts("cokolwiek"));

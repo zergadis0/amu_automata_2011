@@ -619,17 +619,20 @@ public class AutomataOperations {
      * akceptowanych przez dwa dane automaty L i R.
      */
     public static AutomatonSpecification concatenation(
-            AutomatonSpecification automatonL, AutomatonSpecification automatonR) {
+            final AutomatonSpecification automatonL, final AutomatonSpecification automatonR) {
 
+        AutomatonSpecification wsa;
+        wsa = automatonL.clone();
         List<State> statesL = new ArrayList<State>();
-        statesL.addAll(automatonL.allStates());
+        statesL.addAll(wsa.allStates());
 
         for (State state : statesL) {
-            if (automatonL.isFinal(state)) {
-                automatonL.insert(state, automatonR);
+            if (wsa.isFinal(state)) {
+                wsa.insert(state, automatonR);
+                wsa.unmarkAsFinalState(state);
             }
         }
 
-        return automatonL;
+        return wsa;
     }
 }
