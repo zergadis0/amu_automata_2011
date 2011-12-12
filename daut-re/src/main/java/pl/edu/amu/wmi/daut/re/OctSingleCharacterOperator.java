@@ -9,6 +9,7 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 public class OctSingleCharacterOperator extends NullaryRegexpOperator {
 
     private int value;
+    final int base = 8;
 
     /**
      * Konstruktor.
@@ -37,18 +38,15 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
      * Metoda sprawdza, czy wartość jest w kodzie ósemkowym.
      */
     public boolean isOctal(int number) {
-        if (new Integer(number).toString().equals(Integer.toOctalString(number)))
-            return true;
-        else return false;
+        return Integer.toString(number).equals(Integer.toOctalString(number));
     }
-
 
     @Override
     public AutomatonSpecification createFixedAutomaton() {
 
-        int octValue = Integer.parseInt(Integer.toString(value),8);
+        int octValue = Integer.parseInt(Integer.toString(value), base);
 
         return new NaiveAutomatonSpecification()
-                .makeOneTransitionAutomaton((char)octValue);
+                .makeOneTransitionAutomaton((char) octValue);
     }
 }
