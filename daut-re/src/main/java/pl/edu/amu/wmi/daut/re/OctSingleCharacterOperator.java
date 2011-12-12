@@ -9,7 +9,7 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 public class OctSingleCharacterOperator extends NullaryRegexpOperator {
 
     private int value;
-    final int base = 8;
+    static final int base = 8;
 
     /**
      * Konstruktor.
