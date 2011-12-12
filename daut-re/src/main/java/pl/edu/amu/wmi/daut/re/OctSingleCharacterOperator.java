@@ -9,7 +9,7 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 public class OctSingleCharacterOperator extends NullaryRegexpOperator {
 
     private int value;
-    static final int base = 8;
+    static final int BASE = 8;
 
     /**
      * Konstruktor.
@@ -44,7 +44,7 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
     @Override
     public AutomatonSpecification createFixedAutomaton() {
 
-        int octValue = Integer.parseInt(Integer.toString(value), base);
+        int octValue = Integer.parseInt(Integer.toString(value), BASE);
 
         return new NaiveAutomatonSpecification()
                 .makeOneTransitionAutomaton((char) octValue);
