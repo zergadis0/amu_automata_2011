@@ -3,11 +3,12 @@ package pl.edu.amu.wmi.daut.re;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
+import java.util.List;
 
 /**
 * Klasa reprezentującą operator '{n}' z wyrażeń regularnych.
 */
-public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
+public class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
 
     private int n;
 
@@ -41,5 +42,20 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
             }
         }
         return automatbudowany;
+    }
+
+     /**
+     * Fabryka operatora.
+     */
+    public static class Factory extends UnaryRegexpOperatorFactory {
+
+        @Override
+        public int numberOfParams() {
+            return 1;
+        }
+
+        protected RegexpOperator doCreateOperator(List<String> params) {
+            return new FixedNumberOfOccurrencesOperator(Integer.parseInt(params.get(0)));
+        }
     }
 }
