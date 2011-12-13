@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.Stack;
 
@@ -963,7 +964,55 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
         return epsilonClosure;
     }
+    /**
+     * Odznacza końcowy stan.
+     */
+    public void unmarkedAsFinalState(State state) {
+        getFinalStates().remove(state);
+    }
+    /**
+     * Dla podanego automatu tworzy równoważny automat z 1 stanem końcowym.
+     */
+    public AutomatonSpecification makeOneFinalStateAutomaton() {
+        ArrayList<State> allFinalStates = new ArrayList<State>();
+        ArrayList<State> allStates = new ArrayList<State>();
 
+        allStates.addAll(allStates());
+
+        for (State someState : allStates) {
+            if (isFinal(someState)) {
+                allFinalStates.add(someState);
+            }
+        }
+
+        int size = allFinalStates.size();
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+
+        switch (size) {
+            case 0:
+                spec.clone();
+                spec.markAsFinal(spec.addState());
+                return spec;
+            case 1:
+                spec.clone();
+                return spec;
+            default:
+                spec.clone();
+                State stateFinal = spec.addState();
+                for (State someState : allFinalStates) {
+                    spec.unmarkedAsFinalState(someState);
+                    spec.addTransition(someState, stateFinal, new EpsilonTransitionLabel());
+                    return spec;
+                }
+        }
+        return null;
+    }
+
+    protected List<State> getFinalStates() {
+        return finalStatess;
+    }
+
+    private LinkedList<State> finalStatess = new LinkedList<State>();
 };
 
 class StructureException extends Exception {
