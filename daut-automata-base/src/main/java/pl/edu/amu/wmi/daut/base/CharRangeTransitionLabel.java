@@ -83,7 +83,7 @@ class CharRangeTransitionLabel extends TransitionLabel {
         if (this.getFirstChar() != 0 && this.getSecondChar() != 0) {
             String s = this.getFirstChar() + "-" + this.getSecondChar();
             return s;
-        } else if (this.getFirstChar() == 0 && this.getSecondChar() == 0){
+        } else if (this.getFirstChar() == 0 && this.getSecondChar() == 0) {
             String s = "";
             return s;
         } else if (this.getFirstChar() == 0 && this.getSecondChar() != 0) {
