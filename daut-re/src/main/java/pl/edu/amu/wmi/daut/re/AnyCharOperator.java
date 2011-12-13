@@ -3,6 +3,7 @@ package pl.edu.amu.wmi.daut.re;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.AnyTransitionLabel;
+import pl.edu.amu.wmi.daut.base.State;
 import java.util.List;
 
 /**
