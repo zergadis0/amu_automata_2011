@@ -13,7 +13,8 @@ import pl.edu.amu.wmi.daut.base.State;
 public class AtLeastOneOperator extends UnaryRegexpOperator {
 
     @Override
-    public AutomatonSpecification createAutomatonFromOneAutomaton(AutomatonSpecification subautomaton) {
+    public AutomatonSpecification createAutomatonFromOneAutomaton
+            (AutomatonSpecification subautomaton) {
         State q = subautomaton.addState();
         List<State> listOfStates = subautomaton.allStates();
         subautomaton.markAsFinal(q);
@@ -22,7 +23,8 @@ public class AtLeastOneOperator extends UnaryRegexpOperator {
                 subautomaton.addTransition(listOfStates.get(i), q, new EpsilonTransitionLabel());
             }
         }
-        subautomaton.addTransition(q, subautomaton.getInitialState(), new EpsilonTransitionLabel());
+        subautomaton.addTransition(q, subautomaton.getInitialState(),
+                new EpsilonTransitionLabel());
         return subautomaton;
     }
 }
