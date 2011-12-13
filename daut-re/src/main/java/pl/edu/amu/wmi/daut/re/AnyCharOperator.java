@@ -12,17 +12,15 @@ public class AnyCharOperator extends NullaryRegexpOperator {
     @Override
     public AutomatonSpecification createFixedAutomaton() {
         AutomatonSpecification automaton = new NaiveAutomatonSpecification();
-        State q0;
-        State q1;
-        automaton.addState(q0);
-        automaton.addState(q1);
+        State q0 = automaton.addState();
+        State q1 = automaton.addState();
         automaton.addTransition(q0, q1, new AnyTransitionLabel());
-        markAsInitial(q0);
-        markAsFinal(q1);
+        automaton.markAsInitial(q0);
+        automaton.markAsFinal(q1);
         
         return automaton;
     }
-
+    
      /**
      * Fabryka operatora.
      */
