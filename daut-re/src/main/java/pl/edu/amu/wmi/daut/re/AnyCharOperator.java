@@ -18,10 +18,10 @@ public class AnyCharOperator extends NullaryRegexpOperator {
         automaton.addTransition(q0, q1, new AnyTransitionLabel());
         automaton.markAsInitial(q0);
         automaton.markAsFinal(q1);
-        
+
         return automaton;
     }
-    
+
      /**
      * Fabryka operatora.
      */
