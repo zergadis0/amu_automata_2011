@@ -1,6 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
-/*
+/**
  * @author cole1911
  */
 
@@ -9,6 +9,11 @@ package pl.edu.amu.wmi.daut.base;
  * przejscie po dowolnym znaku.
  */
 public class AnyTransitionLabel extends TransitionLabel {
+
+    /**
+     * Konstruktor domyslny.
+     */
+    public AnyTransitionLabel() { };
 
     @Override
     public boolean canBeEpsilon() {
