@@ -2,6 +2,7 @@ package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
+import pl.edu.amu.wmi.daut.base.AnyTransitionLabel;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class AnyCharOperator extends NullaryRegexpOperator {
         automaton.addTransition(q0, q1, new AnyTransitionLabel());
         markAsInitial(q0);
         markAsFinal(q1);
+        
         return automaton;
     }
 
