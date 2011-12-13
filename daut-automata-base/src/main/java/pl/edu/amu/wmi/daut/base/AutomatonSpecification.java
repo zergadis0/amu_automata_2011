@@ -200,16 +200,13 @@ abstract class AutomatonSpecification implements Cloneable  {
         else {
             int counter = 0;
             boolean isThereNoInitialState = false;
-            try {
-                for (State s : allStates()) {
-                    if (this.isFinal(s))
-                        counter++;
-                    this.getInitialState();
-                }
-            } catch (Exception e) {
-                isThereNoInitialState = true;
+            for (State s : allStates()) {
+                if (this.isFinal(s))
+                    counter++;
             }
-
+            if (this.getInitialState() == null)
+                isThereNoInitialState = true;
+                
             if (counter == 0 || isThereNoInitialState)
                 return false;
             else {
