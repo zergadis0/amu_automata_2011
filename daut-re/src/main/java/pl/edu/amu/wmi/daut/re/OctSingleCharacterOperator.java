@@ -66,11 +66,12 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
 
         @Override
         protected RegexpOperator doCreateOperator(List<String> params) {
-            OctSingleCharacterOperator oper = null; 
+            OctSingleCharacterOperator oper = null;
             try {
                 oper = new OctSingleCharacterOperator(Integer.parseInt(params.get(BASE2)));
             } catch (Exception ex) {
-                Logger.getLogger(OctSingleCharacterOperator.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OctSingleCharacterOperator.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
             return oper;
         }
