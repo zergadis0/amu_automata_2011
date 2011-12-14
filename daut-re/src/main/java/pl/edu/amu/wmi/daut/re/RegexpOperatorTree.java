@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.re;
 import java.util.List;
 
 /**
- * Klasa reprezentujaca 
+ * Klasa reprezentujaca.
  */
 public class RegexpOperatorTree {
 
@@ -20,7 +20,8 @@ public class RegexpOperatorTree {
      *
      * Jeśli liczba poddrzew nie zgadza się z arnością operatora, powinien być wyrzucany wyjątek.
      */
-    RegexpOperatorTree(RegexpOperator operator, List<RegexpOperatorTree> subtrees) throws ArityException {
+    RegexpOperatorTree(RegexpOperator operator, List<RegexpOperatorTree> subtrees)
+            throws ArityException {
 
         if (operator.arity() == subtrees.size()) {
             this.root = operator;
