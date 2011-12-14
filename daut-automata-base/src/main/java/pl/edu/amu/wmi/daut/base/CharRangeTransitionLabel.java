@@ -9,7 +9,7 @@ public class CharRangeTransitionLabel extends TransitionLabel {
     private char secondChar;
 
     /**
-     * Konstruktor klasy. 
+     * Konstruktor klasy.
      */
     public CharRangeTransitionLabel(char a, char z) {
         firstChar = a;
@@ -32,14 +32,14 @@ public class CharRangeTransitionLabel extends TransitionLabel {
     }
 
     /**
-     * Zwraca pierwszy znak. 
+     * Zwraca pierwszy znak.
      */
     public char getFirstChar() {
         return firstChar;
     }
 
     /**
-     * Zwraca drugi znak. 
+     * Zwraca drugi znak.
      */
     public char getSecondChar() {
         return secondChar;
