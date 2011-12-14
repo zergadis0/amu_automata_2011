@@ -18,7 +18,7 @@ public class DigitOperator extends NullaryRegexpOperator{
     public AutomatonSpecification createFixedAutomaton() {
 
         AutomatonSpecification automaton = new NaiveAutomatonSpecification();
-        char a = 0,b = 9;
+        char a = '0',b = '9';
         State q0 = automaton.addState();
         State q1 = automaton.addState();
         automaton.addTransition(q0,q1, new CharRangeTransitionLabel(a,b));
