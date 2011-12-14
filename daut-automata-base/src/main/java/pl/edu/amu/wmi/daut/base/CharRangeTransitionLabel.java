@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 /**
  * Klasa reprezentująca przejście po dowolnym znaku z podanego zakresu UTF-8.
  */
-class CharRangeTransitionLabel extends TransitionLabel {
+public class CharRangeTransitionLabel extends TransitionLabel {
 
     private char firstChar;
     private char secondChar;
