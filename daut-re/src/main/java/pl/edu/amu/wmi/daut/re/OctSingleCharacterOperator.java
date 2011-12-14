@@ -1,7 +1,10 @@
 package pl.edu.amu.wmi.daut.re;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
+import java.util.List;
 
 /**
  * Klasa reprezentująca pojedynczy konkretny znak o kodzie Unicode podany w zapisie ósemkowym.
@@ -10,6 +13,7 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
 
     private int value;
     static final int BASE = 8;
+    static final int BASE2 = 0;
 
     /**
      * Konstruktor.
@@ -48,5 +52,27 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
 
         return new NaiveAutomatonSpecification()
                 .makeOneTransitionAutomaton((char) octValue);
+    }
+
+    /**
+     * Fabryka operatora.
+     */
+    public static class Factory extends NullaryRegexpOperatorFactory {
+
+        @Override
+        public int numberOfParams() {
+            return 1;
+        }
+
+        @Override
+        protected RegexpOperator doCreateOperator(List<String> params) {
+            OctSingleCharacterOperator oper = null; 
+            try {
+                oper = new OctSingleCharacterOperator(Integer.parseInt(params.get(BASE2)));
+            } catch (Exception ex) {
+                Logger.getLogger(OctSingleCharacterOperator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return oper;
+        }
     }
 }
