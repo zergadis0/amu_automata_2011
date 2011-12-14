@@ -22,7 +22,7 @@ public class DigitOperator extends NullaryRegexpOperator {
         char b = '9';
         State q0 = automaton.addState();
         State q1 = automaton.addState();
-        automaton.addTransition(q0, q1, new CharRangeTransitionLabel(a,b));
+        automaton.addTransition(q0, q1, new CharRangeTransitionLabel(a, b));
         automaton.markAsInitial(q0);
         automaton.markAsFinal(q1);
 
