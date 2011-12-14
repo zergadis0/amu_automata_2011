@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import junit.framework.TestCase;
+
 /**
  *
  * Test klasy RegexpOperatorManager
@@ -15,23 +16,22 @@ import junit.framework.TestCase;
 public class TestRegexpOperatorManager extends TestCase {
 
     /**
-     *Test metody getFactory i addOperator bez piorytetów
+     * Test metody getFactory i addOperator bez piorytetów
      */
-
     public final void testAddOperatorWithoutPiority() {
 
         RegexpOperatorManager manager = new RegexpOperatorManager();
 
-        manager.addOperator("*", new KleeneStarOperator.Factory(), Arrays.<String>asList("","*"));
+        manager.addOperator("*", new KleeneStarOperator.Factory(), Arrays.<String>asList("", "*"));
         manager.addOperator("{n,m}", new RangeNumberOfOccurrencesOperator.Factory(),
-                Arrays.<String>asList("","{",",","}"));
+                Arrays.<String>asList("", "{", ",", "}"));
         manager.addOperator("s", new SingleCharacterOperator.Factory(),
-                Arrays.<String>asList("","s"));
+                Arrays.<String>asList("", "s"));
         /*manager.addOperator("{n}", new FixedNumberOfOccurrencesOperator.Factory(),
-                Arrays.<String>asList("","{","}"));*/
+        Arrays.<String>asList("","{","}"));*/
         manager.addOperator("()", new DoNothingOperator.Factory(), Arrays.<String>asList("(", ")"));
-        manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("","."));
-        manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("","?"));
+        manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("", "."));
+        manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("", "?"));
 
         assertNotNull(manager);
         assertNotNull(manager.getFactory("*"));
@@ -46,24 +46,23 @@ public class TestRegexpOperatorManager extends TestCase {
     /**
      * Test metody addOperator z piorytetem oraz getPriority
      */
-
     public final void testAddOperatorWithPiority() {
 
         RegexpOperatorManager manager = new RegexpOperatorManager();
 
         manager.addOperator("*", new KleeneStarOperator.Factory(),
-                Arrays.<String>asList("","*"), 1);
+                Arrays.<String>asList("", "*"), 1);
         manager.addOperator("{n,m}", new RangeNumberOfOccurrencesOperator.Factory(),
-                Arrays.<String>asList("","{",",","}"), 2);
+                Arrays.<String>asList("", "{", ",", "}"), 2);
         manager.addOperator("s", new SingleCharacterOperator.Factory(),
-                Arrays.<String>asList("","s"), 3);
+                Arrays.<String>asList("", "s"), 3);
         /*manager.addOperator("{n}", new FixedNumberOfOccurrencesOperator.Factory(),
-                Arrays.<String>asList("","{","}"));*/
+        Arrays.<String>asList("","{","}"));*/
         manager.addOperator("()", new DoNothingOperator.Factory(),
                 Arrays.<String>asList("(", ")"), 4);
-        manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("","."), 5);
+        manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("", "."), 5);
         manager.addOperator("?", new AlternativeOperator.Factory(),
-                Arrays.<String>asList("","?"), 6);
+                Arrays.<String>asList("", "?"), 6);
 
         assertEquals(1, manager.getPriority("*"));
         assertEquals(2, manager.getPriority("{n,m}"));
@@ -75,23 +74,22 @@ public class TestRegexpOperatorManager extends TestCase {
     }
 
     /**
-     *Test metody getSeparators
+     * Test metody getSeparators
      */
-
     public final void testGetSeparators() {
 
         RegexpOperatorManager manager = new RegexpOperatorManager();
 
-        manager.addOperator("*", new KleeneStarOperator.Factory(), Arrays.<String>asList("","*"));
+        manager.addOperator("*", new KleeneStarOperator.Factory(), Arrays.<String>asList("", "*"));
         manager.addOperator("{n,m}", new RangeNumberOfOccurrencesOperator.Factory(),
-                Arrays.<String>asList("","{",",","}"));
+                Arrays.<String>asList("", "{", ",", "}"));
         manager.addOperator("s", new SingleCharacterOperator.Factory(),
-                Arrays.<String>asList("","s"));
+                Arrays.<String>asList("", "s"));
         /*manager.addOperator("{n}", new FixedNumberOfOccurrencesOperator.Factory(),
-                Arrays.<String>asList("","{","}"));*/
+        Arrays.<String>asList("","{","}"));*/
         manager.addOperator("()", new DoNothingOperator.Factory(), Arrays.<String>asList("(", ")"));
-        manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("","."));
-        manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("","?"));
+        manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("", "."));
+        manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("", "?"));
 
         List<String> kleene = new ArrayList<String>();
         kleene.add("");
@@ -117,17 +115,16 @@ public class TestRegexpOperatorManager extends TestCase {
 
         RegexpOperatorManager manager = new RegexpOperatorManager();
 
-        manager.addOperator("*", new KleeneStarOperator.Factory(), Arrays.<String>asList("","*"));
+        manager.addOperator("*", new KleeneStarOperator.Factory(), Arrays.<String>asList("", "*"));
         manager.addOperator("{n,m}", new RangeNumberOfOccurrencesOperator.Factory(),
-                Arrays.<String>asList("","{",",","}"));
+                Arrays.<String>asList("", "{", ",", "}"));
         manager.addOperator("s", new SingleCharacterOperator.Factory(),
-                Arrays.<String>asList("","s"));
+                Arrays.<String>asList("", "s"));
         /*manager.addOperator("{n}", new FixedNumberOfOccurrencesOperator.Factory(),
-                Arrays.<String>asList("","{","}"));*/
+        Arrays.<String>asList("","{","}"));*/
         manager.addOperator("()", new DoNothingOperator.Factory(), Arrays.<String>asList("(", ")"));
-        manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("","."));
-        manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("","?"));
+        manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("", "."));
+        manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("", "?"));
 
     }
-
 }
