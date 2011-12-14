@@ -1,4 +1,4 @@
-锘縫ackage pl.edu.amu.wmi.daut.base;
+package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -6,18 +6,18 @@ import java.util.LinkedList;
 import java.util.HashMap;
 
 /**
- * Klasa zwieraj膮ca operacje na automatach.
+ * Klasa zwieraj筩a operacje na automatach.
  */
 public class AutomataOperations {
 
     /**
-     * Klasa reprezentuje stan C powsta艂y poprzez po艂膮czenie stan贸w A i B w wyniku operacji
+     * Klasa reprezentuje stan C powsta硑 poprzez po彻czenie stan體 A i B w wyniku operacji
      * intersection.
      */
     private static final class CombinedState {
 
         /**
-         * Przypisuje stanowi C jego sk艂adowe stany A i B.
+         * Przypisuje stanowi C jego sk砤dowe stany A i B.
          */
         public void set(State a, State b) {
             qA = a;
@@ -38,7 +38,7 @@ public class AutomataOperations {
     }
 
     /**
-     *Metoda zwraca automat akceptuj膮cy odwr贸cenie j臋zyka,
+     *Metoda zwraca automat akceptuj筩y odwr骳enie j陑yka,
      * akceptowanego przez dany automat "parent".
      */
     public AutomatonSpecification reverseLanguageAutomat(
@@ -97,7 +97,7 @@ public class AutomataOperations {
     /**
      * Metoda tworzy przejscie od stanu stateC do nowego stanu utworzonego przez pare A i B w
      * combinedC po etykiecie transition. Dodanie nowo utworzonego stanu stateCn do listy newStates
-     * wraz z wpisaniem jej oraz jej kombinacji stan贸w do HashMap.
+     * wraz z wpisaniem jej oraz jej kombinacji stan體 do HashMap.
      * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
      */
     private static boolean makeTransition(CombinedState combinedC, List newStates,
@@ -122,7 +122,7 @@ public class AutomataOperations {
         return empty;
     }
     /**
-     * Metoda zwracaj膮ca automat akceptuj膮cy przeci臋cie j臋zyk贸w akceptowanych przez
+     * Metoda zwracaj筩a automat akceptuj筩y przeci阠ie j陑yk體 akceptowanych przez
      * dwa podane automaty.
      */
     public static AutomatonSpecification intersection(
@@ -146,10 +146,10 @@ public class AutomataOperations {
         newStates.add(qC);
 
         /*
-         * combinedStatesC - zawiera 艂a艅cuch kontrolny odpowiadaj膮cy kombinacji stan贸w A i B
-         * statesC - zawiera stan C z 艂a艅cuchem kobminacji jego stan贸w A i B
-         * statesCHandle - zawiera uchwyt do stanu C poprzez 艂a艅cuch kontrolny jego kombinacji
-         * stan贸w A i B
+         * combinedStatesC - zawiera 砤馽uch kontrolny odpowiadaj筩y kombinacji stan體 A i B
+         * statesC - zawiera stan C z 砤馽uchem kobminacji jego stan體 A i B
+         * statesCHandle - zawiera uchwyt do stanu C poprzez 砤馽uch kontrolny jego kombinacji
+         * stan體 A i B
          */
         HashMap<String, CombinedState> combinedStatesC = new HashMap<String, CombinedState>();
         HashMap<State, String> statesC = new HashMap<State, String>();
@@ -238,8 +238,8 @@ public class AutomataOperations {
         return automatonC;
     }
     /**
-     * Zwraca automat akceptuj膮cy domkni臋cie Kleene'ego
-     * j臋zyka akceptowanego przez dany automat.
+     * Zwraca automat akceptuj筩y domkni阠ie Kleene'ego
+     * j陑yka akceptowanego przez dany automat.
      */
     public AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
         AutomatonSpecification kleeneautomaton = new NaiveAutomatonSpecification();
@@ -279,9 +279,9 @@ public class AutomataOperations {
 
       for (OutgoingTransition transition : list) {
         if (!(transition.canBeEpsilon())) {
-          this.addTransition(connectedStates.get(currentState);
+          this.addTransition(connectedStates.get(currentState));
           connectedStates.get(transition.getTargetState());
-          transition.getTransitionLabel());
+          transition.getTransitionLabel();
           Set<State> epsilonClosure = epsilonAutomaton.getEpsilonClosure(transition.getTargetState());
       for (State state : epsilonClosure)
         resultAutomaton.addTransition(connectedStates.get(currentState),connectedStates.get(state),transition.getTransitionLabel());
