@@ -13,8 +13,12 @@ import junit.framework.TestCase;
 
 public class TestAlternativeOperator extends TestCase {
 
-    /**
-    * Pierwszy test.
+   /**
+    * Test automatów:
+    * automaton1 - akceptującego wyraz składający się z liter "a" i "b",
+    *     który zawiera przynajmniej jedno "a"
+    * automaton2 - akceptującego wyraz składający się z liter "a" i "b",
+    *     który zawiera nieparzystą ilość "b".
     */
     public final void testCreateAutomatonFromTwoAutomata1() {
 
@@ -59,8 +63,11 @@ public class TestAlternativeOperator extends TestCase {
         assertFalse(result.accepts("kabaczek"));
     }
 
-    /**
-    * Drugi test.
+   /**
+    * Test automatów:
+    * automaton1 - akceptującego wyraz składający się z liter "a" i "b",
+    *     postaci {(ab)^n : n>0}
+    * automaton2 - automatu pustego.
     */
     public final void testCreateAutomatonFromTwoAutomata2() {
 
