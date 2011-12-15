@@ -32,6 +32,8 @@ public class TestDigitOperator extends TestCase {
 
         Factory factory = new Factory();
         assertEquals(factory.numberOfParams(), 0);
+        DigitOperator operator = new DigitOperator();
+        assertEquals(factory.doCreateOperator(null), operator);
 
     }
 }
