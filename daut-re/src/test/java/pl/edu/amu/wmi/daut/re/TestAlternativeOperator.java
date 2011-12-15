@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.re;
 
+import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
@@ -107,8 +108,9 @@ public class TestAlternativeOperator extends TestCase {
      */
     public final void testFactory() {
         Factory factory = new Factory();
+        ArrayList<String> params = new ArrayList<String>();
 
         assertEquals(factory.numberOfParams(), BASE);
-        assertEquals(factory.doCreateOperator(null), new AlternativeOperator());
+        assertEquals(factory.doCreateOperator(params), new AlternativeOperator());
     }
 }
