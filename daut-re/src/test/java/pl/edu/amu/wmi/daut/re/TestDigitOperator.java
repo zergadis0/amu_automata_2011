@@ -35,6 +35,6 @@ public class TestDigitOperator extends TestCase {
         RegexpOperator operator2 = factory.doCreateOperator(null);
         int arity = operator2.arity();
         assertEquals(arity, 0);
-        
+
     }
 }
