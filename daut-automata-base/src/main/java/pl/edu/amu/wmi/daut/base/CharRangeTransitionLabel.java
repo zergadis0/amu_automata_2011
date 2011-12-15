@@ -3,11 +3,14 @@ package pl.edu.amu.wmi.daut.base;
 /**
  * Klasa reprezentująca przejście po dowolnym znaku z podanego zakresu UTF-8.
  */
-class CharRangeTransitionLabel extends TransitionLabel {
+public class CharRangeTransitionLabel extends TransitionLabel {
 
     private char firstChar;
     private char secondChar;
 
+    /**
+     * Konstruktor klasy.
+     */
     public CharRangeTransitionLabel(char a, char z) {
         firstChar = a;
         secondChar = z;
@@ -28,10 +31,16 @@ class CharRangeTransitionLabel extends TransitionLabel {
         return false;
     }
 
+    /**
+     * Zwraca pierwszy znak.
+     */
     public char getFirstChar() {
         return firstChar;
     }
 
+    /**
+     * Zwraca drugi znak.
+     */
     public char getSecondChar() {
         return secondChar;
     }
