@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.re;
 
+import java.util.List;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.CharClassTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
@@ -17,17 +18,14 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
      * konstruktor ASCII character classes.
      */
     public AsciiCharacterClassOperator(String a)
-            throws UnknownAsciiCharacterClassException {
+                 throws UnknownAsciiCharacterClassException {
         if (a.equals("[:alnum:]")) {
-            str = "0-9A-Za-z";
-            }
-        else if (a.equals("[:alpha:]")) {
-            str = "A-Za-z";
-            }
-        else if (a.equals("[:ascii:]")) {
-            str = "\u0000-\u007F";
-            }
-        else if (a.equals("[:blank:]")) {
+           str = "0-9A-Za-z";
+        }
+           else if (a.equals("[:alpha:]")) {
+                    str = "A-Za-z";
+                }
+                    else if (a.equals("[:blank:]")) {
             str = "\t ";
             }
         else if (a.equals("[:cntrl:]")) {
@@ -76,5 +74,21 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
         automaton.addTransition(q0, q1, new CharClassTransitionLabel(str));
 
         return automaton;
+    }
+    /**
+     * Fabryka operatora.
+     */
+    public static class Factory extends NullaryRegexpOperatorFactory {
+
+        @Override
+        protected RegexpOperator doCreateOperator(List<String> params)
+            throws UnknownAsciiCharacterClassException {
+            return new AsciiCharacterClassOperator(params.get(0));
+        }
+
+        @Override
+        public int numberOfParams() {
+            return 1;
+        }
     }
 }
