@@ -38,23 +38,8 @@ public class SingleCharacterOperator extends NullaryRegexpOperator {
     }
 
      /**
-     * Fabryka operatora.
-     */
-    public static class Factory extends NullaryRegexpOperatorFactory {
-
-        @Override
-        public int numberOfParams() {
-            return 1;
-        }
-
-        protected RegexpOperator doCreateOperator(List<String> params) {
-            return new SingleCharacterOperator(params.get(0).charAt(0));
-        }
-    }
-
-     /**
-     * Fabryka operatora.
-     */
+      * Fabryka operatora.
+      */
     public static class Factory extends NullaryRegexpOperatorFactory {
 
         @Override
