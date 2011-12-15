@@ -25,7 +25,6 @@ public class TestAnyStringOperator extends TestCase {
         assertTrue(automaton2.accepts("qqqq"));
         assertTrue(automaton2.accepts("w"));
         assertTrue(automaton2.accepts("kakademona"));
-        assertTrue(automaton2.accepts("łyżwiaż"));
         assertTrue(automaton2.accepts("qqrrqqrr"));
         assertTrue(automaton2.accepts(""));
         assertTrue(automaton2.accepts("  s  "));
