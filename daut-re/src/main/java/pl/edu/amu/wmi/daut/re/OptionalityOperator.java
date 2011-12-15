@@ -5,7 +5,6 @@ import pl.edu.amu.wmi.daut.base.State;
 import java.util.List;
 
 /**
- *
  * Klasa reprezentujaca operator ?
  */
 public class OptionalityOperator extends UnaryRegexpOperator {
@@ -24,8 +23,8 @@ public class OptionalityOperator extends UnaryRegexpOperator {
     }
 
      /**
-     * Fabryka operatora.
-     */
+      * Fabryka operatora.
+      */
     public static class Factory extends UnaryRegexpOperatorFactory {
 
         @Override
