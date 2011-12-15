@@ -11,12 +11,14 @@ import pl.edu.amu.wmi.daut.base.AnyTransitionLabel;
  * test klasy anystringoperator
  */
 public class TestAnyStringOperator extends TestCase {
+
     /**
      * test konstruktora anystringoperator
      */
     public void testAnyStringOperator() {
         AnyStringOperator operator = new AnyStringOperator();
     }
+
     /**
      *  testuje automat roznych znakow, takze pustego przejscia.
      */
