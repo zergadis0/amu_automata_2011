@@ -27,4 +27,19 @@ public class AtLeastOneOperator extends UnaryRegexpOperator {
                 new EpsilonTransitionLabel());
         return subautomaton;
     }
+
+     /**
+     * Fabryka operatora.
+     */
+    public static class Factory extends UnaryRegexpOperatorFactory {
+
+        @Override
+        public int numberOfParams() {
+            return 0;
+        }
+
+        protected RegexpOperator doCreateOperator(List<String> params) {
+            return new AtLeastOneOperator();
+        }
+    }
 }
