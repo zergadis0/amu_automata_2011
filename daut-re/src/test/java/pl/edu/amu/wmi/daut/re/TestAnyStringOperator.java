@@ -10,8 +10,14 @@ import pl.edu.amu.wmi.daut.base.AnyTransitionLabel;
 
 public class TestAnyStringOperator extends TestCase {
    /**
-    * spec2 - testuje automat wielu roznych znakow, takze pustego przejscia.
+    *test konstruktora
     */
+    public void testAnyStringOperator() {
+        AnyStringOperator operator = new AnyStringOperator();
+    }
+    /**
+     *  testuje automat roznych znakow, takze pustego przejscia.
+     */
     public final void testcreateFixedAutomaton() {
 
         AutomatonSpecification spec2 = new NaiveAutomatonSpecification();
