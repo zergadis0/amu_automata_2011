@@ -34,6 +34,6 @@ public class TestDigitOperator extends TestCase {
         assertEquals(factory.numberOfParams(), 0);
         RegexpOperator operator1 = factory.doCreateOperator(null);
         DigitOperator operator2 = new DigitOperator();
-        assertEquals(operator1, operator2);
+        assertEquals((DigitOperator) operator1, operator2);
     }
 }
