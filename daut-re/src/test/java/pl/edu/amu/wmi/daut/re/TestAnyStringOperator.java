@@ -7,7 +7,9 @@ import pl.edu.amu.wmi.daut.base.State;
 import junit.framework.TestCase;
 import pl.edu.amu.wmi.daut.base.AnyTransitionLabel;
 
-
+/**
+ * test klasy anystringoperator
+ */
 public class TestAnyStringOperator extends TestCase {
     /**
      * test konstruktora anystringoperator
