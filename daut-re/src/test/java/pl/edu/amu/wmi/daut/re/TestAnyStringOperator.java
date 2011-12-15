@@ -13,7 +13,7 @@ import pl.edu.amu.wmi.daut.base.AnyTransitionLabel;
 public class TestAnyStringOperator extends TestCase {
 
     /**
-     * test konstruktora anystringoperator
+     * test konstruktora anystringoperator.
      */
     public void testAnyStringOperator() {
         AnyStringOperator operator = new AnyStringOperator();
