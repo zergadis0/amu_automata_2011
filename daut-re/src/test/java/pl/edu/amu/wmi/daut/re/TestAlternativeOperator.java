@@ -111,6 +111,7 @@ public class TestAlternativeOperator extends TestCase {
         ArrayList<String> params = new ArrayList<String>();
 
         assertEquals(factory.numberOfParams(), BASE);
-        assertEquals(factory.doCreateOperator(params), new AlternativeOperator());
+        assertEquals(factory.doCreateOperator(params).getClass(),
+        new AlternativeOperator().getClass());
     }
 }
