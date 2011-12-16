@@ -49,7 +49,8 @@ public class RegexpUtilities {
                 }
 
                 //utwórz automat, którego argumentami są automaty wszystkich synów.
-                AutomatonSpecification currentAutomaton = current.getRoot().createAutomaton(arguments);
+                AutomatonSpecification currentAutomaton = current.getRoot().createAutomaton(
+                arguments);
                 //zapamiętaj automat dla danego wierzchołka. ponieważ liście się
                 //wykonają "najpierw", to nadchodzący po tym rodzice tych liści
                 //będą mieli pełną informację o automatach utworzonych przez
