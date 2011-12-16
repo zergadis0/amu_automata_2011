@@ -25,9 +25,9 @@ public class TestDigitOperator extends TestCase {
         AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
         assertTrue(automaton.accepts("0"));
         assertTrue(automaton.accepts("9"));
-        assertTrue(automaton.accepts("1567"));
+        assertTrue(automaton.accepts("1"));
         assertFalse(automaton.accepts("a"));
-        assertFalse(automaton.accepts("aabba"));
+        assertFalse(automaton.accepts("b"));
 
     }
 
