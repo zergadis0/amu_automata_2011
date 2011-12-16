@@ -30,7 +30,8 @@ public class RegexpUtilities {
             //i idziemy powoli w kierunku korzenia drzewa.
 
             //utwórz mapę poddrzew na automaty przez nich utworzone.
-            Map<RegexpOperatorTree, AutomatonSpecification> map = new HashMap<RegexpOperatorTree, AutomatonSpecification>();
+            Map<RegexpOperatorTree, AutomatonSpecification> map = new HashMap<RegexpOperatorTree,
+            AutomatonSpecification>();
 
             while (!parent.empty()) {
 
