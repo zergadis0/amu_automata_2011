@@ -46,7 +46,7 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
             str = "0-9A-Fa-f";
         } else throw new UnknownAsciiCharacterClassException();
     }
-     /**
+    /**
      * Generuje automat.
      */
     @Override
