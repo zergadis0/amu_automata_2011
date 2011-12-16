@@ -125,10 +125,17 @@ public class TestRegexpOperatorManager extends TestCase {
 
         List<String> string = new ArrayList<String>();
 
+        string = manager.getOperatorsForStringPrefix("");
+        assertEquals(Arrays.<String>asList("*", "{n,m}", "s", ".", "?"), string);
+
+        string = manager.getOperatorsForStringPrefix("()");
+        assertEquals(Arrays.<String>asList("()"), string);
+
         string = manager.getOperatorsForStringPrefix("ss*");
         assertEquals(Arrays.<String>asList("s"), string);
 
         string = manager.getOperatorsForStringPrefix(".");
         assertEquals(Arrays.<String>asList("."), string);
+
     }
 }
