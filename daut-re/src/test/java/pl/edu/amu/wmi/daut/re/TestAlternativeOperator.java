@@ -1,25 +1,29 @@
 package pl.edu.amu.wmi.daut.re;
 
+import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import junit.framework.TestCase;
+import pl.edu.amu.wmi.daut.re.AlternativeOperator.Factory;
 
-   /**
-    * Test klasy AlternativeOperator.
-    */
+    /**
+     * Test klasy AlternativeOperator.
+     */
 
 public class TestAlternativeOperator extends TestCase {
 
-   /**
-    * Test automatów:
-    * automaton1 - akceptującego wyraz składający się z liter "a" i "b",
-    *     który zawiera przynajmniej jedno "a"
-    * automaton2 - akceptującego wyraz składający się z liter "a" i "b",
-    *     który zawiera nieparzystą ilość "b".
-    */
+    static final int BASE = 0;
+
+    /**
+     * Test automatów:
+     * automaton1 - akceptującego wyraz składający się z liter "a" i "b",
+     *     który zawiera przynajmniej jedno "a"
+     * automaton2 - akceptującego wyraz składający się z liter "a" i "b",
+     *     który zawiera nieparzystą ilość "b".
+     */
     public final void testCreateAutomatonFromTwoAutomata1() {
 
         AutomatonSpecification automaton1 = new NaiveAutomatonSpecification();
@@ -63,12 +67,12 @@ public class TestAlternativeOperator extends TestCase {
         assertFalse(result.accepts("kabaczek"));
     }
 
-   /**
-    * Test automatów:
-    * automaton1 - akceptującego wyraz składający się z liter "a" i "b",
-    *     postaci {(ab)^n : n>0}
-    * automaton2 - automatu pustego.
-    */
+    /**
+     * Test automatów:
+     * automaton1 - akceptującego wyraz składający się z liter "a" i "b",
+     *     postaci {(ab)^n : n>0}
+     * automaton2 - automatu pustego.
+     */
     public final void testCreateAutomatonFromTwoAutomata2() {
 
         AutomatonSpecification automaton1 = new NaiveAutomatonSpecification();
@@ -97,5 +101,17 @@ public class TestAlternativeOperator extends TestCase {
         assertFalse(result.accepts("baaaaaaaaaa"));
         assertFalse(result.accepts("abababababb"));
         assertFalse(result.accepts("bababa"));
+    }
+
+    /**
+     * Test fabryki operatora.
+     */
+    public final void testFactory() {
+        Factory factory = new Factory();
+        ArrayList<String> params = new ArrayList<String>();
+
+        assertEquals(factory.numberOfParams(), BASE);
+        assertEquals(factory.doCreateOperator(params).getClass(),
+        new AlternativeOperator().getClass());
     }
 }
