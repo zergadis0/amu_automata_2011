@@ -11,12 +11,12 @@ import junit.framework.TestCase;
 
 /**
  *
- * Test klasy RegexpOperatorManager
+ * Test klasy RegexpOperatorManager.
  */
 public class TestRegexpOperatorManager extends TestCase {
 
     /**
-     * Test metody getFactory i addOperator bez piorytetów
+     * Test metody getFactory i addOperator bez piorytetów.
      */
     public final void testAddOperatorWithoutPiority() {
 
@@ -44,7 +44,7 @@ public class TestRegexpOperatorManager extends TestCase {
     }
 
     /**
-     * Test metody addOperator z piorytetem oraz getPriority
+     * Test metody addOperator z piorytetem oraz getPriority.
      */
     public final void testAddOperatorWithPiority() {
 
@@ -74,7 +74,7 @@ public class TestRegexpOperatorManager extends TestCase {
     }
 
     /**
-     * Test metody getSeparators
+     * Test metody getSeparators.
      */
     public final void testGetSeparators() {
 
@@ -110,6 +110,10 @@ public class TestRegexpOperatorManager extends TestCase {
         assertEquals(single, manager.getSeparators("s"));
 
     }
+
+    /**
+     * Test metody getOperatorsForStringPrefix.
+     */
 
     public final void testGetOperatorsForStringPrefix() {
 
