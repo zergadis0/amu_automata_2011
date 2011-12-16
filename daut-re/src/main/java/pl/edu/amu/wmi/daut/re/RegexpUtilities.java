@@ -66,6 +66,6 @@ class RegexpUtilities {
             }
 
             //ten kod nie powinien się nigdy wykonać.
-            throw new RuntimeException("");
+            return null;
     }
 }
