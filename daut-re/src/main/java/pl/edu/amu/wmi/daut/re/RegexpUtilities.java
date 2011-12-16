@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
-class RegexpUtilities {
+public class RegexpUtilities {
 
-    static AutomatonSpecification createAutopmatonFromOperatorTree(
-    RegexpOperatorTree tree) throws RuntimeException {
+    static AutomatonSpecification createAutopmatonFromOperatorTree(RegexpOperatorTree tree) {
 
             //przejdź przez drzewo stanów metodą post-order, przy pomocy dwóch stosów.
             Stack<RegexpOperatorTree> child = new Stack<RegexpOperatorTree>();
