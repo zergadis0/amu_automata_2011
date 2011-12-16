@@ -11,6 +11,8 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 */
 public class RegexpUtilities {
 
+    protected RegexpUtilities() { throw new UnsupportedOperationException(); }
+
     static AutomatonSpecification createAutopmatonFromOperatorTree(RegexpOperatorTree tree) {
 
             //przejdź przez drzewo stanów metodą post-order, przy pomocy dwóch stosów.
