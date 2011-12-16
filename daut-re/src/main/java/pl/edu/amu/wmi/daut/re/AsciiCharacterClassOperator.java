@@ -6,7 +6,7 @@ import pl.edu.amu.wmi.daut.base.CharClassTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
 
-class UnknownAsciiCharacterClassException extends RunTimeException {  
+class UnknownAsciiCharacterClassException extends RuntimeException {  
 }
 
 /**
