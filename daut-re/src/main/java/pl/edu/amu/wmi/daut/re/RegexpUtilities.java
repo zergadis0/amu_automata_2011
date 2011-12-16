@@ -14,8 +14,8 @@ public class RegexpUtilities {
             Stack<RegexpOperatorTree> child = new Stack<RegexpOperatorTree>();
             Stack<RegexpOperatorTree> parent = new Stack<RegexpOperatorTree>();
             child.push(tree);
-            while (!child.empty())
-            {
+            while (!child.empty()) {
+
                 RegexpOperatorTree current = child.peek();
                 parent.push(current);
                 child.pop();
@@ -31,14 +31,14 @@ public class RegexpUtilities {
             //utwórz mapę poddrzew na automaty przez nich utworzone.
             Map<RegexpOperatorTree, AutomatonSpecification> map = new HashMap<RegexpOperatorTree, AutomatonSpecification>();
 
-            while (!parent.empty())
-            {
+            while (!parent.empty()) {
+
                 RegexpOperatorTree current = parent.peek();
 
                 //utwórz listę automatów utworzonych przez synów wierzchołka.
                 List<AutomatonSpecification> arguments = new ArrayList<AutomatonSpecification>();
-                for (RegexpOperatorTree subTree : current.getSubtrees())
-                {
+                for (RegexpOperatorTree subTree : current.getSubtrees()) {
+
                     //nie będzie tutaj odwołania do nieistniejących kluczy ze
                     //wzgl. na charakter porządku post-order. jeśli wystąpi tutaj
                     //exception, to znaczy, że źle zaimplementowaliśmy coś wcześniej.
@@ -56,7 +56,8 @@ public class RegexpUtilities {
 
                 parent.pop();
 
-                //usunęliśmy właśnie wierzchołek-korzeń - zostaliśmy z pustym stosem, możemy zwrócić automat.
+                //usunęliśmy właśnie wierzchołek-korzeń - zostaliśmy z pustym stosem,
+                //możemy zwrócić automat.
                 if (parent.empty())
                     return currentAutomaton;
             }
