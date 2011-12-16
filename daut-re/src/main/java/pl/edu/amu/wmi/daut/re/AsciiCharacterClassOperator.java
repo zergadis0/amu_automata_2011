@@ -6,7 +6,7 @@ import pl.edu.amu.wmi.daut.base.CharClassTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
 
-class UnknownAsciiCharacterClassException extends Exception {  
+class UnknownAsciiCharacterClassException extends RunTimeException {  
 }
 
 /**
@@ -81,8 +81,7 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
     public static class Factory extends NullaryRegexpOperatorFactory {
 
         @Override
-        protected RegexpOperator doCreateOperator(List<String> params)
-            throws UnknownAsciiCharacterClassException {
+        protected RegexpOperator doCreateOperator(List<String> params) {
             return new AsciiCharacterClassOperator(params.get(0));
         }
 
