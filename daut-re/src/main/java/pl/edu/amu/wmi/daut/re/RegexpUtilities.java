@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
 /**
-*Klasa posiadająca metodę, która z drzewa operatorów robi automat
+*Klasa posiadająca metodę, która z drzewa operatorów robi automat.
 */
 public class RegexpUtilities {
 
