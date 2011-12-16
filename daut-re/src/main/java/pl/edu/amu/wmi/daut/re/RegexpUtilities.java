@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
+/**
+*Klasa posiadająca metodę, która z drzewa operatorów robi automat
+*/
 public class RegexpUtilities {
 
     static AutomatonSpecification createAutopmatonFromOperatorTree(RegexpOperatorTree tree) {
