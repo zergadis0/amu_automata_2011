@@ -19,7 +19,6 @@ public class TestDigitOperator extends TestCase {
         DigitOperator operator = new DigitOperator();
         AutomatonSpecification spec = operator.createFixedAutomaton();
         assertFalse(spec.isEmpty());
-        assertTrue(spec.isDeterministic());
         assertFalse(spec.acceptEmptyWord());
 
         AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
