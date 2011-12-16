@@ -48,8 +48,8 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
     }
 
      /**
-     * Fabryka operatora.
-     */
+      * Fabryka operatora.
+      */
     public static class Factory extends BinaryRegexpOperatorFactory {
 
         @Override
