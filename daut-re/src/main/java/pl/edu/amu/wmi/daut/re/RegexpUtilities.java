@@ -8,7 +8,8 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
 public class RegexpUtilities {
 
-    static AutomatonSpecification createAutopmatonFromOperatorTree (RegexpOperatorTree tree) throws RuntimeException
+    static AutomatonSpecification createAutopmatonFromOperatorTree
+    (RegexpOperatorTree tree) throws RuntimeException
     {
             //przejdź przez drzewo stanów metodą post-order, przy pomocy dwóch stosów.
             Stack<RegexpOperatorTree> child = new Stack<RegexpOperatorTree>();
