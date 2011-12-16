@@ -27,8 +27,6 @@ public class TestRegexpOperatorManager extends TestCase {
                 Arrays.<String>asList("", "{", ",", "}"));
         manager.addOperator("s", new SingleCharacterOperator.Factory(),
                 Arrays.<String>asList("", "s"));
-        /*manager.addOperator("{n}", new FixedNumberOfOccurrencesOperator.Factory(),
-        Arrays.<String>asList("","{","}"));*/
         manager.addOperator("()", new DoNothingOperator.Factory(), Arrays.<String>asList("(", ")"));
         manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("", "."));
         manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("", "?"));
@@ -56,8 +54,6 @@ public class TestRegexpOperatorManager extends TestCase {
                 Arrays.<String>asList("", "{", ",", "}"), 2);
         manager.addOperator("s", new SingleCharacterOperator.Factory(),
                 Arrays.<String>asList("", "s"), 3);
-        /*manager.addOperator("{n}", new FixedNumberOfOccurrencesOperator.Factory(),
-        Arrays.<String>asList("","{","}"));*/
         manager.addOperator("()", new DoNothingOperator.Factory(),
                 Arrays.<String>asList("(", ")"), 4);
         manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("", "."), 5);
@@ -85,8 +81,6 @@ public class TestRegexpOperatorManager extends TestCase {
                 Arrays.<String>asList("", "{", ",", "}"));
         manager.addOperator("s", new SingleCharacterOperator.Factory(),
                 Arrays.<String>asList("", "s"));
-        /*manager.addOperator("{n}", new FixedNumberOfOccurrencesOperator.Factory(),
-        Arrays.<String>asList("","{","}"));*/
         manager.addOperator("()", new DoNothingOperator.Factory(), Arrays.<String>asList("(", ")"));
         manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("", "."));
         manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("", "?"));
@@ -108,6 +102,7 @@ public class TestRegexpOperatorManager extends TestCase {
         assertEquals(kleene, manager.getSeparators("*"));
         assertEquals(range, manager.getSeparators("{n,m}"));
         assertEquals(single, manager.getSeparators("s"));
+        assertNull(manager.getSeparators("z"));
 
     }
 
@@ -124,15 +119,16 @@ public class TestRegexpOperatorManager extends TestCase {
                 Arrays.<String>asList("", "{", ",", "}"));
         manager.addOperator("s", new SingleCharacterOperator.Factory(),
                 Arrays.<String>asList("", "s"));
-        /*manager.addOperator("{n}", new FixedNumberOfOccurrencesOperator.Factory(),
-        Arrays.<String>asList("","{","}"));*/
         manager.addOperator("()", new DoNothingOperator.Factory(), Arrays.<String>asList("(", ")"));
         manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("", "."));
         manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("", "?"));
 
         List<String> string = new ArrayList<String>();
-        string = manager.getOperatorsForStringPrefix("ss*");
 
+        string = manager.getOperatorsForStringPrefix("ss*");
         assertEquals(Arrays.<String>asList("s"), string);
+
+        string = manager.getOperatorsForStringPrefix(".");
+        assertEquals(Arrays.<String>asList("."), string);
     }
 }
