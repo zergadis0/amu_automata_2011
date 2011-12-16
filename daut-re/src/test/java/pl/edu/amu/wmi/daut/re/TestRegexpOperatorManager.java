@@ -126,5 +126,9 @@ public class TestRegexpOperatorManager extends TestCase {
         manager.addOperator(".", new AnyCharOperator.Factory(), Arrays.<String>asList("", "."));
         manager.addOperator("?", new AlternativeOperator.Factory(), Arrays.<String>asList("", "?"));
 
+        List<String> string = new ArrayList<String>();
+        string = manager.getOperatorsForStringPrefix("ss*");
+
+        assertEquals(Arrays.<String>asList("s"), string);
     }
 }
