@@ -6,7 +6,7 @@ import pl.edu.amu.wmi.daut.base.CharClassTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
 
-class UnknownAsciiCharacterClassException extends RuntimeException {  
+class UnknownAsciiCharacterClassException extends RuntimeException {
 }
 
 /**
@@ -17,48 +17,34 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
     /**
      * konstruktor ASCII character classes.
      */
-    public AsciiCharacterClassOperator(String a)
-                 throws UnknownAsciiCharacterClassException {
+    public AsciiCharacterClassOperator(String a) {
         if (a.equals("[:alnum:]")) {
            str = "0-9A-Za-z";
-        }
-           else if (a.equals("[:alpha:]")) {
-                    str = "A-Za-z";
-                }
-                    else if (a.equals("[:blank:]")) {
+        } else if (a.equals("[:alpha:]")) {
+            str = "A-Za-z";
+        } else if (a.equals("[:blank:]")) {
             str = "\t ";
-            }
-        else if (a.equals("[:cntrl:]")) {
+        } else if (a.equals("[:cntrl:]")) {
             str = "\u0000-\u001F\u007F";
-            }
-        else if (a.equals("[:digit:]")) {
+        } else if (a.equals("[:digit:]")) {
             str = "0-9";
-            }
-        else if (a.equals("[:graph:]")) {
+        } else if (a.equals("[:graph:]")) {
             str = "!~-";
-            }
-        else if (a.equals("[:lower:]")) {
+        } else if (a.equals("[:lower:]")) {
             str = "a-z";
-            }
-        else if (a.equals("[:print:]")) {
+        } else if (a.equals("[:print:]")) {
             str = " -~";
-            }
-        else if (a.equals("[:punct:]")) {
+        } else if (a.equals("[:punct:]")) {
             str = "!-/:-@[-`{-~";
-            }
-        else if (a.equals("[:space:]")) {
+        } else if (a.equals("[:space:]")) {
             str = "\t\n\f\r \u000B";
-            }
-        else if (a.equals("[:upper:]")) {
+        } else if (a.equals("[:upper:]")) {
             str = "A-Z";
-            }
-        else if (a.equals("[:word:]")) {
+        } else if (a.equals("[:word:]")) {
             str = "0-9A-Za-z_";
-            }
-        else if (a.equals("[:xdigit:]")) {
+        } else if (a.equals("[:xdigit:]")) {
             str = "0-9A-Fa-f";
-            }
-       else throw new UnknownAsciiCharacterClassException();
+        } else throw new UnknownAsciiCharacterClassException();
     }
      /**
      * Generuje automat.
