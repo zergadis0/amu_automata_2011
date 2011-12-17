@@ -4,25 +4,26 @@ import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import junit.framework.TestCase;
 
 /**
- * test klasy anystringoperator.
+ * Test klasy anystringoperator.
  */
 public class TestAnyStringOperator extends TestCase {
 
     /**
-     * test konstruktora anystringoperator.
+     * Test konstruktora anystringoperator.
      */
     public void testAnyStringOperator() {
         AnyStringOperator operator = new AnyStringOperator();
     }
 
     /**
-     *  testuje automat roznych znakow, takze pustego przejscia.
+     *  Testuje automat roznych znakow, takze pustego przejscia.
      */
     public final void testcreateFixedAutomaton() {
 
         AnyStringOperator spec2 = new AnyStringOperator();
         NondeterministicAutomatonByThompsonApproach automaton2 =
                 new NondeterministicAutomatonByThompsonApproach(spec2.createFixedAutomaton());
+
         assertTrue(automaton2.accepts("qwer"));
         assertTrue(automaton2.accepts("qqqq"));
         assertTrue(automaton2.accepts("w"));
