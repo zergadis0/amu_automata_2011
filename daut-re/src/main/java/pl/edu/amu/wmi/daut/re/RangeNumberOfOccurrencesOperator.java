@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.daut.re;
 
 import java.util.LinkedList;
+import java.util.List;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
@@ -60,5 +61,21 @@ public class RangeNumberOfOccurrencesOperator extends UnaryRegexpOperator {
             previousAutomaton = nextAutomaton;
         }
         return firstAutomaton;
+    }
+
+     /**
+     * Fabryka operatora.
+     */
+    public static class Factory extends UnaryRegexpOperatorFactory {
+
+        @Override
+        public int numberOfParams() {
+            return 2;
+        }
+
+        protected RegexpOperator doCreateOperator(List<String> params) {
+            return new RangeNumberOfOccurrencesOperator(Integer.parseInt(params.get(0)),
+                    Integer.parseInt(params.get(1)));
+        }
     }
 };

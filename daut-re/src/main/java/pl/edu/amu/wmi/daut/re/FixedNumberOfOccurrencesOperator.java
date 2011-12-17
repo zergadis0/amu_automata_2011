@@ -3,11 +3,12 @@ package pl.edu.amu.wmi.daut.re;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
+import java.util.List;
 
 /**
 * Klasa reprezentującą operator '{n}' z wyrażeń regularnych.
 */
-public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
+public class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
 
     private int n;
 
@@ -24,22 +25,45 @@ public abstract class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperat
     public AutomatonSpecification createAutomatonFromOneAutomaton(
             AutomatonSpecification subautomaton) {
 
-        AutomatonSpecification automatwejsciowy = subautomaton.clone();
-
         AutomatonSpecification automatbudowany = subautomaton.clone();
-
-
-        for (int i = 0; i < this.n - 1; i++) {
-
-            for (State state : automatbudowany.allStates()) {
-                if (automatbudowany.isFinal(state)) {
-                            automatbudowany.addTransition(state,
-                            automatwejsciowy.getInitialState(),
+        AutomatonSpecification automatpom1 = subautomaton.clone();
+        automatbudowany.addTransition(automatbudowany.getInitialState(),
+                            automatpom1.getInitialState(),
                             new EpsilonTransitionLabel());
-                    automatbudowany.unmarkAsFinalState(state);
+
+        for (State state : automatbudowany.allStates()) {
+            if (automatbudowany.isFinal(state)) {
+                automatbudowany.unmarkAsFinalState(state);
+            }
+        }
+
+        for (int i = 1; i < this.n; i++) {
+
+            for (State state : automatpom1.allStates()) {
+                if (automatpom1.isFinal(state)) {
+                    AutomatonSpecification automatdod = subautomaton.clone();
+                    automatpom1.addTransition(state,
+                    automatdod.getInitialState(),
+                    new EpsilonTransitionLabel());
+                    automatpom1.unmarkAsFinalState(state);
                 }
             }
         }
         return automatbudowany;
+    }
+
+     /**
+     * Fabryka operatora.
+     */
+    public static class Factory extends UnaryRegexpOperatorFactory {
+
+        @Override
+        public int numberOfParams() {
+            return 1;
+        }
+
+        protected RegexpOperator doCreateOperator(List<String> params) {
+            return new FixedNumberOfOccurrencesOperator(Integer.parseInt(params.get(0)));
+        }
     }
 }
