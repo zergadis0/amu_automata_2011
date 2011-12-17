@@ -73,7 +73,8 @@ public class TestDoNothingOperator extends TestCase {
         assertEquals(factory.numberOfParams(), 0);
         RegexpOperator operator2 = factory.doCreateOperator(null);
         int arity = operator2.arity();
-        assertEquals(arity, 1);
+        assertEquals(arity, 0);
 
     }
+
 }
