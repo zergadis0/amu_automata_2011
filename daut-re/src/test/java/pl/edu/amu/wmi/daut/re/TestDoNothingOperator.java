@@ -76,5 +76,4 @@ public class TestDoNothingOperator extends TestCase {
         assertEquals(arity, 0);
 
     }
-
 }
