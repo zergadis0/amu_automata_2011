@@ -31,8 +31,9 @@ public class TestAnyStringOperator extends TestCase {
         assertTrue(automaton2.accepts("kakademona"));
         assertTrue(automaton2.accepts("qqrrqqrr"));
         assertTrue(automaton2.accepts(""));
-        assertTrue(automaton2.accepts("  s  "));   
+        assertTrue(automaton2.accepts("  s  "));
     }
+
     /**
      * Test fabryki.
      */
@@ -41,6 +42,6 @@ public class TestAnyStringOperator extends TestCase {
         ArrayList<String> params = new ArrayList<String>();
         assertEquals(factory.numberOfParams(), BASE);
         assertEquals(factory.doCreateOperator(params).getClass(),
-        new AnyStringOperator().getClass());
+                new AnyStringOperator().getClass());
     }
 }
