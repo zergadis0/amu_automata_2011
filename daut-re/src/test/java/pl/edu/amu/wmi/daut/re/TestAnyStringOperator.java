@@ -23,14 +23,11 @@ public class TestAnyStringOperator extends TestCase {
      *  testuje automat roznych znakow, takze pustego przejscia.
      */
     public final void testcreateFixedAutomaton() {
-
-        AutomatonSpecification spec2 = new NaiveAutomatonSpecification();
-        State q2 = spec2.addState();
-        spec2.addLoop(q2, new AnyTransitionLabel());
-        spec2.markAsInitial(q2);
-        spec2.markAsFinal(q2);
+        
+        AnyStringOperator spec2 = new AnyStringOperator();
         NondeterministicAutomatonByThompsonApproach automaton2 =
-                new NondeterministicAutomatonByThompsonApproach(spec2);
+        new NondeterministicAutomatonByThompsonApproach
+                (spec2.createFixedAutomaton());
         assertTrue(automaton2.accepts("qwer"));
         assertTrue(automaton2.accepts("qqqq"));
         assertTrue(automaton2.accepts("w"));
