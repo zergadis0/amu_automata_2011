@@ -9,7 +9,6 @@ import pl.edu.amu.wmi.daut.re.AnyStringOperator.Factory;
  * test klasy anystringoperator.
  */
 public class TestAnyStringOperator extends TestCase {
-    
     static final int BASE = 0;
     /**
      * test konstruktora anystringoperator.
@@ -32,9 +31,7 @@ public class TestAnyStringOperator extends TestCase {
         assertTrue(automaton2.accepts("kakademona"));
         assertTrue(automaton2.accepts("qqrrqqrr"));
         assertTrue(automaton2.accepts(""));
-        assertTrue(automaton2.accepts("  s  "));
-        
-        
+        assertTrue(automaton2.accepts("  s  "));   
     }
     /**
      * Test fabryki.
