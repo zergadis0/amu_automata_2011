@@ -5,9 +5,10 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
-import pl.edu.amu.wmi.daut.re.DigitOperator.Factory;
+import pl.edu.amu.wmi.daut.re.DoNothingOperator.Factory;
 
 import junit.framework.TestCase;
+import java.util.ArrayList;
 
 
 /**
@@ -67,13 +68,13 @@ public class TestDoNothingOperator extends TestCase {
     /**
      * Test fabryki.
      */
-    public void testFactory() {
+    public final void testFactory() {
 
         Factory factory = new Factory();
+        ArrayList<String> params = new ArrayList<String>();
         assertEquals(factory.numberOfParams(), 0);
-        RegexpOperator operator2 = factory.doCreateOperator(null);
-        int arity = operator2.arity();
-        assertEquals(arity, 0);
+        assertEquals(factory.doCreateOperator(params).getClass(),
+        new DoNothingOperator().getClass());
 
     }
 
