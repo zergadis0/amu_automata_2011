@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import pl.edu.amu.wmi.daut.re.AnyStringOperator.Factory;
 
 /**
- *Test klasy AnyStringOperator.
+ * Test klasy AnyStringOperator.
  */
 public class TestAnyStringOperator extends TestCase {
     static final int BASE = 0;
@@ -19,7 +19,7 @@ public class TestAnyStringOperator extends TestCase {
     }
 
     /**
-     *  Testuje automat roznych znakow, takze pustego przejscia.
+     * Testuje automat roznych znakow, takze pustego przejscia.
      */
     public final void testcreateFixedAutomaton() {
 
