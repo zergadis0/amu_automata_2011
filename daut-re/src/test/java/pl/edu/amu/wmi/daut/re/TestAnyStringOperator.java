@@ -6,12 +6,12 @@ import junit.framework.TestCase;
 import pl.edu.amu.wmi.daut.re.AnyStringOperator.Factory;
 
 /**
- * test klasy anystringoperator.
+ * test klasy AnyStringOperator.
  */
 public class TestAnyStringOperator extends TestCase {
     static final int BASE = 0;
     /**
-     * test konstruktora anystringoperator.
+     * test konstruktora AnyStringOperator.
      */
     public void testAnyStringOperator() {
         AnyStringOperator operator = new AnyStringOperator();
