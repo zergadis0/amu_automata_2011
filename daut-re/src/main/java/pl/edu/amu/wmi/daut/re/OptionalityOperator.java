@@ -14,10 +14,10 @@ public class OptionalityOperator extends UnaryRegexpOperator {
      */
     public AutomatonSpecification createAutomatonFromOneAutomaton(
             AutomatonSpecification subautomaton) {
-        State q0 = subautomaton.addState();
-        subautomaton.markAsInitial(q0);
-        subautomaton.markAsFinal(q0);
-        subautomaton.addTransition(q0, subautomaton.getInitialState(),
+        State q = subautomaton.addState();
+        subautomaton.markAsInitial(q);
+        subautomaton.markAsFinal(q);
+        subautomaton.addTransition(q, subautomaton.getInitialState(),
         new EpsilonTransitionLabel());
         return subautomaton;
     }
