@@ -121,7 +121,7 @@ public class TestAutomatonByRecursion extends TestCase {
      * godziny, gdzie dwukropek jest separatorem godziny i minuty, na
      * początku napisu może występować '0', przykładowe napisy, które
      * powinny być akceptowane: 11:11, 23:59, 0:00, 3:45, 03:45, 15:45, 12:00
-    */
+     */
       public final void testAutomatClock1() {
 
         final AutomatonSpecification specClock1 = new NaiveAutomatonSpecification();
