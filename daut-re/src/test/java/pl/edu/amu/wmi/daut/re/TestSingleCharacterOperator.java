@@ -4,6 +4,10 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+
+import java.util.ArrayList;
+
 
 /**
  * Testy klasy SingleCharacterOperator.
@@ -28,8 +32,20 @@ public class TestSingleCharacterOperator extends TestCase {
         SingleCharacterOperator operator = new SingleCharacterOperator('c');
         AutomatonSpecification automaton = operator.createFixedAutomaton();
         assertFalse(automaton.isEmpty());
-        assertTrue(automaton.isDeterministic());
-        assertEquals(automaton.countTransitions(), 1);
+        assertEquals('c', operator.getCharacter());
+    }
+
+    /**
+     * Test fabryki.
+     */
+    public final void testFactory() {
+
+        RegexpOperatorFactory factory = new SingleCharacterOperator.Factory();
+        List<String> list = new ArrayList<String>();
+        list.add("a");
+        list.add("b");
+        assertNotNull(factory.doCreateOperator(list));
+        assertEquals(1, factory.numberOfParams());
 
     }
 }
