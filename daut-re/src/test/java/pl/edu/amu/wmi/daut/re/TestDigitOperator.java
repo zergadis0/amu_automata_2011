@@ -27,8 +27,12 @@ public class TestDigitOperator extends TestCase {
         assertTrue(automaton.accepts("1"));
         assertTrue(automaton.accepts("7"));
         assertTrue(automaton.accepts("5"));
+        assertFalse(automaton.accepts("0"));
         assertFalse(automaton.accepts("a"));
         assertFalse(automaton.accepts("b"));
+        assertFalse(automaton.accepts("93"));
+        assertFalse(automaton.accepts("100"));
+        assertFalse(automaton.accepts("207"));
 
     }
 
