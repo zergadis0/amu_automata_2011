@@ -123,7 +123,7 @@ public class RegexpOperatorManager {
     /**
      * Metoda pomocnicza.
      */
-    private OperatorData findId (String id) {
+    private OperatorData findId(String id) {
         OperatorData returned = null;
 
         for (OperatorData operator : definedOperators) {
