@@ -114,14 +114,13 @@ public class TestAutomatonByRecursion extends TestCase {
         assertFalse(automatonB.accepts("abcdggfh"));
     }
 
-
     /**
-    *Automat rozpoznający godziny I
-    *Automat: automat deterministyczny (bądź niedeterministyczny) 
-    *(ale bez epsilon-przejść) akceptujący napisy reprezentujące zapis 
-    *godziny, gdzie dwukropek jest separatorem godziny i minuty, na 
-    *początku napisu może występować '0', przykładowe napisy, które 
-    *powinny być akceptowane: 11:11, 23:59, 0:00, 3:45, 03:45, 15:45, 12:00.
+     * Automat rozpoznający godziny I
+     * Automat: automat deterministyczny (bądź niedeterministyczny)
+     * (ale bez epsilon-przejść) akceptujący napisy reprezentujące zapis
+     * godziny, gdzie dwukropek jest separatorem godziny i minuty, na
+     * początku napisu może występować '0', przykładowe napisy, które
+     * powinny być akceptowane: 11:11, 23:59, 0:00, 3:45, 03:45, 15:45, 12:00
     */
       public final void testAutomatClock1() {
 
@@ -136,7 +135,7 @@ public class TestAutomatonByRecursion extends TestCase {
         State q4 = specClock1.addState();
         State q5 = specClock1.addState();
         State qZ = specClock1.addState();
-        
+
         specClock1.addTransition(q0, q1A, new CharTransitionLabel('0'));
         specClock1.addTransition(q0, q1B, new CharTransitionLabel('1'));
         specClock1.addTransition(q0, q1C, new CharTransitionLabel('2'));
@@ -158,8 +157,8 @@ public class TestAutomatonByRecursion extends TestCase {
         specClock1.addTransition(q1A, q2, new CharTransitionLabel('7'));
         specClock1.addTransition(q1A, q2, new CharTransitionLabel('8'));
         specClock1.addTransition(q1A, q2, new CharTransitionLabel('9'));
-        
-        
+
+
         specClock1.addTransition(q1B, q2, new CharTransitionLabel('0'));
         specClock1.addTransition(q1B, q2, new CharTransitionLabel('1'));
         specClock1.addTransition(q1B, q2, new CharTransitionLabel('2'));
@@ -170,24 +169,24 @@ public class TestAutomatonByRecursion extends TestCase {
         specClock1.addTransition(q1B, q2, new CharTransitionLabel('7'));
         specClock1.addTransition(q1B, q2, new CharTransitionLabel('8'));
         specClock1.addTransition(q1B, q2, new CharTransitionLabel('9'));
-        
+
         specClock1.addTransition(q1C, q2, new CharTransitionLabel('0'));
         specClock1.addTransition(q1C, q2, new CharTransitionLabel('1'));
         specClock1.addTransition(q1C, q2, new CharTransitionLabel('2'));
         specClock1.addTransition(q1C, q2, new CharTransitionLabel('3'));
-        
+
         specClock1.addTransition(q2, q3, new CharTransitionLabel(':'));
         specClock1.addTransition(q1A, q3, new CharTransitionLabel(':'));
         specClock1.addTransition(q1B, q3, new CharTransitionLabel(':'));
         specClock1.addTransition(q1C, q3, new CharTransitionLabel(':'));
-        
+
         specClock1.addTransition(q3, q4, new CharTransitionLabel('0'));
         specClock1.addTransition(q3, q4, new CharTransitionLabel('1'));
         specClock1.addTransition(q3, q4, new CharTransitionLabel('2'));
         specClock1.addTransition(q3, q4, new CharTransitionLabel('3'));
         specClock1.addTransition(q3, q4, new CharTransitionLabel('4'));
         specClock1.addTransition(q3, q4, new CharTransitionLabel('5'));
-        
+
         specClock1.addTransition(q4, q5, new CharTransitionLabel('0'));
         specClock1.addTransition(q4, q5, new CharTransitionLabel('1'));
         specClock1.addTransition(q4, q5, new CharTransitionLabel('2'));
@@ -215,8 +214,8 @@ public class TestAutomatonByRecursion extends TestCase {
         assertTrue(automatonClock.accepts("19:45"));
         assertTrue(automatonClock.accepts("1:00"));
         assertTrue(automatonClock.accepts("20:59"));
-        
-        
+
+
         assertFalse(automatonClock.accepts("40:10"));
         assertFalse(automatonClock.accepts("10:60"));
         assertFalse(automatonClock.accepts("24:10"));
