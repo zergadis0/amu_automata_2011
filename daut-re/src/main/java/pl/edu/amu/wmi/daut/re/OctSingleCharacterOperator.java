@@ -13,7 +13,6 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
 
     private int value;
     static final int BASE = 8;
-    static final int BASE2 = 0;
 
     /**
      * Konstruktor.
@@ -68,7 +67,7 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
         protected RegexpOperator doCreateOperator(List<String> params) {
             OctSingleCharacterOperator oper = null;
             try {
-                oper = new OctSingleCharacterOperator(Integer.parseInt(params.get(BASE2)));
+                oper = new OctSingleCharacterOperator(Integer.parseInt(params.get(0)));
             } catch (Exception ex) {
                 Logger.getLogger(OctSingleCharacterOperator.class.getName())
                         .log(Level.SEVERE, null, ex);
