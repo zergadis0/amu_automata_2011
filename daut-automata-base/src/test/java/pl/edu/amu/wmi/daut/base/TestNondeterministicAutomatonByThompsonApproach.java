@@ -229,4 +229,33 @@ public class TestNondeterministicAutomatonByThompsonApproach extends TestCase {
         assertFalse(automaton.accepts("bcccccc"));
         assertFalse(automaton.accepts("z"));
     }
+    
+    public void testRegistationPlates() {
+		AutomatonSpecification spec = new NaiveAutomatonSpecification;
+		
+		State q0 = spec.addState();
+		State q1 = spec.addState();
+		State q2 = spec.addState();
+		State q3 = spec.addState();
+		State q4 = spec.addState();
+		State q5 = spec.addState();
+		State q6 = spec.addState();
+		State q7 = spec.addState();
+		
+		spec.addTransition(q0, q1, new CharRangeTransitionLabel('a:z'));
+		spec.addTransition(q1, q2, new CharRangeTransitionLabel('a:z'));
+		spec.addTransition(q2, q3, new CharRangeTransitionLabel('a:z'));
+		spec.addTransition(q3, q4, new CharRangeTransitionLabel('0:9'));
+		spec.addTransition(q4, q5, new CharRangeTransitionLabel('0:9'));
+		spec.addTransition(q5, q6, new CharRangeTransitionLabel('0:9'));
+		spec.addTransition(q6, q7, new CharRangeTransitionLabel('0:9'));
+		
+		spec.markAsInitial(q0);
+		spec.markAsFinal(q7);
+		
+		NondeterministicAutomatonByThompsonApproach automaton = new NondeterministicAutomatonByThompsonApproach(spec);
+		
+		assertTrue(automaton.accepts('a:za:za:z0:90:90:90:9'));
+		
+	}
 }
