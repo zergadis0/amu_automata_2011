@@ -157,16 +157,15 @@ public class RegexpOperatorManager {
                     max = tested;
             }
         }
-        if (returnedId.isEmpty()) {
+
+        if (potentialOperators.isEmpty()) {
             for (OperatorData operator : definedOperators) {
                 firstSeparator = operator.separators.get(0);
 
                 if (firstSeparator.equals(""))
                     returnedId.add(operator.id);
             }
-        }
-
-        if (!potentialOperators.isEmpty()) {
+        } else {
             for (OperatorData operator : potentialOperators) {
                 tested = operator.separators.get(0).length();
                 if (tested == max)
