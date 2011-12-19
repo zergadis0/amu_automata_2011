@@ -29,8 +29,8 @@ public class AtLeastOneOperator extends UnaryRegexpOperator {
     }
 
      /**
-     * Fabryka operatora.
-     */
+      * Fabryka operatora.
+      */
     public static class Factory extends UnaryRegexpOperatorFactory {
 
         @Override
