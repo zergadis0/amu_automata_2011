@@ -9,9 +9,9 @@ import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import junit.framework.TestCase;
 import pl.edu.amu.wmi.daut.re.AlternativeOperator.Factory;
 
-    /**
-     * Test klasy AlternativeOperator.
-     */
+/**
+ * Test klasy AlternativeOperator.
+ */
 
 public class TestAlternativeOperator extends TestCase {
 
