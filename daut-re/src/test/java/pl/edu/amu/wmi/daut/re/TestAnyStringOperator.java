@@ -9,7 +9,6 @@ import pl.edu.amu.wmi.daut.re.AnyStringOperator.Factory;
  * Test klasy AnyStringOperator.
  */
 public class TestAnyStringOperator extends TestCase {
-    static final int BASE = 0;
 
     /**
      * Test konstruktora AnyStringOperator.
@@ -42,7 +41,7 @@ public class TestAnyStringOperator extends TestCase {
     public final void testFactory() {
         Factory factory = new Factory();
         ArrayList<String> params = new ArrayList<String>();
-        assertEquals(factory.numberOfParams(), BASE);
+        assertEquals(factory.numberOfParams(), 0);
         assertEquals(factory.doCreateOperator(params).getClass(),
                 new AnyStringOperator().getClass());
     }
