@@ -66,6 +66,7 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
         @Override
         protected RegexpOperator doCreateOperator(List<String> params) {
             OctSingleCharacterOperator oper = null;
+
             try {
                 oper = new OctSingleCharacterOperator(Integer.parseInt(params.get(0)));
             } catch (Exception ex) {
