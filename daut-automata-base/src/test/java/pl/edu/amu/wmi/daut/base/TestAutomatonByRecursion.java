@@ -115,7 +115,7 @@ public class TestAutomatonByRecursion extends TestCase {
     }
 
     /**
-     * Automat rozpoznający godziny I
+     * Automat rozpoznający godziny I.
      * Automat: automat deterministyczny (bądź niedeterministyczny)
      * (ale bez epsilon-przejść) akceptujący napisy reprezentujące zapis
      * godziny, gdzie dwukropek jest separatorem godziny i minuty, na
