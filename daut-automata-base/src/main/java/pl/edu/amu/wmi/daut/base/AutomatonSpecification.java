@@ -1,8 +1,11 @@
 package pl.edu.amu.wmi.daut.base;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -192,16 +195,12 @@ public abstract class AutomatonSpecification implements Cloneable  {
         else {
             int counter = 0;
             boolean isThereNoInitialState = false;
-            try {
-                for (State s : allStates()) {
-                    if (this.isFinal(s))
-                        counter++;
-                    this.getInitialState();
-                }
-            } catch (Exception e) {
-                isThereNoInitialState = true;
+            for (State s : allStates()) {
+                if (this.isFinal(s))
+                    counter++;
             }
-
+            if (this.getInitialState() == null)
+                isThereNoInitialState = true;
             if (counter == 0 || isThereNoInitialState)
                 return false;
             else {
@@ -401,7 +400,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Stan state będzie utożsamiony ze stanem
      * początkowym automatu automaton.
      */
-    void insert(State state, AutomatonSpecification automaton) {
+    public void insert(State state, AutomatonSpecification automaton) {
         List<State> loadedStates = automaton.allStates();
         HashMap<State, State> connectedStates = new HashMap<State, State>();
         State automatonInitialState = automaton.getInitialState();
@@ -749,6 +748,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
     public AutomatonSpecification clone() {
         AutomatonSpecification mini = new NaiveAutomatonSpecification();
         State q = mini.addState();
+        mini.markAsInitial(q);
         mini.insert(q, this);
         return mini;
     }
@@ -844,19 +844,65 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Metoda zwracająca pierwszy według kolejności alfabetycznej napis,
      * akceptowany przez automat.
      */
-    public String firstAcceptedWord() {
-        AllAcceptedWords words = new AllAcceptedWords(this);
-        String tmp;
-        if (words.hasNext()) {
-            String min = words.next();
-            while (words.hasNext()) {
-                tmp = words.next();
-                if (tmp.compareTo(min) < 0)
-                    min = tmp;
+    public String firstAcceptedWord(String alphabet) {
+        NondeterministicAutomatonByThompsonApproach a =
+                new NondeterministicAutomatonByThompsonApproach(this);
+        boolean found = false;
+        char[] tmp = alphabet.toCharArray();
+        java.util.Arrays.sort(tmp);
+        String sorted = new String(tmp);
+        int l = alphabet.length();
+        int x = 1;
+        if (this.isEmpty())
+            throw new RuntimeException("empty automaton");
+        if (this.acceptEmptyWord()) {
+            found = true;
+            return "";
+        } else do {
+            int flag = x;
+            char[] searchWord = new char[x];
+            while (flag > 0) {
+                searchWord[flag - 1] = sorted.charAt(0);
+                flag--;
             }
-            return min;
-        } else
-            throw new RuntimeException("error");
+            for (int i = 0; i < l; i++) {
+                if (x > 1 && searchWord[x - 1] == sorted.charAt(sorted.length() - 1)) {
+                    while (flag > 0) {
+                        if (searchWord[flag - 1] == sorted.charAt(sorted.length() - 1)) {
+                            flag--;
+                        } else {
+                            int z = 0, y = 0;
+                            while (z < sorted.length() - 1 && y == 0) {
+                                if (searchWord[flag - 1] == sorted.charAt(z))
+                                    y = z + 1;
+                                else
+                                    z++;
+                            }
+                            searchWord[flag - 1] = sorted.charAt(y);
+                            if (flag - 1 == 0) {
+                                flag = x;
+                                while (flag > 1) {
+                                    searchWord[flag - 1] = sorted.charAt(0);
+                                    flag--;
+                                }
+                            }
+                            flag = 0;
+                        }
+                    }
+                }
+                flag = x;
+                searchWord[x - 1] = tmp[i % alphabet.length()];
+                String acceptedWord = new String(searchWord);
+                if (a.accepts(acceptedWord)) {
+                    found = true;
+                    return acceptedWord;
+                }
+            }
+            l = l * l;
+            x++;
+        } while (!found);
+
+        throw new RuntimeException("error");
     }
     /**
      *Metoda zwraca długość najdłuższego słowa akceptowanego.
@@ -885,6 +931,84 @@ public abstract class AutomatonSpecification implements Cloneable  {
         }
     }
 
+    /**
+     * Tworzy epsilon domknięcie zadanego stanu.
+     */
+    public Set<State> getEpsilonClosure(State initial) {
+
+        Set<State> epsilonClosure = new HashSet<State>();
+        Set<State> visited = new HashSet<State>();
+        Stack<State> stack = new Stack<State>();
+        stack.push(initial);
+        epsilonClosure.add(initial);
+
+        while (!stack.empty()) {
+            State from = stack.pop();
+            if (visited.contains(from)) {
+                continue;
+            }
+            visited.add(from);
+            for (OutgoingTransition trans : allOutgoingTransitions(from)) {
+                TransitionLabel label = trans.getTransitionLabel();
+                State to = trans.getTargetState();
+                if (label.canBeEpsilon()) {
+                    epsilonClosure.add(to);
+                    stack.push(to);
+                }
+            }
+        }
+
+        return epsilonClosure;
+    }
+    /**
+     * Odznacza końcowy stan.
+     */
+    public void unmarkedAsFinalState(State state) {
+        getFinalStates().remove(state);
+    }
+    /**
+     * Dla podanego automatu tworzy równoważny automat z 1 stanem końcowym.
+     */
+    public AutomatonSpecification makeOneFinalStateAutomaton() {
+        ArrayList<State> allFinalStates = new ArrayList<State>();
+        ArrayList<State> allStates = new ArrayList<State>();
+
+        allStates.addAll(allStates());
+
+        for (State someState : allStates) {
+            if (isFinal(someState)) {
+                allFinalStates.add(someState);
+            }
+        }
+
+        int size = allFinalStates.size();
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+
+        switch (size) {
+            case 0:
+                spec.clone();
+                spec.markAsFinal(spec.addState());
+                return spec;
+            case 1:
+                spec.clone();
+                return spec;
+            default:
+                spec.clone();
+                State stateFinal = spec.addState();
+                for (State someState : allFinalStates) {
+                    spec.unmarkedAsFinalState(someState);
+                    spec.addTransition(someState, stateFinal, new EpsilonTransitionLabel());
+                    return spec;
+                }
+        }
+        return null;
+    }
+
+    protected List<State> getFinalStates() {
+        return finalStatess;
+    }
+
+    private LinkedList<State> finalStatess = new LinkedList<State>();
 };
 
 class StructureException extends Exception {
