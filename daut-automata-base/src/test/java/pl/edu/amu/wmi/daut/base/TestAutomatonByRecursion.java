@@ -146,7 +146,7 @@ public class TestAutomatonByRecursion extends TestCase {
         specClock1.addTransition(q0, q2, new CharTransitionLabel('7'));
         specClock1.addTransition(q0, q2, new CharTransitionLabel('8'));
         specClock1.addTransition(q0, q2, new CharTransitionLabel('9'));
-        
+
         specClock1.addTransition(q1A, q2, new CharTransitionLabel('0'));
         specClock1.addTransition(q1A, q2, new CharTransitionLabel('1'));
         specClock1.addTransition(q1A, q2, new CharTransitionLabel('2'));
