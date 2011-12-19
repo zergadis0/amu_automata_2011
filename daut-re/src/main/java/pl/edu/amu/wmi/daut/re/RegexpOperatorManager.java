@@ -132,7 +132,7 @@ public class RegexpOperatorManager {
                  break;
             }
         }
-       return returned;
+        return returned;
     }
 
    /**
