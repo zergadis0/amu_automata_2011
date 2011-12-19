@@ -56,7 +56,7 @@ public class CharRangeTransitionLabel extends TransitionLabel {
             char b1 = ((CharRangeTransitionLabel) label).getFirstChar();
             char b2 = ((CharRangeTransitionLabel) label).getSecondChar();
 
-            if ((a1 <= b1 && a2 <= b2 && b1 < a2) || (a1 == a2 && b1 == b2)) {
+            if ((a1 <= b1 && a2 <= b2 && b1 < a2)) {
                 return new CharRangeTransitionLabel(b1, a2);
 
             } else if (a1 >= b1 && a2 >= b2 && a1 < b2) {
@@ -67,6 +67,12 @@ public class CharRangeTransitionLabel extends TransitionLabel {
 
             } else if (a1 > b1 && a2 < b2) {
                 return new CharRangeTransitionLabel(a1, a2);
+
+            } else if (a1 == b2) {
+                return new CharTransitionLabel(a1);
+
+            } else if (b1 == a2) {
+                return new CharTransitionLabel(b1);
 
             } else {
                 return new EmptyTransitionLabel();
@@ -83,7 +89,18 @@ public class CharRangeTransitionLabel extends TransitionLabel {
     */
     @Override
     public String toString() {
-        String s = this.getFirstChar() + "-" + this.getSecondChar();
-        return s;
+        if (this.getFirstChar() != 0 && this.getSecondChar() != 0) {
+            String s = this.getFirstChar() + "-" + this.getSecondChar();
+            return s;
+        } else if (this.getFirstChar() == 0 && this.getSecondChar() == 0) {
+            String s = "";
+            return s;
+        } else if (this.getFirstChar() == 0 && this.getSecondChar() != 0) {
+            String s = Character.toString(this.getSecondChar());
+            return s;
+        } else {
+            String s = Character.toString(this.getFirstChar());
+            return s;
+        }
     }
 };
