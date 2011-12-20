@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
 /**
-*Klasa posiadająca metodę, która z drzewa operatorów robi automat.
-*/
+ * Klasa posiadająca metodę, która z drzewa operatorów robi automat.
+ */
 public class RegexpUtilities {
 
     protected RegexpUtilities() { throw new UnsupportedOperationException(); }
@@ -35,7 +35,7 @@ public class RegexpUtilities {
 
             //utwórz mapę poddrzew na automaty przez nich utworzone.
             Map<RegexpOperatorTree, AutomatonSpecification> map = new HashMap<RegexpOperatorTree,
-            AutomatonSpecification>();
+                                                                       AutomatonSpecification>();
 
             while (!parent.empty()) {
 
@@ -54,7 +54,7 @@ public class RegexpUtilities {
 
                 //utwórz automat, którego argumentami są automaty wszystkich synów.
                 AutomatonSpecification currentAutomaton = current.getRoot().createAutomaton(
-                arguments);
+                                                                                 arguments);
                 //zapamiętaj automat dla danego wierzchołka. ponieważ liście się
                 //wykonają "najpierw", to nadchodzący po tym rodzice tych liści
                 //będą mieli pełną informację o automatach utworzonych przez
