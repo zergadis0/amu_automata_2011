@@ -38,7 +38,7 @@ public class TestSingleCharacterOperator extends TestCase {
 
         assertTrue(result.accepts("c"));
 
-        assertFalse(result.accepts("cc"))
+        assertFalse(result.accepts("cc"));
 
         assertEquals('c', operator.getCharacter());
     }
