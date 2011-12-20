@@ -74,8 +74,8 @@ public class RangeNumberOfOccurrencesOperator extends UnaryRegexpOperator {
         }
 
         protected RegexpOperator doCreateOperator(List<String> params) {
-            return new RangeNumberOfOccurrencesOperator((int) params.get(0).charAt(0),
-                    (int) params.get(0).charAt(1));
+            return new RangeNumberOfOccurrencesOperator(Integer.parseInt(params.get(0)),
+                    Integer.parseInt(params.get(1)));
         }
     }
 };
