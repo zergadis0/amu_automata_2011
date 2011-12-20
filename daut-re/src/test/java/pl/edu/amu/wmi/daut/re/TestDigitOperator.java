@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.daut.re;
 
+import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import junit.framework.TestCase;
 import pl.edu.amu.wmi.daut.base.AutomatonByRecursion;
@@ -43,7 +44,7 @@ public class TestDigitOperator extends TestCase {
 
         Factory factory = new Factory();
         assertEquals(factory.numberOfParams(), 0);
-        RegexpOperator operator2 = factory.createOperator(null);
+        RegexpOperator operator2 = factory.createOperator(new ArrayList<String>());
         int arity = operator2.arity();
         assertEquals(arity, 0);
 
