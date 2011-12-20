@@ -15,8 +15,6 @@ import pl.edu.amu.wmi.daut.re.AlternativeOperator.Factory;
 
 public class TestAlternativeOperator extends TestCase {
 
-    static final int BASE = 0;
-
     /**
      * Test automatów:
      * automaton1 - akceptującego wyraz składający się z liter "a" i "b",
@@ -110,8 +108,7 @@ public class TestAlternativeOperator extends TestCase {
         Factory factory = new Factory();
         ArrayList<String> params = new ArrayList<String>();
 
-        assertEquals(factory.numberOfParams(), BASE);
-        assertEquals(factory.doCreateOperator(params).getClass(),
-        new AlternativeOperator().getClass());
+        assertEquals(factory.createOperator(params).getClass(),
+            new AlternativeOperator().getClass());
     }
 }
