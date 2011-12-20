@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import junit.framework.TestCase;
 import pl.edu.amu.wmi.daut.re.AnyStringOperator.Factory;
-import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 
 /**
  *Test klasy AnyStringOperator.
