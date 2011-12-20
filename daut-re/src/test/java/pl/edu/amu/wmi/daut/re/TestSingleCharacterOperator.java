@@ -2,6 +2,8 @@ package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
+import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
+
 import junit.framework.TestCase;
 
 import java.util.List;
