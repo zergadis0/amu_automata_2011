@@ -278,7 +278,7 @@ public class AutomataOperations {
         return kleeneautomaton;
     }
 
-<<<<<<< HEAD
+
 
 
 /*
@@ -314,7 +314,7 @@ public class AutomataOperations {
       }  
     } 
 
-=======
+
      /**
      * Metoda tworzaca automat akceptujacy sume 2 jezykow.
      */
