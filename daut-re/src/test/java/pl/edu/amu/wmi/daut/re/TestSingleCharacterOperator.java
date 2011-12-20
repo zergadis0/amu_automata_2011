@@ -1,13 +1,9 @@
 package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
-
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
-
 import junit.framework.TestCase;
-
 import java.util.List;
-
 import java.util.ArrayList;
 
 
@@ -34,7 +30,7 @@ public class TestSingleCharacterOperator extends TestCase {
         SingleCharacterOperator operator = new SingleCharacterOperator('c');
         AutomatonSpecification automaton = operator.createFixedAutomaton();
         NondeterministicAutomatonByThompsonApproach result =
-        new NondeterministicAutomatonByThompsonApproach(automaton);
+          new NondeterministicAutomatonByThompsonApproach(automaton);
 
         assertFalse(automaton.isEmpty());
 
@@ -55,8 +51,8 @@ public class TestSingleCharacterOperator extends TestCase {
         List<String> list = new ArrayList<String>();
         list.add("a");
         list.add("b");
+
         assertNotNull(factory.doCreateOperator(list));
         assertEquals(1, factory.numberOfParams());
-
     }
 }
