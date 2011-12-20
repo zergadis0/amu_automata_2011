@@ -10,7 +10,6 @@ public class TestRegexpOperatorTree extends TestCase {
     //(a|b)*
     public final void Test1() {
         
-        NullaryRegexpOperatorFactory
                 
     }
     
