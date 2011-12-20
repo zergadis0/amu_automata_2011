@@ -2,13 +2,15 @@ package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonByRecursion;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
-import pl.edu.amu.wmi.daut.re.BellCharacterOperator;
 import junit.framework.TestCase;
 
+/**
+ * Klasa, testuje klasę BellCharacterOperator.
+ */
 public class TestBellCharacterOperator extends TestCase {
 
     /**
-     * Konstruuje przykładowy automat, a następnie go testuje. 
+     * Konstruuje przykładowy automat, a następnie go testuje.
      */
     public void testAutomaton() {
 
