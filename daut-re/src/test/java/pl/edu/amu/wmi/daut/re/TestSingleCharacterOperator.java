@@ -31,7 +31,15 @@ public class TestSingleCharacterOperator extends TestCase {
 
         SingleCharacterOperator operator = new SingleCharacterOperator('c');
         AutomatonSpecification automaton = operator.createFixedAutomaton();
+        NondeterministicAutomatonByThompsonApproach result =
+        new NondeterministicAutomatonByThompsonApproach(automaton);
+
         assertFalse(automaton.isEmpty());
+
+        assertTrue(result.accepts("c"));
+
+        assertFalse(result.accepts("cc"))
+
         assertEquals('c', operator.getCharacter());
     }
 
