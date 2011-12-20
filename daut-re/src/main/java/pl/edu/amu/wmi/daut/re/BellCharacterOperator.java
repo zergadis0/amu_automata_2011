@@ -5,13 +5,13 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 
 /**
- * Klasa reprezentująca znak "dźwiękowy" (znak o kodzie 7, \a w wyrażeniach regularnych)
+ * Klasa reprezentująca znak "dźwiękowy" (znak o kodzie 7, \a w wyrażeniach regularnych).
  */
-public class BellCharacterOperator extends NullaryRegexpOperator{
+public class BellCharacterOperator extends NullaryRegexpOperator {
 
     @Override
     public AutomatonSpecification createFixedAutomaton() {
-        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton((char) 7);
+        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton((char)final 7);
     }
 
     /**
