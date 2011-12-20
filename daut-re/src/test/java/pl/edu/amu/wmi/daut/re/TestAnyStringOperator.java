@@ -41,8 +41,7 @@ public class TestAnyStringOperator extends TestCase {
     public final void testFactory() {
         Factory factory = new Factory();
         ArrayList<String> params = new ArrayList<String>();
-        assertEquals(factory.numberOfParams(), 0);
-        assertEquals(factory.doCreateOperator(params).getClass(),
+        assertEquals(factory.createOperator(params).getClass(),
                 new AnyStringOperator().getClass());
     }
 }
