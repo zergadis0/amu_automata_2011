@@ -43,7 +43,7 @@ public class TestDigitOperator extends TestCase {
 
         Factory factory = new Factory();
         assertEquals(factory.numberOfParams(), 0);
-        RegexpOperator operator2 = factory.doCreateOperator(null);
+        RegexpOperator operator2 = factory.createOperator(null);
         int arity = operator2.arity();
         assertEquals(arity, 0);
 
