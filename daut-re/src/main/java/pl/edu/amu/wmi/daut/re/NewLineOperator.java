@@ -8,11 +8,11 @@ import java.util.List;
  * Klasa reprezentujaca znak konca wiersza.
  */
 
-public class NewlineOperator extends NullaryRegexpOperator {
+public class NewLineOperator extends NullaryRegexpOperator {
 
     @Override
     public AutomatonSpecification createFixedAutomaton() {
-        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton("\n");
+        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton('\n');
     }
 
     /**
@@ -27,7 +27,7 @@ public class NewlineOperator extends NullaryRegexpOperator {
         }
 
         protected RegexpOperator doCreateOperator(List<String> params) {
-            return new NewlineOperator();
+            return new NewLineOperator();
         }
     }
 }
