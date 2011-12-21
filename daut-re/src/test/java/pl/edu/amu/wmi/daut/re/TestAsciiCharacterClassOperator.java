@@ -76,7 +76,7 @@ public final void testAsciiCharacterClassOperatorAlpha() {
           new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
           new ArrayList<AutomatonSpecification>()));
 
-    assertTrue(automaton.accepts("A"));      
+    assertTrue(automaton.accepts("A"));
     assertTrue(automaton.accepts("s"));
     assertTrue(automaton.accepts("I"));
     assertTrue(automaton.accepts("a"));
@@ -168,8 +168,7 @@ public final void testAsciiCharacterClassOperatorGraph() {
           new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
           new ArrayList<AutomatonSpecification>()));
 
-    assertTrue(automaton.accepts("~"));   
-    assertTrue(automaton.accepts("a"));
+    assertTrue(automaton.accepts("~"));
     assertTrue(automaton.accepts("-"));
 
     assertFalse(automaton.accepts(""));
