@@ -6,14 +6,14 @@ import java.util.List;
 import java.text.ParseException;
 
 /**
- * Klasa reprezentujaca pojedynczy konkretny znak o kodzie Unicode podanym w zapisie szesnastkowym
+ * Klasa reprezentujaca pojedynczy konkretny znak o kodzie Unicode podanym w zapisie szesnastkowym.
  */
 public class HexSingleCharacterOperator extends NullaryRegexpOperator {
 
     private char character;
 
     /**
-     * Jako parametr przyjmuje char, jaki ma zaakceptowac
+     * Jako parametr przyjmuje char, jaki ma zaakceptowac.
      */
     public HexSingleCharacterOperator(char a) {
         character = a;
