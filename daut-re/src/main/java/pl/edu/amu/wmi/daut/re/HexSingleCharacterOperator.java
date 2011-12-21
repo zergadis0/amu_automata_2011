@@ -45,7 +45,7 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
         /**
          * Jako parametr przyjmuje ciag "\x{ABC}", gdzie ABC = znaki 0..9, a..f
          */
-        protected RegexpOperator doCreateOperator(List<String> params) {
+        protected RegexpOperator doCreateOperator(List<String> params) throws ParseException {
             String s = params.get(0);
             int length = s.length();
             if (length <= 4)
