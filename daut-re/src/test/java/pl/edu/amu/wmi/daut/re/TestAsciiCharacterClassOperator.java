@@ -20,6 +20,7 @@ public void testAsciiCharacterClassOperatorWrongParams() {
        (new AsciiCharacterClassOperator.Factory()).createOperator(params);
               fail();
           } catch (UnknownAsciiCharacterClassException e) {
+              assertTrue(true);
           }
            try {
        ArrayList<String> params = new ArrayList<String>();
@@ -27,6 +28,7 @@ public void testAsciiCharacterClassOperatorWrongParams() {
        (new AsciiCharacterClassOperator.Factory()).createOperator(params);
               fail();
           } catch (InvalidStringException e) {
+              assertTrue(true);
           }
           try {
        ArrayList<String> params = new ArrayList<String>();
@@ -34,6 +36,7 @@ public void testAsciiCharacterClassOperatorWrongParams() {
               (new AsciiCharacterClassOperator.Factory()).createOperator(params);
               fail();
           } catch (InvalidStringException e) {
+              assertTrue(true);
           }
       }
 
