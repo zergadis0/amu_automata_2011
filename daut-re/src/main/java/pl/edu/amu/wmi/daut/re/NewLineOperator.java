@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Klasa reprezentujaca znak konca wiersza.
  */
+
 public class NewlineOperator extends NullaryRegexpOperator {
 
     @Override
@@ -17,6 +18,7 @@ public class NewlineOperator extends NullaryRegexpOperator {
     /**
      * Fabryka operatora.
      */
+
     public static class Factory extends NullaryRegexpOperatorFactory {
 
         @Override
