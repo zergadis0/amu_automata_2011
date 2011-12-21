@@ -54,7 +54,7 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
         }
 
         /**
-         * Jako parametr przyjmuje ciag "\x{ABC}", gdzie ABC = znaki 0..9, a..f
+         * Jako parametr przyjmuje ci¹g zapisany w systemie szesnastkowym.
          */
         protected RegexpOperator doCreateOperator(List<String> params) {
             String s = params.get(0);
@@ -86,7 +86,7 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
             if (length == BASE8 && (s.charAt(0) < '0' || s.charAt(0) > '7'))
                 throw new
                 InvalidHexSingleCharacterOperatorException("Value in braces was too high.");
-            int i = Integer.parseInt(s, BASE); //jesli bedzie zly format - rzuci NumberFormatException czyli to, co chcemy
+            int i = Integer.parseInt(s, BASE);
             char c = (char) i;
             return new SingleCharacterOperator(c);
         }
