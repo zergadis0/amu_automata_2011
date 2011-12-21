@@ -18,21 +18,21 @@ public void testAsciiCharacterClassOperatorWrongParams() {
               params.add("[:zlyTest1:]");
        (new AsciiCharacterClassOperator.Factory()).createOperator(params);
               fail();
-          } catch (UnknownAsciiCharacterClassException e) {
+          } catch (UnknownAsciiCharacterClassException e){
           }
            try {
        ArrayList<String> params = new ArrayList<String>();
               params.add("[:zlyTest2");
        (new AsciiCharacterClassOperator.Factory()).createOperator(params);
               fail();
-          } catch (InvalidStringException e) {
+          } catch (InvalidStringException e){
           }
           try {
        ArrayList<String> params = new ArrayList<String>();
               params.add("zlyTest3");
               (new AsciiCharacterClassOperator.Factory()).createOperator(params);
               fail();
-          } catch (InvalidStringException e) {
+          } catch (InvalidStringException e){
           }
       }
 
@@ -47,7 +47,7 @@ public final void testAsciiCharacterClassOperatorAlnum() {
   NondeterministicAutomatonByThompsonApproach automaton =
           new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
           new ArrayList<AutomatonSpecification>()));
-  
+
     assertTrue(automaton.accepts("w"));
     assertTrue(automaton.accepts("9"));
     assertTrue(automaton.accepts("W"));
@@ -73,7 +73,7 @@ public final void testAsciiCharacterClassOperatorAlpha() {
           new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
           new ArrayList<AutomatonSpecification>()));
 
-    assertTrue(automaton.accepts("A"));      
+    assertTrue(automaton.accepts("A"));
     assertTrue(automaton.accepts("s"));
     assertTrue(automaton.accepts("I"));
     assertTrue(automaton.accepts("a"));
@@ -83,7 +83,7 @@ assertFalse(automaton.accepts("7"));
     assertFalse(automaton.accepts("wrotka"));
     assertFalse(automaton.accepts("siedem"));
     }
-  
+
 /**
 * Testuje automat AsciiCharacterClassOperator dla przejscia blank.
 */
@@ -161,11 +161,10 @@ public final void testAsciiCharacterClassOperatorGraph() {
           new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
           new ArrayList<AutomatonSpecification>()));
 
-    assertTrue(automaton.accepts("~"));   
-           assertTrue(automaton.accepts("!"));
+    assertTrue(automaton.accepts("~"));
+    assertTrue(automaton.accepts("!"));
     assertTrue(automaton.accepts("-"));
    
-
     assertFalse(automaton.accepts(""));
     assertFalse(automaton.accepts(" "));
     assertFalse(automaton.accepts("^^"));
@@ -258,7 +257,7 @@ public final void testAsciiCharacterClassOperatorSpace() {
     NondeterministicAutomatonByThompsonApproach automaton =
           new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
           new ArrayList<AutomatonSpecification>()));
-  
+
     assertTrue(automaton.accepts("\t"));
     assertTrue(automaton.accepts("\n"));
     assertTrue(automaton.accepts("\u000B"));
@@ -279,7 +278,7 @@ public final void testAsciiCharacterClassOperatorUpper() {
     NondeterministicAutomatonByThompsonApproach automaton =
           new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
           new ArrayList<AutomatonSpecification>()));
-    
+
     assertTrue(automaton.accepts("A"));
     assertTrue(automaton.accepts("L"));
     assertTrue(automaton.accepts("I"));
