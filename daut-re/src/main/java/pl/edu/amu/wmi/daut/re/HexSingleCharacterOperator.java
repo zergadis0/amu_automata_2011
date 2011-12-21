@@ -44,10 +44,11 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
      */
     public static class Factory extends NullaryRegexpOperatorFactory {
 
-    static final int BASE = 16;
-    static final int BASE3 = 3;
-    static final int BASE4 = 4;
-    static final int BASE8 = 8;
+        static final int BASE = 16;
+        static final int BASE3 = 3;
+        static final int BASE4 = 4;
+        static final int BASE8 = 8;
+
         @Override
         public int numberOfParams() {
             return 1;
