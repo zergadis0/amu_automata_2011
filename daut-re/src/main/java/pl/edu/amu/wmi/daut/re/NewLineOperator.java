@@ -8,20 +8,13 @@ import java.util.List;
  * Klasa reprezentuj¹ca znak konca wiersza.
  */
 public class NewlineOperator extends NullaryRegexpOperator {
-    private char newLine;
 
-    /**
-     * Metoda, ustawia '\n'.
-     */
-    public void setNewLine() {
-        this.newLine = "\n";
-    }
     @Override
     public AutomatonSpecification createFixedAutomaton() {
-        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton(newLine);
+        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton("\n");
     }
 
-     /**
+    /**
      * Fabryka operatora.
      */
     public static class Factory extends NullaryRegexpOperatorFactory {
