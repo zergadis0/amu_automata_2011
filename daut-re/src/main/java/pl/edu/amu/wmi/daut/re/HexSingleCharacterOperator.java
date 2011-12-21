@@ -3,7 +3,6 @@ package pl.edu.amu.wmi.daut.re;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import java.util.List;
-import java.text.ParseException;
 
 /**
  * Klasa reprezentujaca pojedynczy konkretny znak o kodzie Unicode podanym w zapisie szesnastkowym.
@@ -32,6 +31,12 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
     }
 
     /**
+     * Wyjatki.
+     */
+    class InvalidHexSingleCharacterOperatorException extends RuntimeException {
+    }
+
+    /**
      * Fabryka operatora.
      */
     public static class Factory extends NullaryRegexpOperatorFactory {
@@ -45,28 +50,28 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
         /**
          * Jako parametr przyjmuje ciag "\x{ABC}", gdzie ABC = znaki 0..9, a..f
          */
-        protected RegexpOperator doCreateOperator(List<String> params) throws ParseException {
+        protected RegexpOperator doCreateOperator(List<String> params) throws InvalidHexSingleCharacterOperatorException {
             String s = params.get(0);
             int length = s.length();
             if (length <= 4)
-                throw new ParseException("Argument was too short.", -1);
+                throw new InvalidHexSingleCharacterOperatorException("Argument was too short.");
             if (s.charAt(0) != '\\')
-                throw new ParseException("Backslash was expected here.", 0);
+                throw new InvalidHexSingleCharacterOperatorException("Backslash was expected here.");
             if (s.charAt(1) != 'x' && s.charAt(1) != 'X')
-                throw new ParseException("\"x\" was expected here.", 1);
+                throw new InvalidHexSingleCharacterOperatorException("\"x\" was expected here.");
             if (s.charAt(2) != '{')
-                throw new ParseException("Left curly brace was expected here.", 2);
+                throw new InvalidHexSingleCharacterOperatorException("Left curly brace was expected here.");
             if (s.charAt(length - 1) != '}')
-                throw new ParseException("Right curly brace was expected here.", length - 1);
+                throw new InvalidHexSingleCharacterOperatorException("Right curly brace was expected here.", length);
             s = s.substring(3, length - 1);
             length = s.length();
             if (length > 8)
-                throw new ParseException("Value in braces was too long.", -1);
+                throw new InvalidHexSingleCharacterOperatorException("Value in braces was too long.");
             for (Character c : s)
                 if ((c < '0' || c > '9') && (c < 'a' || c > 'f') && (c < 'A' || c > 'F'))
-                    throw new ParseException("Wrong hexadecimal value.", -1);
+                    throw new InvalidHexSingleCharacterOperatorException("Wrong hexadecimal value.");
             if (length == 8 && (c.charAt(0) < '0' || c.charAt(0) > '7'))
-                throw new ParseException("Value in braces was too high.", -1);
+                throw new InvalidHexSingleCharacterOperatorException("Value in braces was too high.");
             int i = Integer.parseInt(s, BASE); //jesli bedzie zly format - rzuci NumberFormatException czyli to, co chcemy
             char c = (char) i;
             return new SingleCharacterOperator(c);
