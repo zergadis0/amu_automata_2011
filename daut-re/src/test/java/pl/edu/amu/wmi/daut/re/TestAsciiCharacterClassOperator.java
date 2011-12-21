@@ -162,7 +162,7 @@ public final void testAsciiCharacterClassOperatorGraph() {
           new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("~"));   
-           assertTrue(automaton.accepts("a"));
+           assertTrue(automaton.accepts("!"));
     assertTrue(automaton.accepts("-"));
    
 
