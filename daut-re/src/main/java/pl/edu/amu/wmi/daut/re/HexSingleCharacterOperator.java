@@ -54,7 +54,7 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
         }
 
         /**
-         * Jako parametr przyjmuje ci¹g zapisany w systemie szesnastkowym.
+         * Jako parametr przyjmuje ciag zapisany w systemie szesnastkowym.
          */
         protected RegexpOperator doCreateOperator(List<String> params) {
             String s = params.get(0);
