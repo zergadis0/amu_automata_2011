@@ -58,6 +58,9 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
                 throw new ParseException("Left curly brace was expected here.", 2);
             if (s.charAt(length - 1) != '}')
                 throw new ParseException("Right curly brace was expected here.", length - 1);
+            length = s.length();
+            if (length > 8)
+                throw new ParseException("Value in braces was too long.", -1);
             s = s.substring(3, length - 1);
             int i = Integer.parseInt(s, BASE); //jesli bedzie zly format - rzuci NumberFormatException czyli to, co chcemy
             char c = (char) i;
