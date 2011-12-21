@@ -4,6 +4,12 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import java.util.List;
 
+    /**
+     * Wyjatki.
+     */
+    class InvalidHexSingleCharacterOperatorException extends RuntimeException {
+    }
+
 /**
  * Klasa reprezentujaca pojedynczy konkretny znak o kodzie Unicode podanym w zapisie szesnastkowym.
  */
@@ -28,12 +34,6 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
     @Override
     public AutomatonSpecification createFixedAutomaton() {
         return new NaiveAutomatonSpecification().makeOneTransitionAutomaton(character);
-    }
-
-    /**
-     * Wyjatki.
-     */
-    class InvalidHexSingleCharacterOperatorException extends RuntimeException {
     }
 
     /**
@@ -70,7 +70,7 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
             for (Character c : s)
                 if ((c < '0' || c > '9') && (c < 'a' || c > 'f') && (c < 'A' || c > 'F'))
                     throw new InvalidHexSingleCharacterOperatorException("Wrong hexadecimal value.");
-            if (length == 8 && (c.charAt(0) < '0' || c.charAt(0) > '7'))
+            if (length == 8 && (s.charAt(0) < '0' || s.charAt(0) > '7'))
                 throw new InvalidHexSingleCharacterOperatorException("Value in braces was too high.");
             int i = Integer.parseInt(s, BASE); //jesli bedzie zly format - rzuci NumberFormatException czyli to, co chcemy
             char c = (char) i;
