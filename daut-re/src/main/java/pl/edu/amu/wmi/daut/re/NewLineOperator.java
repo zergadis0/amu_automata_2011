@@ -5,7 +5,7 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import java.util.List;
 
 /**
- * Klasa reprezentuj¹ca znak konca wiersza.
+ * Klasa reprezentujaca znak konca wiersza.
  */
 public class NewlineOperator extends NullaryRegexpOperator {
 
