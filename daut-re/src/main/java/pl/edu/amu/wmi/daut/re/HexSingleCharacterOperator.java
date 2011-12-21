@@ -53,7 +53,7 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
         /**
          * Jako parametr przyjmuje ciag "\x{ABC}", gdzie ABC = znaki 0..9, a..f
          */
-        protected RegexpOperator doCreateOperator(List<String> params) throws InvalidHexSingleCharacterOperatorException {
+        protected RegexpOperator doCreateOperator(List<String> params) {
             String s = params.get(0);
             int length = s.length();
             if (length <= 4)
@@ -70,7 +70,7 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
             length = s.length();
             if (length > 8)
                 throw new InvalidHexSingleCharacterOperatorException("Value in braces was too long.");
-            for (Character c : s)
+            for (char c : s.toCharArray())
                 if ((c < '0' || c > '9') && (c < 'a' || c > 'f') && (c < 'A' || c > 'F'))
                     throw new InvalidHexSingleCharacterOperatorException("Wrong hexadecimal value.");
             if (length == 8 && (s.charAt(0) < '0' || s.charAt(0) > '7'))
