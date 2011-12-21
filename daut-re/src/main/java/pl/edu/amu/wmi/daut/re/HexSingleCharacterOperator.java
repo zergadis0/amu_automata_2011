@@ -4,11 +4,14 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import java.util.List;
 
-    /**
-     * Wyjatki.
-     */
-    class InvalidHexSingleCharacterOperatorException extends RuntimeException {
+/**
+ * Wyjatki.
+ */
+class InvalidHexSingleCharacterOperatorException extends RuntimeException {
+    public InvalidHexSingleCharacterOperatorException(String message) {
+        super(message);
     }
+}
 
 /**
  * Klasa reprezentujaca pojedynczy konkretny znak o kodzie Unicode podanym w zapisie szesnastkowym.
@@ -62,7 +65,7 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
             if (s.charAt(2) != '{')
                 throw new InvalidHexSingleCharacterOperatorException("Left curly brace was expected here.");
             if (s.charAt(length - 1) != '}')
-                throw new InvalidHexSingleCharacterOperatorException("Right curly brace was expected here.", length);
+                throw new InvalidHexSingleCharacterOperatorException("Right curly brace was expected here.");
             s = s.substring(3, length - 1);
             length = s.length();
             if (length > 8)
