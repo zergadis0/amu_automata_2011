@@ -16,7 +16,7 @@ public class AlternativeOperator extends BinaryRegexpOperator {
         return AutomataOperations.sum(leftSubautomaton, rightSubautomaton);
     }
 
-     /**
+    /**
      * Fabryka operatora.
      */
     public static class Factory extends BinaryRegexpOperatorFactory {
