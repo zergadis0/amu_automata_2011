@@ -12,7 +12,6 @@ import pl.edu.amu.wmi.daut.re.AlternativeOperator.Factory;
 /**
  * Test klasy AlternativeOperator.
  */
-
 public class TestAlternativeOperator extends TestCase {
 
     /**
