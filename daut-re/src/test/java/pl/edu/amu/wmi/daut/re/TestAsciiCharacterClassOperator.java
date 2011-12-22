@@ -13,43 +13,50 @@ public class TestAsciiCharacterClassOperator extends TestCase {
 * Test konstruktora AsciiCharacterClassOperator dla złych wartości parametru.
 */
 public void testAsciiCharacterClassOperatorWrongParams() {
-          try {
-       ArrayList<String> params = new ArrayList<String>();
-              params.add("[:zlyTest1:]");
-       (new AsciiCharacterClassOperator.Factory()).createOperator(params);
-              fail();
-          } catch (UnknownAsciiCharacterClassException e) {
-          assertTrue(true);
-          }
-           try {
-       ArrayList<String> params = new ArrayList<String>();
-              params.add("[:zlyTest2");
-       (new AsciiCharacterClassOperator.Factory()).createOperator(params);
-              fail();
-          } catch (InvalidStringException e) {
-          assertTrue(true);
-          }
-          try {
-       ArrayList<String> params = new ArrayList<String>();
-              params.add("zlyTest3");
-              (new AsciiCharacterClassOperator.Factory()).createOperator(params);
-              fail();
-          } catch (InvalidStringException e) {
-          assertTrue(true);
-          }
-      }
+
+    try {
+    ArrayList<String> params = new ArrayList<String>();
+    params.add("[:zlyTest1:]");
+    (new AsciiCharacterClassOperator.Factory()).createOperator(params);
+    fail();
+    }
+    catch (UnknownAsciiCharacterClassException e) {
+    assertTrue(true);
+    }
+
+    try {
+    ArrayList<String> params = new ArrayList<String>();
+    params.add("[:zlyTest2");
+    (new AsciiCharacterClassOperator.Factory()).createOperator(params);
+    fail();
+    }
+    catch (InvalidStringException e) {
+    assertTrue(true);
+    }
+
+    try {
+    ArrayList<String> params = new ArrayList<String>();
+    params.add("zlyTest3");
+    (new AsciiCharacterClassOperator.Factory()).createOperator(params);
+    fail();
+    }
+    catch (InvalidStringException e) {
+    assertTrue(true);
+    }
+
+}
 
 /**
 * Testuje automat AsciiCharacterClassOperator dla przejscia [:alnum:].
 */
 public final void testAsciiCharacterClassOperatorAlnum() {
 
-  ArrayList<String> params = new ArrayList<String>();
-  params.add("[:alnum:]");
-  RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
-  NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    ArrayList<String> params = new ArrayList<String>();
+    params.add("[:alnum:]");
+    RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
+    NondeterministicAutomatonByThompsonApproach automaton =
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("w"));
     assertTrue(automaton.accepts("9"));
@@ -73,8 +80,8 @@ public final void testAsciiCharacterClassOperatorAlpha() {
     params.add("[:alpha:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("A"));
     assertTrue(automaton.accepts("s"));
@@ -96,8 +103,8 @@ public final void testAsciiCharacterClassOperatorBlank() {
     params.add("[:blank:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("\t"));
     assertTrue(automaton.accepts(" "));
@@ -117,8 +124,8 @@ public final void testAsciiCharacterClassOperatorCntrl() {
     params.add("[:cntrl:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("\u0000"));
     assertTrue(automaton.accepts("\u0002"));
@@ -139,8 +146,8 @@ public final void testAsciiCharacterClassOperatorDigit() {
     params.add("[:digit:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("1"));
     assertTrue(automaton.accepts("9"));
@@ -161,8 +168,8 @@ public final void testAsciiCharacterClassOperatorGraph() {
     params.add("[:graph:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("~"));
     assertTrue(automaton.accepts("!"));
@@ -183,8 +190,8 @@ public final void testAsciiCharacterClassOperatorLower() {
     params.add("[:lower:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("p"));
     assertTrue(automaton.accepts("i"));
@@ -208,8 +215,8 @@ public final void testAsciiCharacterClassOperatorPrint() {
     params.add("[:print:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("-"));
     assertTrue(automaton.accepts("a"));
@@ -233,8 +240,8 @@ public final void testAsciiCharacterClassOperatorPunct() {
     params.add("[:punct:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("!"));
     assertTrue(automaton.accepts(":"));
@@ -256,8 +263,8 @@ public final void testAsciiCharacterClassOperatorSpace() {
     params.add("[:space:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("\t"));
     assertTrue(automaton.accepts("\n"));
@@ -277,8 +284,8 @@ public final void testAsciiCharacterClassOperatorUpper() {
     params.add("[:upper:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("A"));
     assertTrue(automaton.accepts("L"));
@@ -300,8 +307,8 @@ public final void testAsciiCharacterClassOperatorWord() {
     params.add("[:word:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("_"));
     assertTrue(automaton.accepts("7"));
@@ -324,8 +331,8 @@ public final void testAsciiCharacterClassOperatorXdigit() {
     params.add("[:xdigit:]");
     RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     NondeterministicAutomatonByThompsonApproach automaton =
-          new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
-          new ArrayList<AutomatonSpecification>()));
+    new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
+    new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("F"));
     assertTrue(automaton.accepts("9"));
@@ -338,5 +345,5 @@ public final void testAsciiCharacterClassOperatorXdigit() {
     assertFalse(automaton.accepts("G"));
     assertFalse(automaton.accepts("12"));
     }
-  }
+}
 
