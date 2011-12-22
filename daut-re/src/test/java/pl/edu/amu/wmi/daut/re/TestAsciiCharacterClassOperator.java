@@ -19,8 +19,7 @@ public void testAsciiCharacterClassOperatorWrongParams() {
     params.add("[:zlyTest1:]");
     (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     fail();
-    }
-    catch (UnknownAsciiCharacterClassException e) {
+    } catch (UnknownAsciiCharacterClassException e) {
     assertTrue(true);
     }
 
@@ -29,8 +28,7 @@ public void testAsciiCharacterClassOperatorWrongParams() {
     params.add("[:zlyTest2");
     (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     fail();
-    }
-    catch (InvalidStringException e) {
+    } catch (InvalidStringException e) {
     assertTrue(true);
     }
 
@@ -39,8 +37,7 @@ public void testAsciiCharacterClassOperatorWrongParams() {
     params.add("zlyTest3");
     (new AsciiCharacterClassOperator.Factory()).createOperator(params);
     fail();
-    }
-    catch (InvalidStringException e) {
+    } catch (InvalidStringException e) {
     assertTrue(true);
     }
 
