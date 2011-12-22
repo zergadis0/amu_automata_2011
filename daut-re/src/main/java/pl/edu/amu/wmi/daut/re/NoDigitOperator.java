@@ -17,7 +17,8 @@ public class NoDigitOperator extends NullaryRegexpOperator {
         AutomatonSpecification noDigitAutomaton = new NaiveAutomatonSpecification();
         State state1 = noDigitAutomaton.addState();
         State state2 = noDigitAutomaton.addState();
-        noDigitAutomaton.addTransition(state1, state2, new ComplementCharClassTransitionLabel("0-9"));
+        noDigitAutomaton.addTransition(state1, state2,
+                new ComplementCharClassTransitionLabel("0-9"));
         noDigitAutomaton.markAsInitial(state1);
         noDigitAutomaton.markAsFinal(state2);
         return noDigitAutomaton;
