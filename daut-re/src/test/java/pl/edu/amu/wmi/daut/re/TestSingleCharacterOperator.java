@@ -51,7 +51,7 @@ public class TestSingleCharacterOperator extends TestCase {
         List<String> list = new ArrayList<String>();
         list.add("a");
 
-        SingleCharacterOperator operator = (SingleCharacterOperator)factory.createOperator(list);
+        SingleCharacterOperator operator = (SingleCharacterOperator) factory.createOperator(list);
 
         assertNotNull(operator);
 
