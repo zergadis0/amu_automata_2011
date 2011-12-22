@@ -47,7 +47,7 @@ public class TestSingleCharacterOperator extends TestCase {
      */
     public final void testFactory() {
 
-        RegexpOperatorFactory factory = new SingleCharacterOperator.Factory();
+        SingleCharacterOperator.Factory factory = new SingleCharacterOperator.Factory();
         List<String> list = new ArrayList<String>();
         list.add("a");
 
