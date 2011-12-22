@@ -51,11 +51,11 @@ public class TestSingleCharacterOperator extends TestCase {
         List<String> list = new ArrayList<String>();
         list.add("a");
 
-        RegexpOperator operator = factory.doCreateOperator(list);
+        RegexpOperator operator = factory.createOperator(list);
 
-        assertNotNull(factory.doCreateOperator(list));
+        assertNotNull(operator);
 
         assertEquals(1, factory.numberOfParams());
-        assertEquals(new SingleCharacterOperator('a'), factory.doCreateOperator(list));
+        assertEquals('a', operator.getCharacter());
     }
 }
