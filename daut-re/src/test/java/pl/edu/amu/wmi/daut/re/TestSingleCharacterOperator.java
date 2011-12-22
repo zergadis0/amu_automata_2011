@@ -56,6 +56,6 @@ public class TestSingleCharacterOperator extends TestCase {
         assertNotNull(factory.doCreateOperator(list));
 
         assertEquals(1, factory.numberOfParams());
-        assertEquals(new SingleCharacterOperator('a'), factory.numberOfParams());
+        assertEquals(new SingleCharacterOperator('a'), factory.doCreateOperator(list));
     }
 }
