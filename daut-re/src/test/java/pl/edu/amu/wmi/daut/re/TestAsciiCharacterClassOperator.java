@@ -167,7 +167,7 @@ public final void testAsciiCharacterClassOperatorGraph() {
     assertTrue(automaton.accepts("~"));
     assertTrue(automaton.accepts("!"));
     assertTrue(automaton.accepts("-"));
-   
+
     assertFalse(automaton.accepts(""));
     assertFalse(automaton.accepts(" "));
     assertFalse(automaton.accepts("^^"));
