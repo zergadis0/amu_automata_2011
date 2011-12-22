@@ -44,7 +44,7 @@ public void testAsciiCharacterClassOperatorWrongParams() {
 */
 public final void testAsciiCharacterClassOperatorAlnum() {
 
-    ArrayList<String> params = new ArrayList<String>();
+  ArrayList<String> params = new ArrayList<String>();
   params.add("[:alnum:]");
   RegexpOperator spec = (new AsciiCharacterClassOperator.Factory()).createOperator(params);
   NondeterministicAutomatonByThompsonApproach automaton =
@@ -81,7 +81,7 @@ public final void testAsciiCharacterClassOperatorAlpha() {
     assertTrue(automaton.accepts("I"));
     assertTrue(automaton.accepts("a"));
 
-assertFalse(automaton.accepts("7"));
+    assertFalse(automaton.accepts("7"));
     assertFalse(automaton.accepts(""));
     assertFalse(automaton.accepts("wrotka"));
     assertFalse(automaton.accepts("siedem"));
@@ -100,7 +100,7 @@ public final void testAsciiCharacterClassOperatorBlank() {
           new ArrayList<AutomatonSpecification>()));
 
     assertTrue(automaton.accepts("\t"));
-           assertTrue(automaton.accepts(" "));
+    assertTrue(automaton.accepts(" "));
 
     assertFalse(automaton.accepts(""));
     assertFalse(automaton.accepts("M"));
@@ -142,10 +142,10 @@ public final void testAsciiCharacterClassOperatorDigit() {
           new NondeterministicAutomatonByThompsonApproach(spec.createAutomaton(
           new ArrayList<AutomatonSpecification>()));
 
-    assertTrue(automaton.accepts("2"));
+    assertTrue(automaton.accepts("1"));
+    assertTrue(automaton.accepts("9"));
     assertTrue(automaton.accepts("7"));
-    assertTrue(automaton.accepts("7"));
-    assertTrue(automaton.accepts("2"));
+    assertTrue(automaton.accepts("3"));
 
     assertFalse(automaton.accepts("bakteryja"));
     assertFalse(automaton.accepts(" "));
@@ -239,9 +239,7 @@ public final void testAsciiCharacterClassOperatorPunct() {
     assertTrue(automaton.accepts("!"));
     assertTrue(automaton.accepts(":"));
     assertTrue(automaton.accepts("@"));
-
-assertTrue(automaton.accepts("~"));
-
+    assertTrue(automaton.accepts("~"));
 
     assertFalse(automaton.accepts(":("));
     assertFalse(automaton.accepts(":-("));
