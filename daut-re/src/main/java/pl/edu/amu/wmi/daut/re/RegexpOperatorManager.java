@@ -3,24 +3,24 @@ package pl.edu.amu.wmi.daut.re;
 import java.util.List;
 import java.util.ArrayList;
 
-   /**
-    * Dodaje fabrykę operatorFactory danego operatora. Napis id będzie identyfikatorem (nazwą)
-    * operatora. Lista separators będzie listą napisów oddzielających argumenty i parametry,
-    * lista ta musi mieć długość równą sumie liczby argumentów i parametrów powiększoną o jeden.
-    * Pierwszy i ostatni element listy separators może być napisem pustym. Np. dla operatora
-    * `KleeneStarOperator` i tradycyjnego zapisu wyrażeń regularnych separators będzie listą
-    * dwuelementową, pierwszym elementem będzie napis pusty, drugim - napis "*". Z kolei dla
-    * operatora RangeNumberOfOccurrencesOperator pierwszym elementem będzie napis pusty, drugim -
-    * napis "{", trzecim - napis ",", czwartym - napis "}" (operator ma jeden argument i dwa
-    * parametry).
-    *
-    * Identyfikator operatora jest dowolnym napisem, zwykle będziemy jakoś wykorzystywać któryś z
-    * separatorów (ale nie jest to obowiązkowe), np.
-    * dobrym identyfikatorem KleeneStarOperator
-    * będzie gwiazdka.
-    *
-    * Priority to priorytet operatora.
-    */
+/**
+ * Dodaje fabrykę operatorFactory danego operatora. Napis id będzie identyfikatorem (nazwą)
+ * operatora. Lista separators będzie listą napisów oddzielających argumenty i parametry,
+ * lista ta musi mieć długość równą sumie liczby argumentów i parametrów powiększoną o jeden.
+ * Pierwszy i ostatni element listy separators może być napisem pustym. Np. dla operatora
+ * `KleeneStarOperator` i tradycyjnego zapisu wyrażeń regularnych separators będzie listą
+ * dwuelementową, pierwszym elementem będzie napis pusty, drugim - napis "*". Z kolei dla
+ * operatora RangeNumberOfOccurrencesOperator pierwszym elementem będzie napis pusty, drugim -
+ * napis "{", trzecim - napis ",", czwartym - napis "}" (operator ma jeden argument i dwa
+ * parametry).
+ *
+ * Identyfikator operatora jest dowolnym napisem, zwykle będziemy jakoś wykorzystywać któryś z
+ * separatorów (ale nie jest to obowiązkowe), np.
+ * dobrym identyfikatorem KleeneStarOperator
+ * będzie gwiazdka.
+ *
+ * Priority to priorytet operatora.
+ */
 public class RegexpOperatorManager {
 
     /**
@@ -96,9 +96,9 @@ public class RegexpOperatorManager {
     }
 
 
-   /**
-    * Zwraca fabrykę operatora o identyfikatorze id.
-    */
+    /**
+     * Zwraca fabrykę operatora o identyfikatorze id.
+     */
     RegexpOperatorFactory getFactory(String id) {
 
         OperatorData currentOperator = findId(id);
@@ -138,11 +138,11 @@ public class RegexpOperatorManager {
         return returned;
     }
 
-   /**
-    * Zwraca listę identyfikatorów operatorów, których pierwszy separator to najdłuższy prefiks
-    * napisu s. Jeśli żaden niepusty prefiks napisu s nie jest pierwszym separatorem, wówczas
-    * powinna zwrócić listę wszystkich operatorów, których pierwszy separator jest napisem pustym.
-    */
+    /**
+     * Zwraca listę identyfikatorów operatorów, których pierwszy separator to najdłuższy prefiks
+     * napisu s. Jeśli żaden niepusty prefiks napisu s nie jest pierwszym separatorem, wówczas
+     * powinna zwrócić listę wszystkich operatorów, których pierwszy separator jest napisem pustym.
+     */
     List<String> getOperatorsForStringPrefix(String s) {
 
         List<String> returnedId = new ArrayList<String>();
