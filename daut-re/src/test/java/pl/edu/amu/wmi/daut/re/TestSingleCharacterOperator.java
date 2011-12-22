@@ -50,21 +50,12 @@ public class TestSingleCharacterOperator extends TestCase {
         RegexpOperatorFactory factory = new SingleCharacterOperator.Factory();
         List<String> list = new ArrayList<String>();
         list.add("a");
-        list.add("b");
 
         RegexpOperator operator = factory.doCreateOperator(list);
-        AutomatonSpecification automaton = operator.createFixedAutomaton();
-        NondeterministicAutomatonByThompsonApproach result =
-          new NondeterministicAutomatonByThompsonApproach(automaton);
 
         assertNotNull(factory.doCreateOperator(list));
 
-        assertTrue(result.accepts("a"));
-        assertTrue(result.accepts("b"));
-
-        assertFalse(result.accepts("sztowygawarita"));
-        assertFalse(result.accepts("ab"));
-
         assertEquals(1, factory.numberOfParams());
+        assertEquals(new SingleCharacterOperator('a'), factory.numberOfParams());
     }
 }
