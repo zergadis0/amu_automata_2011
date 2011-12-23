@@ -21,7 +21,7 @@ public class AnyCharOperator extends NullaryRegexpOperator {
         return new NaiveAutomatonSpecification().makeOneTransitionAutomaton(character);
     }
 
-    /**
+     /**
      * Fabryka operatora.
      */
     public static class Factory extends NullaryRegexpOperatorFactory {
@@ -36,4 +36,3 @@ public class AnyCharOperator extends NullaryRegexpOperator {
         }
     }
 }
-
