@@ -16,7 +16,8 @@ public class TestBellCharacterOperator extends TestCase {
 
         BellCharacterOperator operator = new BellCharacterOperator();
         AutomatonSpecification aut = operator.createFixedAutomaton();
-        NondeterministicAutomatonByThompsonApproach a = new NondeterministicAutomatonByThompsonApproach(aut);
+        NondeterministicAutomatonByThompsonApproach a
+            = new NondeterministicAutomatonByThompsonApproach(aut);
 
         assertTrue(a.accepts(Character.toString('\7')));
         assertFalse(a.accepts(Character.toString('8')));
