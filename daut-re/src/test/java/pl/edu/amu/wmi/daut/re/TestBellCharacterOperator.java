@@ -18,11 +18,11 @@ public class TestBellCharacterOperator extends TestCase {
     AutomatonSpecification automaton = operator.createFixedAutomaton();
     AutomatonByRecursion aut = new AutomatonByRecursion(automaton);
 
-    assertTrue(aut.accepts(Character.toString((char) 7)));
+    assertTrue(aut.accepts(Character.toString('\7')));
     assertFalse(aut.accepts(Character.toString('8')));
     assertFalse(aut.accepts(Character.toString('c')));
-    assertTrue(aut.accepts(Character.toString((char) 7)));
+    assertTrue(aut.accepts(Character.toString('\7')));
     assertFalse(aut.accepts(Character.toString(' ')));
-    assertFalse(aut.accepts(Character.toString((char) 6)));
+    assertFalse(aut.accepts(Character.toString('\6')));
     }
 }
