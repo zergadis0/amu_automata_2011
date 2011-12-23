@@ -1,6 +1,6 @@
 package pl.edu.amu.wmi.daut.re;
 
-import pl.edu.amu.wmi.daut.base.AutomatonByRecursion;
+import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import junit.framework.TestCase;
 
