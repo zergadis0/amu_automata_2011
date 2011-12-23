@@ -1,5 +1,7 @@
 package pl.edu.amu.wmi.daut.re;
 
+import java.util.ArrayList;
+import pl.edu.amu.wmi.daut.re.RegexpOperatorFactory;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import junit.framework.TestCase;
@@ -25,5 +27,15 @@ public class TestBellCharacterOperator extends TestCase {
         assertTrue(a.accepts(Character.toString((char) 7)));
         assertFalse(a.accepts(Character.toString(' ')));
         assertFalse(a.accepts(Character.toString('\6')));
+    }
+
+    /**
+     * Test fabryki operatora
+     */
+    public void testFactory() {
+        RegexpOperatorFactory factory = new BellCharacterOperator.Factory();
+        ArrayList<String> params = new ArrayList<String>();
+        assertEquals(0, factory.arity());
+        assertEquals(factory.createOperator(params).getClass(), new BellCharacterOperator().getClass());
     }
 }
