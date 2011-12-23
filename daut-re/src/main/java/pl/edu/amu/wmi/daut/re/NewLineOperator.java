@@ -1,27 +1,24 @@
 package pl.edu.amu.wmi.daut.re;
 
-import java.util.List;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
+import java.util.List;
 
 /**
- * Klasa reprezentująca znak "dźwiękowy" (znak o kodzie 7, \a w wyrażeniach regularnych).
+ * Klasa reprezentujaca znak konca wiersza.
  */
-public class BellCharacterOperator extends NullaryRegexpOperator {
 
-    private static final int NUMBER_SEVEN = 7;
-<<<<<<< HEAD
-=======
+public class NewLineOperator extends NullaryRegexpOperator {
 
->>>>>>> cd47c8409c4683ea8afdc639353b802d95504333
     @Override
     public AutomatonSpecification createFixedAutomaton() {
-        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton(((char) NUMBER_SEVEN));
+        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton('\n');
     }
 
     /**
      * Fabryka operatora.
      */
+
     public static class Factory extends NullaryRegexpOperatorFactory {
 
         @Override
@@ -29,9 +26,8 @@ public class BellCharacterOperator extends NullaryRegexpOperator {
             return 0;
         }
 
-        @Override
         protected RegexpOperator doCreateOperator(List<String> params) {
-            return new BellCharacterOperator();
+            return new NewLineOperator();
         }
     }
 }
