@@ -5,8 +5,8 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import java.util.List;
 
 /**
-* Klasa reprezentująca operator '.' z wyrażeń regularnych (dowolny znak).
-*/
+ * Klasa reprezentująca operator '.' z wyrażeń regularnych (dowolny znak).
+ */
 public class AnyCharOperator extends NullaryRegexpOperator {
     private char character;
 
