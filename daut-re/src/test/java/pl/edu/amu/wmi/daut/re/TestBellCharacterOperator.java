@@ -14,15 +14,15 @@ public class TestBellCharacterOperator extends TestCase {
      */
     public void testAutomaton() {
 
-    BellCharacterOperator operator = new BellCharacterOperator();
-    AutomatonSpecification automaton = operator.createFixedAutomaton();
-    AutomatonByRecursion aut = new AutomatonByRecursion(automaton);
+        BellCharacterOperator operator = new BellCharacterOperator();
+        AutomatonSpecification automaton = operator.createFixedAutomaton();
+        NondeterministicAutomatonByThompsonApproach aut = new NondeterministicAutomatonByThompsonApproach(automaton);
 
-    assertTrue(aut.accepts(Character.toString('\7')));
-    assertFalse(aut.accepts(Character.toString('8')));
-    assertFalse(aut.accepts(Character.toString('c')));
-    assertTrue(aut.accepts(Character.toString('\7')));
-    assertFalse(aut.accepts(Character.toString(' ')));
-    assertFalse(aut.accepts(Character.toString('\6')));
+        assertTrue(aut.accepts(Character.toString('\7')));
+        assertFalse(aut.accepts(Character.toString('8')));
+        assertFalse(aut.accepts(Character.toString('c')));
+        assertTrue(aut.accepts(Character.toString((char) 7)));
+        assertFalse(aut.accepts(Character.toString(' ')));
+        assertFalse(aut.accepts(Character.toString('\6')));
     }
 }
