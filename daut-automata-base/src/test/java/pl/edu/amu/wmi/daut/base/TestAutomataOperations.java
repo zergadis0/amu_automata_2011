@@ -598,8 +598,8 @@ public class TestAutomataOperations extends TestCase {
     }
 
     /**
-    * Test metody Intersection z AutomataOperations na automatach z petlami.
-    */
+     * Test metody Intersection z AutomataOperations na automatach z petlami.
+     */
     public final void testIntersectionSimple() {
 
         AutomatonSpecification automatonA = new NaiveAutomatonSpecification();
@@ -913,5 +913,50 @@ public class TestAutomataOperations extends TestCase {
         assertTrue(abbaBR.accepts("bab"));
         assertTrue(abbaBR.accepts("abb"));
         assertTrue(abbaBR.accepts("baa"));
+    }
+
+    /**
+     * Test metody determinize2 na prostym automacie z pokrywającym
+     * się etykietami przejść.
+     */
+    public final void testDeterminize2OverlappingLabels() {
+        AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        State q0 = spec.addState();
+        State q1 = spec.addState();
+        State q2 = spec.addState();
+        State q3 = spec.addState();
+        State q4 = spec.addState();
+
+        spec.markAsInitial(q0);
+        spec.markAsFinal(q3);
+        spec.markAsFinal(q4);
+
+        spec.addTransition(q0, q1, new CharRangeTransitionLabel('a', 'b'));
+        spec.addTransition(q0, q2, new CharRangeTransitionLabel('b', 'c'));
+        spec.addTransition(q1, q3, new CharTransitionLabel('x'));
+        spec.addTransition(q2, q4, new CharTransitionLabel('y'));
+
+        AutomatonByStack automaton = new AutomatonByStack(spec);
+        helperForDeterminize2OverlappingLabels(automaton);
+
+        DeterministicAutomatonSpecification dspec = new NaiveDeterministicAutomatonSpecification();
+        try {
+            AutomataOperations.determinize2(spec, dspec);
+        } catch (StructureException exception) {
+            exception.printStackTrace();
+            throw new RuntimeException(exception);
+        }
+
+        DeterministicAutomaton dautomaton = new DeterministicAutomaton(dspec);
+        helperForDeterminize2OverlappingLabels(dautomaton);
+    }
+
+    private void helperForDeterminize2OverlappingLabels(Acceptor acceptor) {
+        assertTrue(acceptor.accepts("ax"));
+        assertTrue(acceptor.accepts("bx"));
+        assertTrue(acceptor.accepts("by"));
+        assertTrue(acceptor.accepts("cy"));
+        assertFalse(acceptor.accepts("ay"));
+        assertFalse(acceptor.accepts("cx"));
     }
 }
