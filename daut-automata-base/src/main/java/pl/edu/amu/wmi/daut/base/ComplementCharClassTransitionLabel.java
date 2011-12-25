@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 /**
  * ComplementCharClassTransitionLabel jest implementacją TransitionLabel
- * reprezentującą przejście po znaku z dopełnienia podanej klasy znaków
+ * reprezentującą przejście po znaku z dopełnienia podanej klasy znaków.
  * 
  */
 public class ComplementCharClassTransitionLabel extends TransitionLabel {
