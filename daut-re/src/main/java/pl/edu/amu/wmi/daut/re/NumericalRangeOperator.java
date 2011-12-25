@@ -8,7 +8,7 @@ import java.util.List;
 class InvalidValueException extends RuntimeException { }
 
 /**
- * Reprezentuje wszystkie napisy składające się z liczby 
+ * Reprezentuje wszystkie napisy składające się z liczby
  * z podanego zakresu zapisane dziesiętnie (bez zer nieznaczących).
  * Np. dla parametrów 4 i 13 powinien zostać skonstruowany automat
  * akceptujący napisy: "4", "5", "6", "7", "8", "9", "10", "11", "12", "13".
