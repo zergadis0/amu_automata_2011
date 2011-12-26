@@ -58,12 +58,11 @@ public class OptionalityOperator extends UnaryRegexpOperator {
 
         }
     }
-}
 
      /**
       * Fabryka operatora.
       */
-    static class Factory extends UnaryRegexpOperatorFactory {
+    public static class Factory extends UnaryRegexpOperatorFactory {
 
         @Override
         public int numberOfParams() {
@@ -73,4 +72,5 @@ public class OptionalityOperator extends UnaryRegexpOperator {
         protected RegexpOperator doCreateOperator(List<String> params) {
             return new OptionalityOperator();
         }
+    }
 }
