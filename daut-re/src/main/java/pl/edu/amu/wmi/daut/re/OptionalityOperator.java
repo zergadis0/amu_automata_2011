@@ -63,7 +63,7 @@ public class OptionalityOperator extends UnaryRegexpOperator {
      /**
       * Fabryka operatora.
       */
-    public static class Factory extends UnaryRegexpOperatorFactory {
+    static class Factory extends UnaryRegexpOperatorFactory {
 
         @Override
         public int numberOfParams() {
