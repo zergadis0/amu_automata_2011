@@ -13,10 +13,9 @@ import java.util.List;
 public class OptionalityOperator extends UnaryRegexpOperator {
 
     /**
-
      * Główna metoda klasy.
      */
-    public AutomatonSpecification cdreateAutomatonFromOneAutomaton(
+    public AutomatonSpecification createAutomatonFromOneAutomaton(
         AutomatonSpecification subautomaton) {
 
         State q = subautomaton.addState();
