@@ -935,30 +935,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Tworzy epsilon domknięcie zadanego stanu.
      */
     public Set<State> getEpsilonClosure(State initial) {
-
-        Set<State> epsilonClosure = new HashSet<State>();
-        Set<State> visited = new HashSet<State>();
-        Stack<State> stack = new Stack<State>();
-        stack.push(initial);
-        epsilonClosure.add(initial);
-
-        while (!stack.empty()) {
-            State from = stack.pop();
-            if (visited.contains(from)) {
-                continue;
-            }
-            visited.add(from);
-            for (OutgoingTransition trans : allOutgoingTransitions(from)) {
-                TransitionLabel label = trans.getTransitionLabel();
-                State to = trans.getTargetState();
-                if (label.canBeEpsilon()) {
-                    epsilonClosure.add(to);
-                    stack.push(to);
-                }
-            }
-        }
-
-        return epsilonClosure;
+        return doGetEpsilonClosure(initial);
     }
     /**
      * Odznacza końcowy stan.
@@ -1006,6 +983,66 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
     protected List<State> getFinalStates() {
         return finalStatess;
+    }
+
+    /**
+     * Zwraca epsilon domknięcie zadanego stanu, z uwzględnieniem warunków kontekstowych.
+     */
+    public Set<State> getEpsilonClosureWithContext(State initial, String s, int _position) {
+        Integer position = new Integer(_position);
+        return doGetEpsilonClosure(initial, s, position);
+    }
+
+    /**
+     * Metoda wyszukująca epsilon domknięcie.
+     */
+    private Set<State> doGetEpsilonClosure (State initial, Object... data) {
+        boolean withContext = true;
+        Set<State> epsilonClosure = new HashSet<State>();
+        Set<State> visited = new HashSet<State>();
+        Stack<State> stack = new Stack<State>();
+        String s = null;
+        Integer position = null;
+
+        if (data.length == 0) {
+            withContext = false;
+        } else {
+            s = (String) data[0];
+            position = (Integer) data[1];
+        }
+
+        stack.push(initial);
+        epsilonClosure.add(initial);
+
+        while (!stack.empty()) {
+            State from = stack.pop();
+            if (visited.contains(from)) {
+                continue;
+            }
+            visited.add(from);
+            if (withContext) {
+                for (OutgoingTransition trans : allOutgoingTransitions(from)) {
+                    TransitionLabel label = trans.getTransitionLabel();
+                    State to = trans.getTargetState();
+                    if (label.canBeEpsilon() && label.checkContext(s, position.intValue())) {
+                        epsilonClosure.add(to);
+                        stack.push(to);
+                    }
+                }
+            } else {
+                for (OutgoingTransition trans : allOutgoingTransitions(from)) {
+                    TransitionLabel label = trans.getTransitionLabel();
+                    State to = trans.getTargetState();
+                    if (label.canBeEpsilon()) {
+                        epsilonClosure.add(to);
+                        stack.push(to);
+                    }
+                }
+            }
+        }
+
+        return epsilonClosure;
+
     }
 
     private LinkedList<State> finalStatess = new LinkedList<State>();
