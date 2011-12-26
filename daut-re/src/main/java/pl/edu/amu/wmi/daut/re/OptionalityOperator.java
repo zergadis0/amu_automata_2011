@@ -39,28 +39,6 @@ public class OptionalityOperator extends UnaryRegexpOperator {
 
      /**
       * Fabryka operatora.
-
-      */
-    public static class Factory extends UnaryRegexpOperatorFactory {
-
-
-        @Override
-
-        public int numberOfParams() {
-
-            return 0;
-        }
-
-
-        protected RegexpOperator doCreateOperator(List<String> params) {
-
-            return new OptionalityOperator();
-
-        }
-    }
-
-     /**
-      * Fabryka operatora.
       */
     public static class Factory extends UnaryRegexpOperatorFactory {
 
