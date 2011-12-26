@@ -62,6 +62,6 @@ public class TestOptionalityOperator extends TestCase {
         Factory fac = new Factory();
         ArrayList<String> pars = new ArrayList<String>();
         assertEquals(fac.createOperator(pars).getClass(),
-            new AnyStringOperator().getClass());
+            new OptionalityOperator().getClass());
     }
 }
