@@ -811,8 +811,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
             List<State> newHistory = new ArrayList<State>();
             for (State s : history)
                 newHistory.add(s);
-                result = result || checkForLoop(child.getTargetState(), 
-                        newHistory);
+                result = result || checkForLoop(child.getTargetState(), newHistory);
             if (result)
                 break;
         }
