@@ -988,9 +988,9 @@ public abstract class AutomatonSpecification implements Cloneable  {
     /**
      * Zwraca epsilon domknięcie zadanego stanu, z uwzględnieniem warunków kontekstowych.
      */
-    public Set<State> getEpsilonClosureWithContext(State initial, String s, int _position) {
-        Integer position = new Integer(_position);
-        return doGetEpsilonClosure(initial, s, position);
+    public Set<State> getEpsilonClosureWithContext(State initial, String s, int position) {
+        Integer pos = Integer.valueOf(position);
+        return doGetEpsilonClosure(initial, s, pos);
     }
 
     /**
