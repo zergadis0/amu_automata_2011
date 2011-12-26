@@ -1,27 +1,22 @@
 package pl.edu.amu.wmi.daut.re;
 
+import java.util.List;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
-import java.util.List;
 
 /**
- * Klasa reprezentująca operator '.' z wyrażeń regularnych (dowolny znak).
+ * Klasa reprezentująca znak "dźwiękowy" (znak o kodzie 7, \a w wyrażeniach regularnych).
  */
-public class AnyCharOperator extends NullaryRegexpOperator {
-    private char character;
+public class BellCharacterOperator extends NullaryRegexpOperator {
 
-    /**
-     * Metoda, ustawia pożądany znak.
-     */
-    public void setCharacter(char c) {
-        this.character = c;
-    }
+    private static final int NUMBER_SEVEN = 7;
+
     @Override
     public AutomatonSpecification createFixedAutomaton() {
-        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton(character);
+        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton(((char) NUMBER_SEVEN));
     }
 
-     /**
+    /**
      * Fabryka operatora.
      */
     public static class Factory extends NullaryRegexpOperatorFactory {
@@ -31,8 +26,9 @@ public class AnyCharOperator extends NullaryRegexpOperator {
             return 0;
         }
 
+        @Override
         protected RegexpOperator doCreateOperator(List<String> params) {
-            return new AnyCharOperator();
+            return new BellCharacterOperator();
         }
     }
 }

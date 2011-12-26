@@ -5,25 +5,20 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import java.util.List;
 
 /**
- * Klasa reprezentująca operator '.' z wyrażeń regularnych (dowolny znak).
+ * Klasa reprezentujaca znak konca wiersza.
  */
-public class AnyCharOperator extends NullaryRegexpOperator {
-    private char character;
 
-    /**
-     * Metoda, ustawia pożądany znak.
-     */
-    public void setCharacter(char c) {
-        this.character = c;
-    }
+public class NewLineOperator extends NullaryRegexpOperator {
+
     @Override
     public AutomatonSpecification createFixedAutomaton() {
-        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton(character);
+        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton('\n');
     }
 
-     /**
+    /**
      * Fabryka operatora.
      */
+
     public static class Factory extends NullaryRegexpOperatorFactory {
 
         @Override
@@ -32,7 +27,7 @@ public class AnyCharOperator extends NullaryRegexpOperator {
         }
 
         protected RegexpOperator doCreateOperator(List<String> params) {
-            return new AnyCharOperator();
+            return new NewLineOperator();
         }
     }
 }
