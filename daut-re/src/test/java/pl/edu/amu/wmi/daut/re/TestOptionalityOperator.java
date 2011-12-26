@@ -47,6 +47,7 @@ public class TestOptionalityOperator extends TestCase {
         assertFalse(result.accepts("aaaaaaaaaaa"));
         assertFalse(result.accepts("cojapacze"));
         assertFalse(result.accepts("macrimnatueshzanc"));
+        assertFalse(result.accepts("katrayzniaedc"));
         assertFalse(result.accepts("jestemautomateminieakceptuje"));
     }
 }
