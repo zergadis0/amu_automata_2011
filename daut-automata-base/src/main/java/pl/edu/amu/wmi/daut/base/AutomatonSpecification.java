@@ -793,14 +793,40 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Sprawdza, czy akceptowany język jest nieskończony.
      */
     public boolean isInfinite() {
-        return findFinals(getInitialState(), new ArrayList<State>());
+        return checkForLoop(getInitialState(), new ArrayList<State>());
     }
 
+        private boolean checkForLoop(State state, List<State> history) {
+        
+        for (State his : history) {
+            if (his == state) {
+                return findFinals(state, new ArrayList<State>());
+            }
+        }
+        
+        if (allOutgoingTransitions(state).isEmpty())
+            return false;
+
+        history.add(state);
+        
+        boolean result = false;
+        for (OutgoingTransition child : allOutgoingTransitions(state)) {
+            List<State> newHistory = new ArrayList<State>();
+            for (State s : history)
+                newHistory.add(s);
+                result = result || checkForLoop(child.getTargetState(), 
+                        newHistory);
+            if (result)
+                break;
+        }
+        return result;
+    }
+    
     private boolean findFinals(State state, List<State> history) {
         boolean result = false;
 
         if (isFinal(state))
-            result = result || checkForLoop(state, new ArrayList<State>());
+            return true;
 
         if (allOutgoingTransitions(state).size() == 0)
             return false;
@@ -816,27 +842,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
             for (State s : history)
                 newHistory.add(s);
             result = result || findFinals(child.getTargetState(), newHistory);
-            if (result)
-                break;
-        }
-        return result;
-    }
-
-    private boolean checkForLoop(State state, List<State> history) {
-        for (State his : history)
-            if (his == state)
-                return isFinal(state);
-
-        if (allOutgoingTransitions(state).size() == 0)
-            return false;
-
-        history.add(state);
-        boolean result = false;
-        for (OutgoingTransition child : allOutgoingTransitions(state)) {
-            List<State> newHistory = new ArrayList<State>();
-            for (State s : history)
-                newHistory.add(s);
-            result = result || checkForLoop(child.getTargetState(), newHistory);
             if (result)
                 break;
         }
