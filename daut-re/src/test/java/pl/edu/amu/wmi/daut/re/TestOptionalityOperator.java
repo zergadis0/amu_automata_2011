@@ -40,7 +40,7 @@ public class TestOptionalityOperator extends TestCase {
         assertTrue(result.accepts("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbb"));
         assertTrue(result.accepts("aabbbbbbbbbbbbb"));
         assertTrue(result.accepts("ab"));
-        assertTrue(automaton.acceptEmptyWord() );
+        assertTrue(automaton.acceptEmptyWord());
 
         assertFalse(result.accepts("aaabbbbaabbbbab"));
         assertFalse(result.accepts("aaaaaaaaaaa"));

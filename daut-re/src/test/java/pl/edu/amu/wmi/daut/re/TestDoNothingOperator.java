@@ -5,8 +5,10 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
+import pl.edu.amu.wmi.daut.re.DoNothingOperator.Factory;
 
 import junit.framework.TestCase;
+import java.util.ArrayList;
 
 
 /**
@@ -60,6 +62,18 @@ public class TestDoNothingOperator extends TestCase {
         assertTrue(automaton.accepts("abbbbbbbbbbbbbba"));
         assertFalse(automaton.accepts(""));
         assertFalse(automaton.accepts("abb"));
+
+    }
+
+    /**
+     * Test fabryki.
+     */
+    public final void testFactory() {
+
+        Factory factory = new Factory();
+        ArrayList<String> params = new ArrayList<String>();
+        assertEquals(factory.createOperator(params).getClass(),
+            new DoNothingOperator().getClass());
 
     }
 

@@ -4,6 +4,7 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
+import java.util.List;
 
 import java.util.List;
 
@@ -36,7 +37,6 @@ public class OptionalityOperator extends UnaryRegexpOperator {
         return subautomaton;
     }
 
-
      /**
       * Fabryka operatora.
 
@@ -56,6 +56,22 @@ public class OptionalityOperator extends UnaryRegexpOperator {
 
             return new OptionalityOperator();
 
+        }
+    }
+}
+
+     /**
+      * Fabryka operatora.
+      */
+    public static class Factory extends UnaryRegexpOperatorFactory {
+
+        @Override
+        public int numberOfParams() {
+            return 0;
+        }
+
+        protected RegexpOperator doCreateOperator(List<String> params) {
+            return new OptionalityOperator();
         }
     }
 }
