@@ -996,7 +996,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
     /**
      * Metoda wyszukująca epsilon domknięcie.
      */
-    private Set<State> doGetEpsilonClosure (State initial, Object... data) {
+    private Set<State> doGetEpsilonClosure(State initial, Object... data) {
         boolean withContext = true;
         Set<State> epsilonClosure = new HashSet<State>();
         Set<State> visited = new HashSet<State>();
