@@ -1,14 +1,12 @@
 package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
-
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
 import java.util.List;
 
 /**
  * Klasa reprezentujaca operator ?
-
  */
 public class OptionalityOperator extends UnaryRegexpOperator {
 
