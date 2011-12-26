@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import junit.framework.TestCase;
 
 /**
- *
  * Test klasy OptionalityOperator.
  */
 public class TestOptionalityOperator extends TestCase {
@@ -54,8 +53,8 @@ public class TestOptionalityOperator extends TestCase {
     }
 
     /**
-    * Test fabryki.
-    */
+     * Test fabryki.
+     */
     public final void testFactory() {
 
         Factory factory = new Factory();
