@@ -73,5 +73,4 @@ public class OptionalityOperator extends UnaryRegexpOperator {
         protected RegexpOperator doCreateOperator(List<String> params) {
             return new OptionalityOperator();
         }
-    }
 }
