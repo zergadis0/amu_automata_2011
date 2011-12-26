@@ -5,8 +5,9 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
+import pl.edu.amu.wmi.daut.re.OptionalityOperator.Factory;
+import java.util.ArrayList;
 import junit.framework.TestCase;
-
 
 /**
  *
@@ -48,6 +49,18 @@ public class TestOptionalityOperator extends TestCase {
         assertFalse(result.accepts("cojapacze"));
         assertFalse(result.accepts("macrimnatueshzanc"));
         assertFalse(result.accepts("katrayzniaedc"));
+        assertFalse(result.accepts("jestemglupimstringieminicnieznacze"));
         assertFalse(result.accepts("jestemautomateminieakceptuje"));
+    }
+
+    /**
+    * Test fabryki.
+    */
+    public final void testFactory() {
+
+        Factory factory = new Factory();
+        ArrayList<String> params = new ArrayList<String>();
+        assertEquals(factory.createOperator(params).getClass(),
+            new OptionalityOperator().getClass());
     }
 }
