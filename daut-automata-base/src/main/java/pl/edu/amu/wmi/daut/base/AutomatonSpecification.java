@@ -1006,9 +1006,15 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
         if (data.length == 0) {
             withContext = false;
-        } else {
+        } else if (data.length == 2) {
+            if (data[0].getClass() != String.class)
+                throw new IllegalArgumentException();
             s = (String) data[0];
+            if (data[1].getClass() != Integer.class)
+                throw new IllegalArgumentException();
             position = (Integer) data[1];
+        } else {
+            throw new IllegalArgumentException("Unsupported number of arguments.");
         }
 
         stack.push(initial);
@@ -1040,13 +1046,14 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 }
             }
         }
-
         return epsilonClosure;
-
     }
 
     private LinkedList<State> finalStatess = new LinkedList<State>();
 };
 
 class StructureException extends Exception {
+}
+
+class UnsupportedNumberOfArguments extends Exception {
 }
