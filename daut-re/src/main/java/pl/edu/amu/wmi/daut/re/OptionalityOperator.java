@@ -16,19 +16,16 @@ public class OptionalityOperator extends UnaryRegexpOperator {
 
      * Główna metoda klasy.
      */
-    public AutomatonSpecification createAutomatonFromOneAutomaton(
+    public AutomatonSpecification cdreateAutomatonFromOneAutomaton(
+        AutomatonSpecification subautomaton) {
 
-            AutomatonSpecification subautomaton) {
-        State q0 = subautomaton.addState();
+        State q = subautomaton.addState();
 
-        subautomaton.addTransition(q0, subautomaton.getInitialState(),
-
+        subautomaton.addTransition(q, subautomaton.getInitialState(),
             new EpsilonTransitionLabel());
 
-        subautomaton.markAsInitial(q0);
-
-        subautomaton.markAsFinal(q0);
-
+        subautomaton.markAsInitial(q);
+        subautomaton.markAsFinal(q);
         return subautomaton;
     }
 
