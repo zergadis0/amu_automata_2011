@@ -60,9 +60,9 @@ public class TestOptionalityOperator extends TestCase {
     */
     public final void testFactory() {
 
-        Factory fac = new Factory();
-        ArrayList<String> pars = new ArrayList<String>();
-        assertEquals(fac.createOperator(pars).getClass(),
+        Factory factory = new Factory();
+        ArrayList<String> params = new ArrayList<String>();
+        assertEquals(factory.createOperator(params).getClass(),
             new OptionalityOperator().getClass());
     }
 }
