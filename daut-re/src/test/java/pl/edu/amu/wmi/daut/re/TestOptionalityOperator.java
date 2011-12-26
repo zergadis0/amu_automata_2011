@@ -1,10 +1,13 @@
 package pl.edu.amu.wmi.daut.re;
 
+import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
+import pl.edu.amu.wmi.daut.re.AnyStringOperator.Factory;
+
 import junit.framework.TestCase;
 
 
@@ -49,5 +52,16 @@ public class TestOptionalityOperator extends TestCase {
         assertFalse(result.accepts("macrimnatueshzanc"));
         assertFalse(result.accepts("katrayzniaedc"));
         assertFalse(result.accepts("jestemautomateminieakceptuje"));
+    }
+
+    /**
+    * Test fabryki.
+    */
+    public final void testFactory() {
+
+        Factory fac = new Factory();
+        ArrayList<String> pars = new ArrayList<String>();
+        assertEquals(fac.createOperator(pars).getClass(),
+            new AnyStringOperator().getClass());
     }
 }
