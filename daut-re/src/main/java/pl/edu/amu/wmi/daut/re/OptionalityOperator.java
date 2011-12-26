@@ -6,21 +6,16 @@ import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
 import java.util.List;
 
-import java.util.List;
-
-
 /**
  * Klasa reprezentujaca operator ?
 
  */
 public class OptionalityOperator extends UnaryRegexpOperator {
 
-
     /**
 
      * Główna metoda klasy.
      */
-
     public AutomatonSpecification createAutomatonFromOneAutomaton(
 
             AutomatonSpecification subautomaton) {
