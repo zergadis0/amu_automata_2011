@@ -6,7 +6,7 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
-import pl.edu.amu.wmi.daut.re.AnyStringOperator.Factory;
+import pl.edu.amu.wmi.daut.re.OptionalityOperator.Factory;
 
 import junit.framework.TestCase;
 
