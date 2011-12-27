@@ -15,6 +15,14 @@ public class TestNumericalRangeOperator extends TestCase {
      */
     public void testNumericalRangeOperator() {
         NumericalRangeOperator operator = new NumericalRangeOperator(4, 7);
+
+        try {
+            NumericalRangeOperator operator2 = new NumericalRangeOperator(100, 1);
+            NumericalRangeOperator operator3 = new NumericalRangeOperator(-1, 4);
+            NumericalRangeOperator operator4 = new NumericalRangeOperator(5, -10);
+        }
+        catch(InvalidValueException e) {
+        }
     }
 
     /**
