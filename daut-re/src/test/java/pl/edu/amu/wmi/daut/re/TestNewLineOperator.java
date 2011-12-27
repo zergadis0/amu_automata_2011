@@ -7,7 +7,7 @@ import pl.edu.amu.wmi.daut.base.AutomatonByRecursion;
 import pl.edu.amu.wmi.daut.re.NewLineOperator.Factory;
 
 /**
- * Test klasy NewLineOperator. 
+ * Testy klasy NewLineOperator.
  */
 public class TestNewLineOperator extends TestCase {
 
@@ -25,6 +25,7 @@ public class TestNewLineOperator extends TestCase {
 
         AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
         assertTrue(automaton.accepts("\n"));
+
     }
 
     /**
@@ -37,5 +38,6 @@ public class TestNewLineOperator extends TestCase {
         RegexpOperator operator2 = factory.createOperator(new ArrayList<String>());
         int arity = operator2.arity();
         assertEquals(arity, 0);
+
     }
 }
