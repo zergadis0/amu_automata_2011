@@ -11,7 +11,7 @@ import pl.edu.amu.wmi.daut.re.NumericalRangeOperator.Factory;
 public class TestNumericalRangeOperator extends TestCase {
 
     /**
-     * Test konstruktora NumericalRangeOperator.
+     * Test konstruktorow NumericalRangeOperator.
      */
     public void testNumericalRangeOperator() {
         NumericalRangeOperator operator = new NumericalRangeOperator(4, 7);
@@ -20,9 +20,7 @@ public class TestNumericalRangeOperator extends TestCase {
             NumericalRangeOperator operator2 = new NumericalRangeOperator(100, 1);
             NumericalRangeOperator operator3 = new NumericalRangeOperator(-1, 4);
             NumericalRangeOperator operator4 = new NumericalRangeOperator(5, -10);
-        }
-        catch(InvalidValueException e) {
-        }
+        } catch(InvalidValueException e) {}
     }
 
     /**
