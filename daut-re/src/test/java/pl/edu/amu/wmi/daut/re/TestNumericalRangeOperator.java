@@ -14,15 +14,15 @@ public class TestNumericalRangeOperator extends TestCase {
      * Test konstruktora NumericalRangeOperator.
      */
     public void testNumericalRangeOperator() {
-        NumericalRangeOperator operator = new NumericalRangeOperator(4,7);
+        NumericalRangeOperator operator = new NumericalRangeOperator(4, 7);
     }
-    
+
     /**
      * Test najprostszego automatu.
      */
     public void testcreateSimpleFixedAutomaton() {
 
-        NumericalRangeOperator spec = new NumericalRangeOperator(101,101);
+        NumericalRangeOperator spec = new NumericalRangeOperator(101, 101);
         NondeterministicAutomatonByThompsonApproach automaton =
                 new NondeterministicAutomatonByThompsonApproach(spec.createFixedAutomaton());
 
@@ -40,7 +40,7 @@ public class TestNumericalRangeOperator extends TestCase {
      */
     public final void testcreateFixedAutomaton() {
  
-        NumericalRangeOperator spec = new NumericalRangeOperator(3,88);
+        NumericalRangeOperator spec = new NumericalRangeOperator(3, 88);
         NondeterministicAutomatonByThompsonApproach automaton =
                 new NondeterministicAutomatonByThompsonApproach(spec.createFixedAutomaton());
  
@@ -57,7 +57,7 @@ public class TestNumericalRangeOperator extends TestCase {
         assertFalse(automaton.accepts("100"));
         assertFalse(automaton.accepts("0"));
     }
-    
+
     /**
      * Test fabryki.
      */
@@ -65,7 +65,9 @@ public class TestNumericalRangeOperator extends TestCase {
         Factory factory = new Factory();
         assertEquals(factory.numberOfParams(), 2);
         ArrayList<String> params = new ArrayList<String>();
+        params.add(0, "100");
+        params.add(1, "200");
         assertEquals(factory.createOperator(params).getClass(),
-                new NumericalRangeOperator(3,4).getClass());
+                new NumericalRangeOperator(100, 200).getClass());
     }
 }
