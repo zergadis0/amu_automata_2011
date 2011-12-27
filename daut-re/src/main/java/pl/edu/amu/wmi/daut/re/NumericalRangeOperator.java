@@ -43,8 +43,9 @@ public class NumericalRangeOperator extends NullaryRegexpOperator {
         State q0 = spec.addState();
         spec.markAsInitial(q0);
 
+        State q;
         for (int i = this.from; i <= this.to; ++i) {
-            State q = spec.addTransitionSequence(q0, Integer.toString(i));
+            q = spec.addTransitionSequence(q0, Integer.toString(i));
             spec.markAsFinal(q);
         }
 
