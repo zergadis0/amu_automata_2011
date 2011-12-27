@@ -1,14 +1,14 @@
 package pl.edu.amu.wmi.daut.re;
 
 import java.util.ArrayList;
-import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import junit.framework.TestCase;
+import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import pl.edu.amu.wmi.daut.re.NumericalRangeOperator.Factory;
 
 /**
  * Test klasy NumericalRangeOperator.
  */
-public class TestNumericalRangeOperator {
+public class TestNumericalRangeOperator extends TestCase {
 
     /**
      * Test konstruktora NumericalRangeOperator.
@@ -16,11 +16,11 @@ public class TestNumericalRangeOperator {
     public void testNumericalRangeOperator() {
         NumericalRangeOperator operator = new NumericalRangeOperator(4,7);
     }
-
+    
     /**
      * Test najprostszego automatu.
      */
-    public final void testcreateSimpleFixedAutomaton() {
+    public void testcreateSimpleFixedAutomaton() {
 
         NumericalRangeOperator spec = new NumericalRangeOperator(101,101);
         NondeterministicAutomatonByThompsonApproach automaton =
@@ -39,11 +39,11 @@ public class TestNumericalRangeOperator {
      * Test ciekawszego automatu.
      */
     public final void testcreateFixedAutomaton() {
-
+ 
         NumericalRangeOperator spec = new NumericalRangeOperator(3,88);
         NondeterministicAutomatonByThompsonApproach automaton =
                 new NondeterministicAutomatonByThompsonApproach(spec.createFixedAutomaton());
-
+ 
         assertTrue(automaton.accepts("3"));
         assertTrue(automaton.accepts("4"));
         assertTrue(automaton.accepts("88"));
@@ -57,12 +57,13 @@ public class TestNumericalRangeOperator {
         assertFalse(automaton.accepts("100"));
         assertFalse(automaton.accepts("0"));
     }
-
+    
     /**
      * Test fabryki.
      */
     public final void testFactory() {
         Factory factory = new Factory();
+        assertEquals(factory.numberOfParams(), 2);
         ArrayList<String> params = new ArrayList<String>();
         assertEquals(factory.createOperator(params).getClass(),
                 new NumericalRangeOperator(3,4).getClass());
