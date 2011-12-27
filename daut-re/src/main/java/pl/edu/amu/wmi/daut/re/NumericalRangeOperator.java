@@ -28,7 +28,7 @@ public class NumericalRangeOperator extends NullaryRegexpOperator {
      * Konstruktor klasy. Ustala możliwy zakres liczb.
      */
     public NumericalRangeOperator(int from, int to) {
-        if (from <= to) {
+        if (from >= 0 && to >= 0 && from <= to) {
             this.from = from;
             this.to = to;
         } else {
