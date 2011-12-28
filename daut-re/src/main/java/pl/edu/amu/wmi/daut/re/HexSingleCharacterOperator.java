@@ -56,7 +56,7 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
          */
         protected RegexpOperator doCreateOperator(List<String> params) {
             String s = params.get(0);
-			length = s.length();
+			int length = s.length();
             if (length <= 0)
                 throw new
                 InvalidHexSingleCharacterOperatorException("Argument was too short.");
