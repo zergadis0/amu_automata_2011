@@ -3,10 +3,12 @@ package pl.edu.amu.wmi.daut.re;
 import pl.edu.amu.wmi.daut.base.AutomataOperations;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import java.util.List;
+
 /**
  * Klasa reprezentująca operator '|' z wyrażeń regularnych (alternatywa).
  */
 public class AlternativeOperator extends BinaryRegexpOperator {
+
     @Override
     public final AutomatonSpecification createAutomatonFromTwoAutomata(
             AutomatonSpecification leftSubautomaton,
@@ -14,7 +16,7 @@ public class AlternativeOperator extends BinaryRegexpOperator {
         return AutomataOperations.sum(leftSubautomaton, rightSubautomaton);
     }
 
-     /**
+    /**
      * Fabryka operatora.
      */
     public static class Factory extends BinaryRegexpOperatorFactory {
