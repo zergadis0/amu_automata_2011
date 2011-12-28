@@ -1,8 +1,6 @@
 package pl.edu.amu.wmi.daut.base;
 
 import junit.framework.TestCase;
-
-try {
 	
 /**
  * Klasa testujaca klasę CharRangeTransitionLabel.
@@ -212,6 +210,8 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Przecięcie dwóch różnych klas TransitionLabel.
      */
         public final void testCharIntersection() {
+        try
+        {
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
         State s1 = aut.addState();
@@ -230,11 +230,9 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
         assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
         assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
+        fail("Comparing different objects should fail");
         }
-
-} 
-
-}catch(CannotDetermineIntersectionException exception)
-{
-	fail("Comparing different objects should fail");
+        catch(CannotDetermineIntersectionException exception) {
+        }
+        }
 }
