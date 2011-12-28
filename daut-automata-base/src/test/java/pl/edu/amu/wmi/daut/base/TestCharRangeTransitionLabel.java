@@ -228,12 +228,12 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
         assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
         assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
-        
+        }
     /**
      * Metoda testująca CharRangeTransitionLabel.
      * Przecięcie dwóch takich samych klas TransitionLabel.
      */        
-        public final void testExceptionWhenIntersectingDifferentObjects;
+        public final void testExceptionWhenIntersectingDifferentObjects {
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
         State s1 = aut.addState();
@@ -250,4 +250,4 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertTrue(trans.canAcceptCharacter('a'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
     }
-};
+}
