@@ -20,6 +20,7 @@ public class TestNumericalRangeOperator extends TestCase {
             NumericalRangeOperator operator2 = new NumericalRangeOperator(100, 1);
             NumericalRangeOperator operator3 = new NumericalRangeOperator(-1, 4);
             NumericalRangeOperator operator4 = new NumericalRangeOperator(5, -10);
+            fail();
         } catch (InvalidValueException e) {
             assertTrue(true);
         }
