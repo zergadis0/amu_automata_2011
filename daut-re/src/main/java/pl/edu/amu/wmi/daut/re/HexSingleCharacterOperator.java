@@ -44,8 +44,9 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
      */
     public static class Factory extends NullaryRegexpOperatorFactory {
 
-    static final int BASE16 = 16;
-    static final int MAXNUMBERLENGTH = 8;
+        static final int BASE16 = 16;
+        static final int MAXNUMBERLENGTH = 8;
+
         @Override
         public int numberOfParams() {
             return 1;
