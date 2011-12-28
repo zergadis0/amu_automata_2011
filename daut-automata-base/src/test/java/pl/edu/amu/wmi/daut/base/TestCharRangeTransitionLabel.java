@@ -3,7 +3,6 @@ package pl.edu.amu.wmi.daut.base;
 import junit.framework.TestCase;
 
 try {
-}
 
 /**
  * Klasa testujaca klasę CharRangeTransitionLabel.
@@ -235,5 +234,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
 }
 
 } catch(CannotDetermineIntersectionException exception)
+{
+	fail("Comparing different objects should fail");
+}
 
-fail("Comparing different objects should fail");
