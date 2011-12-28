@@ -52,11 +52,11 @@ public class HexSingleCharacterOperator extends NullaryRegexpOperator {
         }
 
         /**
-         * Jako parametr przyjmuje ciag zapisany w systemie szesnastkowym.
+         * Jako parametr przyjmuje ciag zapisany w systemie szesnastkowym (A0AB).
          */
         protected RegexpOperator doCreateOperator(List<String> params) {
             String s = params.get(0);
-			int length = s.length();
+            int length = s.length();
             if (length <= 0)
                 throw new
                 InvalidHexSingleCharacterOperatorException("Argument was too short.");
