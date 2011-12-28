@@ -250,4 +250,4 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertTrue(trans.canAcceptCharacter('a'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
     }
-};
+}
