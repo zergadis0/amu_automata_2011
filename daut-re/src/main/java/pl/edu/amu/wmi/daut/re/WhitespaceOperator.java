@@ -43,7 +43,7 @@ public class WhitespaceOperator extends NullaryRegexpOperator {
         }
 
         @Override
-     protected RegexpOperator doCreateOperator(List<String> params) {
+        protected RegexpOperator doCreateOperator(List<String> params) {
             return new WhitespaceOperator();
         }
     }
