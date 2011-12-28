@@ -230,7 +230,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
                 assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
                 assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
                 assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
-                fail("Comparing different objects should fail");  
+                fail("Comparing different objects should fail");
                 }
         catch(TransitionLabel.CannotDetermineIntersectionException exception) {
         }
