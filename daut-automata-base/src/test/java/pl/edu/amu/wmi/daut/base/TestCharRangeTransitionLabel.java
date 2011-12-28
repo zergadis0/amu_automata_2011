@@ -34,7 +34,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertTrue(trans.canAcceptCharacter('c'));
         assertFalse(trans.canAcceptCharacter('h'));
  
-         assertFalse(trans.canBeEpsilon());
+        assertFalse(trans.canBeEpsilon());
     }
  
     /**
@@ -70,7 +70,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('a'));
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('d'));
     }
- 
+
     /**
      * Metoda testująca CharRangeTransitionLabel.
      * Puste przecięcie.
