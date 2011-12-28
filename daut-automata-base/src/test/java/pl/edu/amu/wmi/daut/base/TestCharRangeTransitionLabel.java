@@ -233,7 +233,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Metoda testująca CharRangeTransitionLabel.
      * Przecięcie dwóch takich samych klas TransitionLabel.
      */        
-        public final void testExceptionWhenIntersectingDifferentObjects
+        public final void testExceptionWhenIntersectingDifferentObjects;
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
         State s1 = aut.addState();
