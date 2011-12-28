@@ -232,7 +232,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
                 assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
                 fail("Comparing different objects should fail"); //jest blad - jesli dotad dotarlo sterowanie, oznacza ze nie zostal rzucony wyjatek jakiego sie spodziewalismy
         }
-        catch(CannotDetermineIntersectionException exception) {
+        catch(TransitionLabel.CannotDetermineIntersectionException exception) {
                 //jest okej!
         }
         }
