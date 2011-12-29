@@ -14,7 +14,7 @@ public class TestTabOperator extends TestCase {
     /**
      * Konstruuje automat, a nastepnie go testuje.
      */
-    public void testAutomaton() {
+    public final void testAutomaton() {
 
         TabOperator operator = new TabOperator();
         AutomatonSpecification spec = operator.createFixedAutomaton();
@@ -30,14 +30,13 @@ public class TestTabOperator extends TestCase {
         assertFalse(automaton.accepts(""));
         assertFalse(automaton.accepts("\r"));
         assertTrue(automaton.accepts("\t"));
-        assertTrue(a.accepts(Character.toString((char) 9)));
-        
+        assertTrue(automaton.accepts(Character.toString((char) 9)));
     }
 
     /**
      * Test fabryki.
      */
-    public void testFactory() {
+    public final void testFactory() {
 
         Factory factory = new Factory();
         RegexpOperator operator2 = factory.createOperator(new ArrayList<String>());
@@ -46,4 +45,3 @@ public class TestTabOperator extends TestCase {
 
     }
 }
- 
