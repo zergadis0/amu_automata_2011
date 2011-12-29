@@ -568,6 +568,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
     /**
      * Zwraca true, gdy automat akceptuje napis pusty.
      */
+
     public boolean acceptEmptyWord() {
 
         List<State> tocheck = new ArrayList<State>();
@@ -586,13 +587,13 @@ public abstract class AutomatonSpecification implements Cloneable  {
             transitions.clear();
             transitions = allOutgoingTransitions(tocheck.get(i));
 
-            for (int j = 0; j < transitions.size(); ++j) {
-                label = transitions.get(j).getTransitionLabel();
-                state = transitions.get(j).getTargetState();
+            for (OutgoingTransition j : transitions) {
+                label = j.getTransitionLabel();
+                state = j.getTargetState();
 
                 if (label.canBeEpsilon() && !tocheck.contains(state)) {
                     tocheck.add(state);
-                    iterator++;
+                    ++iterator;
 
                     if (isFinal(state)) {
                         return true;
@@ -602,6 +603,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
         }
         return false;
     }
+
 
     /**
      * Sprawdza, czy w automacie istnieją zbędne stany.
@@ -785,6 +787,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
         AllAcceptedWords words = new AllAcceptedWords(this);
         return words;
     }
+
 
     /**
      * Sprawdza, czy akceptowany język jest nieskończony.
