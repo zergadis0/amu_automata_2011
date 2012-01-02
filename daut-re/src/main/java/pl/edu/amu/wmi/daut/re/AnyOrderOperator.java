@@ -26,14 +26,13 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
         return AutomataOperations.sum(automatonLR, automatonRL);
     }
 
-<<<<<<< HEAD
     /**
      * @param first
      * Automat poczatkowy, ktory rozpoczyna wyjsciowy automat.
      * @param second
      * Automat ktory jest 'doklejany' do stanow koncowych poczatkowego automatu.
      * @param automaton
-     * Pusty automat ktory ma byc konkatenacja pierwszych 2 automatow
+     * Pusty automat ktory ma byc konkatenacja pierwszych 2 automatow.
      */
     private void concatenate(AutomatonSpecification first,
             AutomatonSpecification second, AutomatonSpecification automaton) {
@@ -49,7 +48,7 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
             }
         }
         automaton.insert(finalStateL, second);
-=======
+    }
      /**
       * Fabryka operatora.
       */
@@ -63,6 +62,5 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
         protected RegexpOperator doCreateOperator(List<String> params) {
             return new AnyOrderOperator();
         }
->>>>>>> 13aeefd16f34372294ebf623abde5d29c99d4bb3
     }
 }
