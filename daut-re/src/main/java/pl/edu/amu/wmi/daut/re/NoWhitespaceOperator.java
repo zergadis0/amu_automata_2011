@@ -10,6 +10,7 @@ import java.util.List;
  * Klasa reprezentująca dowolny znak niebędący białym znakiem.
  */
 public class NoWhitespaceOperator extends NullaryRegexpOperator {
+    private final String LIST_OF_WHITESPACE_CHARS = "\t\n\f\r \u000B";
    /**
     * Główna metoda klasy.
     */
@@ -18,8 +19,8 @@ public class NoWhitespaceOperator extends NullaryRegexpOperator {
         AutomatonSpecification noWhitespaceAutomaton = new NaiveAutomatonSpecification();
         State state1 = noWhitespaceAutomaton.addState();
         State state2 = noWhitespaceAutomaton.addState();
-        noWhitespaceAutomaton.addTransition(state1, state2,
-              new ComplementCharClassTransitionLabel("\t\n\f\r \u000B"));
+        noWhitespaceAutomaton.addTransition(state1, state2, 
+              new ComplementCharClassTransitionLabel(LIST_OF_WHITESPACE_CHARS));
         noWhitespaceAutomaton.markAsInitial(state1);
         noWhitespaceAutomaton.markAsFinal(state2);
         return noWhitespaceAutomaton;
