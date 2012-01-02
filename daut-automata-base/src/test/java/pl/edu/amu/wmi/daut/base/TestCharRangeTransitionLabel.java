@@ -14,20 +14,26 @@ public class TestCharRangeTransitionLabel extends TestCase {
     public final void testEmptyIntersection() {
  
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
+ 
         State s0 = aut.addState();
         State s1 = aut.addState();
-        State s2 = aut.addState(); 
+        State s2 = aut.addState();
+ 
         aut.markAsInitial(s0);
         aut.markAsFinal(s2);
+ 
         TransitionLabel trans = new CharRangeTransitionLabel('a', 'c');
         TransitionLabel trans2 = new CharRangeTransitionLabel('d', 'f');
+ 
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
         aut.addTransition(s0, s1, trans.intersectWith(trans2));
+ 
         assertTrue(trans.canAcceptCharacter('a'));
         assertTrue(trans.canAcceptCharacter('b'));
         assertTrue(trans.canAcceptCharacter('c'));
-        assertFalse(trans.canAcceptCharacter('h')); 
+        assertFalse(trans.canAcceptCharacter('h'));
+ 
         assertFalse(trans.canBeEpsilon());
     }
  
@@ -42,6 +48,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         State s1 = aut.addState();
         State s2 = aut.addState();
         State s3 = aut.addState();
+ 
         aut.markAsInitial(s0);
         aut.markAsFinal(s3);
         TransitionLabel trans = new CharRangeTransitionLabel('a', 'c');
@@ -49,6 +56,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
         aut.addTransition(s2, s3, trans2.intersectWith(trans));
+ 
         assertFalse(trans.canBeEpsilon());
         assertTrue(trans.canAcceptCharacter('a'));
         assertTrue(trans.canAcceptCharacter('b'));
@@ -99,6 +107,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
         aut.addTransition(s2, s3, trans2.intersectWith(trans));
+ 
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('a'));
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('c'));
@@ -133,6 +142,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
         aut.addTransition(s2, s3, trans2.intersectWith(trans));
+ 
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('b'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('c'));
@@ -160,6 +170,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
         aut.addTransition(s2, s3, trans2.intersectWith(trans));
+ 
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('a'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('b'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('c'));
@@ -185,7 +196,8 @@ public class TestCharRangeTransitionLabel extends TestCase {
         TransitionLabel trans2 = new CharRangeTransitionLabel('a', 'a');
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
-        aut.addTransition(s2, s3, trans2.intersectWith(trans)); 
+        aut.addTransition(s2, s3, trans2.intersectWith(trans));
+ 
         assertTrue(trans.canAcceptCharacter('a'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
@@ -209,16 +221,16 @@ public class TestCharRangeTransitionLabel extends TestCase {
         TransitionLabel trans2 = new CharTransitionLabel('a');
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
-        aut.addTransition(s2, s3, trans2.intersectWith(trans)); 
-        assertTrue(trans.canAcceptCharacter('a'));
-        assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
-        assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
-        assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
-        assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
-        fail("Comparing different objects should fail");
-        } catch (TransitionLabel.CannotDetermineIntersectionException exception) {
-        System.out.println("error 69");
+        aut.addTransition(s2, s3, trans2.intersectWith(trans));
+ 
+                assertTrue(trans.canAcceptCharacter('a'));
+                assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
+                assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
+                assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
+                assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
+                fail("Comparing different objects should fail");
+                } catch (TransitionLabel.CannotDetermineIntersectionException exception) {
+                System.out.println("error 69");
         }
         }
 }
-
