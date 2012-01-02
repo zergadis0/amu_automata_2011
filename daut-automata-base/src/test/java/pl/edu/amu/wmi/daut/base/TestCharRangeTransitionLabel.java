@@ -221,12 +221,12 @@ public class TestCharRangeTransitionLabel extends TestCase {
         aut.addTransition(s2, s3, trans2.intersectWith(trans));
         assertTrue(trans.canAcceptCharacter('a'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
-                assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
-                assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
-                assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
-                fail("Comparing different objects should fail");
-                } catch (TransitionLabel.CannotDetermineIntersectionException exception) {
-                System.out.println("error 69");
+        assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
+        assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
+        assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
+        fail("Comparing different objects should fail");
+        } catch (TransitionLabel.CannotDetermineIntersectionException exception) {
+        System.out.println("error 69");
         }
         }
 }
