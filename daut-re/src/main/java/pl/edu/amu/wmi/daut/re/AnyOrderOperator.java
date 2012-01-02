@@ -5,6 +5,7 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.AutomataOperations;
 import pl.edu.amu.wmi.daut.base.State;
+import java.util.List;
 
 /**
  * Klasa reprezentujaca operator oznaczajacy, ze dwa elementy moga wystapic jeden po drugim
@@ -25,6 +26,7 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
         return AutomataOperations.sum(automatonLR, automatonRL);
     }
 
+<<<<<<< HEAD
     /**
      * @param first
      * Automat poczatkowy, ktory rozpoczyna wyjsciowy automat.
@@ -47,5 +49,20 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
             }
         }
         automaton.insert(finalStateL, second);
+=======
+     /**
+      * Fabryka operatora.
+      */
+    public static class Factory extends BinaryRegexpOperatorFactory {
+
+        @Override
+        public int numberOfParams() {
+            return 0;
+        }
+
+        protected RegexpOperator doCreateOperator(List<String> params) {
+            return new AnyOrderOperator();
+        }
+>>>>>>> 13aeefd16f34372294ebf623abde5d29c99d4bb3
     }
 }

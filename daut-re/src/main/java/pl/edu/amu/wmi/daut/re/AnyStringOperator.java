@@ -4,6 +4,7 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.AnyTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
+import java.util.List;
 
 /**
  * Reprezentuje dowolny napis, dowolnej długości (także pusty).
@@ -21,5 +22,20 @@ public class AnyStringOperator extends NullaryRegexpOperator {
         spec.addTransition(q, q, new AnyTransitionLabel());
 
         return spec;
+    }
+
+    /**
+     * Fabryka operatora.
+     */
+    public static class Factory extends NullaryRegexpOperatorFactory {
+
+        @Override
+        public int numberOfParams() {
+            return 0;
+        }
+
+        protected RegexpOperator doCreateOperator(List<String> params) {
+            return new AnyStringOperator();
+        }
     }
 }

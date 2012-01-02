@@ -195,16 +195,12 @@ public abstract class AutomatonSpecification implements Cloneable  {
         else {
             int counter = 0;
             boolean isThereNoInitialState = false;
-            try {
-                for (State s : allStates()) {
-                    if (this.isFinal(s))
-                        counter++;
-                    this.getInitialState();
-                }
-            } catch (Exception e) {
-                isThereNoInitialState = true;
+            for (State s : allStates()) {
+                if (this.isFinal(s))
+                    counter++;
             }
-
+            if (this.getInitialState() == null)
+                isThereNoInitialState = true;
             if (counter == 0 || isThereNoInitialState)
                 return false;
             else {
@@ -572,6 +568,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
     /**
      * Zwraca true, gdy automat akceptuje napis pusty.
      */
+
     public boolean acceptEmptyWord() {
 
         List<State> tocheck = new ArrayList<State>();
@@ -590,13 +587,13 @@ public abstract class AutomatonSpecification implements Cloneable  {
             transitions.clear();
             transitions = allOutgoingTransitions(tocheck.get(i));
 
-            for (int j = 0; j < transitions.size(); ++j) {
-                label = transitions.get(j).getTransitionLabel();
-                state = transitions.get(j).getTargetState();
+            for (OutgoingTransition j : transitions) {
+                label = j.getTransitionLabel();
+                state = j.getTargetState();
 
                 if (label.canBeEpsilon() && !tocheck.contains(state)) {
                     tocheck.add(state);
-                    iterator++;
+                    ++iterator;
 
                     if (isFinal(state)) {
                         return true;
@@ -606,6 +603,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
         }
         return false;
     }
+
 
     /**
      * Sprawdza, czy w automacie istnieją zbędne stany.
@@ -790,6 +788,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
         return words;
     }
 
+
     /**
      * Sprawdza, czy akceptowany język jest nieskończony.
      */
@@ -939,30 +938,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
      * Tworzy epsilon domknięcie zadanego stanu.
      */
     public Set<State> getEpsilonClosure(State initial) {
-
-        Set<State> epsilonClosure = new HashSet<State>();
-        Set<State> visited = new HashSet<State>();
-        Stack<State> stack = new Stack<State>();
-        stack.push(initial);
-        epsilonClosure.add(initial);
-
-        while (!stack.empty()) {
-            State from = stack.pop();
-            if (visited.contains(from)) {
-                continue;
-            }
-            visited.add(from);
-            for (OutgoingTransition trans : allOutgoingTransitions(from)) {
-                TransitionLabel label = trans.getTransitionLabel();
-                State to = trans.getTargetState();
-                if (label.canBeEpsilon()) {
-                    epsilonClosure.add(to);
-                    stack.push(to);
-                }
-            }
-        }
-
-        return epsilonClosure;
+        return doGetEpsilonClosure(initial);
     }
     /**
      * Odznacza końcowy stan.
@@ -1010,6 +986,70 @@ public abstract class AutomatonSpecification implements Cloneable  {
 
     protected List<State> getFinalStates() {
         return finalStatess;
+    }
+
+    /**
+     * Zwraca epsilon domknięcie zadanego stanu, z uwzględnieniem warunków kontekstowych.
+     */
+    public Set<State> getEpsilonClosureWithContext(State initial, String s, int position) {
+        Integer pos = Integer.valueOf(position);
+        return doGetEpsilonClosure(initial, s, pos);
+    }
+
+    /**
+     * Metoda wyszukująca epsilon domknięcie.
+     */
+    private Set<State> doGetEpsilonClosure(State initial, Object... data) {
+        boolean withContext = true;
+        Set<State> epsilonClosure = new HashSet<State>();
+        Set<State> visited = new HashSet<State>();
+        Stack<State> stack = new Stack<State>();
+        String s = null;
+        Integer position = null;
+
+        if (data.length == 0) {
+            withContext = false;
+        } else if (data.length == 2) {
+            if (data[0].getClass() != String.class)
+                throw new IllegalArgumentException();
+            s = (String) data[0];
+            if (data[1].getClass() != Integer.class)
+                throw new IllegalArgumentException();
+            position = (Integer) data[1];
+        } else {
+            throw new IllegalArgumentException("Unsupported number of arguments.");
+        }
+
+        stack.push(initial);
+        epsilonClosure.add(initial);
+
+        while (!stack.empty()) {
+            State from = stack.pop();
+            if (visited.contains(from)) {
+                continue;
+            }
+            visited.add(from);
+            if (withContext) {
+                for (OutgoingTransition trans : allOutgoingTransitions(from)) {
+                    TransitionLabel label = trans.getTransitionLabel();
+                    State to = trans.getTargetState();
+                    if (label.canBeEpsilon() && label.checkContext(s, position.intValue())) {
+                        epsilonClosure.add(to);
+                        stack.push(to);
+                    }
+                }
+            } else {
+                for (OutgoingTransition trans : allOutgoingTransitions(from)) {
+                    TransitionLabel label = trans.getTransitionLabel();
+                    State to = trans.getTargetState();
+                    if (label.canBeEpsilon()) {
+                        epsilonClosure.add(to);
+                        stack.push(to);
+                    }
+                }
+            }
+        }
+        return epsilonClosure;
     }
 
     private LinkedList<State> finalStatess = new LinkedList<State>();
