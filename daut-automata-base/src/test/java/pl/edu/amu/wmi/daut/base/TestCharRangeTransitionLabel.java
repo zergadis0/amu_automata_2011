@@ -142,7 +142,6 @@ public class TestCharRangeTransitionLabel extends TestCase {
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
         aut.addTransition(s2, s3, trans2.intersectWith(trans));
- 
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('b'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('c'));
@@ -170,7 +169,6 @@ public class TestCharRangeTransitionLabel extends TestCase {
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
         aut.addTransition(s2, s3, trans2.intersectWith(trans));
- 
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('a'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('b'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('c'));
@@ -197,7 +195,6 @@ public class TestCharRangeTransitionLabel extends TestCase {
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
         aut.addTransition(s2, s3, trans2.intersectWith(trans));
- 
         assertTrue(trans.canAcceptCharacter('a'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
