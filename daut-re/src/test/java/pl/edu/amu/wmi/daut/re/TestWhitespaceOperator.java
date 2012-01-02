@@ -11,9 +11,6 @@ import pl.edu.amu.wmi.daut.re.WhitespaceOperator.Factory;
  */
 public class TestWhitespaceOperator extends TestCase {
 
-    public TestWhitespaceOperator() {
-    }
-
     /**
      * Test metody createFixedAutomaton.
      */
