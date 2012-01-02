@@ -15,9 +15,7 @@ import pl.edu.amu.wmi.daut.base.CharClassTransitionLabel;
  * klasa reprezentująca dowolny pusty znak.
  * */
 public class WhitespaceOperator extends NullaryRegexpOperator {
-
-    private String s = "\t\n\f\r \u000B";
-
+    private final String LIST_OF_WHITESPACE_CHARS = "\t\n\f\r \u000B";
 
     @Override
     public AutomatonSpecification createFixedAutomaton() {
@@ -27,7 +25,7 @@ public class WhitespaceOperator extends NullaryRegexpOperator {
         automaton.markAsInitial(q0);
         automaton.markAsFinal(q1);
 
-        automaton.addTransition(q0, q1, new CharClassTransitionLabel(s));
+        automaton.addTransition(q0, q1, new CharClassTransitionLabel(LIST_OF_WHITESPACE_CHARS));
 
         return automaton;
     }
