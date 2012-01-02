@@ -205,7 +205,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      * Metoda testująca CharRangeTransitionLabel.
      * Przecięcie dwóch różnych klas TransitionLabel.
      */
-        public final void testCharIntersection() {
+    public final void testCharIntersection() {
         try {
         AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
