@@ -8,8 +8,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- *
- * @author dawidss7
+ * ComplementCharClassTransitionLabel jest implementacją TransitionLabel
+ * reprezentującą przejście po znaku z dopełnienia podanej klasy znaków.
+ * 
  */
 public class ComplementCharClassTransitionLabel extends TransitionLabel {
 
