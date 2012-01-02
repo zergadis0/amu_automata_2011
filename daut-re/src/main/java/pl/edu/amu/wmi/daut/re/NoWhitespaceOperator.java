@@ -18,8 +18,8 @@ public class NoWhitespaceOperator extends NullaryRegexpOperator {
         AutomatonSpecification noWhitespaceAutomaton = new NaiveAutomatonSpecification();
         State state1 = noWhitespaceAutomaton.addState();
         State state2 = noWhitespaceAutomaton.addState();
-        noWhitespaceAutomaton.addTransition(state1, state2,
-              new ComplementCharClassTransitionLabel("\\S"));
+        noWhitespaceAutomaton.addTransition(state1, state2, 
+              new ComplementCharClassTransitionLabel("\t\n\f\r \u000B"));
         noWhitespaceAutomaton.markAsInitial(state1);
         noWhitespaceAutomaton.markAsFinal(state2);
         return noWhitespaceAutomaton;
