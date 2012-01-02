@@ -106,8 +106,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         TransitionLabel trans2 = new CharRangeTransitionLabel('c', 'e');
         aut.addTransition(s0, s1, trans);
         aut.addTransition(s1, s2, trans2);
-        aut.addTransition(s2, s3, trans2.intersectWith(trans));
- 
+        aut.addTransition(s2, s3, trans2.intersectWith(trans)); 
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('a'));
         assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
         assertTrue(trans.intersectWith(trans2).canAcceptCharacter('c'));
