@@ -207,7 +207,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
      */
     public final void testCharIntersection() {
         try {
-        	AutomatonSpecification aut = new NaiveAutomatonSpecification();
+        AutomatonSpecification aut = new NaiveAutomatonSpecification();
         State s0 = aut.addState();
         State s1 = aut.addState();
         State s2 = aut.addState();
