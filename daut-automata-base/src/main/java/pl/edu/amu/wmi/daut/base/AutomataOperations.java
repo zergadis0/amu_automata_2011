@@ -668,3 +668,4 @@ public class AutomataOperations {
         return wsa;
     }
 }
+
