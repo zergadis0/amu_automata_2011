@@ -1,6 +1,5 @@
 package pl.edu.amu.wmi.daut.re;
 
-
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
@@ -15,7 +14,7 @@ import pl.edu.amu.wmi.daut.base.CharClassTransitionLabel;
  * klasa reprezentująca dowolny pusty znak.
  * */
 public class WhitespaceOperator extends NullaryRegexpOperator {
-    private final String LIST_OF_WHITESPACE_CHARS = "\t\n\f\r \u000B";
+    private static final String WHITESPACE_CHARS = "\t\n\f\r \u000B";
 
     @Override
     public AutomatonSpecification createFixedAutomaton() {
@@ -24,9 +23,7 @@ public class WhitespaceOperator extends NullaryRegexpOperator {
         State q1 = automaton.addState();
         automaton.markAsInitial(q0);
         automaton.markAsFinal(q1);
-
-        automaton.addTransition(q0, q1, new CharClassTransitionLabel(LIST_OF_WHITESPACE_CHARS));
-
+        automaton.addTransition(q0, q1, new CharClassTransitionLabel(WHITESPACE_CHARS));
         return automaton;
     }
 
