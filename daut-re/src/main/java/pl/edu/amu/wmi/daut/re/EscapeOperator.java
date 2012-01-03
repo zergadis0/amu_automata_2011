@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
@@ -37,16 +33,15 @@ public class EscapeOperator extends NullaryRegexpOperator {
         }
 
     }
-
     /**
-     * Konstruktor 
+     * Konstruktor klasy.
      * @param a znak poprzedzony symbolem ucieczki
      */
     public EscapeOperator(char a) {
         this.setChar(a);
 
     }
-    
+
     private void setChar(char b) {
         this.znak = b;
     }
