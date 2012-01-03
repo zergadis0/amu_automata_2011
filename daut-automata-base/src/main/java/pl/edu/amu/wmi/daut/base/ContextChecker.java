@@ -9,5 +9,5 @@ public interface ContextChecker {
     /**
      * Metoda odpowiedzialna za sprawdzanie kontekstu. Zwraca true lub false.
      */
-    public boolean check(TransitionLabel label);
+    boolean check(TransitionLabel label);
 }

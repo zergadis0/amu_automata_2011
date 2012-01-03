@@ -7,6 +7,9 @@ public class ReallyCheckingContextChecker implements ContextChecker {
     private final String s;
     private final int position;
 
+    /**
+     * Konstruktor klasy.
+     */
     public ReallyCheckingContextChecker(String str, int pos) {
         s = str;
         position = pos;
