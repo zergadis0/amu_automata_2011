@@ -14,7 +14,7 @@ public class EndOfTextOrLineTransitionLabel extends ZeroLengthConditionalTransit
         if (s.length() < position) {
             throw new PositionOutOfStringBordersException();
         }
-        if (( s.charAt(position) == '\n') || (s.charAt(position) == '\u0003')) {
+        if ((s.charAt(position) == '\n') || (s.charAt(position) == '\u0003')) {
             return true;
         }
         return false;
