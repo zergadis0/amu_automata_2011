@@ -10,7 +10,7 @@ class PositionOutOfStringBordersException extends RuntimeException {
 
 public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLabel {
 
-        @Override
+    @Override
     protected boolean doCheckContext(String s, int position) {
         if (s.length() < position) {
             throw new PositionOutOfStringBordersException();
