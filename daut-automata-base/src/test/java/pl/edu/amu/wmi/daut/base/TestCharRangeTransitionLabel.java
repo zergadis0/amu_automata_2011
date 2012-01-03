@@ -208,22 +208,22 @@ public class TestCharRangeTransitionLabel extends TestCase {
     public final void testCharIntersection() {
         try {
         	AutomatonSpecification aut = new NaiveAutomatonSpecification();
-        	State s0 = aut.addState();
-            State s1 = aut.addState();
-            State s2 = aut.addState();
-            State s3 = aut.addState();
-            aut.markAsInitial(s0);
-            aut.markAsFinal(s3);
-            TransitionLabel trans = new CharRangeTransitionLabel('a', 'c');
-            TransitionLabel trans2 = new CharTransitionLabel('a');
-            aut.addTransition(s0, s1, trans);
-            aut.addTransition(s1, s2, trans2);
-            aut.addTransition(s2, s3, trans2.intersectWith(trans));
-            assertTrue(trans.canAcceptCharacter('a'));
-            assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
-            assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
-            assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
-            assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
+        State s0 = aut.addState();
+        State s1 = aut.addState();
+        State s2 = aut.addState();
+        State s3 = aut.addState();
+        aut.markAsInitial(s0);
+        aut.markAsFinal(s3);
+        TransitionLabel trans = new CharRangeTransitionLabel('a', 'c');
+        TransitionLabel trans2 = new CharTransitionLabel('a');
+        aut.addTransition(s0, s1, trans);
+        aut.addTransition(s1, s2, trans2);
+        aut.addTransition(s2, s3, trans2.intersectWith(trans));
+        assertTrue(trans.canAcceptCharacter('a'));
+        assertTrue(trans.intersectWith(trans2).canAcceptCharacter('a'));
+        assertFalse(trans.intersectWith(trans2).canAcceptCharacter('b'));
+        assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
+        assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
         } catch (TransitionLabel.CannotDetermineIntersectionException exception) {
         System.out.println("error 69");
         }
