@@ -1,13 +1,16 @@
 package pl.edu.amu.wmi.daut.base;
 
-/**
- * Klasa EndOfTextTransitionLabel.
- */
-
 class PositionOutOfStringBordersException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 }
 
+/**
+ * 
+ * @author irmina90
+ * 
+ * Klasa odpowiedzialna za epsilon-przejscie.
+ *
+ */
 public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLabel {
 
     @Override
