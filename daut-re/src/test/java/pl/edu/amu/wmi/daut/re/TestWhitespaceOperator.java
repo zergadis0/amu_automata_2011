@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.AutomatonByRecursion;
 import pl.edu.amu.wmi.daut.re.WhitespaceOperator.Factory;
+import java.util.ArrayList;
 
 /**
  * Test klasy WhitespaceOperator.
@@ -38,8 +39,7 @@ public class TestWhitespaceOperator extends TestCase {
     public void testFactory() {
 
         Factory factory = new Factory();
-        assertEquals(factory.numberOfParams(), 0);
-        RegexpOperator operator2 = factory.doCreateOperator(null);
+        RegexpOperator operator2 = factory.createOperator(new ArrayList<String>());
         int arity = operator2.arity();
         assertEquals(arity, 0);
 
