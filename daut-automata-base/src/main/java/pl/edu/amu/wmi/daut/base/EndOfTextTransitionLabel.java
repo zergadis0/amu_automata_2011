@@ -1,16 +1,15 @@
 package pl.edu.amu.wmi.daut.base;
 
+/**
+ * Klasa EndOfTextTransitionLabel.
+ */
+
 class PositionOutOfStringBordersException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 }
-/**
- * 
- Klasa EndOfTextTransitionLabel
- * 
- **/
-public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLabel{
-    
-    
+
+public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLabel {
+
         @Override
     protected boolean doCheckContext(String s, int position) {
         if (s.length() < position) {
@@ -36,5 +35,5 @@ public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLab
     public String toString() {
         return "EndOfText";
     }
-    
+
 }
