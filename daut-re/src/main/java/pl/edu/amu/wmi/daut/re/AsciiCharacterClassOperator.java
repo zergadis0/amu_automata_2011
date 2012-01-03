@@ -46,16 +46,10 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
 
 
     /**
-     * konstruktor ASCII character classes.
+     * Konstruktor ASCII character classes.
      */
-    public AsciiCharacterClassOperator(String a) {
-        if (!(a.substring(0, 2).equals("[:")))
-            throw new InvalidStringException();
-        a = a.substring(2);
-        if (!(a.endsWith(":]")))
-            throw new InvalidStringException();
-        a = a.substring(0, a.length() - 2);
-        transformToClassString(a);
+    public AsciiCharacterClassOperator(String classString) {
+        transformToClassString(classString);
     }
 
 
