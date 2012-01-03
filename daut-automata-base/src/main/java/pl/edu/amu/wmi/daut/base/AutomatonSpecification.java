@@ -947,7 +947,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
     /**
      * Odznacza końcowy stan.
      */
-    public void unmarkedAsFinalState(State state) {
+    public void unmarkAsFinalState(State state) {
         getFinalStates().remove(state);
     }
     /**
