@@ -607,5 +607,17 @@ public class TestNaiveAutomatonSpecification extends TestCase {
         assertTrue(automat.isInfinite());
     }
 
+    /**
+     * Test Z pojedyńczym stanem bez pętli.
+     */
+    public final void testInfiniteForOneStateWithoutLoop() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
 
+        State s0 = automat.addState();
+
+        automat.markAsInitial(s0);
+        automat.markAsFinal(s0);
+
+        assertFalse(automat.isInfinite());
+    }
 }
