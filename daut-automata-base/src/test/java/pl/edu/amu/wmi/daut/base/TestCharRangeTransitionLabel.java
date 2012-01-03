@@ -225,7 +225,7 @@ public class TestCharRangeTransitionLabel extends TestCase {
         assertTrue(trans2.intersectWith(trans).canAcceptCharacter('a'));
         assertFalse(trans2.intersectWith(trans).canAcceptCharacter('b'));
         } catch (TransitionLabel.CannotDetermineIntersectionException exception) {
-        System.out.println("error 69");
+        //System.out.println("error 69");
         }
         }
 }
