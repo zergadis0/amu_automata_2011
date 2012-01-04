@@ -10,22 +10,17 @@ import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
 import java.lang.Character.UnicodeBlock;
 
-
 class UnknownUnicodeClassException extends RuntimeException {
 }
-
 
 /**
  * Unicode class.
  */
 public class UnicodeClassOperator extends NullaryRegexpOperator {
-    
 
     private String str;
 
     private static final Map<String, String> MAP_OF_UNICODE_CLASS = createMap();
-
-   
 
     private static Map<String, String> createMap() {
         Map<String, String> result = new HashMap<String, String>();
@@ -80,10 +75,9 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
         result.put("Yijing", UnicodeBlock.YIJING_HEXAGRAM_SYMBOLS.toString());
         result.put("Yi", UnicodeBlock.YI_SYLLABLES.toString()
                 + UnicodeBlock.YI_RADICALS.toString());
-        
+
         return Collections.unmodifiableMap(result);
     }
-
 
     /**
      * konstruktor Unicode classes.
@@ -95,13 +89,11 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
             a = a.substring(1);
         if (a.endsWith("}"))
             a = a.substring(0, a.length() - 1);
-        
-        
+
         str = MAP_OF_UNICODE_CLASS.get(a);
         if (str == null)
             throw new UnknownUnicodeClassException();
     }
-
 
     /**
      * Generuje automat.
@@ -136,3 +128,4 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
         }
     }
 }
+
