@@ -4,9 +4,12 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 import junit.framework.TestCase;
 
+/**
+ * Test klasy EscapeOperator.
+ */
 public class TestEscapeOperator extends TestCase {
 
-    public void TestCreateFixedAutomaton() {
+    public void testEscapeOperatorA() {
         EscapeOperator operator = new EscapeOperator('a');
         AutomatonSpecification automaton = operator.createFixedAutomaton();
         NondeterministicAutomatonByThompsonApproach result =
@@ -19,7 +22,7 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result.accepts("c"));
     }
 
-    public void TestCreateFixedAutomaton1() {
+    public void testEscapeOperatorN() {
 
         EscapeOperator operator1 = new EscapeOperator('n');
         AutomatonSpecification automaton1 = operator1.createFixedAutomaton();
@@ -33,7 +36,7 @@ public class TestEscapeOperator extends TestCase {
 
     }
 
-    public void TestCreateFixedAutomaton2() {
+    public void testEscapeOperatorT() {
 
         EscapeOperator operator2 = new EscapeOperator('t');
         AutomatonSpecification automaton2 = operator2.createFixedAutomaton();
@@ -46,7 +49,7 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result2.accepts("t"));
     }
 
-    public void TestCreateFixedAutomaton3() {
+    public void testEscapeOperatorF() {
 
         EscapeOperator operator3 = new EscapeOperator('f');
         AutomatonSpecification automaton3 = operator3.createFixedAutomaton();
@@ -59,7 +62,7 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result3.accepts("f"));
     }
 
-    public void TestCreateFixedAutomaton4() {
+    public void testEscapeOperatorR() {
 
         EscapeOperator operator4 = new EscapeOperator('r');
         AutomatonSpecification automaton4 = operator4.createFixedAutomaton();
@@ -72,7 +75,7 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result4.accepts("r"));
     }
 
-    public void TestCreateFixedAutomaton5() {
+    public void testEscapeOperatorI() {
 
         EscapeOperator operator5 = new EscapeOperator('i');
         AutomatonSpecification automaton5 = operator5.createFixedAutomaton();
@@ -85,7 +88,7 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result5.accepts("\\i"));
     }
 
-    public void TestCreateFixedAutomaton6() {
+    public void testEscapeOperatorV() {
 
         EscapeOperator operator6 = new EscapeOperator('v');
         AutomatonSpecification automaton6 = operator6.createFixedAutomaton();
