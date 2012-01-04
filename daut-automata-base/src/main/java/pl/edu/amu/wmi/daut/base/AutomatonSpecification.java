@@ -820,15 +820,13 @@ public abstract class AutomatonSpecification implements Cloneable  {
         }
         return result;
     }
+    
 
     private boolean findFinals(State state, List<State> history) {
         boolean result = false;
 
         if (isFinal(state))
             return true;
-
-        if (allOutgoingTransitions(state).size() == 0)
-            return false;
 
         for (State his : history)
             if (his == state)

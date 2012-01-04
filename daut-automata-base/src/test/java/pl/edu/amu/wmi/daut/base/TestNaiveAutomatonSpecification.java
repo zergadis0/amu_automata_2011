@@ -608,7 +608,8 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test Z pojedyńczym stanem bez pętli.
+     * Test metody sprawdzającej metodę sprawdzającą czy podany język jest
+     * nieskończony dla automatu z pojedyńczym stanem bez pętli.
      */
     public final void testInfiniteForOneStateWithoutLoop() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
@@ -617,6 +618,24 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         automat.markAsInitial(s0);
         automat.markAsFinal(s0);
+
+        assertFalse(automat.isInfinite());
+    }
+    
+    /**
+     * Test metody sprawdzającej metodę sprawdzającą czy podany język jest
+     * nieskończony dla automatu ze staniem niefinalnym po pętli.
+     */
+    public final void testInfiniteForNotFinalStateAfterLoop() {
+        NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
+
+        State s0 = automat.addState();
+        State s1 = automat.addState();
+
+        automat.markAsInitial(s0);
+
+        automat.addLoop(s0, new CharTransitionLabel('c'));
+        automat.addTransition(s0, s1, new CharTransitionLabel('b'));
 
         assertFalse(automat.isInfinite());
     }
