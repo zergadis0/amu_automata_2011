@@ -820,7 +820,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         }
         return result;
     }
-    
 
     private boolean findFinals(State state, List<State> history) {
         boolean result = false;

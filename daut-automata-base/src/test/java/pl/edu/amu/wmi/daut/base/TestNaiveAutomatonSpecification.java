@@ -621,7 +621,7 @@ public class TestNaiveAutomatonSpecification extends TestCase {
 
         assertFalse(automat.isInfinite());
     }
-    
+
     /**
      * Test metody sprawdzającej metodę sprawdzającą czy podany język jest
      * nieskończony dla automatu ze staniem niefinalnym po pętli.
