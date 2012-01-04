@@ -1,7 +1,18 @@
 package pl.edu.amu.wmi.daut.re;
 
+import java.util.List;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
+
+/**
+ * 
+ * Obsługa wyjątków
+ */
+class InvalidEscapeOperatorException extends RuntimeException {
+    public InvalidEscapeOperatorException(String message) {
+        super(message);
+    }
+}
 
 /**
  *
@@ -45,4 +56,23 @@ public class EscapeOperator extends NullaryRegexpOperator {
     private void setChar(char b) {
         this.znak = b;
     }
+    /**
+     * Fabryka operatora.
+     */
+    public static class Factory extends NullaryRegexpOperatorFactory {
+
+        @Override
+        public int numberOfParams() {
+            return 1;
+        }
+
+        @Override
+        protected RegexpOperator doCreateOperator(List<String> params) {
+            if (params.get(0).length() == 1)
+                return new EscapeOperator(params.get(0).charAt(0));
+            else 
+                throw new InvalidEscapeOperatorException("Argument was supposed to be a char, not a string");
+        }
+    }
 }
+
