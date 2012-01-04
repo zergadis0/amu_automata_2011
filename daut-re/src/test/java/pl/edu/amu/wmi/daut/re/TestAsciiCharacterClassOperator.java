@@ -16,31 +16,12 @@ public class TestAsciiCharacterClassOperator extends TestCase {
 
         try {
             ArrayList<String> params = new ArrayList<String>();
-            params.add("[:zlyTest1:]");
+            params.add("zlyTest1");
             (new AsciiCharacterClassOperator.Factory()).createOperator(params);
             fail();
         } catch (UnknownAsciiCharacterClassException e) {
             assertTrue(true);
         }
-
-        try {
-            ArrayList<String> params = new ArrayList<String>();
-            params.add("[:zlyTest2");
-            (new AsciiCharacterClassOperator.Factory()).createOperator(params);
-            fail();
-        } catch (InvalidStringException e) {
-            assertTrue(true);
-        }
-
-        try {
-            ArrayList<String> params = new ArrayList<String>();
-            params.add("zlyTest3");
-            (new AsciiCharacterClassOperator.Factory()).createOperator(params);
-            fail();
-        } catch (InvalidStringException e) {
-            assertTrue(true);
-        }
-
     }
 
     /**
@@ -343,3 +324,4 @@ public class TestAsciiCharacterClassOperator extends TestCase {
         assertFalse(automaton.accepts("12"));
     }
 }
+
