@@ -8,7 +8,7 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.CharClassTransitionLabel;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.State;
-import java.lang.Character.UnicodeBlock;
+
 
 class UnknownUnicodeClassException extends RuntimeException {
 }
