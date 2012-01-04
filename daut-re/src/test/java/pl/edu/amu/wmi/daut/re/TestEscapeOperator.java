@@ -9,6 +9,9 @@ import junit.framework.TestCase;
  */
 public class TestEscapeOperator extends TestCase {
 
+    /**
+     * Test znaku ucieczki "\a".
+     */
     public void testEscapeOperatorA() {
         EscapeOperator operator = new EscapeOperator('a');
         AutomatonSpecification automaton = operator.createFixedAutomaton();
@@ -22,6 +25,9 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result.accepts("c"));
     }
 
+    /**
+     * Test znaku ucieczki "\n".
+     */
     public void testEscapeOperatorN() {
 
         EscapeOperator operator1 = new EscapeOperator('n');
@@ -36,6 +42,9 @@ public class TestEscapeOperator extends TestCase {
 
     }
 
+    /**
+     * Test znaku ucieczki "\t".
+     */
     public void testEscapeOperatorT() {
 
         EscapeOperator operator2 = new EscapeOperator('t');
@@ -49,6 +58,9 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result2.accepts("t"));
     }
 
+    /**
+     * Test znaku ucieczki "\f".
+     */
     public void testEscapeOperatorF() {
 
         EscapeOperator operator3 = new EscapeOperator('f');
@@ -62,6 +74,9 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result3.accepts("f"));
     }
 
+    /**
+     * Test znaku ucieczki "\r".
+     */
     public void testEscapeOperatorR() {
 
         EscapeOperator operator4 = new EscapeOperator('r');
@@ -75,6 +90,9 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result4.accepts("r"));
     }
 
+    /**
+     * Test zwyklego znaku.
+     */
     public void testEscapeOperatorI() {
 
         EscapeOperator operator5 = new EscapeOperator('i');
@@ -88,6 +106,9 @@ public class TestEscapeOperator extends TestCase {
         assertFalse(result5.accepts("\\i"));
     }
 
+    /**
+     * Test znaku ucieczki "\v".
+     */
     public void testEscapeOperatorV() {
 
         EscapeOperator operator6 = new EscapeOperator('v');
