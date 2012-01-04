@@ -10,19 +10,19 @@ import java.util.Set;
 import java.util.Vector;
 
 /**
-* Klasa zwierająca operacje na automatach.
-*/
+ * Klasa zwierająca operacje na automatach.
+ */
 public class AutomataOperations {
 
     /**
-    * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
-    * intersection.
-    */
+     * Klasa reprezentuje stan C powstały poprzez połączenie stanów A i B w wyniku operacji
+     * intersection.
+     */
     private static final class CombinedState {
 
         /**
-        * Przypisuje stanowi C jego składowe stany A i B.
-        */
+         * Przypisuje stanowi C jego składowe stany A i B.
+         */
         public void set(State a, State b) {
             qA = a;
             qB = b;
@@ -42,9 +42,9 @@ public class AutomataOperations {
     }
 
     /**
-    *Metoda zwraca automat akceptujący odwrócenie języka,
-    * akceptowanego przez dany automat "parent".
-    */
+     *Metoda zwraca automat akceptujący odwrócenie języka,
+     * akceptowanego przez dany automat "parent".
+     */
     public AutomatonSpecification reverseLanguageAutomat(
             NaiveAutomatonSpecification parent) {
 
@@ -99,11 +99,11 @@ public class AutomataOperations {
     }
 
     /**
-    * Metoda tworzy przejscie od stanu stateC do nowego stanu utworzonego przez pare A i B w
-    * combinedC po etykiecie transition. Dodanie nowo utworzonego stanu stateCn do listy newStates
-    * wraz z wpisaniem jej oraz jej kombinacji stanów do HashMap.
-    * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
-    */
+     * Metoda tworzy przejscie od stanu stateC do nowego stanu utworzonego przez pare A i B w
+     * combinedC po etykiecie transition. Dodanie nowo utworzonego stanu stateCn do listy newStates
+     * wraz z wpisaniem jej oraz jej kombinacji stanów do HashMap.
+     * hashMaps - 0 - statesC, 1 - statesCHandle, 2 - combinedStatesC
+     */
     private static boolean makeTransition(CombinedState combinedC, List newStates,
             TransitionLabel transition, List<HashMap> hashMaps, State stateC,
             AutomatonSpecification automatonC, boolean isFinal) {
@@ -170,11 +170,11 @@ public class AutomataOperations {
         newStates.add(qC);
 
         /*
-        * combinedStatesC - zawiera łańcuch kontrolny odpowiadający kombinacji stanów A i B
-        * statesC - zawiera stan C z łańcuchem kobminacji jego stanów A i B
-        * statesCHandle - zawiera uchwyt do stanu C poprzez łańcuch kontrolny jego kombinacji
-        * stanów A i B
-        */
+         * combinedStatesC - zawiera łańcuch kontrolny odpowiadający kombinacji stanów A i B
+         * statesC - zawiera stan C z łańcuchem kobminacji jego stanów A i B
+         * statesCHandle - zawiera uchwyt do stanu C poprzez łańcuch kontrolny jego kombinacji
+         * stanów A i B
+         */
         HashMap<String, CombinedState> combinedStatesC = new HashMap<String, CombinedState>();
         HashMap<State, String> statesC = new HashMap<State, String>();
         HashMap<String, State> statesCHandle = new HashMap<String, State>();
@@ -257,9 +257,9 @@ public class AutomataOperations {
     }
 
     /**
-    * Zwraca automat akceptujący domknięcie Kleene'ego
-    * języka akceptowanego przez dany automat.
-    */
+     * Zwraca automat akceptujący domknięcie Kleene'ego
+     * języka akceptowanego przez dany automat.
+     */
     public static AutomatonSpecification getKleeneStar(AutomatonSpecification automaton) {
         AutomatonSpecification kleeneautomaton = new NaiveAutomatonSpecification();
         State state1 = kleeneautomaton.addState();
@@ -279,8 +279,8 @@ public class AutomataOperations {
     }
 
      /**
-     * Metoda tworzaca automat akceptujacy sume 2 jezykow.
-     */
+      * Metoda tworzaca automat akceptujacy sume 2 jezykow.
+      */
 
     public static AutomatonSpecification sum(
         AutomatonSpecification automatonA, AutomatonSpecification automatonB) {
@@ -297,14 +297,14 @@ public class AutomataOperations {
     }
 
   /**
-  * Zwraca automat akceptujący język powstały w wyniku zastosowania homomorfizmu h na
-  * języku akceptowanym przez automat automaton. Homomorfizm jest dany jako mapa, w której
-  * kluczami są znaki, a wartościami - napisy.
-  * @param alphabet alfabet w postaci String, np. abc
-  * @param automaton automat wejściowy
-  * @param h homomorfizm języka
+   * Zwraca automat akceptujący język powstały w wyniku zastosowania homomorfizmu h na
+   * języku akceptowanym przez automat automaton. Homomorfizm jest dany jako mapa, w której
+   * kluczami są znaki, a wartościami - napisy.
+   * @param alphabet alfabet w postaci String, np. abc
+   * @param automaton automat wejściowy
+   * @param h homomorfizm języka
 
-  */
+   */
  AutomatonSpecification homomorphism(AutomatonSpecification automaton,
          Map<Character, String> h, String alphabet) {
      if (automaton.isEmpty()) {
@@ -349,8 +349,8 @@ public class AutomataOperations {
 
 
     /**
-    * Klasa pomocnicza do determinize2(). Rekuprezentuje "zbiór stanów" będący stanem automatu dfa.
-    */
+     * Klasa pomocnicza do determinize2(). Rekuprezentuje "zbiór stanów" będący stanem automatu dfa.
+     */
     private static class PowerSetElement {
         private Set<State> nfaStates;
         private State dfaState;
@@ -366,10 +366,10 @@ public class AutomataOperations {
         }
 
         /**
-        * Funkcja pomocnicza do determinize2(). Rekurencyjnie tworzy listę stanów
-        * występujących w dfa. Przed użyciem tej funkcji trzeba jednak dodać do listOfStates
-        * jeden element - odpowiadający zbioru pustemu.
-        */
+         * Funkcja pomocnicza do determinize2(). Rekurencyjnie tworzy listę stanów
+         * występujących w dfa. Przed użyciem tej funkcji trzeba jednak dodać do listOfStates
+         * jeden element - odpowiadający zbioru pustemu.
+         */
         public static void giveAllPowerSetElements(List<PowerSetElement> listOfStates,
             List<State> dfaStatesRemote, List<State> nfaStatesRemote) {
             Set<State> nfaStates = new HashSet<State>();
@@ -410,9 +410,9 @@ public class AutomataOperations {
     };
 
     /*
-    * Metoda pomocnicza dla determiinize2. Tworzy podstawowy zbiór etykiet przejścia używanych
-    * przez oba automaty - niedeterministyczny i deterministyczny.
-    */
+     * Metoda pomocnicza dla determiinize2. Tworzy podstawowy zbiór etykiet przejścia używanych
+     * przez oba automaty - niedeterministyczny i deterministyczny.
+     */
     private static void putTransitionLabelInSet(HashSet<TransitionLabel> tSet,
             TransitionLabel transitionLabel) throws StructureException {
         if (!transitionLabel.isEmpty())
@@ -472,10 +472,10 @@ public class AutomataOperations {
     }
 
     /**
-    * Metoda determinizuje automat niedeterministyczny bez epsilon-przejść.
-    * Determinizacja przebiega zgodnie z algorytmem przedstawionym na wykładzie.
-    * Automat resultDfa na wejściu powinien być pusty!
-    */
+     * Metoda determinizuje automat niedeterministyczny bez epsilon-przejść.
+     * Determinizacja przebiega zgodnie z algorytmem przedstawionym na wykładzie.
+     * Automat resultDfa na wejściu powinien być pusty!
+     */
     public static void determinize2(AutomatonSpecification nfa,
             DeterministicAutomatonSpecification resultDfa) throws StructureException {
 
