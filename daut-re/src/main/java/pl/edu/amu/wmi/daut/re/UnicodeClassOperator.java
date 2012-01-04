@@ -49,7 +49,8 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
         result.put("Greek", "\u0370-\u03FF\u1F00-\u1FFF");
         result.put("Gujarati", "\u0A80–\u0AFF");
         result.put("Gurmukhi", "\u0A00–\u0A7F");
-        result.put("Han", "\u4E00–\u9FFF\u3400–\u4DBF\u20000–\u2A6DF\u2A700–\u2B73F\u2B840–\u2B81F");
+        result.put("Han", "\u4E00–\u9FFF\u3400–\u4DBF\u20000–\u2A6DF\u2A700–\u2B73F"
+                + "\u2B840–\u2B81F");
         result.put("Hangul", "\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uD7B0-\uD7FF");
         result.put("Hanunoo", "\u1720-\u173F");
         result.put("Hebrew", "\u0590-\u05FF\uFB1D-\uFB4F");
