@@ -5,8 +5,8 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
 
 /**
- * 
- * Obsługa wyjątków
+ *
+ * Obsługa wyjątków.
  */
 class InvalidEscapeOperatorException extends RuntimeException {
     public InvalidEscapeOperatorException(String message) {
@@ -70,8 +70,9 @@ public class EscapeOperator extends NullaryRegexpOperator {
         protected RegexpOperator doCreateOperator(List<String> params) {
             if (params.get(0).length() == 1)
                 return new EscapeOperator(params.get(0).charAt(0));
-            else 
-                throw new InvalidEscapeOperatorException("Argument was supposed to be a char, not a string");
+            else
+                throw new InvalidEscapeOperatorException("Argument was "
+                        + "supposed to be a char, not a string");
         }
     }
 }
