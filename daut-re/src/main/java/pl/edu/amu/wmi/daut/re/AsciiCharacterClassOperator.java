@@ -13,9 +13,6 @@ import pl.edu.amu.wmi.daut.base.State;
 class UnknownAsciiCharacterClassException extends RuntimeException {
 }
 
-class InvalidStringException extends RuntimeException {
-}
-
 /**
  * ASCII character classes.
  */

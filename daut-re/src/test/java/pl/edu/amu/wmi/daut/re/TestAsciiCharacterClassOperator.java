@@ -6,12 +6,12 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import junit.framework.TestCase;
 
 /**
-* Test klasy AsciiCharacterClassOperator.
-*/
+ * Test klasy AsciiCharacterClassOperator.
+ */
 public class TestAsciiCharacterClassOperator extends TestCase {
     /**
-* Test konstruktora AsciiCharacterClassOperator dla złych wartości parametru.
-*/
+     * Test konstruktora AsciiCharacterClassOperator dla złych wartości parametru.
+     */
     public void testAsciiCharacterClassOperatorWrongParams() {
 
         try {
@@ -44,8 +44,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia [:alnum:].
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia [:alnum:].
+     */
     public final void testAsciiCharacterClassOperatorAlnum() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -69,8 +69,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia alpha.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia alpha.
+     */
     public final void testAsciiCharacterClassOperatorAlpha() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -92,8 +92,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia blank.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia blank.
+     */
     public final void testAsciiCharacterClassOperatorBlank() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -113,8 +113,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia cntrl.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia cntrl.
+     */
     public final void testAsciiCharacterClassOperatorCntrl() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -135,8 +135,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia digit.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia digit.
+     */
     public final void testAsciiCharacterClassOperatorDigit() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -157,8 +157,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia graph.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia graph.
+     */
     public final void testAsciiCharacterClassOperatorGraph() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -179,8 +179,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia lower.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia lower.
+     */
     public final void testAsciiCharacterClassOperatorLower() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -204,8 +204,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia print.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia print.
+     */
     public final void testAsciiCharacterClassOperatorPrint() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -229,8 +229,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia punct.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia punct.
+     */
     public final void testAsciiCharacterClassOperatorPunct() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -252,8 +252,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia space.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia space.
+     */
     public final void testAsciiCharacterClassOperatorSpace() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -273,8 +273,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia upper.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia upper.
+     */
     public final void testAsciiCharacterClassOperatorUpper() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -296,8 +296,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia word.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia word.
+     */
     public final void testAsciiCharacterClassOperatorWord() {
 
         ArrayList<String> params = new ArrayList<String>();
@@ -320,8 +320,8 @@ public class TestAsciiCharacterClassOperator extends TestCase {
     }
 
     /**
-* Testuje automat AsciiCharacterClassOperator dla przejscia xdigit.
-*/
+     * Testuje automat AsciiCharacterClassOperator dla przejscia xdigit.
+     */
     public final void testAsciiCharacterClassOperatorXdigit() {
 
         ArrayList<String> params = new ArrayList<String>();
