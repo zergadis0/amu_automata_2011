@@ -23,7 +23,7 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
     private static final Map<String, String> MAP_M_Z_UNICODE_CLASS = createMapMZ();
 
     private static Map<String, String> createMapMZ() {
-        
+
         Map<String, String> result = new HashMap<String, String>();
 
         result.put("Malayalam", "\u0D00–\u0D7F");
@@ -153,11 +153,11 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
 
         return Collections.unmodifiableMap(result);
     }
-    
+
     private static Map<String, String> createMapAL() {
-        
+
         Map<String, String> result = new HashMap<String, String>();
-        
+
         result.put("Arabic", "\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF"
                 + "\u10E60-\u10E7F");
         result.put("Armenian", "\u0530–\u058F\uFB13–\uFB17");
@@ -205,7 +205,7 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
         result.put("Linear B", "\u10000-\u1007F\u10080-\u100FF\u10100-\u1013F");
         result.put("Lycian", "\u10280–\u1029F");
         result.put("Lydian", "\u10920–\u1093F");
-        
+
         result.put("Cc", "\u0000-\u001F\u007F\u0080-\u009F");
         result.put("Cf", "\u00AD\u0600-\u0603\u06DD\u070F\u17B4\u17B5\u200B-\u200F"
                 + "\u202A-\u202E\u2060-\u2064\u206A-\u206F\uFEFF\uFFF9\uFFFA\uFFFB"
@@ -240,9 +240,8 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
         if (a.endsWith("}"))
             a = a.substring(0, a.length() - 1);
 
-        if (a.substring(0, 0).matches("[A-L]"))
-            str = MAP_A_L_UNICODE_CLASS.get(a);
-        else
+        str = MAP_A_L_UNICODE_CLASS.get(a);
+        if (str == null)
             str = MAP_M_Z_UNICODE_CLASS.get(a);
         if (str == null)
             throw new UnknownUnicodeClassException();
