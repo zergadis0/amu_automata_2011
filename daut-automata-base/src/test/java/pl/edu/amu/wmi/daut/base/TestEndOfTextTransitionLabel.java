@@ -1,7 +1,5 @@
 package pl.edu.amu.wmi.daut.base;
 
-import java.util.HashSet;
-import java.util.Set;
 import junit.framework.TestCase;
 
 /**
@@ -20,16 +18,43 @@ public class TestEndOfTextTransitionLabel extends TestCase {
 
         assertFalse(trans.doCheckContext("panandrzej", 3));
         assertFalse(trans.doCheckContext("cojapacze", 15));
-   
-       /**
-        * Test atrybutów.
-        */
+
+        /**
+         * Test atrybutów.
+         */
 
         assertEquals(trans.toString(), "EndOfText");
 
         assertFalse(trans.isEmpty());
         assertFalse(trans.canAcceptCharacter('s'));
 
+    }
+
+    /**
+     * Przykladowy automat z uzyciem EndOfTextTransitionLabel.
+     */
+    public final void testEndOfTextTransitionLabelAutomaton() {
+
+        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
+        State q0 = spec.addState();
+        State q1 = spec.addState();
+        State q2 = spec.addState();
+
+        spec.addTransition(q0, q1, new CharTransitionLabel('a'));
+        spec.addTransition(q1, q0, new CharTransitionLabel('b'));
+        spec.addTransition(q1, q2, new EndOfTextTransitionLabel());
+
+        spec.markAsInitial(q0);
+        spec.markAsFinal(q2);
+
+        final NondeterministicAutomatonByThompsonApproach automaton =
+                new NondeterministicAutomatonByThompsonApproach(spec);
+
+        assertTrue(spec.accepts("a"));
+        assertTrue(spec.accepts("ababa"));
+
+        assertFalse(spec.accepts("kabanos"));
+        assertFalse(spec.accepts("ab"));
     }
 
 }
