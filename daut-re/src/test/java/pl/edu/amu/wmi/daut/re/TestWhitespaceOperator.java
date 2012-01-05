@@ -26,7 +26,7 @@ public class TestWhitespaceOperator extends TestCase {
         assertTrue(automaton.accepts("\n"));
         assertTrue(automaton.accepts("\f"));
         assertTrue(automaton.accepts("\r"));
-		assertTrue(automaton.accepts(" "));
+        assertTrue(automaton.accepts(" "));
         assertTrue(automaton.accepts("\u000B"));
         assertFalse(automaton.accepts("'"));
         assertFalse(automaton.accepts("%"));
