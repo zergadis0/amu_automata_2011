@@ -7,7 +7,7 @@ import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import junit.framework.TestCase;
 import java.util.ArrayList;
-import pl.edu.amu.wmi.daut.re.AlternativeOperator.Factory;
+import pl.edu.amu.wmi.daut.re.ConcatenationOperator.Factory;
 
     /**
      * Test klasy ConcatenationOperator.
