@@ -79,7 +79,6 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
                 + "\uABEA\uABEC\u11000\u11002\u11082\u110B0-\u110B2\u110B7\u110B8\u1D165"
                 + "\u1D166\u1D16D-\u1D172");
         result.put("Me", "\u0488\u0489\u20DD-\u20E4\uA670-\uA672");
-        result.put("Mn", "1199signs");
         result.put("Nd", "\u0030-\u0039\u0660-\u0669\u06F0-\u06F9\u07C0-\u07C9"
                 + "\u0966-\u096F\u09E6-\u09EF\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F"
                 + "\u0BE6-\u0BEF\u0C66-\u0C6F\u0CE6-\u0CEF\u0D66-\u0D6F\u0E50-\u0E59"
@@ -145,8 +144,6 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
                 + "\u02E5-\u02EB\u02ED\u02EF-\u02FF\u0375\u0384\u0385\u1FBD\u1FBF\u1FC0"
                 + "\u1FC1\u1FCD-\u1FCF\u1FDD-\u1FDF\u1FED-\u1FEF\u1FFD\u1FFE\u309B\u309C"
                 + "\uA700-\uA716\uA720\uA721\uA789\uA78A\uFBB2-\uFBC1\uFF3E\uFF40\uFFE3");
-        result.put("Sm", "948signs");
-        result.put("So", "4398signs");
         result.put("Zl", "\u2028");
         result.put("Zp", "\u2029");
         result.put("Zs", "\u0020\u00A0\u1680\u180E\u2000-\u200A\u202F\u205F\u3000");
@@ -212,7 +209,6 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
                 + "\u110BD\u1D173-\u1D17A\uE0001\uE0020-\uE007F");
         result.put("Co", "\uE000\uF8FF\uF0000\uFFFFD\u100000\u10FFFD");
         result.put("Cs", "\uD800\uDB7F\uDB80\uDBFF\uDC00\uDFFF");
-        result.put("Ll", "1759signs");
         result.put("Lm", "\u02B0-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0374"
                 + "\u037A\u0559\u0640\u06E5\u06E6\u07F4\u07F5\u07FA\u081A\u0824\u0828"
                 + "\u0971\u0E46\u0EC6\u10FC\u17D7\u1843\u1AA7\u1C78\u1C79\u1C7A-\u1C7D"
@@ -220,10 +216,8 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
                 + "\u2D6F\u2E2F\u3005\u3031-\u3035\u303B\u309D\u309E\u30FC\u30FD"
                 + "\u30FE\uA015\uA4F8-\uA4FD\uA60C\uA67F\uA717-\uA71F\uA770\uA788\uA9CF"
                 + "\uAA70\uAADD\uFF70\uFF9E\uFF9F");
-        result.put("Lo", "11320signs");
         result.put("Lt", "\u01C5\u01C8\u01CB\u01F2\u1F88-\u1F8F\u1F98-\u1F9F\u1FA8-\u1FAF"
                 + "\u1FBC\u1FCC\u1FFC");
-        result.put("Lu", "1436signs");
 
 
         return Collections.unmodifiableMap(result);
