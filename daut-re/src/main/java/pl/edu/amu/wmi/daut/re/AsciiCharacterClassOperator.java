@@ -88,7 +88,7 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
             return 1;
         }
     }
-}
+
     /**
      * Metoda toString().
      */
@@ -97,5 +97,4 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
     public String toString() {
         return "ASCII";
     }
-
 }
