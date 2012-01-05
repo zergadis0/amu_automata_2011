@@ -50,11 +50,11 @@ public class TestEndOfTextTransitionLabel extends TestCase {
         final NondeterministicAutomatonByThompsonApproach automaton =
                 new NondeterministicAutomatonByThompsonApproach(spec);
 
-        assertTrue(spec.accepts("a"));
-        assertTrue(spec.accepts("ababa"));
+        assertTrue(automaton.accepts("a"));
+        assertTrue(automaton.accepts("ababa"));
 
-        assertFalse(spec.accepts("kabanos"));
-        assertFalse(spec.accepts("ab"));
+        assertFalse(automaton.accepts("kabanos"));
+        assertFalse(automaton.accepts("ab"));
     }
 
 }
