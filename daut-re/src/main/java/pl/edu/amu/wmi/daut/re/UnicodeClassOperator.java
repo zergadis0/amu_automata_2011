@@ -19,57 +19,13 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
 
     private String str;
 
-    private static final Map<String, String> MAP_OF_UNICODE_CLASS = createMap();
+    private static final Map<String, String> MAP_A_L_UNICODE_CLASS = createMapAL();
+    private static final Map<String, String> MAP_M_Z_UNICODE_CLASS = createMapMZ();
 
-    private static Map<String, String> createMap() {
+    private static Map<String, String> createMapMZ() {
+        
         Map<String, String> result = new HashMap<String, String>();
-        result.put("Arabic", "\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF"
-                + "\u10E60-\u10E7F");
-        result.put("Armenian", "\u0530–\u058F\uFB13–\uFB17");
-        result.put("Balinese", "\u1B00-\u1B7F");
-        result.put("Bengali", "\u0980-\u09FF");
-        result.put("Bopomofo", "\u3100-\u312F\u31A0-\u31BF");
-        result.put("Braille", "\u2800-\u28FF");
-        result.put("Buginese", "\u1A00-\u1A1F");
-        result.put("Buhid", "\u1740-\u175F");
-        result.put("Canadian Aboriginal", "\u1400-\u167F\u18B0-\u18FF");
-        result.put("Carian", "\u102A0-\u102DF");
-        result.put("Cham", "\uAA00-\uAA5F");
-        result.put("Cherokee", "\u13A0-\u13FF");
-        result.put("Coptic", "\u2C80-\u2CFF");
-        result.put("Cuneiform", "\u12000–\u1237F\u12400-\u1247F");
-        result.put("Cypriot", "\u10800-\u1083F\u10100-\u1013F");
-        result.put("Cyrillic", "\u0400–\u04FF\u0500–\u052F\u2DE0–\u2DFF\uA640–\uA69F");
-        result.put("Deseret", "\u10400–\u1044F");
-        result.put("Devanagari", "\u0900–\u097F\u1CD0–\u1CFF\uA8E0–\uA8FF");
-        result.put("Ethiopic", "\u1200-\u137F\u1380-\u139F\u2D80-\u2DDF\uAB00-\uAB2F");
-        result.put("Georgian", "\u10A0-\u10FF\u10D0-\u10FF\u10A0-\u10CF\u2D00-\u2D2F");
-        result.put("Glagolitic", "\u2C00–\u2C5F");
-        result.put("Gothic", "\u10330–\u1034F");
-        result.put("Greek", "\u0370-\u03FF\u1F00-\u1FFF");
-        result.put("Gujarati", "\u0A80–\u0AFF");
-        result.put("Gurmukhi", "\u0A00–\u0A7F");
-        result.put("Han", "\u4E00–\u9FFF\u3400–\u4DBF\u20000–\u2A6DF\u2A700–\u2B73F"
-                + "\u2B840–\u2B81F");
-        result.put("Hangul", "\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uD7B0-\uD7FF");
-        result.put("Hanunoo", "\u1720-\u173F");
-        result.put("Hebrew", "\u0590-\u05FF\uFB1D-\uFB4F");
-        result.put("Hiragana", "\u3040-\u309F");
-        result.put("Kannada", "\u0C80–\u0CFF");
-        result.put("Katakana", "\u30A0-\u30FF\u31F0-\u31FF");
-        result.put("Kayah Li", "\uA900-\uA92F");
-        result.put("Kharoshthi", "\u10A00-\u10A5F");
-        result.put("Khmer", "\u1780-\u17FF\u19E0–\u19FF");
-        result.put("Lao", "\u0E80–\u0EFF");
-        result.put("Latin", "\u0000–\u007F\u0080–\u00FF\u0100–\u017F\u0180–\u024F"
-                + "\u0250–\u02AF\u1D00–\u1D7F\u1D80–\u1DBF\u1E00–\u1EFF\u2070-\u209F"
-                + "\u2100–\u214F\u2460–\u24FF\u2C60–\u2C7F\uA720–\uA7FF\uFB00–\uFB4F"
-                + "\uFF00–\uFFEF\u1D400–\u1D7FF\u1F100–\u1F1FF");
-        result.put("Lepcha", "\u1C00–\u1C4F");
-        result.put("Limbu", "\u1900–\u194F");
-        result.put("Linear B", "\u10000-\u1007F\u10080-\u100FF\u10100-\u1013F");
-        result.put("Lycian", "\u10280–\u1029F");
-        result.put("Lydian", "\u10920–\u1093F");
+
         result.put("Malayalam", "\u0D00–\u0D7F");
         result.put("Mongolian", "\u1800–\u18AF");
         result.put("Myanmar", "\u1000–\u109F\uAA60–\uAA7B");
@@ -104,24 +60,6 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
         result.put("Vai", "\uA500–\uA63F");
         result.put("Yi", "\uA000-\uA48C");
 
-        result.put("Cc", "\u0000-\u001F\u007F\u0080-\u009F");
-        result.put("Cf", "\u00AD\u0600-\u0603\u06DD\u070F\u17B4\u17B5\u200B-\u200F"
-                + "\u202A-\u202E\u2060-\u2064\u206A-\u206F\uFEFF\uFFF9\uFFFA\uFFFB"
-                + "\u110BD\u1D173-\u1D17A\uE0001\uE0020-\uE007F");
-        result.put("Co", "\uE000\uF8FF\uF0000\uFFFFD\u100000\u10FFFD");
-        result.put("Cs", "\uD800\uDB7F\uDB80\uDBFF\uDC00\uDFFF");
-        result.put("Ll", "1759signs");
-        result.put("Lm", "\u02B0-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0374"
-                + "\u037A\u0559\u0640\u06E5\u06E6\u07F4\u07F5\u07FA\u081A\u0824\u0828"
-                + "\u0971\u0E46\u0EC6\u10FC\u17D7\u1843\u1AA7\u1C78\u1C79\u1C7A-\u1C7D"
-                + "\u1D2C-\u1D61\u1D78\u1D9B-\u1DBF\u2071\u207F\u2090-\u209C\u2C7D"
-                + "\u2D6F\u2E2F\u3005\u3031-\u3035\u303B\u309D\u309E\u30FC\u30FD"
-                + "\u30FE\uA015\uA4F8-\uA4FD\uA60C\uA67F\uA717-\uA71F\uA770\uA788\uA9CF"
-                + "\uAA70\uAADD\uFF70\uFF9E\uFF9F");
-        result.put("Lo", "11320signs");
-        result.put("Lt", "\u01C5\u01C8\u01CB\u01F2\u1F88-\u1F8F\u1F98-\u1F9F\u1FA8-\u1FAF"
-                + "\u1FBC\u1FCC\u1FFC");
-        result.put("Lu", "1436signs");
         result.put("Mc", "\u0903\u093B\u093E-\u0940\u0949-\u094C\u094E\u094F\u0982\u0983"
                 + "\u09BE-\u09C0\u09C7\u09C8\u09CB\u09CC\u09D7\u0A03\u0A3E-\u0A40\u0A83"
                 + "\u0ABE-\u0AC0\u0AC9\u0ACB\u0ACC\u0B02\u0B03\u0B3E\u0B40\u0B47\u0B48\u0B4B"
@@ -215,6 +153,81 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
 
         return Collections.unmodifiableMap(result);
     }
+    
+    private static Map<String, String> createMapAL() {
+        
+        Map<String, String> result = new HashMap<String, String>();
+        
+        result.put("Arabic", "\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF"
+                + "\u10E60-\u10E7F");
+        result.put("Armenian", "\u0530–\u058F\uFB13–\uFB17");
+        result.put("Balinese", "\u1B00-\u1B7F");
+        result.put("Bengali", "\u0980-\u09FF");
+        result.put("Bopomofo", "\u3100-\u312F\u31A0-\u31BF");
+        result.put("Braille", "\u2800-\u28FF");
+        result.put("Buginese", "\u1A00-\u1A1F");
+        result.put("Buhid", "\u1740-\u175F");
+        result.put("Canadian Aboriginal", "\u1400-\u167F\u18B0-\u18FF");
+        result.put("Carian", "\u102A0-\u102DF");
+        result.put("Cham", "\uAA00-\uAA5F");
+        result.put("Cherokee", "\u13A0-\u13FF");
+        result.put("Coptic", "\u2C80-\u2CFF");
+        result.put("Cuneiform", "\u12000–\u1237F\u12400-\u1247F");
+        result.put("Cypriot", "\u10800-\u1083F\u10100-\u1013F");
+        result.put("Cyrillic", "\u0400–\u04FF\u0500–\u052F\u2DE0–\u2DFF\uA640–\uA69F");
+        result.put("Deseret", "\u10400–\u1044F");
+        result.put("Devanagari", "\u0900–\u097F\u1CD0–\u1CFF\uA8E0–\uA8FF");
+        result.put("Ethiopic", "\u1200-\u137F\u1380-\u139F\u2D80-\u2DDF\uAB00-\uAB2F");
+        result.put("Georgian", "\u10A0-\u10FF\u10D0-\u10FF\u10A0-\u10CF\u2D00-\u2D2F");
+        result.put("Glagolitic", "\u2C00–\u2C5F");
+        result.put("Gothic", "\u10330–\u1034F");
+        result.put("Greek", "\u0370-\u03FF\u1F00-\u1FFF");
+        result.put("Gujarati", "\u0A80–\u0AFF");
+        result.put("Gurmukhi", "\u0A00–\u0A7F");
+        result.put("Han", "\u4E00–\u9FFF\u3400–\u4DBF\u20000–\u2A6DF\u2A700–\u2B73F"
+                + "\u2B840–\u2B81F");
+        result.put("Hangul", "\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uD7B0-\uD7FF");
+        result.put("Hanunoo", "\u1720-\u173F");
+        result.put("Hebrew", "\u0590-\u05FF\uFB1D-\uFB4F");
+        result.put("Hiragana", "\u3040-\u309F");
+        result.put("Kannada", "\u0C80–\u0CFF");
+        result.put("Katakana", "\u30A0-\u30FF\u31F0-\u31FF");
+        result.put("Kayah Li", "\uA900-\uA92F");
+        result.put("Kharoshthi", "\u10A00-\u10A5F");
+        result.put("Khmer", "\u1780-\u17FF\u19E0–\u19FF");
+        result.put("Lao", "\u0E80–\u0EFF");
+        result.put("Latin", "\u0000–\u007F\u0080–\u00FF\u0100–\u017F\u0180–\u024F"
+                + "\u0250–\u02AF\u1D00–\u1D7F\u1D80–\u1DBF\u1E00–\u1EFF\u2070-\u209F"
+                + "\u2100–\u214F\u2460–\u24FF\u2C60–\u2C7F\uA720–\uA7FF\uFB00–\uFB4F"
+                + "\uFF00–\uFFEF\u1D400–\u1D7FF\u1F100–\u1F1FF");
+        result.put("Lepcha", "\u1C00–\u1C4F");
+        result.put("Limbu", "\u1900–\u194F");
+        result.put("Linear B", "\u10000-\u1007F\u10080-\u100FF\u10100-\u1013F");
+        result.put("Lycian", "\u10280–\u1029F");
+        result.put("Lydian", "\u10920–\u1093F");
+        
+        result.put("Cc", "\u0000-\u001F\u007F\u0080-\u009F");
+        result.put("Cf", "\u00AD\u0600-\u0603\u06DD\u070F\u17B4\u17B5\u200B-\u200F"
+                + "\u202A-\u202E\u2060-\u2064\u206A-\u206F\uFEFF\uFFF9\uFFFA\uFFFB"
+                + "\u110BD\u1D173-\u1D17A\uE0001\uE0020-\uE007F");
+        result.put("Co", "\uE000\uF8FF\uF0000\uFFFFD\u100000\u10FFFD");
+        result.put("Cs", "\uD800\uDB7F\uDB80\uDBFF\uDC00\uDFFF");
+        result.put("Ll", "1759signs");
+        result.put("Lm", "\u02B0-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0374"
+                + "\u037A\u0559\u0640\u06E5\u06E6\u07F4\u07F5\u07FA\u081A\u0824\u0828"
+                + "\u0971\u0E46\u0EC6\u10FC\u17D7\u1843\u1AA7\u1C78\u1C79\u1C7A-\u1C7D"
+                + "\u1D2C-\u1D61\u1D78\u1D9B-\u1DBF\u2071\u207F\u2090-\u209C\u2C7D"
+                + "\u2D6F\u2E2F\u3005\u3031-\u3035\u303B\u309D\u309E\u30FC\u30FD"
+                + "\u30FE\uA015\uA4F8-\uA4FD\uA60C\uA67F\uA717-\uA71F\uA770\uA788\uA9CF"
+                + "\uAA70\uAADD\uFF70\uFF9E\uFF9F");
+        result.put("Lo", "11320signs");
+        result.put("Lt", "\u01C5\u01C8\u01CB\u01F2\u1F88-\u1F8F\u1F98-\u1F9F\u1FA8-\u1FAF"
+                + "\u1FBC\u1FCC\u1FFC");
+        result.put("Lu", "1436signs");
+
+
+        return Collections.unmodifiableMap(result);
+    }
 
     /**
      * konstruktor Unicode classes.
@@ -227,7 +240,10 @@ public class UnicodeClassOperator extends NullaryRegexpOperator {
         if (a.endsWith("}"))
             a = a.substring(0, a.length() - 1);
 
-        str = MAP_OF_UNICODE_CLASS.get(a);
+        if (a.substring(0, 0).matches("[A-L]"))
+            str = MAP_A_L_UNICODE_CLASS.get(a);
+        else
+            str = MAP_M_Z_UNICODE_CLASS.get(a);
         if (str == null)
             throw new UnknownUnicodeClassException();
     }
