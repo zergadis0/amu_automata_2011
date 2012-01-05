@@ -28,7 +28,7 @@ public class TestEndOfTextTransitionLabel extends TestCase {
         assertEquals(trans.toString(), "EndOfText");
 
         assertFalse(trans.isEmpty());
-        assertFalse(canAcceptCharacter('s'));
+        assertFalse(trans.canAcceptCharacter('s'));
 
     }
 
