@@ -38,7 +38,7 @@ public class TestNoDigitOperator extends TestCase {
         assertFalse(noDigitAutomaton.accepts("abc"));
         assertTrue(noDigitAutomaton.accepts("a"));
         assertTrue(noDigitAutomaton.accepts("b"));
-        assertTrue(noDigitAutomaton.accepts(""));
+        assertFalse(noDigitAutomaton.accepts(""));
 
     }
 
