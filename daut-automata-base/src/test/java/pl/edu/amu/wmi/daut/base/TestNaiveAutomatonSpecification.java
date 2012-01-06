@@ -608,8 +608,8 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody sprawdzającej metodę sprawdzającą czy podany język jest
-     * nieskończony dla automatu z pojedyńczym stanem bez pętli.
+     * Test metody sprawdzającej czy podany język jest nieskończony dla
+     * automatu z pojedynczym stanem bez pętli.
      */
     public final void testInfiniteForOneStateWithoutLoop() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
@@ -623,8 +623,8 @@ public class TestNaiveAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Test metody sprawdzającej metodę sprawdzającą czy podany język jest
-     * nieskończony dla automatu ze staniem niefinalnym po pętli.
+     * Test metody sprawdzającej czy podany język jest nieskończony dla
+     * automatu ze stanem niefinalnym po pętli.
      */
     public final void testInfiniteForNotFinalStateAfterLoop() {
         NaiveAutomatonSpecification automat = new NaiveAutomatonSpecification();
