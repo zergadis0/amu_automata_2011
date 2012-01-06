@@ -920,7 +920,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
             }
             x++;
             l = l * alphabet.length();
-        } while(found != true);
+        } while(!found);
         word = acceptedWords.get(0);
         return word;
     }
