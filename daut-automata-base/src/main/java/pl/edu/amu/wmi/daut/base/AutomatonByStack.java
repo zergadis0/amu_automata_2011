@@ -13,7 +13,7 @@ public class AutomatonByStack implements Acceptor {
     /**
     * Konstruktor przyjmujacy obiekt klasy AutomatonSpecification.
      */
-    AutomatonByStack(final AutomatonSpecification specification) {
+    public AutomatonByStack(final AutomatonSpecification specification) {
         automaton = specification;
     }
 
@@ -41,7 +41,6 @@ public class AutomatonByStack implements Acceptor {
                 String u = v.substring(1);
                 List<OutgoingTransition> allOutTransitions;
                 allOutTransitions = automaton.allOutgoingTransitions(r);
-            try {
                 for (OutgoingTransition transition : allOutTransitions) {
                     currentLabel = transition.getTransitionLabel();
                     if (currentLabel.canBeEpsilon()) {
@@ -52,9 +51,6 @@ public class AutomatonByStack implements Acceptor {
                         stack.push(p);
                         stack.push(u);
                     }
-                }
-                } catch (UnsupportedOperationException e) {
-                    System.out.println("AutomatonByStack nie obsluguje epsilon-przejsc");
                 }
               }
         }
