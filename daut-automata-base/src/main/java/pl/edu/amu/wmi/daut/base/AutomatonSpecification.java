@@ -912,10 +912,8 @@ public abstract class AutomatonSpecification implements Cloneable  {
                         i = l;
                     }
                 }
-                if (s == 1) {
-                    if (acceptedWord.compareTo(acceptedWords.get(0)) > 0) {
+                if (s == 1 && acceptedWord.compareTo(acceptedWords.get(0)) > 0) {
                     i = l;
-                    }
                 }
             }
             x++;
