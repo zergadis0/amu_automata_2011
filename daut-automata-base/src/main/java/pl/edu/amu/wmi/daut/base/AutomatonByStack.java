@@ -13,7 +13,7 @@ public class AutomatonByStack implements Acceptor {
     /**
     * Konstruktor przyjmujacy obiekt klasy AutomatonSpecification.
      */
-    AutomatonByStack(final AutomatonSpecification specification) {
+    public AutomatonByStack(final AutomatonSpecification specification) {
         automaton = specification;
     }
 
@@ -45,7 +45,7 @@ public class AutomatonByStack implements Acceptor {
                 for (OutgoingTransition transition : allOutTransitions) {
                     currentLabel = transition.getTransitionLabel();
                     if (currentLabel.canBeEpsilon()) {
-                                      throw new RuntimeException();
+                                      throw new UnsupportedOperationException();
                     }
                     if (currentLabel.canAcceptCharacter(v.charAt(0))) {
                         State p = transition.getTargetState();
@@ -53,8 +53,7 @@ public class AutomatonByStack implements Acceptor {
                         stack.push(u);
                     }
                 }
-                } catch (RuntimeException e) {
-                return false;
+                } catch (UnsupportedOperationException e) {            
                 }
               }
         }
