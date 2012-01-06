@@ -901,7 +901,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 flag = x;
                 searchWord[x - 1] = tmp[i % alphabet.length()];
                 String acceptedWord = new String(searchWord);
-                System.out.println(acceptedWord);
                 if (a.accepts(acceptedWord)) {
                     if (s == 0) {
                         acceptedWords.add(0, acceptedWord);
@@ -911,7 +910,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
                     } else {
                         acceptedWords.add(0, acceptedWord);
                         i = l;
-                        System.out.println(acceptedWord);
                     }
                 }
                 if (s == 1) {
