@@ -13,7 +13,7 @@ public class AutomatonByStack implements Acceptor {
     /**
     * Konstruktor przyjmujacy obiekt klasy AutomatonSpecification.
      */
-    public AutomatonByStack(final AutomatonSpecification specification) {
+    AutomatonByStack(final AutomatonSpecification specification) {
         automaton = specification;
     }
 
@@ -53,7 +53,8 @@ public class AutomatonByStack implements Acceptor {
                         stack.push(u);
                     }
                 }
-                } catch (UnsupportedOperationException e) {}
+                } catch (UnsupportedOperationException e) {
+                }
               }
         }
         return false;
