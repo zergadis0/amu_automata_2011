@@ -22,7 +22,7 @@ automatPusty.
 /**
 automatA. Nie pusty ale akceptuje slowo puste.
 */
-
+/*
     public final void testFirstAcceptedWordA() {
     AutomatonSpecification a = new NaiveAutomatonSpecification();
     State s0 = a.addState();
@@ -44,7 +44,7 @@ automatA. Nie pusty ale akceptuje slowo puste.
 /**
 automatB. nic ciekawego.
 */
-
+/*
     public final void testFirstAcceptedWordB() {
     AutomatonSpecification a = new NaiveAutomatonSpecification();
     State s0 = a.addState();
@@ -68,7 +68,7 @@ automatB. nic ciekawego.
 /**
 automatC. nie ma pierwszego slowa.
 */
-
+/*
 public final void testFirstAcceptedWordC() {
     AutomatonSpecification a = new NaiveAutomatonSpecification();
     State s0 = a.addState();
