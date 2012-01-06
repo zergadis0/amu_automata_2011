@@ -53,8 +53,7 @@ public class AutomatonByStack implements Acceptor {
                         stack.push(u);
                     }
                 }
-                } catch (UnsupportedOperationException e) {            
-                }
+                } catch (UnsupportedOperationException e) {}
               }
         }
         return false;
