@@ -25,7 +25,7 @@ public class TestTabOperator extends TestCase {
         assertFalse(automaton.accepts("\n"));
         assertFalse(automaton.accepts("a"));
         assertFalse(automaton.accepts("b"));
-        assertTrue(automaton.accepts("%"));
+        assertFalse(automaton.accepts("%"));
         assertFalse(automaton.accepts(" "));
         assertFalse(automaton.accepts(""));
         assertFalse(automaton.accepts("\r"));
