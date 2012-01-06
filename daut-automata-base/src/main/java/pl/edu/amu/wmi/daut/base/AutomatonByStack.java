@@ -54,6 +54,7 @@ public class AutomatonByStack implements Acceptor {
                     }
                 }
                 } catch (UnsupportedOperationException e) {
+                    System.out.println("AutomatonByStack nie obsluguje epsilon-przejsc");
                 }
               }
         }
