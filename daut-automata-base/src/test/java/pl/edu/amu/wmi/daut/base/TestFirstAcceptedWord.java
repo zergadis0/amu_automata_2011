@@ -171,5 +171,4 @@ public final void testFirstAcceptedWordF() {
     assertEquals(a.firstAcceptedWord("sdfgczbvk"), "dcfk");
 }
 */
-
 }

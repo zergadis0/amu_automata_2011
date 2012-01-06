@@ -868,7 +868,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
             found = true;
             return "";
         } else do {
-            
             int flag = x;
             char[] searchWord = new char[x];
             while (flag > 0) {
@@ -888,13 +887,12 @@ public abstract class AutomatonSpecification implements Cloneable  {
                                 else
                                     z++;
                             }
-                            searchWord[flag-1] = sorted.charAt(y);
+                            searchWord[flag - 1] = sorted.charAt(y);
                             int tempFlag = flag;
                             flag = x;
                             while(flag > tempFlag) {
                                 searchWord[flag-1]=sorted.charAt(0);
                                 flag--;
-
                             }
                             flag = 0;
                         }
@@ -909,16 +907,16 @@ public abstract class AutomatonSpecification implements Cloneable  {
                         acceptedWords.add(0, acceptedWord);
                         s = 1;
                     } else if (acceptedWord.compareTo(acceptedWords.get(0)) > 0) {
-                        i=l;
+                        i = l;
                     } else {
                         acceptedWords.add(0, acceptedWord);
-                        i=l;
+                        i = l;
                         System.out.println(acceptedWord);
                     }
                 }
                 if (s == 1) {
                     if (acceptedWord.compareTo(acceptedWords.get(0)) > 0) {
-                    i=l;
+                    i = l;
                     }
                 }
             }
@@ -927,7 +925,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         } while(found != true);
         word = acceptedWords.get(0);
         return word;
-
     }
     /**
      *Metoda zwraca długość najdłuższego słowa akceptowanego.
