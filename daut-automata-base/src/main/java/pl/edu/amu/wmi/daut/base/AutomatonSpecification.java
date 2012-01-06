@@ -890,8 +890,8 @@ public abstract class AutomatonSpecification implements Cloneable  {
                             searchWord[flag - 1] = sorted.charAt(y);
                             int tempFlag = flag;
                             flag = x;
-                            while(flag > tempFlag) {
-                                searchWord[flag-1]=sorted.charAt(0);
+                            while (flag > tempFlag) {
+                                searchWord[flag - 1] = sorted.charAt(0);
                                 flag--;
                             }
                             flag = 0;
@@ -919,7 +919,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 }
             }
             x++;
-            l = l*alphabet.length();
+            l = l * alphabet.length();
         } while(found != true);
         word = acceptedWords.get(0);
         return word;
