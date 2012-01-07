@@ -37,6 +37,9 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
         return octValue;
     }
 
+    /**
+     * Metoda zwraca znak odpowiadający aktualnej wartości octValue.
+     */
     public char getCharacter() {
         return (char) Integer.parseInt(Integer.toString(octValue), BASE);
     }
