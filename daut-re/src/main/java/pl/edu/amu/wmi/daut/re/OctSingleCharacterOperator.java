@@ -33,11 +33,11 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
     /**
      * Metoda zwraca aktualną wartość (w kodzie ósemkowym).
      */
-    private int getOctValue() {
+    public int getOctValue() {
         return octValue;
     }
-    
-    private char getCharacter() {
+
+    public char getCharacter() {
         return (char) Integer.parseInt(Integer.toString(octValue), BASE);
     }
 
@@ -45,7 +45,7 @@ public class OctSingleCharacterOperator extends NullaryRegexpOperator {
      * Metoda sprawdza, czy wartość jest w kodzie ósemkowym.
      */
     private boolean isOctal(int number) {
-    
+
         try {
                 Integer.parseInt(Integer.toString(number), BASE);
             } catch (Exception ex) {
