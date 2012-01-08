@@ -12,7 +12,9 @@ import java.util.ArrayList;;
  * Test klasy NoWhitespaceOperator.
  */
 public class TestNoWhitespaceOperator extends TestCase {
-
+    /**
+     * Test createFixedAutomaton.
+     */
     public void testcreateFixedAutomaton() {
          NoWhitespaceOperator operator = new NoWhitespaceOperator();
          AutomatonSpecification spec = operator.createFixedAutomaton();
