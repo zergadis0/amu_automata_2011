@@ -23,7 +23,7 @@ public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLab
         }
         return false;
     }
-    
+
     @Override
     public boolean canAcceptCharacter(char c) {
         return false;
