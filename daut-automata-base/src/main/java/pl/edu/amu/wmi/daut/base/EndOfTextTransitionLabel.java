@@ -18,7 +18,7 @@ public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLab
         if (s.length() < position) {
             throw new PositionOutOfStringBordersException();
         }
-        if (s.charAt(position) == '\u0003') {
+        if (s.charAt(position) == s.length()-1) {
             return true;
         }
         return false;
