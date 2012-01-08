@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class RegexpOperatorTree {
 
-    private static class ArityException extends Exception {
+    private static class ArityException extends RuntimeException {
 
         public ArityException() {
         }
