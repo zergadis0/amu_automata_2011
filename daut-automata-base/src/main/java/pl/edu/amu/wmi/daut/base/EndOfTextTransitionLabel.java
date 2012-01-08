@@ -18,12 +18,12 @@ public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLab
         if (s.length() < position) {
             throw new PositionOutOfStringBordersException();
         }
-        if (s.charAt(position) == s.length()-1) {
+        if (position == s.length()+1) {
             return true;
         }
         return false;
     }
-
+    
     @Override
     public boolean canAcceptCharacter(char c) {
         return false;
