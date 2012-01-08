@@ -269,8 +269,8 @@ public class AutomataOperations {
             State state2 = kleeneautomaton.addState();
             kleeneautomaton.addTransition(state1, state2, new EpsilonTransitionLabel());
             kleeneautomaton.insert(state2, automaton);
-            for (State state : automaton.allStates()) {
-                if (automaton.isFinal(state)) {
+            for (State state : kleeneautomaton.allStates()) {
+                if (kleeneautomaton.isFinal(state)) {
                     kleeneautomaton.addTransition(state, state1, new EpsilonTransitionLabel());
                 }
             }
