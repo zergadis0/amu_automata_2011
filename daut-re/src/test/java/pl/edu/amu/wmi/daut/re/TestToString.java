@@ -9,6 +9,9 @@ import junit.framework.TestCase;
  */
 public class TestToString extends TestCase {
 
+    /*
+     * Test z wyrażeniem a|b
+     */
     public final void testToString1() throws Exception {
         List<RegexpOperatorTree> subtrees = new ArrayList<RegexpOperatorTree>();
         RegexpOperator root = new AlternativeOperator();
