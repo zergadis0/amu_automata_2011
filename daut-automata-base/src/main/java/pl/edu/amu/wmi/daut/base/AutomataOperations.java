@@ -349,7 +349,7 @@ public class AutomataOperations {
 
 
     /**
-     * Klasa pomocnicza do determinize2(). Rekuprezentuje "zbiór stanów" będący stanem automatu dfa.
+     * Klasa pomocnicza do determinize2(). Reprezentuje "zbiór stanów" będący stanem automatu dfa.
      */
     private static class PowerSetElement {
         private Set<State> nfaStates;
@@ -409,17 +409,31 @@ public class AutomataOperations {
         }
     };
 
-    /*
-     * Metoda pomocnicza dla determiinize2. Tworzy podstawowy zbiór etykiet przejścia używanych
+    /**
+     * Metoda pomocnicza dla determinize2(). Tworzy podstawowy zbiór etykiet przejścia używanych
      * przez oba automaty - niedeterministyczny i deterministyczny.
+     * Na wejściu otrzymuje zbiór T oraz nową "unikalną" etykietę przejścia.
+     * Dla wszystkich etykiet przejścia poza AnyTransitionLabel
+     * i ComplementCharClassTransitionLabel metoda dodaje to T przejścia znakowe
+     * (CharTransitionLabel). Dla tych dwóch zaś tworzy JEDNO przejście
+     * ComplementCharClassTransitionLabel będące przecięciem wszystkich otrzymanych
+     * przejść "dopełnieniowych".
+     *
+     * UWAGA! Metoda nie obsługuje przejścia CharClassTransitionLabel.
+     *
+     * @throws StructureException "Nieznana etykieta przejścia."
      */
     private static void putTransitionLabelInSet(HashSet<TransitionLabel> tSet,
             TransitionLabel transitionLabel) throws StructureException {
+        //Sprawdzenie, czy etykieta przejścia nie jest pusta.
         if (!transitionLabel.isEmpty())
+            //Sprawdzenie, czy jest to AnyTransitionLabel.
             if (transitionLabel instanceof AnyTransitionLabel) {
                 putTransitionLabelInSet(tSet, new ComplementCharClassTransitionLabel(""));
+            //Sprawdzenie, czy jest to CharTransitionLabel.
             } else if (transitionLabel instanceof CharTransitionLabel) {
                 tSet.add(transitionLabel);
+            //Sprawdzenie, czy jest to CharSetTransitionLabel.
             } else if (transitionLabel instanceof CharSetTransitionLabel) {
                 for (char sign : ((CharSetTransitionLabel) transitionLabel).getCharSet()) {
                     tSet.add(new CharTransitionLabel(sign));
@@ -429,12 +443,17 @@ public class AutomataOperations {
                         }
                     }
                 }
+            //Sprawdzenie, czy jest to CharRangeTransitionLabel.
             } else if (transitionLabel instanceof CharRangeTransitionLabel) {
                 for (char k = ((CharRangeTransitionLabel) transitionLabel)
                     .getFirstChar(); k <= ((CharRangeTransitionLabel) transitionLabel)
                     .getSecondChar(); k++) {
                         tSet.add(new CharTransitionLabel(k));
                 }
+            //Sprawdzenie, czy jest to CharClassTransitionLabel.
+            } else if (transitionLabel instanceof CharClassTransitionLabel) {
+                throw new StructureException();
+            //Sprawdzenie, czy jest to ComplementCharClassTransitionLabel.
             } else if (transitionLabel instanceof ComplementCharClassTransitionLabel) {
                 ComplementCharClassTransitionLabel newOne
                         = (ComplementCharClassTransitionLabel) transitionLabel;
@@ -467,6 +486,7 @@ public class AutomataOperations {
                 tSet.add(newOne);
                 if (oldOne != null)
                     tSet.remove(oldOne);
+            //Pozostałe są nieobsługiwane i powodują wyrzucenie wyjątku.
             } else
                 throw new StructureException();
     }
@@ -482,12 +502,18 @@ public class AutomataOperations {
         //Sprawdzenie, czy resultDfa na pewno jest pusty.
         if (resultDfa.isEmpty()) {
 
+            //Sprawdzenie, czy język akceptowany przez nfa nie jest pusty.
+            //Niestety, przy użyciu metody isNotEmpty wyskakuje WIELKI BRZYDKI BŁĄD.
+            //Coś szwankuje w tamtej metodzie. Gdy będzie naprawione - można zamienić
+            //na zakomentowaną wersję.
+            //if (!(nfa.isNotEmpty())) {
             if (!nfa.prefixChecker(nfa.getInitialState())) {
                 State one = resultDfa.addState();
                 resultDfa.markAsInitial(one);
                 return;
             }
 
+            //Sprawdzenie, czy nfa nie jest już deterministyczny.
             if (nfa.isDeterministic()) {
                 resultDfa.fromString(nfa.toString());
                 return;
@@ -501,6 +527,8 @@ public class AutomataOperations {
             List<State> kList = nfa.allStates();
 
             //Uzupełnienie zbioru przejść, aby był zbiorem przejść automatu NFA. Oznaczenie: T.
+            //Dla każdej unikalnej etykiety przejścia umieszczamy ją w T za pomocą metody
+            //putTransitionLabelInSet()
             for (State s : kList) {
                 for (OutgoingTransition oT : nfa.allOutgoingTransitions(s)) {
                     if ((oT.getTransitionLabel() instanceof ComplementCharClassTransitionLabel)
@@ -608,6 +636,10 @@ public class AutomataOperations {
                 }
             }
             PowerSetElement.resetNumber();
+            //Nie zadziała zmniejszanie automatu, bo nie dostajemy alfabetu "na wejściu".
+            //Można co prawda wygenerować ze zbioru T, ale dla choć jednego wystąpienia
+            //etykiety przejścia ComplementCharClassTransitionLabel generowanie to nie będzie
+            //poprawnie działało.
             //resultDfa.deleteUselessStates();
         } else {
             throw new StructureException();
@@ -636,3 +668,4 @@ public class AutomataOperations {
         return wsa;
     }
 }
+
