@@ -1083,4 +1083,23 @@ public class TestAutomatonSpecification extends TestCase {
         zbior.add(s3);
         assertEquals(zbior, automat.getEpsilonClosure(s3));
     }
+    
+    public final void testMaxWordLength() {
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+		//test 1 - brak stanow i przejsc
+		assertEquals(spec.maxWordLength(), -1);
+		//test 1.1 - brak przejsc 3 stany
+		State q0 = spec.addState();
+		State q1 = spec.addState();
+        State q2 = spec.addState();
+		spec.markAsInitial(q0);
+        spec.markAsFinal(q2);
+		assertEquals(spec.maxWordLength(), -1);
+		//test 2 - 3 stany 1 przejscie brak polaczenia z koncowym
+        spec.addTransition(q0, q1, new CharTransitionLabel('a'));
+		assertEquals(spec.maxWordLength(), -1);
+		//test2.1 - normalny na 3 stanach z pojedynczymi przejsciami
+        spec.addTransition(q1, q2, new CharTransitionLabel('b'));
+        assertEquals(spec.maxWordLength(), 2);
+    }
 }
