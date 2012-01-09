@@ -246,7 +246,7 @@ public class TestRegexpUtilities extends TestCase {
         assertFalse(result.accepts("abbbbc"));
         assertFalse(result.accepts("dddd"));
         assertFalse(result.accepts("eeeee"));
-        assertFalse(result.accepts("testujtest"));;
+        assertFalse(result.accepts("testujtest"));
     }
 
 }
