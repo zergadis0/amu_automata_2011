@@ -46,7 +46,6 @@ public class WhitespaceOperator extends NullaryRegexpOperator {
     /**
      * Metoda toString().
      */
-
     @Override
     public String toString() {
         return "WHITESPACE";

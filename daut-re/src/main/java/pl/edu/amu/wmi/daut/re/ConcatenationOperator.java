@@ -39,7 +39,6 @@ public class ConcatenationOperator extends BinaryRegexpOperator {
     /**
      * Metoda toString().
      */
-
     @Override
     public String toString() {
         return "CONCATENATION";

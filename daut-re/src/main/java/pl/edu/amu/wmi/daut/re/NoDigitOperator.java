@@ -39,7 +39,6 @@ public class NoDigitOperator extends NullaryRegexpOperator {
     /**
      * Metoda toString().
      */
-
     @Override
     public String toString() {
         return "NO_DIGIT";

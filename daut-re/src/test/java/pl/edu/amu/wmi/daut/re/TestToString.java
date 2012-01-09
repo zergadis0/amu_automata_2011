@@ -9,7 +9,6 @@ import junit.framework.TestCase;
 /**
  * Testuje działanie metody toString().
  */
-
 public class TestToString extends TestCase {
     
     public final void testToString1() throws Exception {
@@ -23,6 +22,5 @@ public class TestToString extends TestCase {
         subtrees.add(tree1);
         RegexpOperatorTree tree = new RegexpOperatorTree(root, subtrees);      
         assertEquals(tree.getHumanReadableFormat(), "ALTERNATIVE\n|_SINGLE_OPERATOR_a\n|_SINGLE_OPERATOR_b\n");       
-    }
-    
+    }  
 }

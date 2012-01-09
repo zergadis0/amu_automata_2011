@@ -70,7 +70,6 @@ public class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
     /**
      * Metoda toString().
      */
-
     @Override
     public String toString() {
         return "FIXED_" + n + "_TIMES";
