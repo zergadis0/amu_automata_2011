@@ -827,9 +827,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         if (isFinal(state))
             return true;
 
-        if (allOutgoingTransitions(state).size() == 0)
-            return false;
-
         for (State his : history)
             if (his == state)
                 return false;
