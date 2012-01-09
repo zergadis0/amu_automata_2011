@@ -855,6 +855,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
         char[] tmp = alphabet.toCharArray();
         java.util.Arrays.sort(tmp);
         String sorted = new String(tmp);
+        String word = "";
         int l = alphabet.length();
         int x = 1;
         if (this.isEmpty())
@@ -883,12 +884,11 @@ public abstract class AutomatonSpecification implements Cloneable  {
                                     z++;
                             }
                             searchWord[flag - 1] = sorted.charAt(y);
-                            if (flag - 1 == 0) {
-                                flag = x;
-                                while (flag > 1) {
-                                    searchWord[flag - 1] = sorted.charAt(0);
-                                    flag--;
-                                }
+                            int tempFlag = flag;
+                            flag = x;
+                            while (flag > tempFlag) {
+                                searchWord[flag - 1] = sorted.charAt(0);
+                                flag--;
                             }
                             flag = 0;
                         }
@@ -898,15 +898,14 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 searchWord[x - 1] = tmp[i % alphabet.length()];
                 String acceptedWord = new String(searchWord);
                 if (a.accepts(acceptedWord)) {
+                    word = acceptedWord;
                     found = true;
-                    return acceptedWord;
                 }
             }
-            l = l * l;
             x++;
-        } while (!found);
-
-        throw new RuntimeException("error");
+            l = l * alphabet.length();
+        } while(!found);
+        return word;
     }
     /**
      *Metoda zwraca długość najdłuższego słowa akceptowanego.
