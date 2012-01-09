@@ -270,4 +270,43 @@ public class TestDeterministicAutomaton extends TestCase {
         assertEquals(spec.countStates(), 5);
     }
 
+    /**
+     * Test na automacie akceptującym język a+.
+     */
+    public final void testMakeMinimalOnSimple() {
+
+        DeterministicAutomatonSpecification spec = new NaiveDeterministicAutomatonSpecification();
+        DeterministicAutomatonSpecification spec2 = new NaiveDeterministicAutomatonSpecification();
+
+        State q0 = spec.addState();
+        State q1 = spec.addState();
+
+        spec.markAsInitial(q0);
+        spec.markAsFinal(q1);
+
+        spec.addTransition(q0, q1, new CharTransitionLabel('a'));
+        spec.addLoop(q1, new CharTransitionLabel('a'));
+
+        // dla pewności sprawdzamy jeszcze pierwotny automat
+        AutomatonByRecursion originalAutomaton = new AutomatonByRecursion(spec);
+        assertTrue(originalAutomaton.accepts("a"));
+        assertTrue(originalAutomaton.accepts("aa"));
+        assertFalse(originalAutomaton.accepts(""));
+        assertFalse(originalAutomaton.accepts("b"));
+
+        // tu właściwy test
+        spec2.makeMinimal(spec, "a");
+
+        AutomatonByRecursion automaton = new AutomatonByRecursion(spec);
+        assertTrue(automaton.accepts("a"));
+        assertTrue(automaton.accepts("aa"));
+        assertTrue(automaton.accepts("aaa"));
+        assertTrue(automaton.accepts("aaaaaaaaaaaaaaaaaaaaaaa"));
+        assertFalse(automaton.accepts(""));
+        assertFalse(automaton.accepts("b"));
+
+        assertEquals(spec.countStates(), 2);
+    }
+
+
 }
