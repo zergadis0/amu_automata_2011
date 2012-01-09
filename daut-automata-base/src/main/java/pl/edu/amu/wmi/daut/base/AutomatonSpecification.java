@@ -858,10 +858,9 @@ public abstract class AutomatonSpecification implements Cloneable  {
         char[] tmp = alphabet.toCharArray();
         java.util.Arrays.sort(tmp);
         String sorted = new String(tmp);
-        String word;
-        List<String> acceptedWords = new ArrayList<String>();
+        String word = "";
         int l = alphabet.length();
-        int x = 1, s = 0;
+        int x = 1;
         if (this.isEmpty())
             throw new RuntimeException("empty automaton");
         if (this.acceptEmptyWord()) {
@@ -902,24 +901,13 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 searchWord[x - 1] = tmp[i % alphabet.length()];
                 String acceptedWord = new String(searchWord);
                 if (a.accepts(acceptedWord)) {
-                    if (s == 0) {
-                        acceptedWords.add(0, acceptedWord);
-                        s = 1;
-                    } else if (acceptedWord.compareTo(acceptedWords.get(0)) > 0) {
-                        i = l;
-                    } else {
-                        acceptedWords.add(0, acceptedWord);
-                        i = l;
-                    }
-                }
-                if (s == 1 && acceptedWord.compareTo(acceptedWords.get(0)) > 0) {
-                    i = l;
+                    word = acceptedWord;
+                    found = true;
                 }
             }
             x++;
             l = l * alphabet.length();
         } while(!found);
-        word = acceptedWords.get(0);
         return word;
     }
     /**

@@ -22,7 +22,7 @@ automatPusty.
 /**
 automatA. Nie pusty ale akceptuje slowo puste.
 */
-/*
+
     public final void testFirstAcceptedWordA() {
     AutomatonSpecification a = new NaiveAutomatonSpecification();
     State s0 = a.addState();
@@ -44,7 +44,7 @@ automatA. Nie pusty ale akceptuje slowo puste.
 /**
 automatB. nic ciekawego.
 */
-/*
+
     public final void testFirstAcceptedWordB() {
     AutomatonSpecification a = new NaiveAutomatonSpecification();
     State s0 = a.addState();
@@ -55,20 +55,20 @@ automatB. nic ciekawego.
     State s5 = a.addState();
     State s6 = a.addState();
     a.markAsInitial(s0);
-    a.markAsFinal(s1);
+    a.markAsFinal(s6);
     a.addTransition(s0, s2, new CharTransitionLabel('a'));
     a.addTransition(s2, s3, new CharTransitionLabel('a'));
     a.addTransition(s3, s4, new CharTransitionLabel('a'));
     a.addTransition(s4, s5, new CharTransitionLabel('a'));
     a.addTransition(s5, s6, new CharTransitionLabel('a'));
     a.addTransition(s0, s1, new CharTransitionLabel('b'));
-    assertEquals(a.firstAcceptedWord("ab"), "b");
+    assertEquals(a.firstAcceptedWord("ab"), "aaaaa");
 }
 
 /**
 automatC. nie ma pierwszego slowa.
 */
-/*
+
 public final void testFirstAcceptedWordC() {
     AutomatonSpecification a = new NaiveAutomatonSpecification();
     State s0 = a.addState();
@@ -85,13 +85,13 @@ public final void testFirstAcceptedWordC() {
     a.addTransition(s3, s2, new CharTransitionLabel('a'));
     a.addTransition(s1, s0, new CharTransitionLabel('a'));
     a.addTransition(s1, s2, new CharTransitionLabel('a'));
-    assertEquals(a.firstAcceptedWord("abc"), ""); //brak pierwszego slowa
+    assertEquals(a.firstAcceptedWord("abc"), "c");
 }
 
 /**
 automatD. jezyk akceptowany przezen jest nieskonczony
 */
-/*
+
 public final void testFirstAcceptedWordD() {
     AutomatonSpecification a = new NaiveAutomatonSpecification();
     State s0 = a.addState();
@@ -108,14 +108,14 @@ public final void testFirstAcceptedWordD() {
     a.addTransition(s3, s2, new CharTransitionLabel('a'));
     a.addTransition(s1, s0, new CharTransitionLabel('b'));
     a.addTransition(s1, s2, new CharTransitionLabel('b'));
-    assertEquals(a.firstAcceptedWord("ba"), "aaa");
+    assertEquals(a.firstAcceptedWord("ba"), "b");
 }
 
 
 /**
 automatE. "Tasiemiec".
 */
-/*
+
 public final void testFirstAcceptedWordE() {
     AutomatonSpecification a = new NaiveAutomatonSpecification();
     State s0 = a.addState();
@@ -138,13 +138,13 @@ public final void testFirstAcceptedWordE() {
     a.addTransition(s4, s5, new CharTransitionLabel('f'));
     a.addTransition(s4, s6, new CharTransitionLabel('v'));
     a.addTransition(s5, s6, new CharTransitionLabel('k'));
-    assertEquals(a.firstAcceptedWord("sdfgczbvk"), "dcfk");
+    assertEquals(a.firstAcceptedWord("sdfgczbvk"), "dcv");
 }
 
 /**
 automatF. tez nieskonczony.
 */
-/*
+
 public final void testFirstAcceptedWordF() {
     AutomatonSpecification a = new NaiveAutomatonSpecification();
     State s0 = a.addState();
@@ -168,7 +168,7 @@ public final void testFirstAcceptedWordF() {
     a.addTransition(s4, s5, new CharTransitionLabel('f'));
     a.addTransition(s4, s6, new CharTransitionLabel('v'));
     a.addTransition(s5, s6, new CharTransitionLabel('k'));
-    assertEquals(a.firstAcceptedWord("sdfgczbvk"), "dcfk");
+    assertEquals(a.firstAcceptedWord("sdfgczbvk"), "dcv");
 }
-*/
+
 }
