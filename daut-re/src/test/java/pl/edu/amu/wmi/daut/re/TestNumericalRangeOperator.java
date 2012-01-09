@@ -120,4 +120,13 @@ public class TestNumericalRangeOperator extends TestCase {
         assertEquals(factory.createOperator(params).getClass(),
                 new NumericalRangeOperator(100, 200).getClass());
     }
+
+    /**
+     * Test metody toString.
+     */
+    public final void testtoString() {
+        NumericalRangeOperator spec = new NumericalRangeOperator(0, 10);
+        String string = spec.toString();
+        assertEquals(string, "NUMERICAL_FROM_0_TO_10");
+    }
 }
