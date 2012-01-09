@@ -1083,4 +1083,90 @@ public class TestAutomatonSpecification extends TestCase {
         zbior.add(s3);
         assertEquals(zbior, automat.getEpsilonClosure(s3));
     }
+    
+    public final void testMaxWordLength() {
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+		//test 1 - brak stanow i przejsc
+		assertEquals(spec.maxWordLength(), -1);
+		//test 1.1 - brak przejsc 3 stany
+		State q0 = spec.addState();
+		State q1 = spec.addState();
+        State q2 = spec.addState();
+		spec.markAsInitial(q0);
+        spec.markAsFinal(q2);
+		assertEquals(spec.maxWordLength(), -1);
+		//test 2 - 3 stany 1 przejscie brak polaczenia z koncowym
+        spec.addTransition(q0, q1, new CharTransitionLabel('a'));
+		assertEquals(spec.maxWordLength(), -1);
+		//test2.1 - normalny na 3 stanach z pojedynczymi przejsciami
+        spec.addTransition(q1, q2, new CharTransitionLabel('b'));
+        assertEquals(spec.maxWordLength(), 2);
+		//test 3 - pętla w ramach jednego stanu.
+		spec.addTransition(q0, q0, new CharTransitionLabel('c'));
+		assertEquals(spec.maxWordLength(), -2);
+		//test 3.1 duza petla
+		NaiveAutomatonSpecification spec1 = new NaiveAutomatonSpecification();
+		State q3 = spec1.addState();
+		State q4 = spec1.addState();
+		State q5 = spec1.addState();
+		State q6 = spec1.addState();
+		spec1.markAsInitial(q3);
+        spec1.markAsFinal(q5);
+		spec1.addTransition(q3, q4, new CharTransitionLabel('a'));
+        spec1.addTransition(q4, q5, new CharTransitionLabel('b'));
+		spec1.addTransition(q6, q3, new CharTransitionLabel('a'));
+        spec1.addTransition(q4, q6, new CharTransitionLabel('b'));
+		assertEquals(spec1.maxWordLength(), -2);
+		//test 4 same epsilon przejścia
+		NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
+		State q7 = spec2.addState();
+		State q8 = spec2.addState();
+		State q9 = spec2.addState();
+		spec2.markAsInitial(q7);
+        spec2.markAsFinal(q9);
+		spec2.addTransition(q7, q8, new EpsilonTransitionLabel());
+        spec2.addTransition(q8, q9, new EpsilonTransitionLabel());
+		assertEquals(spec2.maxWordLength(), 0);
+		//test 4.1 - 2 epsilon i 2 normalne
+		State q10 = spec2.addState();
+		State q11 = spec2.addState();
+		spec2.markAsFinal(q11);
+		spec2.addTransition(q9, q10, new CharTransitionLabel('a'));
+        spec2.addTransition(q10, q11, new CharTransitionLabel('b'));
+		assertEquals(spec2.maxWordLength(), 2)
+		//test 4.2 - droga z epsilon przejsciami wiedzie przez wiecej stanów wiec liczac epsilony jest dłuzsza.
+		State q12 = spec2.addState();
+		State q13 = spec2.addState();
+		spec2.addTransition(q9, q12, new EpsilonTransitionLabel());
+        spec2.addTransition(q12, q13, new EpsilonTransitionLabel());
+		spec2.addTransition(q13, q11, new EpsilonTransitionLabel());
+		assertEquals(spec2.maxWordLength(), 2)
+		//test 5 petla z epsilonem
+		NaiveAutomatonSpecification spec3 = new NaiveAutomatonSpecification();
+		State q14 = spec3.addState();
+		State q15 = spec3.addState();
+		State q16 = spec3.addState();
+		spec3.markAsInitial(q14);
+        spec3.markAsFinal(q16);
+		spec3.addTransition(q14, q14, new EpsilonTransitionLabel());
+        spec3.addTransition(q14, q15, new CharTransitionLabel('a'));
+        spec3.addTransition(q15, q16, new CharTransitionLabel('b'));
+		assertEquals(spec3.maxWordLength(), 2);
+		//test 6 jedna z galezi automatu wysuwa się dalej niz stan koncowy.
+		NaiveAutomatonSpecification spec4 = new NaiveAutomatonSpecification();
+		State q17 = spec4.addState();
+		State q18 = spec4.addState();
+		State q19 = spec4.addState();
+		State q20 = spec4.addState();
+		State q21 = spec4.addState();
+		State q22 = spec4.addState();
+		spec4.markAsInitial(q17);
+        spec4.markAsFinal(q18);
+		spec4.addTransition(q17, q18, new CharTransitionLabel('a'));
+        spec4.addTransition(q17, q19, new CharTransitionLabel('b'));
+		spec4.addTransition(q19, q20, new CharTransitionLabel('a'));
+        spec4.addTransition(q20, q21, new CharTransitionLabel('b'));
+		spec4.addTransition(q21, q22, new CharTransitionLabel('a'));
+		assertEquals(spec4.maxWordLength(), 1);
+    }
 }
