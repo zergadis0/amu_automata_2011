@@ -92,7 +92,6 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
     /**
      * Metoda toString().
      */
-
     @Override
     public String toString() {
         return "ASCII";

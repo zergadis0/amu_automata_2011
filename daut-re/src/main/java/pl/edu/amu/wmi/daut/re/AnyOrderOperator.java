@@ -65,7 +65,6 @@ public class AnyOrderOperator extends BinaryRegexpOperator {
     /**
      * Metoda toString().
      */
-
     @Override
     public String toString() {
         return "ANY_ORDER";

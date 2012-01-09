@@ -82,7 +82,6 @@ public class RangeNumberOfOccurrencesOperator extends UnaryRegexpOperator {
     /**
      * Metoda toString().
      */
-
     @Override
     public String toString() {
         return "RANGE_NUMBER_OF_OCCURRENCES_FROM_" + min + "_TO_" + max;
