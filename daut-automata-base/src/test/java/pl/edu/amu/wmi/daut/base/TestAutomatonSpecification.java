@@ -1156,14 +1156,14 @@ public class TestAutomatonSpecification extends TestCase {
 		spec2.markAsFinal(q11);
 		spec2.addTransition(q9, q10, new CharTransitionLabel('a'));
         spec2.addTransition(q10, q11, new CharTransitionLabel('b'));
-		assertEquals(spec2.maxWordLength(), 2)
+		assertEquals(spec2.maxWordLength(), 2);
 		//test 4.2 - droga z epsilon przejsciami wiedzie przez wiecej stanów wiec liczac epsilony jest dłuzsza.
 		State q12 = spec2.addState();
 		State q13 = spec2.addState();
 		spec2.addTransition(q9, q12, new EpsilonTransitionLabel());
         spec2.addTransition(q12, q13, new EpsilonTransitionLabel());
 		spec2.addTransition(q13, q11, new EpsilonTransitionLabel());
-		assertEquals(spec2.maxWordLength(), 2)
+		assertEquals(spec2.maxWordLength(), 2);
 		//test 5 petla z epsilonem
 		NaiveAutomatonSpecification spec3 = new NaiveAutomatonSpecification();
 		State q14 = spec3.addState();
