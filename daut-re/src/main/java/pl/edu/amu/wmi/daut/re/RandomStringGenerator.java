@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.Random;
 
 /**
- * Klasa generuj¹ca losowy napis nad podanym alfabetem RandomStringGenerator.
+ * Klasa generujÄ…ca losowy napis nad podanym alfabetem RandomStringGenerator.
  */
 public class RandomStringGenerator {
 
