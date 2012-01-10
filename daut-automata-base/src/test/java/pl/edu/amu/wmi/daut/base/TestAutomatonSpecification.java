@@ -1130,6 +1130,9 @@ public class TestAutomatonSpecification extends TestCase {
         //test2.1 - normalny na 3 stanach z pojedynczymi przejsciami
         spec.addTransition(q1, q2, new CharTransitionLabel('b'));
         assertEquals(spec.maxWordLength(), 2);
+        //test 3 - pętla w ramach jednego stanu.
+        spec.addLoop(q0, new CharTransitionLabel('c'));
+        assertEquals(spec.maxWordLength(), -2);
         //test 4 same epsilon przejścia
         NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
         State q7 = spec2.addState();
