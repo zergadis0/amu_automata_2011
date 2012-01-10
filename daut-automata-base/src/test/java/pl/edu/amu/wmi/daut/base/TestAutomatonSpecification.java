@@ -1083,7 +1083,7 @@ public class TestAutomatonSpecification extends TestCase {
         zbior.add(s3);
         assertEquals(zbior, automat.getEpsilonClosure(s3));
     }
-    
+
     /**
      * Testuje metodę isNotEmpty.
      */
@@ -1109,12 +1109,12 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertTrue(spec.isNotEmpty());
     }
-    
+
     public final void testMaxWordLength() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
-		//test 1 - brak stanow i przejsc
+        //test 1 - brak stanow i przejsc
 		assertEquals(spec.maxWordLength(), -1);
-		//test 1.1 - brak przejsc 3 stany
+        //test 1.1 - brak przejsc 3 stany
 		State q0 = spec.addState();
 		State q1 = spec.addState();
         State q2 = spec.addState();
