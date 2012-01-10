@@ -39,8 +39,8 @@ public class RangeNumberOfOccurrencesOperator extends UnaryRegexpOperator {
 
             for (State state : finalAutomaton.allStates()) {
                 if (finalAutomaton.isFinal(state)) {
-                    finalAutomaton.addTransition(state, newState, new EpsilonTransitionLabel()); 
-                    if(i < this.min)
+                    finalAutomaton.addTransition(state, newState, new EpsilonTransitionLabel());
+                    if (i < this.min)
                         finalAutomaton.unmarkAsFinalState(state);
                 }
             }
