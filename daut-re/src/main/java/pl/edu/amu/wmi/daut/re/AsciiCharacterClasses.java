@@ -8,15 +8,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author jakub
- */
 public class AsciiCharacterClasses {
-    public static final Map<String, String> classMap;
+    /**
+     * Mapa zawierająca klasy znaków.
+     */
+    public static final Map<String, String> CLASS_MAP;
     static
     {
-        Map<String, String>result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<String, String>();
         result.put("alnum", "0-9A-Za-z");
         result.put("alpha", "A-Za-z");
         result.put("blank", "\t ");
@@ -30,6 +29,8 @@ public class AsciiCharacterClasses {
         result.put("upper", "A-Z");
         result.put("word", "0-9A-Za-z_");
         result.put("xdigit", "0-9A-Fa-f");
-        classMap = Collections.unmodifiableMap(result);
+        CLASS_MAP = Collections.unmodifiableMap(result);
     }
+
+    public AsciiCharacterClasses() {}
 }

@@ -26,7 +26,7 @@ public class NegatedAsciiCharacterClass extends NullaryRegexpOperator {
 
 
     private void transformToClassString(String a) {
-        str = AsciiCharacterClasses.classMap.get(a);
+        str = AsciiCharacterClasses.CLASS_MAP.get(a);
         if (str == null)
             throw new UnknownAsciiCharacterClassException();
     }
