@@ -1110,10 +1110,13 @@ public class TestAutomatonSpecification extends TestCase {
         assertTrue(spec.isNotEmpty());
     }
 
+    /**
+     * Trudniejszy test metody getEpsilonClosure(State).
+     */
     public final void testMaxWordLength() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
         //test 1 - brak stanow i przejsc
-		assertEquals(spec.maxWordLength(), -1);
+        assertEquals(spec.maxWordLength(), -1);
         //test 1.1 - brak przejsc 3 stany
 		State q0 = spec.addState();
 		State q1 = spec.addState();
@@ -1144,7 +1147,8 @@ public class TestAutomatonSpecification extends TestCase {
 		spec2.addTransition(q9, q10, new CharTransitionLabel('a'));
         spec2.addTransition(q10, q11, new CharTransitionLabel('b'));
 		assertEquals(spec2.maxWordLength(), 2);
-		//test 4.2 - droga z epsilon przejsciami wiedzie przez wiecej stanów wiec liczac epsilony jest dłuzsza.
+		//test 4.2 - droga z epsilon przejsciami wiedzie przez wiecej stanów 
+        //wiec liczac epsilony jest dłuzsza.
 		State q12 = spec2.addState();
 		State q13 = spec2.addState();
 		spec2.addTransition(q9, q12, new EpsilonTransitionLabel());
