@@ -65,7 +65,6 @@ public class TestNegatedAsciiCharacter extends TestCase {
        assertFalse(automaton.accepts("4"));
        assertFalse(automaton.accepts("1"));
        assertFalse(automaton.accepts("9"));
-       
     }
 
     /**
