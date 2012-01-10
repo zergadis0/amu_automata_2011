@@ -101,6 +101,23 @@ public class TestGeneratorRandomWord extends TestCase {
     }
 
     /**
+     * Metoda zwraca deterministyczny automat sk. stanowy akceptujący słowa
+     * "a" i "ab".
+     */
+    private AutomatonSpecification getAutomatonE() {
+        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
+        State q0 = automaton.addState();
+        State q1 = automaton.addState();
+        State q2 = automaton.addState();
+        automaton.addTransition(q0, q1, new CharTransitionLabel('a'));
+        automaton.addTransition(q1, q2, new CharTransitionLabel('b'));
+        automaton.markAsInitial(q0);
+        automaton.markAsFinal(q1);
+        automaton.markAsFinal(q2);
+        return automaton;
+    }
+
+    /**
      * Sprawdza poprawność wygenerowanych słów. Sprawdza czy zwrócone słowo
      * przez metodę randomWord z klasy Generator jest akceptowane przez dany automat.
      * Test jest przeprowadzony określoną ilość razy.
@@ -164,6 +181,15 @@ public class TestGeneratorRandomWord extends TestCase {
      */
     public final void testGeneratorRandomWordPenultimate() {
         assertTrue(check(getAutomatonC(), "ab", 100));
+    }
+
+    /**
+     * Metoda wywołująca test która sprawdza czy zwrócone słowo
+     * mające na przedostatnim miejscu 'b'.
+     */
+    public final void testGeneratorRandomWordAb() {
+        assertTrue(check(getAutomatonE(), "a", 100));
+        assertTrue(check(getAutomatonE(), "ab", 100));
     }
 
     /**
