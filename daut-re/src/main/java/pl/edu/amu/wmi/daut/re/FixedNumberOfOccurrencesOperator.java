@@ -26,7 +26,7 @@ public class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
             AutomatonSpecification subautomaton) {
 
         AutomatonSpecification automatbudowany = subautomaton.clone();
-        
+
         if (this.n == 0)
             automatbudowany.markAsFinal(automatbudowany.getInitialState());
 
