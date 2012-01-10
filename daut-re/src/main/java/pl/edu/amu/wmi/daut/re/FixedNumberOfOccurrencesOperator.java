@@ -50,9 +50,9 @@ public class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
                                 newState1,
                                 new EpsilonTransitionLabel());
                     automatbudowany.unmarkAsFinalState(state);
-                    automatbudowany.insert(newState1, subautomaton);
                 }
             }
+            automatbudowany.insert(newState1, subautomaton);
         }
         return automatbudowany;
     }
