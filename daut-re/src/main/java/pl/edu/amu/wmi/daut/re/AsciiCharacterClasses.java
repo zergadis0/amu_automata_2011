@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Klasa pomocnicza zawierająca mapę klas znaków.
  */
-public class AsciiCharacterClasses {
+public final class AsciiCharacterClasses {
     /**
      * Mapa zawierająca klasy znaków.
      */
@@ -34,6 +34,4 @@ public class AsciiCharacterClasses {
         result.put("xdigit", "0-9A-Fa-f");
         CLASS_MAP = Collections.unmodifiableMap(result);
     }
-
-    private AsciiCharacterClasses() {}
 }
