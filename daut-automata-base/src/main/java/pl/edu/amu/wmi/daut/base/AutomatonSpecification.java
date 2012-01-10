@@ -827,9 +827,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         if (isFinal(state))
             return true;
 
-        if (allOutgoingTransitions(state).size() == 0)
-            return false;
-
         for (State his : history)
             if (his == state)
                 return false;
@@ -945,12 +942,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         return doGetEpsilonClosure(initial, contextChecker);
     }
     /**
-     * Odznacza końcowy stan.
-     */
-    public void unmarkedAsFinalState(State state) {
-        getFinalStates().remove(state);
-    }
-    /**
      * Dla podanego automatu tworzy równoważny automat z 1 stanem końcowym.
      */
     public AutomatonSpecification makeOneFinalStateAutomaton() {
@@ -980,7 +971,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 spec.clone();
                 State stateFinal = spec.addState();
                 for (State someState : allFinalStates) {
-                    spec.unmarkedAsFinalState(someState);
+                    spec.unmarkAsFinalState(someState);
                     spec.addTransition(someState, stateFinal, new EpsilonTransitionLabel());
                     return spec;
                 }
