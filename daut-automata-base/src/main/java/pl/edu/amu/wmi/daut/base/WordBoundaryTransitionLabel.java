@@ -2,7 +2,8 @@ package pl.edu.amu.wmi.daut.base;
 
 /**
  * @author KubaZ
- * 
+ * Klasa przejścia, które odpowiada operatorowi \b z wyrażeń regularnych,
+ * jeśli włączono tryb multiline.
  */
 public class WordBoundaryTransitionLabel extends ZeroLengthConditionalTransitionLabel {
 
@@ -16,7 +17,7 @@ public class WordBoundaryTransitionLabel extends ZeroLengthConditionalTransition
         }
         return false;
     };
-    @Override 
+    @Override
     public boolean canAcceptCharacter(char c) {
         return false;
     };
