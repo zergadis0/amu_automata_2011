@@ -35,7 +35,6 @@ public final class AsciiCharacterClasses {
         CLASS_MAP = Collections.unmodifiableMap(result);
     }
 
-    private AsciiCharacterClasses()
-    {
+    private AsciiCharacterClasses() {
     }
 }
