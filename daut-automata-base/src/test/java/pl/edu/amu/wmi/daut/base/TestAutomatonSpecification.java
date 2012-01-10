@@ -1151,17 +1151,6 @@ public class TestAutomatonSpecification extends TestCase {
         spec2.addTransition(q12, q13, new EpsilonTransitionLabel());
 		spec2.addTransition(q13, q11, new EpsilonTransitionLabel());
 		assertEquals(spec2.maxWordLength(), 2);
-		//test 5 petla z epsilonem
-		NaiveAutomatonSpecification spec3 = new NaiveAutomatonSpecification();
-		State q14 = spec3.addState();
-		State q15 = spec3.addState();
-		State q16 = spec3.addState();
-		spec3.markAsInitial(q14);
-        spec3.markAsFinal(q16);
-		spec3.addTransition(q14, q14, new EpsilonTransitionLabel());
-        spec3.addTransition(q14, q15, new CharTransitionLabel('a'));
-        spec3.addTransition(q15, q16, new CharTransitionLabel('b'));
-		//assertEquals(spec3.maxWordLength(), 2);
 		//test 6 jedna z galezi automatu wysuwa się dalej niz stan koncowy.
 		NaiveAutomatonSpecification spec4 = new NaiveAutomatonSpecification();
 		State q17 = spec4.addState();
