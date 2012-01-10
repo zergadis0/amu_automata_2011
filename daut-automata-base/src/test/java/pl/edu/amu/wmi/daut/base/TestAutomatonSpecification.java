@@ -1127,7 +1127,7 @@ public class TestAutomatonSpecification extends TestCase {
 		//test2.1 - normalny na 3 stanach z pojedynczymi przejsciami
         spec.addTransition(q1, q2, new CharTransitionLabel('b'));
         assertEquals(spec.maxWordLength(), 2);
-        //test 3 - pętla w ramach jednego stanu.
+        //tescik 3 - pętla w ramach jednego stanu.
 		spec.addTransition(q0, q0, new CharTransitionLabel('c'));
 		assertEquals(spec.maxWordLength(), -2);
     }
