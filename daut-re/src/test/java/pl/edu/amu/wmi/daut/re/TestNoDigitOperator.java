@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import junit.framework.TestCase;
 import pl.edu.amu.wmi.daut.base.AutomatonByRecursion;
-import pl.edu.amu.wmi.daut.re.DigitOperator.Factory;
+import pl.edu.amu.wmi.daut.re.NoDigitOperator.Factory;
 
 /**
  *
