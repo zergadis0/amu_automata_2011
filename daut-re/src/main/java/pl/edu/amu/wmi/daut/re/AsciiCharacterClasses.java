@@ -34,4 +34,8 @@ public final class AsciiCharacterClasses {
         result.put("xdigit", "0-9A-Fa-f");
         CLASS_MAP = Collections.unmodifiableMap(result);
     }
+
+    private AsciiCharacterClasses()
+    {
+    }
 }
