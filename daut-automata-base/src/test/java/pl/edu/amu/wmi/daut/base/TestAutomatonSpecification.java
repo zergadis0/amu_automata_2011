@@ -532,11 +532,9 @@ public class TestAutomatonSpecification extends TestCase {
                 return false;
 
             //Porównanie 1: dokładnie ten sam porządek linii
-            for (int i = 0; i < 6; i++) {
-                if (!dotGraphTab[i].equals(exampleOfDotGraphTab[i])) {
+            for (int i = 0; i < 6; i++)
+                if (!dotGraphTab[i].equals(exampleOfDotGraphTab[i]))
                     return false;
-                }
-            }
 
             //Porównanie 2: stany końcowe
             int numberOfEndStates = ends.split(" ").length;
@@ -561,9 +559,8 @@ public class TestAutomatonSpecification extends TestCase {
                         break;
                     }
                 }
-                if (!doThisLineExist) {
+                if (!doThisLineExist)
                     return false;
-                }
             }
 
             return true;
