@@ -478,9 +478,8 @@ public class TestAutomatonSpecification extends TestCase {
             dotGraphString.append("digraph finite_state_machine {\n    rankdir=LR;\n"
                     + "    size=\"8,5\"\n    node [style=filled fillcolor=\"#00ff005f\""
                     + " shape = ");
-            if (isBeginTheEnd) {
+            if (isBeginTheEnd)
                 dotGraphString.append("double");
-            }
             dotGraphString.append("circle];\n    \"State #" + begin + "\";\n"
                     + "    node [shape = doublecircle style=filled "
                     + "fillcolor=\"#00000000\"];\n    ");
@@ -521,18 +520,16 @@ public class TestAutomatonSpecification extends TestCase {
             String fakeDotGraph = this.toString();
 
             //Pierwszy krok testu - porównanie ich długości
-            if (dotGraphFromAutomaton.length() != fakeDotGraph.length()) {
+            if (dotGraphFromAutomaton.length() != fakeDotGraph.length())
                 return false;
-            }
 
             //Podział obu stringów na linie
             String[] dotGraphTab = dotGraphFromAutomaton.split("\n");
             String[] exampleOfDotGraphTab = fakeDotGraph.split("\n");
 
             //Porównanie ilości linii w obu Stringach
-            if (dotGraphTab.length != exampleOfDotGraphTab.length) {
+            if (dotGraphTab.length != exampleOfDotGraphTab.length)
                 return false;
-            }
 
             //Porównanie 1: dokładnie ten sam porządek linii
             for (int i = 0; i < 6; i++) {
@@ -551,9 +548,8 @@ public class TestAutomatonSpecification extends TestCase {
                         break;
                     }
                 }
-                if (!doThisLineExist) {
+                if (!doThisLineExist)
                     return false;
-                }
             }
 
             //Porównanie 3: linie mogą różnić się kolejnością
