@@ -1147,7 +1147,7 @@ public class TestAutomatonSpecification extends TestCase {
         spec2.addTransition(q9, q10, new CharTransitionLabel('a'));
         spec2.addTransition(q10, q11, new CharTransitionLabel('b'));
         assertEquals(spec2.maxWordLength(), 2);
-        //test 4.2 - droga z epsilon przejsciami wiedzie przez wiecej stanów 
+        //test 4.2 - droga z epsilon przejsciami wiedzie przez wiecej stanów
         //wiec liczac epsilony jest dłuzsza.
         State q12 = spec2.addState();
         State q13 = spec2.addState();
