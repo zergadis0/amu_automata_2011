@@ -1127,19 +1127,6 @@ public class TestAutomatonSpecification extends TestCase {
 		//test2.1 - normalny na 3 stanach z pojedynczymi przejsciami
         spec.addTransition(q1, q2, new CharTransitionLabel('b'));
         assertEquals(spec.maxWordLength(), 2);
-        //test 3.1 duza petla
-		NaiveAutomatonSpecification spec1 = new NaiveAutomatonSpecification();
-		State q3 = spec1.addState();
-		State q4 = spec1.addState();
-		State q5 = spec1.addState();
-		State q6 = spec1.addState();
-		spec1.markAsInitial(q3);
-        spec1.markAsFinal(q5);
-		spec1.addTransition(q3, q4, new CharTransitionLabel('a'));
-        spec1.addTransition(q4, q5, new CharTransitionLabel('b'));
-		spec1.addTransition(q6, q3, new CharTransitionLabel('a'));
-        spec1.addTransition(q4, q6, new CharTransitionLabel('b'));
-		assertEquals(spec1.maxWordLength(), -2);
 		//test 4 same epsilon przejścia
 		NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
 		State q7 = spec2.addState();
