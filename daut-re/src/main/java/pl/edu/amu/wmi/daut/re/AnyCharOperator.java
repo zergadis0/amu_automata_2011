@@ -2,23 +2,23 @@ package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
-import pl.edu.amu.wmi.daut.base.AnyTransitionLabel;
-import pl.edu.amu.wmi.daut.base.State;
 import java.util.List;
 
 /**
  * Klasa reprezentująca operator '.' z wyrażeń regularnych (dowolny znak).
  */
 public class AnyCharOperator extends NullaryRegexpOperator {
+    private char character;
+
+    /**
+     * Metoda, ustawia pożądany znak.
+     */
+    public void setCharacter(char c) {
+        this.character = c;
+    }
     @Override
     public AutomatonSpecification createFixedAutomaton() {
-        AutomatonSpecification automaton = new NaiveAutomatonSpecification();
-        State q0 = automaton.addState();
-        State q1 = automaton.addState();
-        automaton.addTransition(q0, q1, new AnyTransitionLabel());
-        automaton.markAsInitial(q0);
-        automaton.markAsFinal(q1);
-        return automaton;
+        return new NaiveAutomatonSpecification().makeOneTransitionAutomaton(character);
     }
 
      /**
