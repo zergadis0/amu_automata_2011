@@ -4,10 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-
-/**
- *
- */
 class RhsEmptyException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 }
@@ -15,8 +11,9 @@ class RhsEmptyException extends RuntimeException {
 class OutOfRhsBordersException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 }
+
 /**
- *
+ * Klasa reprezentująca regułę przepisywania gramatyki generatywnej.
  */
 public class GrammarRule {
 
