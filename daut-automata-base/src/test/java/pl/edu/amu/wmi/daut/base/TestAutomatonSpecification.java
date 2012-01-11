@@ -1133,6 +1133,8 @@ public class TestAutomatonSpecification extends TestCase {
         //test 3 - pętla w ramach jednego stanu.
         NaiveAutomatonSpecification specLoop = new NaiveAutomatonSpecification();
         State loop = specLoop.addState();
+        specLoop.markAsInitial(loop);
+        specLoop.markAsFinal(loop);
         specLoop.addLoop(loop, new CharTransitionLabel('c'));
         assertEquals(spec.maxWordLength(), -2);
         //test 4 same epsilon przejścia
