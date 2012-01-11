@@ -20,7 +20,7 @@ public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLab
         } else {
             throw new PositionOutOfStringBordersException();
         }
-        }
+    }
 
     @Override
     public boolean canAcceptCharacter(char c) {
