@@ -3,7 +3,7 @@ package pl.edu.amu.wmi.daut.base;
 import java.util.Random;
 
 /**
- * Klasa generująca losowy napis nad podanym alfabetem RandomStringGenerator.
+ * Klasa generująca losowy napis nad podanym alfabetem.
  */
 public class RandomStringGenerator {
 
@@ -13,6 +13,10 @@ public class RandomStringGenerator {
 
     private static final double lambda = 0.1;
 
+/**
+ * Konstruktor budujący generator tworzący ciągi należące do zadanego alfabetu.
+ * @param alphabet - ciąg reprezentujący alfabet.
+ **/
 public RandomStringGenerator(String alphabet) {
     random = new Random();
     if (alphabet == null) {
@@ -38,6 +42,10 @@ private boolean doesContains(String str, char characterToFind) {
     return false;
 }
 
+    /**
+     * Metoda tworząca losowy ciąg z zadanego alfabetu. Dlugość ciągu jest zdefiniowana funkcją wykładniczą.
+     * Każdy element alfabetu ma takie same prawdopodobieństwo wystąpienia na każdej pozycji.
+     **/
     public String getRandomString() {
         StringBuffer sb = new StringBuffer();
         int length = 0;
