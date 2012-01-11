@@ -1136,7 +1136,7 @@ public class TestAutomatonSpecification extends TestCase {
         specLoop.markAsInitial(loop);
         specLoop.markAsFinal(loop);
         specLoop.addLoop(loop, new CharTransitionLabel('c'));
-        assertEquals(spec.maxWordLength(), -2);
+        assertEquals(specLoop.maxWordLength(), -2);
         //test 4 same epsilon przejścia
         NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
         State q7 = spec2.addState();
