@@ -2,18 +2,14 @@ package pl.edu.amu.wmi.daut.base;
 
 import java.util.Random;
 
-private static final double lambda = 0.1;
-
 /**
  * Klasa generująca losowy napis nad podanym alfabetem.
  */
 public class RandomStringGenerator {
 
     private final String alphabet;
-
     private Random random;
-
-    //private static final double lambda = 0.1;
+    private static final double LAMBDA = 0.1;
 
 /**
  * Konstruktor budujący generator tworzący ciągi należące do zadanego alfabetu.
@@ -72,6 +68,6 @@ private boolean doesContains(String str, char characterToFind) {
     }
 
     private double getProbabilityDensity(int x) {
-        return lambda * Math.pow(Math.E, -x * lambda);
+        return LAMBDA * Math.pow(Math.E, -x * LAMBDA);
     }
 }
