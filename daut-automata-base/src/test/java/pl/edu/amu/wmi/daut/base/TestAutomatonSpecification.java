@@ -1131,7 +1131,9 @@ public class TestAutomatonSpecification extends TestCase {
         spec.addTransition(q1, q2, new CharTransitionLabel('b'));
         assertEquals(spec.maxWordLength(), 2);
         //test 3 - pętla w ramach jednego stanu.
-        spec.addLoop(q0, new CharTransitionLabel('c'));
+        NaiveAutomatonSpecification specLoop = new NaiveAutomatonSpecification();
+        State loop = specLoop.addState();
+        specLoop.addLoop(loop, new CharTransitionLabel('c'));
         assertEquals(spec.maxWordLength(), -2);
         //test 4 same epsilon przejścia
         NaiveAutomatonSpecification spec2 = new NaiveAutomatonSpecification();
