@@ -827,9 +827,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         if (isFinal(state))
             return true;
 
-        if (allOutgoingTransitions(state).size() == 0)
-            return false;
-
         for (State his : history)
             if (his == state)
                 return false;
@@ -858,6 +855,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
         char[] tmp = alphabet.toCharArray();
         java.util.Arrays.sort(tmp);
         String sorted = new String(tmp);
+        String word = "";
         int l = alphabet.length();
         int x = 1;
         if (this.isEmpty())
@@ -886,12 +884,11 @@ public abstract class AutomatonSpecification implements Cloneable  {
                                     z++;
                             }
                             searchWord[flag - 1] = sorted.charAt(y);
-                            if (flag - 1 == 0) {
-                                flag = x;
-                                while (flag > 1) {
-                                    searchWord[flag - 1] = sorted.charAt(0);
-                                    flag--;
-                                }
+                            int tempFlag = flag;
+                            flag = x;
+                            while (flag > tempFlag) {
+                                searchWord[flag - 1] = sorted.charAt(0);
+                                flag--;
                             }
                             flag = 0;
                         }
@@ -901,15 +898,14 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 searchWord[x - 1] = tmp[i % alphabet.length()];
                 String acceptedWord = new String(searchWord);
                 if (a.accepts(acceptedWord)) {
+                    word = acceptedWord;
                     found = true;
-                    return acceptedWord;
                 }
             }
-            l = l * l;
             x++;
-        } while (!found);
-
-        throw new RuntimeException("error");
+            l = l * alphabet.length();
+        } while(!found);
+        return word;
     }
     /**
      *Metoda zwraca długość najdłuższego słowa akceptowanego.
@@ -946,12 +942,6 @@ public abstract class AutomatonSpecification implements Cloneable  {
         return doGetEpsilonClosure(initial, contextChecker);
     }
     /**
-     * Odznacza końcowy stan.
-     */
-    public void unmarkedAsFinalState(State state) {
-        getFinalStates().remove(state);
-    }
-    /**
      * Dla podanego automatu tworzy równoważny automat z 1 stanem końcowym.
      */
     public AutomatonSpecification makeOneFinalStateAutomaton() {
@@ -981,7 +971,7 @@ public abstract class AutomatonSpecification implements Cloneable  {
                 spec.clone();
                 State stateFinal = spec.addState();
                 for (State someState : allFinalStates) {
-                    spec.unmarkedAsFinalState(someState);
+                    spec.unmarkAsFinalState(someState);
                     spec.addTransition(someState, stateFinal, new EpsilonTransitionLabel());
                     return spec;
                 }
