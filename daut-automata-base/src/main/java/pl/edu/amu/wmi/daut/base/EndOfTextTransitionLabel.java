@@ -15,14 +15,12 @@ public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLab
 
     @Override
     protected boolean doCheckContext(String s, int position) {
-        if ((s.length() < position) || (position < 0)) {
+        if (position == s.length()) {
+            return true; 
+        } else {
             throw new PositionOutOfStringBordersException();
         }
-        if (position == s.length()) {
-            return true;
         }
-        return false;
-    }
 
     @Override
     public boolean canAcceptCharacter(char c) {
