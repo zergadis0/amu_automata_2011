@@ -43,7 +43,8 @@ private boolean doesContains(String str, char characterToFind) {
 }
 
     /**
-     * Metoda tworząca losowy ciąg z zadanego alfabetu. Dlugość ciągu jest zdefiniowana funkcją wykładniczą.
+     * Metoda tworząca losowy ciąg z zadanego alfabetu.
+     * Dlugość ciągu jest zdefiniowana funkcją wykładniczą.
      * Każdy element alfabetu ma takie same prawdopodobieństwo wystąpienia na każdej pozycji.
      **/
     public String getRandomString() {
