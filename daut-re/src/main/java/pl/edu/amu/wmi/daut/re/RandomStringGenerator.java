@@ -2,6 +2,8 @@ package pl.edu.amu.wmi.daut.base;
 
 import java.util.Random;
 
+private static final double lambda = 0.1;
+
 /**
  * Klasa generująca losowy napis nad podanym alfabetem.
  */
@@ -11,7 +13,7 @@ public class RandomStringGenerator {
 
     private Random random;
 
-    private static final double lambda = 0.1;
+    //private static final double lambda = 0.1;
 
 /**
  * Konstruktor budujący generator tworzący ciągi należące do zadanego alfabetu.
