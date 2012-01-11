@@ -13,7 +13,7 @@ public class RandomStringGenerator {
 
 /**
  * Konstruktor budujący generator tworzący ciągi należące do zadanego alfabetu.
- * @param alphabet - ciąg reprezentujący alfabet.
+ * @parametr alphabet - ciąg reprezentujący alfabet.
  **/
 public RandomStringGenerator(String alphabet) {
     random = new Random();
