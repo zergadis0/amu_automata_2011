@@ -30,31 +30,4 @@ public class TestEndOfTextTransitionLabel extends TestCase {
 
     }
 
-    /**
-     * Przykladowy automat z uzyciem EndOfTextTransitionLabel.
-     */
-    public final void testEndOfTextTransitionLabelAutomaton() {
-
-        final AutomatonSpecification spec = new NaiveAutomatonSpecification();
-        State q0 = spec.addState();
-        State q1 = spec.addState();
-        State q2 = spec.addState();
-
-        spec.addTransition(q0, q1, new CharTransitionLabel('a'));
-        spec.addTransition(q1, q0, new CharTransitionLabel('b'));
-        spec.addTransition(q1, q2, new EndOfTextTransitionLabel());
-
-        spec.markAsInitial(q0);
-        spec.markAsFinal(q2);
-
-        final NondeterministicAutomatonByThompsonApproach automaton =
-                new NondeterministicAutomatonByThompsonApproach(spec);
-
-        assertTrue(automaton.accepts("a"));
-        assertTrue(automaton.accepts("ababa"));
-
-        assertFalse(automaton.accepts("kabanos"));
-        assertFalse(automaton.accepts("ab"));
-    }
-
 }
