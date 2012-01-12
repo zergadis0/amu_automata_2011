@@ -168,4 +168,20 @@ public class RegexpOperatorManager {
 
         return returnedId;
     }
+    
+    /**
+     * Zwraca listę identyfikatorów wszystkich operatorów.
+     */
+    
+    
+    List<String> getAllOperatorIds() {
+
+        List<String> returnedId = new ArrayList<String>();      
+        
+        for (OperatorData operator : definedOperators) {
+            returnedId.add(operator.id);
+        }
+
+        return returnedId;
+    }
 }
