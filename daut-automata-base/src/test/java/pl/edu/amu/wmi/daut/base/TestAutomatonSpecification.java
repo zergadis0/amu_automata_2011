@@ -1111,7 +1111,7 @@ public class TestAutomatonSpecification extends TestCase {
     }
 
     /**
-     * Trudniejszy test metody getEpsilonClosure(State).
+     * Test metody maxWordLength().
      */
     public final void testMaxWordLength() {
         NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
