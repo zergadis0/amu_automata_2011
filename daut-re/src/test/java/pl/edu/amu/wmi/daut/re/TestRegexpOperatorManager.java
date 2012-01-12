@@ -150,11 +150,10 @@ public class TestRegexpOperatorManager extends TestCase {
         string = manager.getOperatorsForStringPrefix("!!bla!bla");
         assertEquals(Arrays.<String>asList("!!"), string);
     }
-    
+
     /**
      * Test getAllOperatorIds.
      */
-    
     public final void testgetAllOperatorIds() {
 
         RegexpOperatorManager manager = new RegexpOperatorManager();
@@ -172,6 +171,4 @@ public class TestRegexpOperatorManager extends TestCase {
         string = manager.getAllOperatorIds();
         assertEquals(Arrays.<String>asList("*", "{n,m}", "s", ".", "?"), string);
     }
-    
-    
 }
