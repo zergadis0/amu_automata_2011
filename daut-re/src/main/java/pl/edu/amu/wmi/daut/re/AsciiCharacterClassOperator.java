@@ -88,4 +88,12 @@ public class AsciiCharacterClassOperator extends NullaryRegexpOperator {
             return 1;
         }
     }
+
+    /**
+     * Metoda toString().
+     */
+    @Override
+    public String toString() {
+        return "ASCII";
+    }
 }

@@ -1,20 +1,20 @@
 package pl.edu.amu.wmi.daut.base;
 
+class PositionOutOfStringBordersException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+}
+
 /**
- *
- * @author irmina90
- *
- * Klasa odpowiedzialna za epsilon-przejscie.
- *
+ * Klasa EndOfTextOrLineTransitionLabel.
  */
-public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLabel {
+public class EndOfTextOrLineTransitionLabel extends ZeroLengthConditionalTransitionLabel {
 
     @Override
     protected boolean doCheckContext(String s, int position) {
         if (s.length() < position) {
             throw new PositionOutOfStringBordersException();
         }
-        if (s.charAt(position) == '\u0003') {
+        if ((s.charAt(position) == '\n') || (s.charAt(position) == '\u0003')) {
             return true;
         }
         return false;
@@ -32,7 +32,7 @@ public class EndOfTextTransitionLabel extends ZeroLengthConditionalTransitionLab
 
     @Override
     public String toString() {
-        return "EndOfText";
+        return "EndOfTextOrLine";
     }
 
 }
