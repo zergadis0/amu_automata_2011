@@ -7,6 +7,8 @@ import java.util.Random;
  */
 public class GrammarNonterminalSymbol implements GrammarSymbol {
 
+    private static final int ALLCHARRANGE = 26;
+    private static final int FIRSTCAPITALLETTERNR = 8;
     private Character myChar;
 
     /**
@@ -14,7 +16,7 @@ public class GrammarNonterminalSymbol implements GrammarSymbol {
      * aby móc potem ten symbol dać do metody toString().
      */
     public GrammarNonterminalSymbol() {
-        int randomUppercaseCharInt = (new Random()).nextInt(26) + 65;
+        int randomUppercaseCharInt = (new Random()).nextInt(ALLCHARRANGE) + FIRSTCAPITALLETTERNR;
         char[] tempTab = Character.toChars(randomUppercaseCharInt);
         myChar = tempTab[0];
     }
