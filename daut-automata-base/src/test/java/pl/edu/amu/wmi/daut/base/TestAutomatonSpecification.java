@@ -1114,10 +1114,10 @@ public class TestAutomatonSpecification extends TestCase {
     /**
      * Test metody makeAutomatonFromScheme.
      */
-    /* 
+    /*
     public final void testmakeAutomatonFromSimpleScheme () {
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
-        NondeterministicAutomatonByThompsonApproach automaton = 
+        NondeterministicAutomatonByThompsonApproach automaton =
                 NondeterministicAutomatonByThompsonApproach(spec.makeAutomatonFromScheme("abncm"));
         assertTrue(automaton.accepts("abbccccccc"));
         assertTrue(automaton.accepts("abbbbbbb"));
@@ -1140,8 +1140,9 @@ public class TestAutomatonSpecification extends TestCase {
     /*
     public final void testmakeAutomatonFromScheme () {
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
-        NondeterministicAutomatonByThompsonApproach automaton = 
-                NondeterministicAutomatonByThompsonApproach(spec.makeAutomatonFromScheme("anbcdmefgz"));
+        NondeterministicAutomatonByThompsonApproach automaton =
+                NondeterministicAutomatonByThompsonApproach
+                (spec.makeAutomatonFromScheme("anbcdmefgz"));
 
         assertTrue(automaton.accepts("bcdefgg"));
         assertTrue(automaton.accepts("abcdefg"));
@@ -1163,8 +1164,9 @@ public class TestAutomatonSpecification extends TestCase {
     /*
     public final void testmakeAutomatonFromScheme2 () {
         AutomatonSpecification spec = new NaiveAutomatonSpecification();
-        NondeterministicAutomatonByThompsonApproach automaton = 
-                NondeterministicAutomatonByThompsonApproach(spec.makeAutomatonFromScheme("anbcdmeofgphirjsklt"));
+        NondeterministicAutomatonByThompsonApproach automaton =
+                NondeterministicAutomatonByThompsonApproach
+                (spec.makeAutomatonFromScheme("anbcdmeofgphirjsklt"));
 
         assertTrue(automaton.accepts("abcddeeefgggghiiiiijjjjjjjkllllllllll"));
         assertTrue(automaton.accepts("bcdddddddddeefggghiiiiijjjjklllllll"));
