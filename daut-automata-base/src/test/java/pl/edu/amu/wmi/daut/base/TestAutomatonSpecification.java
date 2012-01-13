@@ -1109,4 +1109,29 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertTrue(spec.isNotEmpty());
     }
+    
+    /**
+     * Test metody getEpsilonClosureWithContext.
+     */
+    public final void testGetEpsilonClosureWithContext() {
+        NaiveAutomatonSpecification spec = new NaiveAutomatonSpecification();
+
+        State q0 = spec.addState();
+        State q1 = spec.addState();
+        State q2 = spec.addState();
+        State q3 = spec.addState();
+        State q4 = spec.addState();
+
+        spec.addTransition(q0, q1, new EpsilonTransitionLabel());
+        spec.addTransition(q1, q2, new EpsilonTransitionLabel());
+        spec.addTransition(q0, q3, new EndOfTextTransitionLabel());
+        spec.addTransition(q2, q4, new EndOfTextTransitionLabel());
+
+        ArrayList<State> expectedList = new ArrayList<State>();
+        expectedList.addAll(spec.allStates());
+        assertEquals(expectedList.size(),
+                spec.getEpsilonClosureWithContext(q0, "s" + '\u0003', 1).size());
+        assertFalse(expectedList.size() ==
+                spec.getEpsilonClosureWithContext(q1, "s" + '\u0003', 1).size());
+    }
 }
