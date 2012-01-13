@@ -13,7 +13,7 @@ public class RegexpUtilities {
 
     protected RegexpUtilities() { throw new UnsupportedOperationException(); }
 
-    static AutomatonSpecification createAutopmatonFromOperatorTree(RegexpOperatorTree tree) {
+    static AutomatonSpecification createAutomatonFromOperatorTree(RegexpOperatorTree tree) {
 
             //przejdź przez drzewo stanów metodą post-order, przy pomocy dwóch stosów.
             Stack<RegexpOperatorTree> child = new Stack<RegexpOperatorTree>();
@@ -69,7 +69,6 @@ public class RegexpUtilities {
                     return currentAutomaton;
             }
 
-            //ten kod nie powinien się nigdy wykonać.
-            return null;
+            throw new IllegalStateException();
     }
 }
