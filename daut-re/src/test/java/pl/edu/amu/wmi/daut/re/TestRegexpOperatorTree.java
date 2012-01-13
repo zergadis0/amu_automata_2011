@@ -27,14 +27,20 @@ public class TestRegexpOperatorTree extends TestCase {
      * Trójpoziomowe drzewo operatorów.
      */
     public final void testThreeLayerTree() {
-        RegexpOperator nul1 = (new DigitOperator.Factory()).createOperator(new ArrayList<String>());
-        RegexpOperator nul2 = (new NoDigitOperator.Factory()).createOperator(new ArrayList<String>());
-        RegexpOperator nul3 = (new WhitespaceOperator.Factory()).createOperator(new ArrayList<String>());
+        RegexpOperator nul1 = (new DigitOperator.Factory()).createOperator(
+                new ArrayList<String>());
+        RegexpOperator nul2 = (new NoDigitOperator.Factory()).createOperator(
+                new ArrayList<String>());
+        RegexpOperator nul3 = (new WhitespaceOperator.Factory()).createOperator(
+                new ArrayList<String>());
 
-        RegexpOperator una1 = (new OptionalityOperator.Factory()).createOperator(new ArrayList<String>());
+        RegexpOperator una1 = (new OptionalityOperator.Factory()).createOperator(
+                new ArrayList<String>());
 
-        RegexpOperator bin1 = (new AlternativeOperator.Factory()).createOperator(new ArrayList<String>());
-        RegexpOperator bin2 = (new AnyOrderOperator.Factory()).createOperator(new ArrayList<String>());
+        RegexpOperator bin1 = (new AlternativeOperator.Factory()).createOperator(
+                new ArrayList<String>());
+        RegexpOperator bin2 = (new AnyOrderOperator.Factory()).createOperator(
+                new ArrayList<String>());
 
         RegexpOperatorTree c3 = new RegexpOperatorTree(nul3, new ArrayList<RegexpOperatorTree>());
 
@@ -68,10 +74,12 @@ public class TestRegexpOperatorTree extends TestCase {
      * Nieudana budowa drzewa.
      */
     public final void testForceException() {
-        RegexpOperator binary = (new ConcatenationOperator.Factory()).createOperator(new ArrayList<String>());
+        RegexpOperator binary = (new ConcatenationOperator.Factory()).createOperator(
+                new ArrayList<String>());
 
         try {
-            RegexpOperatorTree thisTree = new RegexpOperatorTree(binary, new ArrayList<RegexpOperatorTree>());
+            RegexpOperatorTree thisTree = new RegexpOperatorTree(binary,
+                    new ArrayList<RegexpOperatorTree>());
         } catch (RuntimeException e) {
             assertNotNull(e);
         }
