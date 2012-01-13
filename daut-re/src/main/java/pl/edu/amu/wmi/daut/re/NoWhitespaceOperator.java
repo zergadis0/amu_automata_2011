@@ -6,14 +6,15 @@ import pl.edu.amu.wmi.daut.base.State;
 import pl.edu.amu.wmi.daut.base.ComplementCharClassTransitionLabel;
 import java.util.List;
 
-/**
- * Klasa reprezentująca dowolny znak niebędący białym znakiem.
- */
+ /**
+  * Klasa reprezentująca dowolny znak niebędący białym znakiem.
+  */
 public class NoWhitespaceOperator extends NullaryRegexpOperator {
     private static final String WHITESPACE_CHARS = "\t\n\f\r \u000B";
-   /**
-    * Główna metoda klasy.
-    */
+
+    /**
+     * Główna metoda klasy.
+     */
     @Override
     public AutomatonSpecification createFixedAutomaton() {
         AutomatonSpecification noWhitespaceAutomaton = new NaiveAutomatonSpecification();
@@ -26,9 +27,9 @@ public class NoWhitespaceOperator extends NullaryRegexpOperator {
         return noWhitespaceAutomaton;
     }
 
-   /**
-    * Fabryka operatora.
-    */
+    /**
+     * Fabryka operatora.
+     */
     public static class Factory extends NullaryRegexpOperatorFactory {
         @Override
         public int numberOfParams() {
