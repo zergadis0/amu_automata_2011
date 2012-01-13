@@ -11,10 +11,10 @@ public class EndOfTextOrLineTransitionLabel extends ZeroLengthConditionalTransit
 
     @Override
     protected boolean doCheckContext(String s, int position) {
-        if (s.length() < position) {
+        if ((s.length() < position) || (position < 0)) {
             throw new PositionOutOfStringBordersException();
         }
-        if ((s.charAt(position) == '\n') || (s.charAt(position) == '\u0003')) {
+        if ((position == s.length()) || (s.charAt(position) == '\n')) {
             return true;
         }
         return false;
