@@ -1,9 +1,5 @@
 package pl.edu.amu.wmi.daut.base;
 
-class PositionOutOfStringBordersException extends RuntimeException {
-    private static final long serialVersionUID = 1L;
-}
-
 /**
  *
  * @author irmina90
