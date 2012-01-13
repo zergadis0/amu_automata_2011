@@ -126,14 +126,14 @@ public class GrammarRule {
     @Override
     public String toString() {
 
-        String readable = lhsSymbol.toString() + " -> ";
+        StringBuffer readable = new StringBuffer(lhsSymbol.toString() + " -> ");
 
         if (!((rhsSymbols == null) || rhsSymbols.isEmpty())) {
             for (GrammarSymbol g : rhsSymbols) {
-                readable += g.toString();
+                readable.append(g.toString());
             }
         }
 
-        return readable;
+        return readable.toString();
     };
 }
