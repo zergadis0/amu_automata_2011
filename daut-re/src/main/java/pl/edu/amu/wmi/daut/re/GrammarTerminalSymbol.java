@@ -7,10 +7,17 @@ public class GrammarTerminalSymbol implements GrammarSymbol {
 
     private Character symbol;
 
+    /**
+     * Publiczny konstruktor. Przyjmuje symbol.
+     * @param char symbol
+     */
     public GrammarTerminalSymbol(char symbol) {
         this.symbol = symbol;
     }
 
+    /**
+     * @return char symbol
+     */
     public char getSymbol() {
         return symbol;
     }
