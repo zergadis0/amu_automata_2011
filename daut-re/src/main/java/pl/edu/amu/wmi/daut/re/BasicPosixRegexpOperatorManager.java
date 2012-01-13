@@ -8,6 +8,9 @@ import java.util.Arrays;
  */
 public class BasicPosixRegexpOperatorManager extends PosixRegexpOperatorManager {
 
+    /**
+     * Konstruktor klasy.
+     */
     public BasicPosixRegexpOperatorManager() {
         addOperator("*", new KleeneStarOperator.Factory(),
                     Arrays.<String>asList("", "*"), PRIORITY_3);
