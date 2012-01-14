@@ -2,7 +2,6 @@ package pl.edu.amu.wmi.daut.re;
 
 import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NaiveAutomatonSpecification;
-import pl.edu.amu.wmi.daut.base.CharTransitionLabel;
 import pl.edu.amu.wmi.daut.base.EpsilonTransitionLabel;
 import pl.edu.amu.wmi.daut.base.State;
 import java.util.List;
@@ -35,7 +34,7 @@ public class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
             automatbudowany.markAsFinal(state);
         }
 
-        if(numberOfOccurrences > 0) {
+        if (numberOfOccurrences > 0) {
             automatbudowany = subautomaton.clone();
             for (int i = 1; i < numberOfOccurrences; i++) {
                 State newState = automatbudowany.addState();
