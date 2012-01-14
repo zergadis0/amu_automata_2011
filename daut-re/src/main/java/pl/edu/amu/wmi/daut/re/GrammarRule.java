@@ -1,6 +1,5 @@
 package pl.edu.amu.wmi.daut.re;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
