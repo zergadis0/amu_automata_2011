@@ -2,7 +2,7 @@ package pl.edu.amu.wmi.daut.base;
 
 import java.util.List;
 import java.util.Arrays;
-
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import junit.framework.TestCase;
@@ -1127,7 +1127,7 @@ public class TestAutomatonSpecification extends TestCase {
         spec.addTransition(q0, q3, new EndOfTextTransitionLabel());
         spec.addTransition(q2, q4, new EndOfTextTransitionLabel());
 
-        ArrayList<State> expectedList = new ArrayList<State>();
+        List<State> expectedList = new ArrayList<State>();
         expectedList.addAll(spec.allStates());
         assertEquals(expectedList.size(),
                 spec.getEpsilonClosureWithContext(q0, "s" + '\u0003', 1).size());
