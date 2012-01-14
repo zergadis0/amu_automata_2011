@@ -16,7 +16,7 @@ public class TestReallyCheckingContextChecker extends TestCase {
 
         assertFalse(contextChecker.check(new EndOfTextTransitionLabel()));
 
-        contextChecker = new ReallyCheckingContextChecker("napis" + '\u0003', 5);
+        contextChecker = new ReallyCheckingContextChecker("napis" + '\u0003',5);
 
         assertTrue(contextChecker.check(new EndOfTextTransitionLabel()));
 
