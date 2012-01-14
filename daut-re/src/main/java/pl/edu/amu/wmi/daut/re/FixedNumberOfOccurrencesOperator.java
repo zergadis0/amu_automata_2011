@@ -73,7 +73,7 @@ public class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
      */
     @Override
     public String toString() {
-        return "FIXED_" + n + "_TIMES";
+        return "FIXED_" + numberOfOccurrences + "_TIMES";
     }
 
 }
