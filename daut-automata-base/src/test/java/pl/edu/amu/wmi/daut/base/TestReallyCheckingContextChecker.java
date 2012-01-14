@@ -12,11 +12,11 @@ public class TestReallyCheckingContextChecker extends TestCase {
      */
     public final void testReallyCheckingContextChecker() {
 
-        ReallyCheckingContextChecker contextChecker = new ReallyCheckingContextChecker("napis",1);
+        ReallyCheckingContextChecker contextChecker = new ReallyCheckingContextChecker("napis", 1);
 
         assertFalse(contextChecker.check(new EndOfTextTransitionLabel()));
 
-        contextChecker = new ReallyCheckingContextChecker("napis" + '\u0003',5);
+        contextChecker = new ReallyCheckingContextChecker("napis" + '\u0003', 5);
 
         assertTrue(contextChecker.check(new EndOfTextTransitionLabel()));
 
