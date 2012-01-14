@@ -68,4 +68,13 @@ public class FixedNumberOfOccurrencesOperator extends UnaryRegexpOperator {
             return new FixedNumberOfOccurrencesOperator(Integer.parseInt(params.get(0)));
         }
     }
+
+    /**
+     * Metoda toString().
+     */
+    @Override
+    public String toString() {
+        return "FIXED_" + n + "_TIMES";
+    }
+
 }
