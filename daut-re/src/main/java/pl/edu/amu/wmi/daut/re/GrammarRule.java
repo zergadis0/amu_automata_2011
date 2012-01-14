@@ -62,7 +62,9 @@ public class GrammarRule {
     GrammarRule(GrammarNonterminalSymbol lhsSymbol, List<GrammarSymbol> rhsSymbols) {
         this.lhsSymbol = lhsSymbol;
         this.rhsSymbols = new Vector<GrammarSymbol>();
-        rhsSymbols.addAll(this.rhsSymbols);
+        for (GrammarSymbol symbol : rhsSymbols) {
+            this.rhsSymbols.add(symbol);
+        }
     };
 
     /**
@@ -105,7 +107,7 @@ public class GrammarRule {
         if (rhsSymbols == null) {
             return new Vector<GrammarSymbol>();
         } else {
-            return Collections.unmodifiableList(rhsSymbols);
+            return rhsSymbols;
         }
     };
 
