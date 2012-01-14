@@ -13,8 +13,11 @@ public class TestWordBoundaryTransitionLabel extends TestCase {
     public final void testDoCheckContext() {
         WordBoundaryTransitionLabel trans = new WordBoundaryTransitionLabel();
 
-        assertTrue(trans.doCheckContext("baobab", 7));
-        assertTrue(trans.doCheckContext("snob", 5));
+        assertTrue(trans.doCheckContext("baobab", 6));
+        assertTrue(trans.doCheckContext("snob", 4));
+        assertTrue(trans.doCheckContext("bob bab", 7));
+        assertTrue(trans.doCheckContext("kara\nsara", 9));
+        assertTrue(trans.doCheckContext("Do\tdomu", 7));
 
         try {
             trans.doCheckContext("gorczyca", 10);
@@ -24,7 +27,7 @@ public class TestWordBoundaryTransitionLabel extends TestCase {
         }
 
         try {
-            trans.doCheckContext("robot", 3);
+            trans.doCheckContext("robot", 6);
             fail();
         } catch (PositionOutOfStringBordersException e) {
             assertTrue(true);
@@ -38,6 +41,7 @@ public class TestWordBoundaryTransitionLabel extends TestCase {
 
         assertFalse(trans.isEmpty());
         assertFalse(trans.canAcceptCharacter('d'));
+        assertTrue(trans.canBeEpsilon());
 
     }
 
