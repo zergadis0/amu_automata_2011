@@ -1109,7 +1109,7 @@ public class TestAutomatonSpecification extends TestCase {
 
         assertTrue(spec.isNotEmpty());
     }
-    
+
     /**
      * Test metody getEpsilonClosureWithContext.
      */
@@ -1131,7 +1131,7 @@ public class TestAutomatonSpecification extends TestCase {
         expectedList.addAll(spec.allStates());
         assertEquals(expectedList.size(),
                 spec.getEpsilonClosureWithContext(q0, "s" + '\u0003', 1).size());
-        assertFalse(expectedList.size() ==
-                spec.getEpsilonClosureWithContext(q1, "s" + '\u0003', 1).size());
+        assertFalse(expectedList.size()
+             == spec.getEpsilonClosureWithContext(q1, "s" + '\u0003', 1).size());
     }
 }
