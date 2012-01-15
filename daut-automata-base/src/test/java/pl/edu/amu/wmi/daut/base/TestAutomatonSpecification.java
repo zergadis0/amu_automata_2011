@@ -1124,8 +1124,8 @@ public class TestAutomatonSpecification extends TestCase {
 
         spec.addTransition(q0, q1, new EpsilonTransitionLabel());
         spec.addTransition(q1, q2, new EpsilonTransitionLabel());
-        spec.addTransition(q0, q3, new EndOfTextTransitionLabel());
-        spec.addTransition(q2, q4, new EndOfTextTransitionLabel());
+        spec.addTransition(q0, q3, new EndOfTextOrLineTransitionLabel());
+        spec.addTransition(q2, q4, new EndOfTextOrLineTransitionLabel());
 
         List<State> expectedList = new ArrayList<State>();
         expectedList.addAll(spec.allStates());

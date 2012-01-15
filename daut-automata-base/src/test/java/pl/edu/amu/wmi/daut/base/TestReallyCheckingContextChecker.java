@@ -14,11 +14,11 @@ public class TestReallyCheckingContextChecker extends TestCase {
 
         ReallyCheckingContextChecker contextChecker = new ReallyCheckingContextChecker("napis", 1);
 
-        assertFalse(contextChecker.check(new EndOfTextTransitionLabel()));
+        assertFalse(contextChecker.check(new EndOfTextOrLineTransitionLabel()));
 
         contextChecker = new ReallyCheckingContextChecker("napis", 5);
 
-        assertTrue(contextChecker.check(new EndOfTextTransitionLabel()));
+        assertTrue(contextChecker.check(new EndOfTextOrLineTransitionLabel()));
 
     }
 }
