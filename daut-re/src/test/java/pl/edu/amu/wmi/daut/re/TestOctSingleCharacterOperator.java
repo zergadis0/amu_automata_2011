@@ -11,7 +11,7 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 
 /**
- *  Test konstruktora
+ *  Test konstruktora.
  * 
  */
 public class TestOctSingleCharacterOperator extends TestCase {
@@ -25,15 +25,15 @@ public class TestOctSingleCharacterOperator extends TestCase {
         assertFalse(operator.getOctValue() == 80);
         try {
             operator = new OctSingleCharacterOperator(200);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             assertTrue(ex instanceof RuntimeException);
         }
 
     }
 
     /**
-     * Test CreateFixedAutomaton
-     * @throws Exception 
+     * Test CreateFixedAutomaton.
+     * @throws Exception
      */
     public final void testCreateFixedAutomaton() throws Exception {
 
@@ -63,7 +63,8 @@ public class TestOctSingleCharacterOperator extends TestCase {
         List<String> list = new ArrayList<String>();
         assertNotNull(list);
         list.add("141");
-        OctSingleCharacterOperator operator = (OctSingleCharacterOperator) factory.doCreateOperator(list);
+        OctSingleCharacterOperator operator =
+                (OctSingleCharacterOperator) factory.doCreateOperator(list);
         assertNotNull(operator);
         assertEquals(1, factory.numberOfParams());
         assertEquals(141, operator.getOctValue());
