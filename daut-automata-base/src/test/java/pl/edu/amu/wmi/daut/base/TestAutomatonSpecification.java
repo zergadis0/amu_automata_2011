@@ -1130,8 +1130,8 @@ public class TestAutomatonSpecification extends TestCase {
         List<State> expectedList = new ArrayList<State>();
         expectedList.addAll(spec.allStates());
         assertEquals(expectedList.size(),
-                spec.getEpsilonClosureWithContext(q0, "s", 1).size());
+                spec.getEpsilonClosureWithContext(q0, "s" + '\u0003', 1).size());
         assertFalse(expectedList.size()
-             == spec.getEpsilonClosureWithContext(q1, "s", 1).size());
+             == spec.getEpsilonClosureWithContext(q1, "s" + '\u0003', 1).size());
     }
 }
