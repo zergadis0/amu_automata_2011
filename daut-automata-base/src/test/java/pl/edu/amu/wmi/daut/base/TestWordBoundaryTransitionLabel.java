@@ -15,9 +15,12 @@ public class TestWordBoundaryTransitionLabel extends TestCase {
 
         assertTrue(trans.doCheckContext("baobab", 6));
         assertTrue(trans.doCheckContext("snob", 4));
-        assertTrue(trans.doCheckContext("bob bab", 7));
+        assertTrue(trans.doCheckContext("bob bab", 3));
         assertTrue(trans.doCheckContext("kara\nsara", 4));
-        assertTrue(trans.doCheckContext("Do\tdomu", 7));
+        assertTrue(trans.doCheckContext("Do\tdomu", 2));
+
+        assertFalse(trans.doCheckContext("gorczyca", 4));
+        assertFalse(trans.doCheckContext("baobab", 3));
 
         try {
             trans.doCheckContext("gorczyca", 10);
