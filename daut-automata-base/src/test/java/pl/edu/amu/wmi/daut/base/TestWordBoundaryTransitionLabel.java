@@ -20,7 +20,7 @@ public class TestWordBoundaryTransitionLabel extends TestCase {
         assertTrue(trans.doCheckContext("Do\tdomu", 2));
 
         assertFalse(trans.doCheckContext("gorczyca", 4));
-        assertFalse(trans.doCheckContext("baobab", 5));
+        assertFalse(trans.doCheckContext("baobab", 3));
 
         try {
             trans.doCheckContext("gorczyca", 10);
