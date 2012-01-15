@@ -16,7 +16,7 @@ import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
  */
 public class TestOctSingleCharacterOperator extends TestCase {
 
-    public void testOctSingleCharacterOperator() throws Exception {
+    public void testOctSingleCharacterOperator() {
 
         OctSingleCharacterOperator operator = new OctSingleCharacterOperator(120);
 
