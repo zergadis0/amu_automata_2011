@@ -9,12 +9,15 @@ public class WordBoundaryTransitionLabel extends ZeroLengthConditionalTransition
 
     @Override
     public boolean doCheckContext(String s, int position) {
-        if (s.length() < position) {
+        if (s.length() < position || position < 0) {
              throw new PositionOutOfStringBordersException();
         }
-        if (s.charAt(position) == '\b') {
+        if (position == s.length())
             return true;
-        }
+        String string = String.valueOf(s.charAt(position));
+        boolean nonWordCharacter = string.matches("\\W");
+        if (nonWordCharacter)
+            return true;
         return false;
     };
     @Override
