@@ -12,6 +12,7 @@ public class TestToString extends TestCase {
     /*
      * {@inheritDoc} 
      */
+    /*
     public final void testToString1() throws Exception {
         List<RegexpOperatorTree> subtrees = new ArrayList<RegexpOperatorTree>();
         RegexpOperator root = new AlternativeOperator();
@@ -25,10 +26,11 @@ public class TestToString extends TestCase {
         assertEquals(tree.getHumanReadableFormat(),
                 "ALTERNATIVE\n|_SINGLE_OPERATOR_ a\n|_SINGLE_OPERATOR_ b\n");
     }
-    
+    */
     /*
      * 
      */
+    /*
     public final void testToString3() throws Exception {
         List<RegexpOperatorTree> subtrees = new ArrayList<RegexpOperatorTree>();
         RegexpOperator root = new AlternativeOperator();
@@ -51,4 +53,5 @@ public class TestToString extends TestCase {
         assertEquals(tree.getHumanReadableFormat(),
                 "ALTERNATIVE\n|_CONCATENATION_ a\n|_SINGLE_OPERATOR_ b\n");
     }
+    */
 }
