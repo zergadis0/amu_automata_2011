@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 public class TestToString extends TestCase {
 
     /*
-     * {@inheritDoc} 
+     * Test sprawdzający alternatywe i single_operator 
      */
     public final void testToString1() throws Exception {
         List<RegexpOperatorTree> subtrees = new ArrayList<RegexpOperatorTree>();
