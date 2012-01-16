@@ -50,13 +50,13 @@ public class TestToString extends TestCase {
         List<RegexpOperatorTree> subtrees = new ArrayList<RegexpOperatorTree>();
         RegexpOperator root = new AlternativeOperator();
         RegexpOperator s1 = new DigitOperator();
-        RegexpOperator s2 = new DoNothingOperator();
+        RegexpOperator s2 = new NoDigitOperator();
         RegexpOperatorTree tree0 = new RegexpOperatorTree(s1, subtrees);
         RegexpOperatorTree tree1 = new RegexpOperatorTree(s2, subtrees);
         subtrees.add(tree0);
         subtrees.add(tree1);
         RegexpOperatorTree tree = new RegexpOperatorTree(root, subtrees);
 //        assertEquals(tree.getHumanReadableFormat(),
-//                "ALTERNATIVE\n|_DIGIT\n|_DO_NOTHING\n");
+//                "ALTERNATIVE\n|_DIGIT\n|_NO_DIGIT\n");
     }
 }
