@@ -14,19 +14,19 @@ public class WordBoundaryTransitionLabel extends ZeroLengthConditionalTransition
     public boolean doCheckContext(String s, int position) {
         if (s.length() < position || position < 0)
              throw new PositionOutOfStringBordersException();
-        if (s.length() < 2)
-            return true;
         if (position == s.length()) {
             str = String.valueOf(s.charAt(position - 1)); 
             character = str.matches("\\w");
             if (character)
                 return true;
+            return false;
         }
         if (position == 0) {
             str = String.valueOf(s.charAt(position));
             character = str.matches("\\w");
             if (character)
                 return true;
+            return false;
         }
         str = String.valueOf(s.charAt(position));
         character = str.matches("\\w");
