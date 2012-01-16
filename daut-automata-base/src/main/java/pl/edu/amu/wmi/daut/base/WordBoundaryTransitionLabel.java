@@ -8,30 +8,39 @@ package pl.edu.amu.wmi.daut.base;
 public class WordBoundaryTransitionLabel extends ZeroLengthConditionalTransitionLabel {
 
     private String str;
-    private boolean wordCharacter, leftNonWordCharacter, rightNonWordCharacter;
+    private boolean character, leftCharacter;
 
     @Override
     public boolean doCheckContext(String s, int position) {
         if (s.length() < position || position < 0)
              throw new PositionOutOfStringBordersException();
+        if (s.length() < 3)
+            return true;
         if (position == s.length()) {
-            str = String.valueOf(s.charAt(position - 1));
-            if (wordCharacter = str.matches("\\w"))
+            str = String.valueOf(s.charAt(position - 1)); 
+            character = str.matches("\\w");
+            if (character)
                 return true;
         }
         if (position == 0) {
             str = String.valueOf(s.charAt(position));
-            if (wordCharacter = str.matches("\\w"))
+            character = str.matches("\\w");
+            if (character)
                 return true;
         }
         str = String.valueOf(s.charAt(position));
-        wordCharacter = str.matches("\\w");
-        str = String.valueOf(s.charAt(position + 1));
-        rightNonWordCharacter = str.matches("\\W");
-        str = String.valueOf(s.charAt(position - 1));
-        leftNonWordCharacter = str.matches("\\W");
-        if (wordCharacter && (leftNonWordCharacter || rightNonWordCharacter))
-            return true;
+        character = str.matches("\\w");
+        if (character) {
+            str = String.valueOf(s.charAt(position - 1));
+            leftCharacter = str.matches("\\W");
+            if (leftCharacter)
+                return true;
+        } else {
+            str = String.valueOf(s.charAt(position - 1));
+            leftCharacter = str.matches("\\w");
+            if (leftCharacter)
+                return true;
+        }
         return false;
     };
     @Override
