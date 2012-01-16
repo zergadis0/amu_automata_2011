@@ -9,7 +9,7 @@ public class WordBoundaryTransitionLabel extends ZeroLengthConditionalTransition
 
     private String str;
     private boolean wordCharacter, nonWordCharacter;
-    
+
     @Override
     public boolean doCheckContext(String s, int position) {
         if (s.length() < position || position-1 < 0)
