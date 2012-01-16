@@ -9,8 +9,8 @@ import junit.framework.TestCase;
  */
 public class TestToString extends TestCase {
 
-    /*
-     * Test sprawdzający alternatywe i single_operator 
+    /**
+     * Test sprawdzający alternatywe i single_operator.
      */
     public final void testToString1() throws Exception {
         List<RegexpOperatorTree> subtrees = new ArrayList<RegexpOperatorTree>();
