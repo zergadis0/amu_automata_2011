@@ -47,5 +47,4 @@ public class TestWordBoundaryTransitionLabel extends TestCase {
         assertTrue(trans.canBeEpsilon());
 
     }
-
 }
