@@ -15,7 +15,7 @@ public class WordBoundaryTransitionLabel extends ZeroLengthConditionalTransition
         if (s.length() < position || position < 0)
              throw new PositionOutOfStringBordersException();
         if (position == s.length()) {
-            str = String.valueOf(s.charAt(position - 1)); 
+            str = String.valueOf(s.charAt(position - 1));
             character = str.matches("\\w");
             if (character)
                 return true;
