@@ -7,11 +7,10 @@ package pl.edu.amu.wmi.daut.base;
  */
 public class WordBoundaryTransitionLabel extends ZeroLengthConditionalTransitionLabel {
 
-    private String str;
-    private boolean character, leftCharacter;
-
     @Override
     public boolean doCheckContext(String s, int position) {
+        String str;
+        boolean character, leftCharacter;
         if (s.length() < position || position < 0)
              throw new PositionOutOfStringBordersException();
         if (position == s.length()) {
