@@ -1,4 +1,3 @@
-
 package pl.edu.amu.wmi.daut.re;
 
 import java.util.Collections;
@@ -16,7 +15,7 @@ public class Grammar {
     /**
      * Konstruktor - rules to lista reguł, startSymbol - symbol początkowy.
      */
-    public Grammar(List<GrammarRule> rules, GrammarNonterminalSymbol startSymbol){
+    public Grammar(List<GrammarRule> rules, GrammarNonterminalSymbol startSymbol) {
         this.startSymbol = startSymbol;
         for (GrammarRule rule : rules) {
             this.rules.add(rule);
@@ -32,9 +31,9 @@ public class Grammar {
     }
 
     /**
-     * Dodaje regułę do gramatyki. 
+     * Dodaje regułę do gramatyki.
      */
-    public void addRule(GrammarRule rule){
+    public void addRule(GrammarRule rule) {
         rules.add(rule);
     }
 
