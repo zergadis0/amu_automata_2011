@@ -11,11 +11,14 @@ import pl.edu.amu.wmi.daut.base.AutomatonSpecification;
 import pl.edu.amu.wmi.daut.base.NondeterministicAutomatonByThompsonApproach;
 
 /**
- *  Test konstruktora.
+ *  Testy klasy OctSingleCharacterOperator.
  * 
  */
 public class TestOctSingleCharacterOperator extends TestCase {
 
+    /**
+     * Test konstruktora.
+     */
     public void testOctSingleCharacterOperator() {
 
         OctSingleCharacterOperator operator = new OctSingleCharacterOperator(120);
