@@ -39,7 +39,7 @@ public class EscapeOperator extends NullaryRegexpOperator {
     private void setChar(char b) {
         this.znak = b;
     }
-    
+
     private char tlumacz() {
         switch (znak) {
             case 'n':
@@ -58,7 +58,6 @@ public class EscapeOperator extends NullaryRegexpOperator {
                 return (znak);
 
         }
-        
     }
     /**
 * Fabryka operatora.
