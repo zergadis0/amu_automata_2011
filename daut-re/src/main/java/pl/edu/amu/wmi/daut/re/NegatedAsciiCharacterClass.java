@@ -50,7 +50,7 @@ public class NegatedAsciiCharacterClass extends NullaryRegexpOperator {
 
         @Override
         protected RegexpOperator doCreateOperator(List<String> params) {
-            return new AsciiCharacterClassOperator(params.get(0));
+            return new NegatedAsciiCharacterClass(params.get(0));
         }
 
         @Override
